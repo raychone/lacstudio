@@ -142,8 +142,6 @@ type LabPanelProps = {
   setNavView: (value: string) => void;
   labOpen: string;
   setLabOpen: (value: string) => void;
-  motionKey: number;
-  replayMotion: () => void;
   carouselSlide: number;
   goToSlide: (index: number) => void;
   previousSlide: () => void;
@@ -152,7 +150,7 @@ type LabPanelProps = {
   setPalette: (palette: string) => void;
 };
 
-function LabPanel({ section, activeButton, setActiveButton, message, setMessage, navView, setNavView, labOpen, setLabOpen, motionKey, replayMotion, carouselSlide, goToSlide, previousSlide, nextSlide, palette, setPalette }: LabPanelProps) {
+function LabPanel({ section, activeButton, setActiveButton, message, setMessage, navView, setNavView, labOpen, setLabOpen, carouselSlide, goToSlide, previousSlide, nextSlide, palette, setPalette }: LabPanelProps) {
   const label = section.toUpperCase();
   const [buttonLoading, setButtonLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -225,7 +223,6 @@ export default function Home() {
   const [message, setMessage] = useState("Ready to explore.");
   const [navView, setNavView] = useState("Index");
   const [labOpen, setLabOpen] = useState("A clear question");
-  const [motionKey, setMotionKey] = useState(0);
   const [carouselSlide, setCarouselSlide] = useState(0);
   const [workPaused, setWorkPaused] = useState(false);
   const [palette, setPalette] = useState("cream");
@@ -289,7 +286,7 @@ export default function Home() {
             </div>
           </aside>
 
-          <LabPanel section={activeSection} activeButton={activeButton} setActiveButton={setActiveButton} message={message} setMessage={setMessage} navView={navView} setNavView={setNavView} labOpen={labOpen} setLabOpen={setLabOpen} motionKey={motionKey} replayMotion={() => setMotionKey((key) => key + 1)} carouselSlide={carouselSlide} goToSlide={setCarouselSlide} previousSlide={previousCarouselSlide} nextSlide={nextCarouselSlide} palette={palette} setPalette={setPalette} />
+          <LabPanel section={activeSection} activeButton={activeButton} setActiveButton={setActiveButton} message={message} setMessage={setMessage} navView={navView} setNavView={setNavView} labOpen={labOpen} setLabOpen={setLabOpen} carouselSlide={carouselSlide} goToSlide={setCarouselSlide} previousSlide={previousCarouselSlide} nextSlide={nextCarouselSlide} palette={palette} setPalette={setPalette} />
         </div>
       </section>
 
@@ -307,7 +304,7 @@ export default function Home() {
       </section>
 
       <section className="principles section-wrap">
-        <div><p className="eyebrow">OUR APPROACH</p><h2>Distinctive doesn't<br />need to be difficult.</h2></div>
+        <div><p className="eyebrow">OUR APPROACH</p><h2>Distinctive doesn&apos;t<br />need to be difficult.</h2></div>
         <div className="accordion">
           {["Why a lab first?", "What makes an interaction work?", "What reaches production?"].map((item, index) => <div className={openItem === item ? "accordion-item open" : "accordion-item"} key={item}><button onClick={() => setOpenItem(openItem === item ? "" : item)}><span>0{index + 1}</span>{item}<b>{openItem === item ? "−" : "+"}</b></button>{openItem === item && <p>{index === 0 ? "It lets a visual language become a system. Each motion, contrast and detail earns its place before it meets a real project." : index === 1 ? "The best interactions answer a question, reward curiosity, and never slow down the person using them." : "Only the patterns that stay useful, accessible and fast make the transition from experiment to the live site."}</p>}</div>)}
         </div>
@@ -316,7 +313,7 @@ export default function Home() {
       <section id="contact" className="contact section-wrap">
         <p className="eyebrow">START A CONVERSATION</p>
         <h2>Have a project<br />worth <em>remembering?</em></h2>
-        <a href="mailto:hello@lac.studio" className="contact-button">LET'S MAKE IT REAL <span>↗</span></a>
+        <a href="mailto:hello@lac.studio" className="contact-button">LET&apos;S MAKE IT REAL <span>↗</span></a>
         <footer><span>© 2026 LAC. STUDIO</span><span>BUILT WITH CURIOSITY</span><a href="#top">BACK TO TOP ↑</a></footer>
       </section>
     </main>
