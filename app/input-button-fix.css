@@ -1,0 +1,2 @@
+.neumorphic .input-submit{background:var(--neo-base)!important;color:#151515!important;box-shadow:6px 6px 12px var(--neo-dark),-6px -6px 12px var(--neo-light)!important}
+.neumorphic .input-submit b{color:var(--neo-accent)!important}.neumorphic .input-submit:hover:not(:disabled){box-shadow:inset 4px 4px 8px var(--neo-dark),inset -4px -4px 8px var(--neo-light)!important}.neumorphic .input-submit:disabled{color:#8b8881!important}

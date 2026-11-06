@@ -1,0 +1,3 @@
+/* Keep the carousel open; only the selected project is recessed. */
+.neumorphic .mini-carousel-window{padding:0!important;background:transparent!important;box-shadow:none!important;border-radius:18px!important}
+.neumorphic .mini-carousel-track{border-radius:18px}.neumorphic .mini-slide{border-radius:18px;box-shadow:none!important;transition:box-shadow .5s ease,filter .5s ease}.neumorphic .mini-slide:before{display:none}.neumorphic .mini-slide.active-slide{box-shadow:inset 8px 8px 16px rgba(38,49,59,.22),inset -8px -8px 16px rgba(255,255,255,.42)!important;filter:saturate(.94) contrast(.98)}.neumorphic .mini-slide.active-slide:before{display:block;inset:9px;border-radius:12px;border-color:rgba(38,49,59,.12)}

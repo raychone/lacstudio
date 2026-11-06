@@ -1,0 +1,10 @@
+.neumorphic .overlays-lab{border-radius:16px;overflow:hidden}
+.neumorphic .overlay-canvas{border-radius:16px!important;overflow:hidden!important;box-shadow:inset 5px 5px 10px rgba(170,165,157,.65),inset -5px -5px 10px rgba(255,255,255,.8)!important}
+.neumorphic .overlay-preview{border-radius:16px!important;overflow:hidden!important;clip-path:inset(0 round 16px)}
+.neumorphic .overlay-scrim{border-radius:inherit!important;overflow:hidden}
+.neumorphic .overlay-panel{border-radius:12px!important;box-shadow:7px 7px 14px rgba(124,120,113,.34),-5px -5px 11px rgba(255,255,255,.72)!important}
+.neumorphic .overlay-preview.modal .overlay-panel{inset:38px 28px!important}
+.neumorphic .overlay-preview.command .overlay-panel{inset:33px 25px auto!important}
+.neumorphic .overlay-preview.drawer .overlay-panel{border-radius:12px 0 0 12px!important;box-shadow:-6px 0 13px rgba(124,120,113,.25)!important}
+.neumorphic .overlay-actions button{border-radius:12px!important;box-shadow:5px 5px 10px rgba(164,160,152,.55),-4px -4px 9px rgba(255,255,255,.78)!important}
+@media(max-width:760px){.neumorphic .overlays-lab,.neumorphic .overlay-canvas,.neumorphic .overlay-preview{border-radius:14px!important}.neumorphic .overlay-preview{clip-path:inset(0 round 14px)}.neumorphic .overlay-preview.modal .overlay-panel{inset:28px 16px!important}.neumorphic .overlay-preview.command .overlay-panel{inset:24px 14px auto!important}}

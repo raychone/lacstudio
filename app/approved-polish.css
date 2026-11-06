@@ -1,0 +1,9 @@
+/* Warm cream keeps the material; type shifts into a deep olive for softer contrast. */
+.palette-cream{--neo-ink:#151515;--neo-accent:#7f895f;--neo-tint:#dce2ce}
+
+/* The active carousel slide sits inside a recessed viewing well. */
+.neumorphic .mini-carousel-window{padding:10px!important;background:var(--neo-base)!important;border-radius:19px!important;box-shadow:inset 7px 7px 14px var(--neo-dark),inset -7px -7px 14px var(--neo-light)!important}
+.neumorphic .mini-carousel-track{border-radius:12px}.neumorphic .mini-slide{border-radius:12px;box-shadow:inset 3px 3px 7px rgba(38,49,59,.15),inset -3px -3px 7px rgba(255,255,255,.45),7px 7px 13px rgba(139,134,126,.25)!important}.neumorphic .mini-slide:before{content:"";position:absolute;inset:8px;border-radius:8px;border:1px solid rgba(255,255,255,.4);pointer-events:none}.neumorphic .mini-slide strong,.neumorphic .mini-slide span,.neumorphic .mini-slide i{z-index:1}
+
+.approved-grid .overlay-surface{grid-column:1/-1}.approved-grid .overlay-surface .overlays-lab{min-height:0!important;height:390px!important}.approved-grid .overlay-surface .overlay-canvas{height:345px!important}.approved-grid .overlay-surface .overlay-preview.modal .overlay-panel{inset:42px 30px!important}.approved-grid .overlay-surface .overlay-preview.command .overlay-panel{inset:36px 28px auto!important;height:220px!important}
+@media(max-width:760px){.approved-grid .overlay-surface .overlays-lab{height:360px!important}.approved-grid .overlay-surface .overlay-canvas{height:320px!important}.approved-grid .overlay-surface .overlay-preview.modal .overlay-panel{inset:31px 18px!important}.approved-grid .overlay-surface .overlay-preview.command .overlay-panel{inset:25px 16px auto!important}}

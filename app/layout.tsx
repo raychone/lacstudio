@@ -1,5 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./refinements.css";
+import "./lab-expansion.css";
+import "./components-reviewed.css";
+import "./lab-next.css";
+import "./palette.css";
+import "./overlay-fix.css";
+import "./approved-polish.css";
+import "./carousel-fix.css";
+import "./cards-approved.css";
+import "./navigation-polish.css";
+import "./input-button-fix.css";
+import "./animation-distinct.css";
+import "./spotlight-comet.css";
+import "./effect-studies.css";
+import "./effects-interaction.css";
 
 export const metadata: Metadata = {
   title: "LAC. Studio — Design Lab",
