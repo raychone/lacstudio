@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "../design-system/tokens/foundations.css";
 import "./refinements.css";
 import "./lab-expansion.css";
 import "./components-reviewed.css";

@@ -1,0 +1,83 @@
+/* LAC Design System foundations. Existing --neo-* names remain compatibility aliases. */
+:root {
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-serif: Georgia, serif;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-slow: 640ms;
+  --ease-standard: cubic-bezier(.2, .7, .3, 1);
+  --ease-emphasized: cubic-bezier(.2, .78, .25, 1);
+}
+
+.palette-original {
+  --color-canvas: #f2efe9;
+  --color-highlight: #fff;
+  --color-shadow: #cbc7bf;
+  --color-ink: #151515;
+  --color-accent: #8ea42d;
+  --color-accent-soft: #e4f39c;
+}
+
+.palette-cream {
+  --color-canvas: #e7e3db;
+  --color-highlight: #fff;
+  --color-shadow: #c5c0b6;
+  --color-ink: #26313b;
+  --color-accent: #a3ad82;
+  --color-accent-soft: #dce2ce;
+}
+
+.palette-sage {
+  --color-canvas: #dfe3d7;
+  --color-highlight: #fff;
+  --color-shadow: #b7c0ae;
+  --color-ink: #26312b;
+  --color-accent: #7e9b7a;
+  --color-accent-soft: #cfe0ca;
+}
+
+.palette-clay {
+  --color-canvas: #e8ddd4;
+  --color-highlight: #fff;
+  --color-shadow: #c9b8ac;
+  --color-ink: #332c29;
+  --color-accent: #b1846d;
+  --color-accent-soft: #eed6c7;
+}
+
+.palette-lilac {
+  --color-canvas: #e5e1e7;
+  --color-highlight: #fff;
+  --color-shadow: #c1bac7;
+  --color-ink: #2d2c34;
+  --color-accent: #9382a0;
+  --color-accent-soft: #ddd3e6;
+}
+
+.palette-original,
+.palette-cream,
+.palette-sage,
+.palette-clay,
+.palette-lilac {
+  --surface-raised: var(--color-canvas);
+  --surface-recessed: var(--color-canvas);
+  --shadow-raised: 8px 8px 16px var(--color-shadow), -8px -8px 16px var(--color-highlight);
+  --shadow-recessed: inset 7px 7px 14px var(--color-shadow), inset -7px -7px 14px var(--color-highlight);
+  --neo-base: var(--color-canvas);
+  --neo-light: var(--color-highlight);
+  --neo-dark: var(--color-shadow);
+  --neo-ink: var(--color-ink);
+  --neo-accent: var(--color-accent);
+  --neo-tint: var(--color-accent-soft);
+}
