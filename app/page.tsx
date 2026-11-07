@@ -6,8 +6,10 @@ import { NocturneWorkspaceStage } from "@/components/lab/nocturne/nocturne-lab";
 import { CompatibilityPlayground } from "@/components/lab/compatibility-playground";
 import { TactileDisclosureStudy } from "@/components/lab/tactile/tactile-disclosure-study";
 import { TactileFeedbackStudy } from "@/components/lab/tactile/tactile-feedback-study";
+import { SharedShowcase } from "@/components/lab/shared-showcase";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 import { libraryCategories, type LibraryCategoryId } from "@/design-system/engine/categories";
+import { showcaseFor } from "@/design-system/showcase/schema";
 
 const tactileCategoryMeta: Record<LibraryCategoryId, { title: string; description: string; maturity: "Stable" | "In progress" | "Experimental" | "Planned" }> = {
   foundations: { title: "Make material intentional.", description: "Palette, depth and surface decisions are tested here before they shape a component.", maturity: "In progress" },
@@ -316,6 +318,7 @@ function DesignLab() {
   const { activeDesign, activeCategory, setActiveCategory, activeComponent, setActiveComponent, reducedMotion, setReducedMotion } = useDesign();
   const stageRef = useRef<HTMLElement>(null);
   const category = libraryCategories.find((item) => item.id === activeCategory) ?? libraryCategories[0];
+  const showcase = showcaseFor(activeCategory);
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       const anchor = stageRef.current?.querySelector<HTMLElement>(`[data-component-id="${activeComponent}"]`);
@@ -329,7 +332,7 @@ function DesignLab() {
       <DesignSwitcher />
       <div className="workspace-layout">
         <aside className="workspace-sidebar" aria-label="Component categories"><span>COMPONENT LIBRARY</span>{libraryCategories.map((item, index) => <button key={item.id} type="button" className={activeCategory === item.id && activeComponent !== "compatibility.fixture" ? "active" : ""} aria-pressed={activeCategory === item.id && activeComponent !== "compatibility.fixture"} onClick={() => setActiveCategory(item.id)}><small>{String(index + 1).padStart(2, "0")}</small>{item.label}</button>)}<div className="workspace-utility"><span>DEVELOPMENT</span><button type="button" className={activeComponent === "compatibility.fixture" ? "active" : ""} onClick={() => { setActiveCategory("foundations"); setActiveComponent("compatibility.fixture"); }}><small>↗</small>Compatibility</button></div><div className="workspace-motion"><span>REDUCE MOTION</span><button type="button" onClick={() => setReducedMotion(!reducedMotion)} aria-pressed={reducedMotion}><i /></button></div></aside>
-        <section className="workspace-stage" ref={stageRef} aria-labelledby="workspace-category-title"><div className="workspace-stage-head"><span>{activeDesign.name.toUpperCase()} / {category.label.toUpperCase()}</span><span>{activeComponent}</span></div><h1 id="workspace-category-title">{category.label}</h1>{activeComponent === "compatibility.fixture" ? <CompatibilityPlayground /> : activeDesign.id === "tactile" ? <TactileWorkspaceStage /> : activeDesign.id === "nocturne" ? <NocturneWorkspaceStage /> : <FutureWorkspaceStage />}</section>
+        <section className="workspace-stage" ref={stageRef} aria-labelledby="workspace-category-title"><div className="workspace-stage-head"><span>{activeDesign.name.toUpperCase()} / {category.label.toUpperCase()}</span><span>{activeComponent}</span></div><h1 id="workspace-category-title">{category.label}</h1>{activeComponent === "compatibility.fixture" ? <CompatibilityPlayground /> : <>{showcase && <SharedShowcase />}{showcase && <div className="signature-heading"><span>SIGNATURE EXPERIMENTS</span><p>Original studies remain intact after the shared comparison reference.</p></div>}{activeDesign.id === "tactile" ? <TactileWorkspaceStage /> : activeDesign.id === "nocturne" ? <NocturneWorkspaceStage /> : <FutureWorkspaceStage />}</>}</section>
       </div>
     </section>
   </main>;

@@ -22,6 +22,7 @@ import "./effects-interaction.css";
 import "./multi-design-engine.css";
 import "./unified-library.css";
 import "./workspace.css";
+import "../components/lab/shared-showcase.css";
 import "../components/lab/nocturne/nocturne-lab.css";
 import "../design-system/designs/nocturne/components/nocturne-components.css";
 import "../design-system/designs/nocturne/components/nocturne-refinements.css";
