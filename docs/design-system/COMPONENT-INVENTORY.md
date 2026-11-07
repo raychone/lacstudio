@@ -30,6 +30,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Editorial carousels | content, media, magazine-spread and featured-story variants; indicators, keyboard controls and touch swipe | In development | touch-device and reduced-motion QA |
 | Editorial overlays | modal, confirmation, drawer, bottom sheet, lightbox, reading panel and command index; focus trap, Escape, scroll lock and restoration | In development | screen-reader and mobile QA |
 | Editorial advanced interactions | tag input, multi-select, range, rating, reorder controls, composer wizard and publication comparison slider | In development | touch and keyboard regression QA |
+| Editorial motion | fade, directional reveal, stagger, scale, text mask, restrained settle, exit and replay; typesetting, sequence, column and exit studies | In development | browser reduced-motion and replay timing QA |
+| Editorial effects | ink spread, rule reveal, paper texture, typographic direction, image frame and composition shift studies | In development | pointer/touch fallback, contrast and performance QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
@@ -48,6 +50,10 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 ## Existing reusable primitive library
 
 `components/ui/` includes accordion, button, card, carousel, dialog, drawer, input, navigation menu, select, sheet, tabs, textarea, tooltip and other shadcn-style primitives. These are available to compose accessible production patterns; the current Lab does not yet use them consistently.
+
+## Final polish checklist
+
+- [ ] Inspect every expanded select, dropdown, multi-select and autocomplete menu in each design system. Options must use that system's custom visual treatment rather than an unintended browser-default menu, while retaining accessible keyboard and touch behavior.
 
 ## Tactile relocation map — Phase B.5
 

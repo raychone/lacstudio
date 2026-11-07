@@ -32,8 +32,8 @@ Future interactions should be precise: underline movement, image framing, restra
 
 ## Phase status
 
-Implemented: Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays and Advanced, each with shared comparison references and editorial signature studies.
+Implemented: all twelve categories — Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects — each with shared comparison references and editorial signature studies.
 
-Actions use rules, ink fills, numbering and directional treatment rather than physical or luminous depth. Forms use publication labels and underlined fields. Disclosure uses numbered sections and typographic separators. Feedback uses annotations, proof-status language and restrained ink/accent signals. Data uses a feature index, figures and rule-led evidence rather than dashboard panels. Carousels move as deliberate magazine sequences. Overlays are paper sheets, and Advanced controls are precise editorial instruments.
+Actions use rules, ink fills, numbering and directional treatment rather than physical or luminous depth. Forms use publication labels and underlined fields. Disclosure uses numbered sections and typographic separators. Feedback uses annotations, proof-status language and restrained ink/accent signals. Data uses a feature index, figures and rule-led evidence rather than dashboard panels. Carousels move as deliberate magazine sequences. Overlays are paper sheets, and Advanced controls are precise editorial instruments. Motion treats movement as typesetting and page choreography; Effects use ink, rules, paper texture, typographic direction and image framing rather than illumination or physical depth.
 
-Pending: Motion and Effects. Their current Editorial states intentionally reserve the shared Lab position without pretending implementation exists.
+Pending: final visual, responsive and assistive-technology QA only. Editorial is implemented, but not production-certified.

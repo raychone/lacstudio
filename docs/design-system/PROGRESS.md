@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Editorial Phase 3 complete — data display, carousels, overlays and advanced controls.** Design 03 now has ten implemented categories while preserving the shared workspace geometry and its own publication-style language.
+**Editorial Phase 4 complete — Motion and Effects.** Design 03 now has all 12/12 categories implemented while preserving the shared workspace geometry and its own publication-style language.
 
 ## Completed
 
@@ -27,6 +27,7 @@
 - Editorial foundations, typography and reserved development states for remaining categories: `8e92c29`.
 - Editorial actions, forms, disclosure and feedback: `bfd2359`.
 - Editorial data display, carousels, overlays and advanced controls: `ba6655a`.
+- Editorial motion and effects: `2fd0bcf`.
 
 ## Current coverage
 
@@ -34,11 +35,11 @@
 | --- | --- | --- |
 | 01 Tactile | B.7B ready for review | Shared comparison fixtures precede preserved material signature studies across all twelve categories. |
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
-| 03 Editorial | Phase 3 ready for review | Foundations through Advanced are implemented; only Motion and Effects are intentionally pending. |
+| 03 Editorial | 12/12 implemented — pending final visual and responsive QA | All shared categories and Editorial signature studies are implemented; no production certification yet. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `ba6655a`.
+Latest verified implementation commit: `2fd0bcf`.
 
 ## Known issues / deferred checks
 
@@ -48,8 +49,9 @@ Latest verified implementation commit: `ba6655a`.
 - Copy uses the browser clipboard when available; fallback feedback is visual only.
 - Comprehensive responsive, assistive-technology and focus-management QA is deferred until the Nocturne library is complete.
 - Overlay focus trap and trigger-focus restoration are implemented; full screen-reader and mobile QA remains deferred.
+- Final Editorial polish must inspect custom select, dropdown, multi-select and autocomplete option menus in expanded state; native browser-default visual menus are not an approved end state.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Editorial direction is documented in `EDITORIAL-DIRECTION.md`. Stop here for owner review; do not begin Editorial Motion or Effects, Brutalist, Playground, the portfolio or package extraction automatically.
+Editorial is implemented. Stop here for final visual and responsive owner QA; do not begin Brutalist, Playground, the portfolio or package extraction automatically.

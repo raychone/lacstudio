@@ -112,3 +112,10 @@
 - Added functional Editorial Data Display, Carousels, Overlays and Advanced categories.
 - Added an editorial feature index, publication data story, rule-led timeline, magazine-spread and featured-story sequences, paper-sheet overlay studies, command index, preference composer, step-by-step composer and layout comparator.
 - Kept shared reference fixtures and external workspace dimensions intact; Motion and Effects remain intentionally pending.
+
+## 2026-11-07 — Editorial Phase 4
+
+- Added functional Editorial Motion and Effects categories, completing Editorial's twelve-category Lab implementation.
+- Added replayable fade, directional reveal, stagger, scale, text mask, restrained settle and exit studies, plus typesetting, sequence, column and publication-exit compositions.
+- Added CSS-first ink, rule, paper, typography, image-frame and composition effects without canvas loops or luminous visual language.
+- Made the shared Motion fixture replay control functional and recorded the expanded-menu polish checklist for later QA.

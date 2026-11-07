@@ -53,4 +53,4 @@ Audited from the active workspace renderers, `app/page.tsx`, `components/lab/noc
 
 Tactile: **approved visual baseline, Disclosure and Feedback implementation ready for owner review.**
 Nocturne: **implementation complete, awaiting owner visual/interactions review.**
-Editorial: **Foundations and Typography implemented; remaining categories intentionally pending.**
+Editorial: **12/12 categories implemented — pending final visual, responsive and assistive-technology QA.** It consumes the same shared fixture and external geometry contract; its paper, rule, type and ink compositions remain intentionally independent of the Tactile ↔ Nocturne Split View.
