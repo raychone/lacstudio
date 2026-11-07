@@ -29,3 +29,8 @@
 
 - Added reusable Nocturne action and form component modules.
 - Added live action, validation, password-visibility and signal-setting demonstrations to the Nocturne Lab.
+
+## 2026-11-07 — Nocturne Batch 2
+
+- Added reusable disclosure and feedback modules.
+- Added dedicated Disclosure and Feedback Lab studies with interactive menus, notifications and progress controls.
