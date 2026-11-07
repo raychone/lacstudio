@@ -5,8 +5,9 @@ import { DesignSwitcher } from "@/components/lab/design-switcher";
 import { NocturneButton, NocturneCopyButton, NocturneHoldButton, NocturneIconButton, NocturneSplitButton, NocturneToggle } from "@/design-system/designs/nocturne/components/actions";
 import { NocturneCheck, NocturneField, NocturneInput, NocturneSelect, NocturneSwitch, NocturneTextarea } from "@/design-system/designs/nocturne/components/forms";
 import { NocturneDisclosureStudy, NocturneFeedbackStudy } from "@/components/lab/nocturne/nocturne-batch-two";
+import { NocturneCarouselsStudy, NocturneDataDisplayStudy } from "@/components/lab/nocturne/nocturne-batch-three";
 
-const studies = ["Foundations", "Typography", "Actions", "Forms", "Disclosure", "Feedback", "Motion", "Effects"] as const;
+const studies = ["Foundations", "Typography", "Actions", "Forms", "Disclosure", "Feedback", "Data display", "Carousels", "Motion", "Effects"] as const;
 type Study = (typeof studies)[number];
 
 function NocturneFoundations() {
@@ -107,6 +108,8 @@ function NocturnePanel({ study, reduced }: { study: Study; reduced: boolean }) {
   if (study === "Forms") return <NocturneForms />;
   if (study === "Disclosure") return <NocturneDisclosureStudy />;
   if (study === "Feedback") return <NocturneFeedbackStudy />;
+  if (study === "Data display") return <NocturneDataDisplayStudy />;
+  if (study === "Carousels") return <NocturneCarouselsStudy />;
   if (study === "Motion") return <NocturneMotion reduced={reduced} />;
   return <NocturneEffects />;
 }
@@ -119,7 +122,7 @@ export function NocturneLab() {
     <header className="nocturne-masthead"><a href="#nocturne-top" aria-label="Nocturne Design Lab home"><b>LAC.</b><span>NOCTURNE / 02</span></a><span>COMPONENT CINEMA</span><button onClick={() => setReduced(!reduced)} aria-pressed={reduced}>{reduced ? "MOTION / OFF" : "MOTION / ON"}<i /></button></header>
     <section className="nocturne-intro"><p>DESIGN SYSTEM 02 / IN DEVELOPMENT</p><h1>Every surface<br />has an <em>afterglow.</em></h1><div><span>NOCTURNE</span><p>A separate component language for scenes that need depth, restraint and a trace of light.</p></div></section>
     <section className="nocturne-engine"><DesignSwitcher /></section>
-    <section className="nocturne-explorer" aria-labelledby="nocturne-explorer-title"><aside><span>STUDIES</span>{studies.map((item, index) => <button key={item} className={study === item ? "active" : ""} onClick={() => setStudy(item)}><small>{String(index + 1).padStart(2, "0")}</small>{item}</button>)}<p>Components inherit behavior, not the visual rules of Tactile.</p></aside><div className="nocturne-stage"><div className="nocturne-stage-head"><span>NOCTURNE / {study.toUpperCase()}</span><span>PREVIEW 01</span></div><h2 id="nocturne-explorer-title">{study === "Foundations" ? "Set the scene." : study === "Typography" ? "Let type breathe." : study === "Actions" ? "Send a signal." : study === "Forms" ? "Make intent legible." : study === "Disclosure" ? "Reveal with purpose." : study === "Feedback" ? "Make state visible." : study === "Motion" ? "Move through depth." : "Shape the atmosphere."}</h2><NocturnePanel study={study} reduced={reduced} /></div></section>
+    <section className="nocturne-explorer" aria-labelledby="nocturne-explorer-title"><aside><span>STUDIES</span>{studies.map((item, index) => <button key={item} className={study === item ? "active" : ""} onClick={() => setStudy(item)}><small>{String(index + 1).padStart(2, "0")}</small>{item}</button>)}<p>Components inherit behavior, not the visual rules of Tactile.</p></aside><div className="nocturne-stage"><div className="nocturne-stage-head"><span>NOCTURNE / {study.toUpperCase()}</span><span>PREVIEW 01</span></div><h2 id="nocturne-explorer-title">{study === "Foundations" ? "Set the scene." : study === "Typography" ? "Let type breathe." : study === "Actions" ? "Send a signal." : study === "Forms" ? "Make intent legible." : study === "Disclosure" ? "Reveal with purpose." : study === "Feedback" ? "Make state visible." : study === "Data display" ? "Give data a scene." : study === "Carousels" ? "Move by choice." : study === "Motion" ? "Move through depth." : "Shape the atmosphere."}</h2><NocturnePanel study={study} reduced={reduced} /></div></section>
     <NocturneControls />
     <footer className="nocturne-footer"><span>LAC. / SYSTEM 02</span><span>NOCTURNE IS IN DEVELOPMENT</span><a href="#nocturne-top">RETURN TO TOP ↑</a></footer>
   </main>;
