@@ -324,7 +324,7 @@ function DesignLab() {
   const previousDesignRef = useRef(activeDesign.id);
   const category = libraryCategories.find((item) => item.id === activeCategory) ?? libraryCategories[0];
   const showcase = showcaseFor(activeCategory);
-  const implementedInActiveDesign = activeDesign.id !== "playground" || ["foundations", "typography", "actions", "forms", "disclosure", "feedback"].includes(activeCategory);
+  const implementedInActiveDesign = activeDesign.id !== "playground" || ["foundations", "typography", "actions", "forms", "disclosure", "feedback", "data-display", "carousels", "overlays", "advanced"].includes(activeCategory);
   useEffect(() => {
     const didSwitchDesign = previousDesignRef.current !== activeDesign.id;
     previousDesignRef.current = activeDesign.id;
