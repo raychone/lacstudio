@@ -25,6 +25,11 @@ export function NocturneTooltip({ label, children }: { label: string; children: 
   return <span className="nocturne-tooltip" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}>{children}{open && <i role="tooltip">{label}</i>}</span>;
 }
 
+export function NocturneHoverCard({ trigger, children }: { trigger: ReactNode; children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return <span className="nocturne-hover-card" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}>{trigger}{open && <span>{children}</span>}</span>;
+}
+
 export function NocturnePopover({ trigger, children }: { trigger: string; children: ReactNode }) {
   const [open, setOpen] = useState(false); const root = useRef<HTMLDivElement>(null);
   useEffect(() => { const close = (event: MouseEvent) => { if (!root.current?.contains(event.target as Node)) setOpen(false); }; const escape = (event: KeyboardEvent) => event.key === "Escape" && setOpen(false); window.addEventListener("mousedown", close); window.addEventListener("keydown", escape); return () => { window.removeEventListener("mousedown", close); window.removeEventListener("keydown", escape); }; }, []);

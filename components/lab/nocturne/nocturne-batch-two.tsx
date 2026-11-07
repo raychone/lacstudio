@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { NocturneAccordion, NocturneBreadcrumb, NocturneCollapsible, NocturneContextMenu, NocturneDropdown, NocturnePopover, NocturneSegmented, NocturneTabs, NocturneTooltip } from "@/design-system/designs/nocturne/components/disclosure";
+import { NocturneAccordion, NocturneBreadcrumb, NocturneCollapsible, NocturneContextMenu, NocturneDropdown, NocturneHoverCard, NocturnePopover, NocturneSegmented, NocturneTabs, NocturneTooltip } from "@/design-system/designs/nocturne/components/disclosure";
 import { NocturneAlert, NocturneBadge, NocturneCircularProgress, NocturneProgress, NocturneSkeleton, NocturneSpinner, NocturneState, NocturneSteps, NocturneToast, type NocturneTone } from "@/design-system/designs/nocturne/components/feedback";
 import { NocturneButton } from "@/design-system/designs/nocturne/components/actions";
 
@@ -10,7 +10,7 @@ export function NocturneDisclosureStudy() {
   return <div className="nocturne-study-gallery">
     <article><span>ACCORDION / MULTI</span><NocturneAccordion multiple items={[{ title: "Layered information", content: "Multiple channels can remain open when comparison matters." }, { title: "Single focus", content: "Use the default single-open mode when attention needs a sequence." }, { title: "Keyboard reachable", content: "Every disclosure is a native button with expanded state." }]} /></article>
     <article><span>TABS / ARROW KEYS</span><NocturneTabs tabs={[{ label: "Frame", content: <p>Structural details remain quiet until selected.</p> }, { label: "Light", content: <p>Light is a directional cue, not decoration.</p> }, { label: "Motion", content: <p>Motion connects related states with restraint.</p> }]} /></article>
-    <article><span>POPOVER + TOOLTIP</span><div className="nocturne-inline-tools"><NocturnePopover trigger="READ NOTE">A transient glass layer for supporting decisions.</NocturnePopover><NocturneTooltip label="Shows on hover or keyboard focus"><button className="nocturne-mini-control">?</button></NocturneTooltip></div><NocturneCollapsible title="Show implementation note"><p>Use collapsible content for optional detail that belongs within the current flow.</p></NocturneCollapsible></article>
+    <article><span>POPOVER + TOOLTIP</span><div className="nocturne-inline-tools"><NocturnePopover trigger="READ NOTE">A transient glass layer for supporting decisions.</NocturnePopover><NocturneTooltip label="Shows on hover or keyboard focus"><button className="nocturne-mini-control">?</button></NocturneTooltip><NocturneHoverCard trigger={<button className="nocturne-mini-control">◌</button>}>A richer supplemental note for hover or focus.</NocturneHoverCard></div><NocturneCollapsible title="Show implementation note"><p>Use collapsible content for optional detail that belongs within the current flow.</p></NocturneCollapsible></article>
     <article><span>MENU + CONTEXT</span><NocturneDropdown onSelect={(value) => setMessage(`${value} selected.`)} /><NocturneContextMenu><div className="nocturne-context-target">Right-click, or press the Context Menu key.</div></NocturneContextMenu><p className="nocturne-study-live" aria-live="polite">{message}</p></article>
     <article><span>SEGMENTED + BREADCRUMB</span><NocturneSegmented options={["Signal", "Orbit", "Still"]} value={segment} onChange={setSegment} /><NocturneBreadcrumb items={["Lab", "Disclosure", segment]} /></article>
   </div>;
