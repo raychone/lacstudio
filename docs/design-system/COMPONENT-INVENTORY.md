@@ -18,6 +18,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Effect studies | aurora haze, glass lens, soft grid | Experiment | performance and legibility test |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
+| Nocturne actions | primary, secondary, ghost, outline, luminous, destructive, icon, toggle, split, copy, hold and loading states | In development | visual review and assistive-technology QA |
+| Nocturne forms | text/email, password visibility, textarea, native select, checkbox, switch, field validation states | In development | expand remaining form controls and run keyboard QA |
 
 ## Existing reusable primitive library
 

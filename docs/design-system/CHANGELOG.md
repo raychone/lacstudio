@@ -24,3 +24,8 @@
 - Replaced the Nocturne CSS override approach with an independent component tree and design-specific stylesheet.
 - Added distinct Nocturne component studies for typography, actions, motion, effects, cards, inputs, accordions and dialogs.
 - Kept Tactile's existing component tree and presentation intact.
+
+## 2026-11-07 — Nocturne Batch 1
+
+- Added reusable Nocturne action and form component modules.
+- Added live action, validation, password-visibility and signal-setting demonstrations to the Nocturne Lab.

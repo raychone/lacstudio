@@ -38,6 +38,8 @@ docs/design-system/                # decision records and QA notes
 
 Tactile retains its existing page/component tree. `components/lab/nocturne/nocturne-lab.tsx` is a separate Nocturne presentation tree; it owns its own study navigation and representative component markup. `components/lab/nocturne/nocturne-lab.css` owns the corresponding visual recipes. `app/multi-design-engine.css` now contains shared selector chrome only. This boundary prevents Tactile's neumorphic markup and `--neo-*` assumptions from becoming Nocturne's implementation.
 
+Nocturne's reusable component modules currently live in `design-system/designs/nocturne/components/`: `actions.tsx`, `forms.tsx`, and `nocturne-components.css`. The Lab imports these modules rather than owning their core behavior.
+
 ## Constraints
 
 - One source of truth per token; components consume semantic values, not palette hex values.
