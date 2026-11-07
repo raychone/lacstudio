@@ -78,3 +78,11 @@
 - Added stable shared component identifiers and component-based, non-animated scroll anchoring on system switches.
 - Kept Compatibility as a separate utility while sharing its fixture length, narrow viewport and reduced-motion settings through the Lab state layer.
 - Preserved the earlier marketing/hero compositions in source for future portfolio work; they are no longer part of the active Lab.
+
+## 2026-11-07 — Phase B.7A / Shared component showcase
+
+- Added a small design-neutral showcase schema for stable component IDs, common reference content, variants and size classes.
+- Added common comparison references for Foundations, Typography, Actions and Forms before each system’s preserved original studies.
+- Labeled original category studies as Signature Experiments rather than deleting, flattening or moving them into a separate approved library.
+- Bounded the Tactile Actions comparison area to prevent its editorial copy from overlapping the circular button surface in the unified stage.
+- Deferred Disclosure through Effects to B.7B; no new component category was started.

@@ -37,6 +37,12 @@ The category registry also supplies stable component identifiers. The URL carrie
 
 The active component is the scroll anchor. After a system switch, the workspace brings that anchor into view with non-animated layout-aware scrolling rather than replaying the previous pixel offset.
 
+## Showcase reference contract — Phase B.7A
+
+`design-system/showcase/schema.ts` is a small design-neutral comparison contract. A definition carries the category and stable component identifier, display title, description, optional variants and a shared outer size class. The renderer supplies the common heading, fixture order, variant/state controls and preview boundary; each system retains its visual recipe and signature studies.
+
+The contract is deliberately partial in B.7A: Foundations, Typography, Actions and Forms are the reference categories. Its category-ID based shape is reusable for the remaining eight categories in B.7B without adding a second workspace or navigation model.
+
 ## Initial playground
 
 Tactile Lab → **Compatibility** renders one shared fixture in Tactile and Nocturne modes, with short/long content, a 320px constraint and reduced motion. It is an early dimensional test surface, not proof of complete visual parity.
