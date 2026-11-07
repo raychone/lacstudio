@@ -22,6 +22,10 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Shared showcase reference | design-neutral schema and common reference fixture for all twelve categories; original studies follow under Signature Experiments | In development | browser visual/interaction parity QA |
 | Editorial foundations | paper, ink, accent, rules, spacing and asymmetrical publication studies | In development | owner visual review and contrast QA |
 | Editorial typography | shared reference scale plus publication headline, metadata, article hierarchy and pull-quote studies | In development | responsive type and reading-measure QA |
+| Editorial actions | primary/secondary/outline/ghost/destructive/icon/loading/disabled and size variants; numbered and ink signature actions | In development | browser focus and reduced-motion QA |
+| Editorial forms | text/email/password/select/textarea/radio/switch/validation/disabled states and correspondence signature form | In development | custom-control screen-reader and mobile QA |
+| Editorial disclosure | multi-accordion, tabs, collapsible, tooltip, popover, dropdown, context menu, segmented control and breadcrumb | In development | full keyboard/focus QA |
+| Editorial feedback | toast, alert, badges, linear/circular progress, spinner, skeleton, result states and steps | In development | live-announcement and timing QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |

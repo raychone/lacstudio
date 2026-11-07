@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Editorial Phase 0 + 1 complete — foundations and typography.** Design 03 is selectable in the shared workspace and preserves the common Lab geometry while using its own editorial visual language.
+**Editorial Phase 2 complete — actions, forms, disclosure and feedback.** Design 03 now has six implemented categories while preserving the shared workspace geometry and its own publication-style language.
 
 ## Completed
 
@@ -25,6 +25,7 @@
 - Shared showcase schema and rendered reference composition for the first four categories: `864b4c9`.
 - Shared reference fixtures for Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects: `f253db4`.
 - Editorial foundations, typography and reserved development states for remaining categories: `8e92c29`.
+- Editorial actions, forms, disclosure and feedback: `bfd2359`.
 
 ## Current coverage
 
@@ -32,11 +33,11 @@
 | --- | --- | --- |
 | 01 Tactile | B.7B ready for review | Shared comparison fixtures precede preserved material signature studies across all twelve categories. |
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
-| 03 Editorial | Phase 1 ready for review | Foundations and Typography implemented; remaining categories intentionally show editorial development states. |
+| 03 Editorial | Phase 2 ready for review | Foundations, Typography, Actions, Forms, Disclosure and Feedback implemented; six remaining categories are intentionally pending. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `8e92c29`.
+Latest verified implementation commit: `bfd2359`.
 
 ## Known issues / deferred checks
 
@@ -50,4 +51,4 @@ Latest verified implementation commit: `8e92c29`.
 
 ## Exact next step
 
-Editorial direction is documented in `EDITORIAL-DIRECTION.md`. Stop here for owner review; do not begin Editorial Actions or later categories, Brutalist, Playground, the portfolio or package extraction automatically.
+Editorial direction is documented in `EDITORIAL-DIRECTION.md`. Stop here for owner review; do not begin Editorial Data Display or later categories, Brutalist, Playground, the portfolio or package extraction automatically.

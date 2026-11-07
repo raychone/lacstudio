@@ -100,3 +100,9 @@
 - Added warm-paper foundations, ink/rule hierarchy, oxblood accent and an editorial focus treatment.
 - Added shared-contract Foundations and Typography references plus original publication-style signature studies.
 - Added intentional development states for the ten Editorial categories not included in this phase.
+
+## 2026-11-07 — Editorial Phase 2
+
+- Added functional Editorial Actions, Forms, Disclosure and Feedback categories.
+- Added numbered, ink and underline action studies; correspondence form; publication-index disclosure; and proof-status feedback studies.
+- Kept common reference fixtures and shared workspace dimensions intact; Data Display through Effects remain intentionally pending.

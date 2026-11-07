@@ -32,6 +32,8 @@ Future interactions should be precise: underline movement, image framing, restra
 
 ## Phase status
 
-Implemented: Foundations and Typography, including shared comparison references and signature paper/type studies.
+Implemented: Foundations, Typography, Actions, Forms, Disclosure and Feedback, each with shared comparison references and editorial signature studies.
 
-Pending: Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects. Their current Editorial states intentionally reserve the shared Lab position without pretending implementation exists.
+Actions use rules, ink fills, numbering and directional treatment rather than physical or luminous depth. Forms use publication labels and underlined fields. Disclosure uses numbered sections and typographic separators. Feedback uses annotations, proof-status language and restrained ink/accent signals.
+
+Pending: Data Display, Carousels, Overlays, Advanced, Motion and Effects. Their current Editorial states intentionally reserve the shared Lab position without pretending implementation exists.
