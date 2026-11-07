@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Tactile Phase B complete — Disclosure and Feedback.** Nocturne remains awaiting visual and interaction review; the approved Tactile baseline remains preserved while the two Phase B families are now available for owner review.
+**Tactile / Nocturne Phase B.5 complete — unified library architecture.** Both Labs now use the same category order while preserving their independent visual systems. Tactile's former separate approved shelf is consolidated into the category explorer.
 
 ## Completed
 
@@ -20,18 +20,19 @@
 - Shared layout contract and initial Tactile/Nocturne compatibility playground: `e16dfb5`.
 - Tactile Disclosure library and interactive Lab study: `1243ccb`.
 - Tactile Feedback library and interactive Lab study: `73458db`.
+- Shared category registry and consolidated Tactile/Nocturne Lab architecture: `d67609a`.
 
 ## Current coverage
 
 | Design | State | Notes |
 | --- | --- | --- |
-| 01 Tactile | Phase B ready for review | Existing palettes and Lab behavior retained; Disclosure and Feedback now have independent material-style component modules. |
-| 02 Nocturne | In development | Separate Lab presentation; actions, forms, disclosure, feedback, data display, carousel, overlay and advanced-interaction modules; type, motion and effects studies. |
+| 01 Tactile | Phase B.5 ready for review | Existing palettes and Lab behavior retained; all existing studies are organized in the shared category order. |
+| 02 Nocturne | In development | Separate Lab presentation, now using the shared category registry; its visual recipe remains independent. |
 | 03 Editorial | Registered | No visual recipe yet. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `73458db`.
+Latest verified implementation commit: `d67609a`.
 
 ## Known issues / deferred checks
 
@@ -45,4 +46,4 @@ Latest verified implementation commit: `73458db`.
 
 ## Exact next step
 
-Phase B is documented in `TACTILE-NOCTURNE-COMPARISON.md`. Stop here for owner review; do not begin Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.
+Phase B.5 is documented in `TACTILE-NOCTURNE-COMPARISON.md`. Stop here for owner review; do not begin Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.

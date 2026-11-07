@@ -19,6 +19,8 @@ Audited against the implementation on 2026-11-07. “Lab-ready” means the comp
 ## Compatibility findings
 
 - Tactile and Nocturne now share a neutral external token contract, but most existing components have not yet consumed its size classes.
+- Both Labs now consume the same twelve-category registry and expose the categories in the same order; Compatibility remains outside that list as a development utility.
+- Tactile's former approved-components shelf has been consolidated into Forms, Disclosure, Data Display, Carousels, Overlays, Advanced and Effects. Nocturne's visual recipe was not changed.
 - Nocturne has broader reusable functional coverage; Tactile has richer original material experiments that must not be replaced.
 - Both systems need later keyboard, 320px, 200% zoom and screen-reader validation before any production-ready label.
 

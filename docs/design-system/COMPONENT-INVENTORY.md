@@ -18,6 +18,7 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Effect studies | aurora haze, glass lens, soft grid | Experiment | performance and legibility test |
 | Tactile disclosure | single/multiple accordion, arrow-key tabs, collapsible, tooltip, popover, dropdown, context menu, hover card, segmented control and breadcrumb | In development | browser keyboard, touch and narrow-width QA |
 | Tactile feedback | live toast, alerts, status badges, linear/circular progress, spinner, skeleton, empty/error/success states and steps | In development | announcement timing, contrast and responsive QA |
+| Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
 | Nocturne actions | primary, secondary, ghost, outline, luminous, destructive, icon, toggle, split, copy, hold and loading states | In development | visual review and assistive-technology QA |
@@ -35,3 +36,20 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 ## Existing reusable primitive library
 
 `components/ui/` includes accordion, button, card, carousel, dialog, drawer, input, navigation menu, select, sheet, tabs, textarea, tooltip and other shadcn-style primitives. These are available to compose accessible production patterns; the current Lab does not yet use them consistently.
+
+## Tactile relocation map — Phase B.5
+
+| Earlier location | Unified category |
+| --- | --- |
+| Palette selector and token preview | Foundations |
+| Type specimen | Typography |
+| Button experiments and state board | Actions |
+| Email, custom selector, textarea and submit | Forms |
+| Expanded Disclosure library plus original single-focus accordion | Disclosure |
+| Phase B feedback study | Feedback |
+| Approved project, bento, immersive and index cards | Data Display |
+| Approved autoplay project carousel | Carousels |
+| Contained modal, drawer and command preview | Overlays |
+| Desktop/mega/mobile navigation study; remaining controls clearly marked planned | Advanced |
+| Motion study and replayable entry-animation study | Motion |
+| Approved pointer spotlight and atmosphere studies | Effects |

@@ -62,3 +62,11 @@
 - Added dedicated interactive Disclosure and Feedback sections to the Tactile Lab.
 - Preserved Tactile's warm raised and recessed surface language; Nocturne's visual implementation was not changed.
 - Verified with `npm run lint` and `npm run build`; browser-based responsive, keyboard and assistive-technology checks remain owner-review work.
+
+## 2026-11-07 — Phase B.5 / Unified library architecture
+
+- Added one shared twelve-category registry for Tactile and Nocturne, with Compatibility retained as a separate development utility.
+- Consolidated Tactile's former approved-components shelf into Forms, Disclosure, Data Display, Carousels, Overlays, Advanced and Effects.
+- Kept all Tactile demonstrations available, including its original single-focus accordion and navigation study.
+- Added restrained per-category maturity labels; no category is called Stable solely because it compiles.
+- Kept Nocturne's midnight, violet and cinematic visual language unchanged.
