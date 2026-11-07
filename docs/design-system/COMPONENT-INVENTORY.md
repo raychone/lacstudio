@@ -50,6 +50,10 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Playground forms | text/email/password/textarea, custom expanded project type list, radio, checkbox, switch, validation and disabled states | In development | expanded option-list keyboard, touch and screen-reader QA |
 | Playground disclosure | multi-accordion, keyboard tabs, collapsible, tooltip, popover, dropdown, context menu, segmented control and breadcrumb | In development | full focus and context-menu QA |
 | Playground feedback | live toast, alert, status badges, linear/circular progress, spinner, skeleton, result states, celebration and steps | In development | announcement timing, contrast and responsive QA |
+| Playground data display | standard/selectable/expandable/media/stat/feature/loading/empty cards, avatars, chips, timeline, sortable paginated table | In development | table mobile and assistive-technology QA |
+| Playground carousels | content, media, shape-shifting feature and story-machine variants; indicators, keyboard controls and pointer swipe | In development | touch-device and reduced-motion QA |
+| Playground overlays | modal, confirmation, drawer, bottom sheet, lightbox and command palette; focus trap, Escape and restoration | In development | screen-reader and mobile QA |
+| Playground advanced interactions | tag input, custom multi-select, range, rating, reorder controls, wizard and shape/layout comparator | In development | expanded list, comparator touch and keyboard QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |

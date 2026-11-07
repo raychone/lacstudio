@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Playground Phase 2 complete — Actions, Forms, Disclosure and Feedback.** Design 05 now has six implemented categories and retains the common fixture geometry alongside its own expressive interaction language.
+**Playground Phase 3 complete — Data Display, Carousels, Overlays and Advanced.** Design 05 now has ten implemented categories and retains the common fixture geometry alongside its own expressive interaction language.
 
 ## Completed
 
@@ -34,6 +34,7 @@
 - Brutalist motion and effects: `d67121f`.
 - Playground architecture, Foundations, Typography and intentional development states: `df7efff`.
 - Playground Actions, Forms, Disclosure and Feedback: `d028bf6`, with Disclosure coverage completion in `bc662d3`.
+- Playground Data Display, Carousels, Overlays and Advanced: `2864b86`.
 
 ## Current coverage
 
@@ -43,9 +44,9 @@
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
 | 03 Editorial | 12/12 implemented — pending final visual and responsive QA | All shared categories and Editorial signature studies are implemented; no production certification yet. |
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
-| 05 Playground | 6/12 implemented — pending visual QA | Foundations through Feedback are implemented; Data Display through Effects intentionally remain under construction. |
+| 05 Playground | 10/12 implemented — pending visual QA | Foundations through Advanced are implemented; only Motion and Effects intentionally remain under construction. |
 
-Latest verified implementation commit: `bc662d3`.
+Latest verified implementation commit: `2864b86`.
 
 ## Known issues / deferred checks
 
@@ -61,8 +62,9 @@ Latest verified implementation commit: `bc662d3`.
 - Brutalist motion and effects need manual reduced-motion, coarse-pointer, contrast and performance QA.
 - Playground custom project-type option list needs manual expanded-list keyboard, touch and screen-reader verification.
 - Playground hold-to-confirm, celebratory feedback and live-notification timing need manual keyboard, reduced-motion and narrow-width verification.
+- Playground sortable table, carousel swipe, custom multi-select, overlay focus behavior and comparator pointer/touch behavior need manual browser and assistive-technology QA.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Stop here for owner review; do not begin Playground Data Display or later categories, the portfolio or package extraction automatically.
+Stop here for owner review; do not begin Playground Motion, Effects, the portfolio or package extraction automatically.

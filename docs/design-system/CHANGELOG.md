@@ -160,3 +160,12 @@
 - Added a Preference Builder with validation, expressive custom checkbox/switch controls and a deliberately styled expanded project-type option list.
 - Added single/multi accordion, keyboard tabs, tooltip, hover card, popover, dropdown, context menu, segmented control and breadcrumb examples, plus live toast notifications, numeric progress, loading/result states and a controlled celebration.
 - Kept Data Display through Effects intentionally pending; custom option-list, touch and assistive-technology QA remain manual review work.
+
+## 2026-11-08 — Playground Phase 3
+
+- Added functional Playground Data Display, Carousels, Overlays and Advanced categories without changing the shared Lab shell, Split View or reference bounds.
+- Added varied cards, interactive bento/metrics/timeline studies and a sortable, paginated table.
+- Added manually controlled content, media, shape-shifting and story-machine carousels with keyboard and pointer-swipe paths.
+- Added modal, confirmation, drawer, sheet, lightbox and command palette surfaces with Escape, focus trap and trigger restoration.
+- Added tag input, custom expanded multi-select, range, rating, reorder controls, configuration wizard and pointer/range-driven comparison slider.
+- Kept Motion and Effects intentionally pending; expanded-list, overlay, touch and assistive-technology QA remain manual review work.
