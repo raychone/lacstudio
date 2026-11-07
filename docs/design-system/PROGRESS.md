@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase B.7B complete — complete shared showcase parity.** Every category begins with one shared comparison fixture before preserving original system studies as Signature Experiments.
+**Editorial Phase 0 + 1 complete — foundations and typography.** Design 03 is selectable in the shared workspace and preserves the common Lab geometry while using its own editorial visual language.
 
 ## Completed
 
@@ -24,6 +24,7 @@
 - Shared workspace shell, URL-addressable design/category/component state, scroll anchoring and shared Compatibility controls: `6f7be93`.
 - Shared showcase schema and rendered reference composition for the first four categories: `864b4c9`.
 - Shared reference fixtures for Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects: `f253db4`.
+- Editorial foundations, typography and reserved development states for remaining categories: `8e92c29`.
 
 ## Current coverage
 
@@ -31,11 +32,11 @@
 | --- | --- | --- |
 | 01 Tactile | B.7B ready for review | Shared comparison fixtures precede preserved material signature studies across all twelve categories. |
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
-| 03 Editorial | Registered | No visual recipe yet. |
+| 03 Editorial | Phase 1 ready for review | Foundations and Typography implemented; remaining categories intentionally show editorial development states. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `f253db4`.
+Latest verified implementation commit: `8e92c29`.
 
 ## Known issues / deferred checks
 
@@ -49,4 +50,4 @@ Latest verified implementation commit: `f253db4`.
 
 ## Exact next step
 
-Phase B.7B is documented in the shared showcase matrix. Stop here for owner review; do not begin Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.
+Editorial direction is documented in `EDITORIAL-DIRECTION.md`. Stop here for owner review; do not begin Editorial Actions or later categories, Brutalist, Playground, the portfolio or package extraction automatically.

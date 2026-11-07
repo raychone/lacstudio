@@ -53,3 +53,4 @@ Audited from the active workspace renderers, `app/page.tsx`, `components/lab/noc
 
 Tactile: **approved visual baseline, Disclosure and Feedback implementation ready for owner review.**
 Nocturne: **implementation complete, awaiting owner visual/interactions review.**
+Editorial: **Foundations and Typography implemented; remaining categories intentionally pending.**

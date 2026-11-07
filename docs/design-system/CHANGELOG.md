@@ -93,3 +93,10 @@
 - Added common fixtures, variants/state labels and shared outer preview boundaries for all twelve categories.
 - Kept every original system study beneath the reference layer as a Signature Experiment; no Tactile or Nocturne effect, animation or interaction was removed.
 - Preserved URL component selection, switching, scroll anchoring and reduced-motion behavior from Phase B.6.
+
+## 2026-11-07 — Editorial Phase 0 + 1
+
+- Activated Design 03 Editorial in the shared Lab workspace.
+- Added warm-paper foundations, ink/rule hierarchy, oxblood accent and an editorial focus treatment.
+- Added shared-contract Foundations and Typography references plus original publication-style signature studies.
+- Added intentional development states for the ten Editorial categories not included in this phase.

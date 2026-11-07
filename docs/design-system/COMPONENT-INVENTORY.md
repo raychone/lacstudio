@@ -20,6 +20,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Tactile feedback | live toast, alerts, status badges, linear/circular progress, spinner, skeleton, empty/error/success states and steps | In development | announcement timing, contrast and responsive QA |
 | Shared Lab workspace | one switcher, category sidebar and component stage; URL-addressable design/category/component state, component scroll anchoring and shared comparison fixture controls | In development | browser history, focus, scroll and narrow-width QA |
 | Shared showcase reference | design-neutral schema and common reference fixture for all twelve categories; original studies follow under Signature Experiments | In development | browser visual/interaction parity QA |
+| Editorial foundations | paper, ink, accent, rules, spacing and asymmetrical publication studies | In development | owner visual review and contrast QA |
+| Editorial typography | shared reference scale plus publication headline, metadata, article hierarchy and pull-quote studies | In development | responsive type and reading-measure QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
