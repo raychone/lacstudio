@@ -33,7 +33,7 @@
 - Brutalist data display, carousels, overlays and advanced controls: `7ee2107`.
 - Brutalist motion and effects: `d67121f`.
 - Playground architecture, Foundations, Typography and intentional development states: `df7efff`.
-- Playground Actions, Forms, Disclosure and Feedback: `d028bf6`.
+- Playground Actions, Forms, Disclosure and Feedback: `d028bf6`, with Disclosure coverage completion in `bc662d3`.
 
 ## Current coverage
 
@@ -45,7 +45,7 @@
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | 6/12 implemented — pending visual QA | Foundations through Feedback are implemented; Data Display through Effects intentionally remain under construction. |
 
-Latest verified implementation commit: `d028bf6`.
+Latest verified implementation commit: `bc662d3`.
 
 ## Known issues / deferred checks
 

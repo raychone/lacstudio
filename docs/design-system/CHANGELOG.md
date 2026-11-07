@@ -158,5 +158,5 @@
 - Added functional Playground Actions, Forms, Disclosure and Feedback categories while retaining the shared Lab fixture bounds and comparison behavior.
 - Added shape-shifting command controls, copy/toggle/split controls and a hold-to-confirm interaction with keyboard support and reduced-motion fallback.
 - Added a Preference Builder with validation, expressive custom checkbox/switch controls and a deliberately styled expanded project-type option list.
-- Added multi-accordion, keyboard tabs, tooltip, popover, dropdown, context menu, segmented control and breadcrumb examples, plus live toast notifications, numeric progress, loading/result states and a controlled celebration.
+- Added single/multi accordion, keyboard tabs, tooltip, hover card, popover, dropdown, context menu, segmented control and breadcrumb examples, plus live toast notifications, numeric progress, loading/result states and a controlled celebration.
 - Kept Data Display through Effects intentionally pending; custom option-list, touch and assistive-technology QA remain manual review work.
