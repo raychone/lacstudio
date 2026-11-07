@@ -39,3 +39,8 @@
 
 - Added reusable data-display and carousel modules.
 - Added interactive cards, activity primitives, sortable/paginated table and four manual carousel studies.
+
+## 2026-11-07 — Nocturne Batch 4
+
+- Added reusable overlay foundation with focus containment, Escape dismissal, scroll lock and trigger-focus restoration.
+- Added overlay variants, command palette and advanced-interaction studies.

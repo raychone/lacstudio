@@ -24,6 +24,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Nocturne feedback | toast, alert, badge, linear/circular progress, spinner, skeleton, result states and steps | In development | timing, announcement and responsive QA |
 | Nocturne data display | eleven card structures, avatar/group/status, chips, timeline, sortable/paginated table | In development | table mobile/assistive-technology QA and additional action recipes |
 | Nocturne carousels | content, image, feature and compact variants; controls, indicators, keyboard and swipe | In development | reduced-motion / touch-device QA |
+| Nocturne overlays | modal, confirmation, drawer, bottom sheet, lightbox and command palette; focus trap, Escape, scroll lock and restoration | In development | alert/multi-step variants and screen-reader/mobile QA |
+| Nocturne advanced interactions | tag input, multi-select, range, rating, reorder controls, wizard and comparison slider | In development | date/calendar, resizable panel and drag/touch QA |
 
 ## Existing reusable primitive library
 
