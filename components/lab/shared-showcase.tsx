@@ -3,7 +3,7 @@
 import { useDesign } from "@/design-system/engine/provider";
 import { showcaseFor } from "@/design-system/showcase/schema";
 
-export function SharedShowcase({ designId }: { designId?: "tactile" | "nocturne" }) {
+export function SharedShowcase({ designId }: { designId?: "tactile" | "nocturne" | "editorial" }) {
   const { activeCategory, activeComponent, activeDesign, setActiveComponent } = useDesign();
   const showcase = showcaseFor(activeCategory);
   if (!showcase) return null;
