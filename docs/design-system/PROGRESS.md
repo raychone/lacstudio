@@ -13,7 +13,7 @@
 - Typed five-design registry, client provider, guarded local preference persistence, global design selector and Nocturne presentation layer: `f38473c`.
 - Independent Nocturne component tree, typography, action, card, input, accordion, overlay, effects and motion studies: `bf519c3`.
 - Reusable Nocturne actions and form controls, integrated in interactive Lab studies: `2310fec`.
-- Reusable Nocturne disclosure and feedback components, integrated in two interactive Lab studies: `213dcf6`.
+- Reusable Nocturne disclosure and feedback components, including Hover Card, integrated in two interactive Lab studies: `213dcf6`, `f484d3c`.
 
 ## Current coverage
 
@@ -25,7 +25,7 @@
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `213dcf683af5204f552b205c8525ce4fa8dac45f`.
+Latest verified implementation commit: `f484d3c`.
 
 ## Known issues / deferred checks
 

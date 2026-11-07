@@ -20,7 +20,7 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
 | Nocturne actions | primary, secondary, ghost, outline, luminous, destructive, icon, toggle, split, copy, hold and loading states | In development | visual review and assistive-technology QA |
 | Nocturne forms | text/email, password visibility, textarea, native select, checkbox, switch, field validation states | In development | expand remaining form controls and run keyboard QA |
-| Nocturne disclosure | multi accordion, tabs, collapsible, tooltip, popover, dropdown, context menu, segmented control and breadcrumb | In development | full menu/focus QA and hover-card primitive |
+| Nocturne disclosure | multi accordion, tabs, collapsible, tooltip, popover, dropdown, context menu, hover card, segmented control and breadcrumb | In development | full menu/focus QA |
 | Nocturne feedback | toast, alert, badge, linear/circular progress, spinner, skeleton, result states and steps | In development | timing, announcement and responsive QA |
 
 ## Existing reusable primitive library
