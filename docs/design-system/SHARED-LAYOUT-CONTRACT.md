@@ -23,6 +23,20 @@ Source: `design-system/tokens/layout-contract.css`.
 - Breakpoint changes may alter grids, never hide essential content.
 - System switches preserve outer width classes; visual recipes remain local to Tactile or Nocturne.
 
+## Unified Lab workspace — Phase B.6
+
+The active Lab uses one structural workspace for every registered system:
+
+1. Design System Switcher
+2. Shared category sidebar
+3. Shared component stage
+
+The workspace owns the container, gutters, sidebar width, stage position, category heading and mobile stack. A design system owns only the visual treatment and its component preview. Tactile and Nocturne therefore share the outer geometry without sharing their shadows, colour, typography or motion language.
+
+The category registry also supplies stable component identifiers. The URL carries `design`, `category` and `component`, for example `?design=nocturne&category=effects&component=effects.spotlight`. Switching systems preserves those identifiers. When a future system has no matching implementation, the workspace keeps the selected category and shows a restrained fallback instead of resetting the Lab.
+
+The active component is the scroll anchor. After a system switch, the workspace brings that anchor into view with non-animated layout-aware scrolling rather than replaying the previous pixel offset.
+
 ## Initial playground
 
 Tactile Lab → **Compatibility** renders one shared fixture in Tactile and Nocturne modes, with short/long content, a 320px constraint and reduced motion. It is an early dimensional test surface, not proof of complete visual parity.

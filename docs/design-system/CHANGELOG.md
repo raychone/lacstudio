@@ -70,3 +70,11 @@
 - Kept all Tactile demonstrations available, including its original single-focus accordion and navigation study.
 - Added restrained per-category maturity labels; no category is called Stable solely because it compiles.
 - Kept Nocturne's midnight, violet and cinematic visual language unchanged.
+
+## 2026-11-07 — Phase B.6 / Unified Lab workspace
+
+- Replaced the active Tactile and Nocturne Lab compositions with one switcher → sidebar → stage workspace.
+- Added URL-addressable design, category and component selection, plus Back/Forward restoration through browser history.
+- Added stable shared component identifiers and component-based, non-animated scroll anchoring on system switches.
+- Kept Compatibility as a separate utility while sharing its fixture length, narrow viewport and reduced-motion settings through the Lab state layer.
+- Preserved the earlier marketing/hero compositions in source for future portfolio work; they are no longer part of the active Lab.

@@ -18,6 +18,7 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Effect studies | aurora haze, glass lens, soft grid | Experiment | performance and legibility test |
 | Tactile disclosure | single/multiple accordion, arrow-key tabs, collapsible, tooltip, popover, dropdown, context menu, hover card, segmented control and breadcrumb | In development | browser keyboard, touch and narrow-width QA |
 | Tactile feedback | live toast, alerts, status badges, linear/circular progress, spinner, skeleton, empty/error/success states and steps | In development | announcement timing, contrast and responsive QA |
+| Shared Lab workspace | one switcher, category sidebar and component stage; URL-addressable design/category/component state, component scroll anchoring and shared comparison fixture controls | In development | browser history, focus, scroll and narrow-width QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |

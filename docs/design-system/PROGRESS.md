@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Tactile / Nocturne Phase B.5 complete — unified library architecture.** Both Labs now use the same category order while preserving their independent visual systems. Tactile's former separate approved shelf is consolidated into the category explorer.
+**Phase B.6 complete — unified Lab workspace and cross-system switching.** The active Lab now has one switcher → sidebar → stage composition for every design system, while each system retains its visual interpretation.
 
 ## Completed
 
@@ -21,18 +21,19 @@
 - Tactile Disclosure library and interactive Lab study: `1243ccb`.
 - Tactile Feedback library and interactive Lab study: `73458db`.
 - Shared category registry and consolidated Tactile/Nocturne Lab architecture: `d67609a`.
+- Shared workspace shell, URL-addressable design/category/component state, scroll anchoring and shared Compatibility controls: `6f7be93`.
 
 ## Current coverage
 
 | Design | State | Notes |
 | --- | --- | --- |
-| 01 Tactile | Phase B.5 ready for review | Existing palettes and Lab behavior retained; all existing studies are organized in the shared category order. |
-| 02 Nocturne | In development | Separate Lab presentation, now using the shared category registry; its visual recipe remains independent. |
+| 01 Tactile | Phase B.6 ready for review | Existing components render inside the shared workspace with its material visual treatment retained. |
+| 02 Nocturne | In development | Existing components render inside the same workspace with its cinematic visual recipe retained. |
 | 03 Editorial | Registered | No visual recipe yet. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `d67609a`.
+Latest verified implementation commit: `6f7be93`.
 
 ## Known issues / deferred checks
 
@@ -46,4 +47,4 @@ Latest verified implementation commit: `d67609a`.
 
 ## Exact next step
 
-Phase B.5 is documented in `TACTILE-NOCTURNE-COMPARISON.md`. Stop here for owner review; do not begin Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.
+Phase B.6 is documented in the shared layout contract. Stop here for owner review; do not begin Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.
