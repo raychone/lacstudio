@@ -1,0 +1,58 @@
+/* Tactile disclosure: physical depth belongs to the local component, dimensions to the shared contract. */
+.tactile-study-gallery,
+.tactile-feedback-study { color: var(--neo-ink); }
+.tactile-study-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--layout-grid-gap); }
+.tactile-study-gallery > article,
+.tactile-feedback-grid > article { min-width:0; padding:clamp(18px,3vw,30px); border-radius:20px; background:var(--neo-base); box-shadow:var(--shadow-raised); }
+.tactile-study-gallery > article > span,
+.tactile-feedback-grid > article > span { display:block; margin-bottom:18px; color:var(--neo-ink); font-size:10px; font-weight:800; letter-spacing:.13em; opacity:.68; }
+.tactile-accordion { display:grid; gap:10px; }
+.tactile-accordion > div { border-radius:14px; background:var(--neo-base); box-shadow:5px 5px 10px var(--neo-dark),-5px -5px 10px var(--neo-light); overflow:hidden; transition:box-shadow var(--duration-base) var(--ease-standard); }
+.tactile-accordion > div.open { box-shadow:inset 5px 5px 10px var(--neo-dark),inset -5px -5px 10px var(--neo-light); }
+.tactile-accordion button,
+.tactile-collapsible > button { width:100%; min-height:var(--layout-target-min); display:flex; align-items:center; gap:12px; padding:13px 15px; border:0; color:var(--neo-ink); background:transparent; font:inherit; text-align:left; cursor:pointer; }
+.tactile-accordion button small { font-size:10px; letter-spacing:.09em; opacity:.58; }
+.tactile-accordion button span { flex:1; font-size:14px; font-weight:700; }
+.tactile-accordion button i,
+.tactile-collapsible i { font-style:normal; font-size:20px; line-height:1; color:var(--neo-accent); }
+.tactile-accordion > div > div > div { padding:0 15px 15px 43px; font-size:13px; line-height:1.55; opacity:.82; }
+.tactile-tabs > div[role="tablist"] { display:flex; gap:7px; padding:6px; border-radius:15px; background:var(--neo-base); box-shadow:var(--shadow-recessed); overflow:auto; }
+.tactile-tabs button { flex:1 0 max-content; min-height:var(--layout-control-md); padding:0 14px; border:0; border-radius:10px; color:var(--neo-ink); background:transparent; font:700 11px/1 var(--font-sans); letter-spacing:.06em; cursor:pointer; }
+.tactile-tabs button[aria-selected="true"] { color:var(--neo-accent); background:var(--neo-base); box-shadow:4px 4px 8px var(--neo-dark),-4px -4px 8px var(--neo-light); }
+.tactile-tabs [role="tabpanel"] { margin-top:16px; padding:16px; border-radius:14px; background:var(--neo-base); box-shadow:var(--shadow-recessed); font-size:14px; line-height:1.55; outline:0; }
+.tactile-tabs p,.tactile-collapsible p,.tactile-popover p,.tactile-hover-card p { margin:0; }
+.tactile-collapsible { margin-top:17px; border-radius:14px; background:var(--neo-base); box-shadow:var(--shadow-raised); overflow:hidden; }
+.tactile-collapsible.open { box-shadow:var(--shadow-recessed); }
+.tactile-collapsible > button { justify-content:space-between; font-size:13px; font-weight:700; }
+.tactile-collapsible > div { padding:0 15px 15px; font-size:13px; line-height:1.5; opacity:.8; }
+.tactile-inline-tools { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.tactile-popover,.tactile-dropdown,.tactile-tooltip,.tactile-hover-card { position:relative; display:inline-flex; }
+.tactile-popover > button,.tactile-dropdown > button,.tactile-mini-control { min-height:var(--layout-target-min); border:0; border-radius:12px; color:var(--neo-ink); background:var(--neo-base); box-shadow:4px 4px 8px var(--neo-dark),-4px -4px 8px var(--neo-light); font:800 10px/1 var(--font-sans); letter-spacing:.08em; cursor:pointer; }
+.tactile-popover > button,.tactile-dropdown > button { display:flex; align-items:center; gap:9px; padding:0 14px; }
+.tactile-popover > button i,.tactile-dropdown > button i { font-style:normal; color:var(--neo-accent); }
+.tactile-mini-control { width:var(--layout-target-min); font-size:16px; letter-spacing:0; }
+.tactile-popover > div,.tactile-hover-card > span:not(:first-child),.tactile-dropdown [role="menu"],.tactile-context [role="menu"] { z-index:4; border-radius:13px; background:var(--neo-base); box-shadow:10px 10px 20px var(--neo-dark),-8px -8px 18px var(--neo-light); color:var(--neo-ink); }
+.tactile-popover > div { position:absolute; top:calc(100% + 10px); left:0; width:min(250px,70vw); padding:14px; font-size:12px; line-height:1.5; }
+.tactile-tooltip > span { position:absolute; z-index:5; bottom:calc(100% + 9px); left:50%; width:max-content; max-width:190px; padding:8px 10px; transform:translateX(-50%); border-radius:9px; background:var(--neo-ink); color:var(--neo-base); font-size:11px; line-height:1.3; box-shadow:0 7px 15px color-mix(in srgb,var(--neo-ink) 24%,transparent); }
+.tactile-hover-card > span:not(:first-child) { position:absolute; z-index:5; top:calc(100% + 10px); right:0; width:210px; padding:14px; font-size:12px; line-height:1.45; }
+.tactile-hover-card b { display:block; margin-bottom:5px; color:var(--neo-accent); font-size:11px; letter-spacing:.08em; }
+.tactile-dropdown { margin-bottom:15px; }
+.tactile-dropdown [role="menu"] { position:absolute; z-index:5; top:calc(100% + 9px); left:0; display:grid; min-width:205px; padding:7px; }
+.tactile-dropdown [role="menu"] button,.tactile-context [role="menu"] button { min-height:38px; padding:0 10px; border:0; border-radius:9px; color:var(--neo-ink); background:transparent; font:600 12px/1 var(--font-sans); text-align:left; cursor:pointer; }
+.tactile-dropdown [role="menu"] button:hover,.tactile-dropdown [role="menu"] button:focus-visible,.tactile-context [role="menu"] button:hover,.tactile-context [role="menu"] button:focus-visible { background:var(--neo-tint); color:var(--neo-ink); }
+.tactile-context { position:relative; min-height:86px; outline:0; }
+.tactile-context-target { min-height:86px; display:grid; place-items:center; padding:14px; border-radius:14px; background:var(--neo-base); box-shadow:var(--shadow-recessed); color:var(--neo-ink); font-size:12px; text-align:center; }
+.tactile-context [role="menu"] { position:absolute; width:190px; padding:7px; }
+.tactile-study-live { margin:15px 0 0; min-height:1.5em; color:var(--neo-ink); font-size:12px; opacity:.7; }
+.tactile-segmented { display:flex; gap:5px; padding:5px; border-radius:14px; background:var(--neo-base); box-shadow:var(--shadow-recessed); overflow:auto; }
+.tactile-segmented button { min-height:var(--layout-control-md); flex:1 0 max-content; border:0; border-radius:10px; padding:0 13px; color:var(--neo-ink); background:transparent; font:800 10px/1 var(--font-sans); letter-spacing:.07em; cursor:pointer; }
+.tactile-segmented button.active { color:var(--neo-accent); background:var(--neo-base); box-shadow:4px 4px 8px var(--neo-dark),-4px -4px 8px var(--neo-light); }
+.tactile-breadcrumb { margin-top:18px; overflow:auto; }
+.tactile-breadcrumb ol { display:flex; width:max-content; min-width:100%; margin:0; padding:0; list-style:none; }
+.tactile-breadcrumb li { display:flex; align-items:center; color:var(--neo-ink); font-size:11px; white-space:nowrap; }
+.tactile-breadcrumb li + li::before { content:"/"; padding:0 8px; opacity:.4; }
+.tactile-breadcrumb a { color:inherit; text-decoration:none; opacity:.65; }
+.tactile-breadcrumb [aria-current="page"] { color:var(--neo-accent); font-weight:800; }
+.tactile-study-gallery button:focus-visible,.tactile-feedback-study button:focus-visible,.tactile-study-gallery [tabindex="0"]:focus-visible { outline:2px solid var(--neo-accent); outline-offset:3px; }
+@media (max-width:720px) { .tactile-study-gallery { grid-template-columns:1fr; } .tactile-study-gallery > article { padding:18px; } }
+@media (prefers-reduced-motion:reduce) { .tactile-study-gallery *, .tactile-feedback-study * { transition-duration:1ms !important; animation-duration:1ms !important; } }

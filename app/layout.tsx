@@ -3,6 +3,7 @@ import "./globals.css";
 import "../design-system/tokens/foundations.css";
 import "../design-system/tokens/layout-contract.css";
 import "../components/lab/compatibility-playground.css";
+import "../design-system/designs/tactile/components/tactile-disclosure-feedback.css";
 import "./refinements.css";
 import "./lab-expansion.css";
 import "./components-reviewed.css";

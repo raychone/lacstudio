@@ -4,9 +4,10 @@ import { useEffect, useState, type PointerEvent } from "react";
 import { DesignSwitcher } from "@/components/lab/design-switcher";
 import { NocturneLab } from "@/components/lab/nocturne/nocturne-lab";
 import { CompatibilityPlayground } from "@/components/lab/compatibility-playground";
+import { TactileDisclosureStudy } from "@/components/lab/tactile/tactile-disclosure-study";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 
-const sections = ["Color system", "Typography", "Buttons", "Motion", "Animations", "Effect studies", "Compatibility"];
+const sections = ["Color system", "Typography", "Buttons", "Disclosure", "Motion", "Animations", "Effect studies", "Compatibility"];
 
 const experiments = [
   { id: "01", label: "Magnetic", className: "magnetic" },
@@ -215,6 +216,7 @@ function LabPanel({ section, activeButton, setActiveButton, message, setMessage,
     {section === "Animations" && <AnimationsPreview />}
     {section === "Overlays" && <OverlaysPreview />}
     {section === "Effect studies" && <EffectStudies />}
+    {section === "Disclosure" && <TactileDisclosureStudy />}
     {section === "Compatibility" && <CompatibilityPlayground />}
   </div>;
 }
