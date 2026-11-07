@@ -51,7 +51,7 @@ export const designRegistry: Record<DesignId, DesignDefinition> = {
     name: "Playground",
     descriptor: "Elastic colour, organic energy",
     status: "in-development",
-    preview: ["#ffd6ec", "#634cff", "#7df0c2"],
+    preview: ["#fff7ea", "#242052", "#3d4bff"],
   },
 };
 
