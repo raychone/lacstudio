@@ -49,3 +49,8 @@
 
 - Extracted reusable motion and effects primitives with replay and reduced-motion behavior.
 - Added the Nocturne visual/interactions review-readiness record.
+
+## 2026-11-07 — Tactile compatibility Phase A
+
+- Added neutral cross-system layout tokens and the initial Compatibility playground.
+- Recorded the actual Tactile/Nocturne coverage comparison and Tactile expansion gaps.

@@ -28,6 +28,7 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Nocturne advanced interactions | tag input, multi-select, range, rating, reorder controls, wizard and comparison slider | In development | date/calendar, resizable panel and drag/touch QA |
 | Nocturne motion | fade, directional, stagger, scale, text-mask, spring and exit preview primitives with replay | Ready for review | scroll/parallax/shared-element orchestration and device QA |
 | Nocturne effects | spotlight, spectral haze, edge light, glass field and line reveal studies | Ready for review | visual performance, contrast and coarse-pointer QA |
+| Cross-system compatibility | neutral external layout tokens and a Tactile Lab fixture for content/viewport/motion comparison | In development | apply dimensional classes to component families during Tactile expansion |
 
 ## Existing reusable primitive library
 

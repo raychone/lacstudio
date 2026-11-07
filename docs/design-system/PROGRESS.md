@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Nocturne implementation complete — awaiting visual and interaction review.** Tactile remains Design 01 and is preserved. Nocturne has reusable modules across all implemented core families.
+**Tactile expansion / Phase A complete — audit and dimensional architecture.** Nocturne remains awaiting visual and interaction review; Tactile remains visually preserved while its functional expansion is planned.
 
 ## Completed
 
@@ -17,6 +17,7 @@
 - Reusable Nocturne cards, display primitives, sortable/paginated table and manual carousel variants: `7b8453c`.
 - Reusable Nocturne overlay foundation, dialog variants, command palette and advanced interaction controls: `eed18af`.
 - Reusable Nocturne motion and effects primitives with reduced-motion behavior: `2517bc3`.
+- Shared layout contract and initial Tactile/Nocturne compatibility playground: `e16dfb5`.
 
 ## Current coverage
 
@@ -28,7 +29,7 @@
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `2517bc38db272e20423685d6f2614dae356c732a`.
+Latest verified implementation commit: `e16dfb5536cbd3e7c314054ce5fb4d69142fd9c1`.
 
 ## Known issues / deferred checks
 
@@ -42,4 +43,4 @@ Latest verified implementation commit: `2517bc38db272e20423685d6f2614dae356c732a
 
 ## Exact next step
 
-Pause implementation for **NOCTURNE — VISUAL & INTERACTION REVIEW**. Use `NOCTURNE-REVIEW-READINESS.md` to guide the owner-led review; do not start Editorial before approval.
+Phase A comparison is documented in `TACTILE-NOCTURNE-COMPARISON.md`. Next, pending architecture review, is **Tactile Phase B — Disclosure and Feedback**. Do not begin it automatically in this Phase A checkpoint.
