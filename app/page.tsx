@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, type PointerEvent } from "react";
+import { DesignSwitcher } from "@/components/lab/design-switcher";
+import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 
 const sections = ["Color system", "Typography", "Buttons", "Motion", "Animations", "Effect studies"];
 
@@ -214,7 +216,8 @@ function LabPanel({ section, activeButton, setActiveButton, message, setMessage,
   </div>;
 }
 
-export default function Home() {
+function DesignLab() {
+  const { activeDesign } = useDesign();
   const [activeSection, setActiveSection] = useState("Buttons");
   const [activeButton, setActiveButton] = useState("01");
   const [openItem, setOpenItem] = useState("Why a lab first?");
@@ -245,7 +248,7 @@ export default function Home() {
   }, [activeSection, reducedMotion]);
 
   return (
-    <main className={reducedMotion ? `site neumorphic palette-${palette} reduce-motion` : `site neumorphic palette-${palette}`}>
+    <main data-design={activeDesign.id} className={reducedMotion ? `site neumorphic palette-${palette} reduce-motion` : `site neumorphic palette-${palette}`}>
       <div className="grain" aria-hidden="true" />
       <header className="topbar">
         <a className="brand" href="#top" aria-label="LAC Studio home">
@@ -274,8 +277,9 @@ export default function Home() {
       <section id="lab" className="lab-shell">
         <div className="lab-top">
           <div><p className="eyebrow">LAC / LAB</p><h2>Build the feeling<br />before the page.</h2></div>
-          <div className="lab-note">A growing shelf of interaction patterns: tested in public, refined for real projects.</div>
+          <div className="lab-note"><span>ACTIVE SYSTEM / {activeDesign.index} {activeDesign.name.toUpperCase()}</span>A growing shelf of interaction patterns: tested in public, refined for real projects.</div>
         </div>
+        <DesignSwitcher />
         <div className="lab-layout">
           <aside className="lab-nav" aria-label="Lab categories">
             <span className="nav-label">COMPONENTS</span>
@@ -318,4 +322,8 @@ export default function Home() {
       </section>
     </main>
   );
+}
+
+export default function Home() {
+  return <DesignProvider><DesignLab /></DesignProvider>;
 }

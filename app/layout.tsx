@@ -16,6 +16,7 @@ import "./animation-distinct.css";
 import "./spotlight-comet.css";
 import "./effect-studies.css";
 import "./effects-interaction.css";
+import "./multi-design-engine.css";
 
 export const metadata: Metadata = {
   title: "LAC. Studio — Design Lab",
