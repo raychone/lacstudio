@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Tactile expansion / Phase A complete — audit and dimensional architecture.** Nocturne remains awaiting visual and interaction review; Tactile remains visually preserved while its functional expansion is planned.
+**Tactile Phase B complete — Disclosure and Feedback.** Nocturne remains awaiting visual and interaction review; the approved Tactile baseline remains preserved while the two Phase B families are now available for owner review.
 
 ## Completed
 
@@ -18,23 +18,25 @@
 - Reusable Nocturne overlay foundation, dialog variants, command palette and advanced interaction controls: `eed18af`.
 - Reusable Nocturne motion and effects primitives with reduced-motion behavior: `2517bc3`.
 - Shared layout contract and initial Tactile/Nocturne compatibility playground: `e16dfb5`.
+- Tactile Disclosure library and interactive Lab study: `1243ccb`.
+- Tactile Feedback library and interactive Lab study: `73458db`.
 
 ## Current coverage
 
 | Design | State | Notes |
 | --- | --- | --- |
-| 01 Tactile | Baseline preserved | Existing palettes and Lab behavior retained. |
+| 01 Tactile | Phase B ready for review | Existing palettes and Lab behavior retained; Disclosure and Feedback now have independent material-style component modules. |
 | 02 Nocturne | In development | Separate Lab presentation; actions, forms, disclosure, feedback, data display, carousel, overlay and advanced-interaction modules; type, motion and effects studies. |
 | 03 Editorial | Registered | No visual recipe yet. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `e16dfb5536cbd3e7c314054ce5fb4d69142fd9c1`.
+Latest verified implementation commit: `73458db`.
 
 ## Known issues / deferred checks
 
 - Built preview is available at `http://127.0.0.1:4175`; visual approval remains owner work.
-- Browser keyboard, responsive and screen-reader QA remain deferred.
+- Browser keyboard, 320px/375px/768px responsive, reduced-motion and screen-reader QA remain deferred; lint and production build passed for Phase B.
 - Nocturne dialog has semantic dialog markup and dismissal controls, but focus trap / restoration is still deferred.
 - Copy uses the browser clipboard when available; fallback feedback is visual only.
 - Comprehensive responsive, assistive-technology and focus-management QA is deferred until the Nocturne library is complete.
@@ -43,4 +45,4 @@ Latest verified implementation commit: `e16dfb5536cbd3e7c314054ce5fb4d69142fd9c1
 
 ## Exact next step
 
-Phase A comparison is documented in `TACTILE-NOCTURNE-COMPARISON.md`. Next, pending architecture review, is **Tactile Phase B — Disclosure and Feedback**. Do not begin it automatically in this Phase A checkpoint.
+Phase B is documented in `TACTILE-NOCTURNE-COMPARISON.md`. Stop here for owner review; do not begin Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.

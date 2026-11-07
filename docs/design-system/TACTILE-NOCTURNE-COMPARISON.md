@@ -7,8 +7,8 @@ Audited against the implementation on 2026-11-07. “Lab-ready” means the comp
 | Foundations | Five live palettes, material/elevation tokens, type specimen | Midnight foundation, independent tokens and type study | Map existing outer dimensions to shared contract. |
 | Actions | Eight button experiments + state board | Reusable action variants, loading, toggle, split, copy and hold | Expand only missing behavior, retaining Tactile form. |
 | Forms | email, custom select, textarea, validation demo | Reusable input/select/password/textarea/check/switch | Add component-level reusable Tactile form modules. |
-| Disclosure | accordion demos; navigation and overlay demos | reusable accordion, tabs, collapsible, tooltip, popover, menu, context, hover, segmented, breadcrumb | **Missing breadth:** implement Phase B. |
-| Feedback | loading button/animation samples | toast, alert, badges, progress, spinner, skeleton, states, steps | **Missing breadth:** implement Phase B. |
+| Disclosure | reusable accordion (single/multiple), tabs, collapsible, tooltip, popover, dropdown, context menu, hover card, segmented control and breadcrumb | reusable accordion, tabs, collapsible, tooltip, popover, menu, context, hover, segmented, breadcrumb | Functional Phase B parity reached; retain Tactile's raised/recessed material states. |
+| Feedback | reusable toast, alert, badges, linear/circular progress, spinner, skeleton, result states and steps | toast, alert, badges, progress, spinner, skeleton, states, steps | Functional Phase B parity reached; validate live announcements and timing in a browser pass. |
 | Data display | four approved card studies and project carousel | reusable card structures, avatars, chips, timeline, sortable/paginated table | **Missing breadth:** implement Phase C. |
 | Carousels | autoplay project and approved carousel; pointer drag in experiment | four reusable manual variants with keys/swipe/boundaries | Add comparable manual variants in Phase C. |
 | Overlays | contained modal/drawer/command preview | reusable dialog foundation with focus trap, drawer/sheet/lightbox/command | Add semantic/focus-managed Tactile overlays in Phase D. |
@@ -24,5 +24,5 @@ Audited against the implementation on 2026-11-07. “Lab-ready” means the comp
 
 ## Maturity
 
-Tactile: **approved visual baseline, functional expansion pending.**  
+Tactile: **approved visual baseline, Disclosure and Feedback implementation ready for owner review.**
 Nocturne: **implementation complete, awaiting owner visual/interactions review.**

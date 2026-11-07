@@ -16,6 +16,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Entry animations | button, card, badge, hover lift, loading + replay | Experiment | motion intent and reduced-motion QA |
 | Visual effects | Spotlight pointer effect | Approved | touch fallback and contrast test |
 | Effect studies | aurora haze, glass lens, soft grid | Experiment | performance and legibility test |
+| Tactile disclosure | single/multiple accordion, arrow-key tabs, collapsible, tooltip, popover, dropdown, context menu, hover card, segmented control and breadcrumb | In development | browser keyboard, touch and narrow-width QA |
+| Tactile feedback | live toast, alerts, status badges, linear/circular progress, spinner, skeleton, empty/error/success states and steps | In development | announcement timing, contrast and responsive QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
 | Nocturne actions | primary, secondary, ghost, outline, luminous, destructive, icon, toggle, split, copy, hold and loading states | In development | visual review and assistive-technology QA |

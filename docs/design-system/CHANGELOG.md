@@ -54,3 +54,11 @@
 
 - Added neutral cross-system layout tokens and the initial Compatibility playground.
 - Recorded the actual Tactile/Nocturne coverage comparison and Tactile expansion gaps.
+
+## 2026-11-07 — Tactile Phase B / Disclosure & Feedback
+
+- Added an independent Tactile Disclosure library: accordion (single and multiple), arrow-key tabs, collapsible content, tooltip, popover, dropdown menu, context menu, hover card, segmented control and breadcrumb.
+- Added an independent Tactile Feedback library: accessible toast and alerts, status badges, linear/circular progress, spinner, skeletons, empty/error/success states and step indicators.
+- Added dedicated interactive Disclosure and Feedback sections to the Tactile Lab.
+- Preserved Tactile's warm raised and recessed surface language; Nocturne's visual implementation was not changed.
+- Verified with `npm run lint` and `npm run build`; browser-based responsive, keyboard and assistive-technology checks remain owner-review work.

@@ -2,8 +2,8 @@
 
 ## Current evidence
 
-- `npm run build`: passing as of the baseline audit.
-- `npm run lint`: currently blocked by two JSX apostrophe errors and two unused props in `app/page.tsx`.
+- `npm run build`: passed after Tactile Phase B implementation on 2026-11-07.
+- `npm run lint`: passed after Tactile Phase B implementation on 2026-11-07.
 - No automated tests are configured.
 
 ## Lightweight quality gate for each component family
