@@ -44,6 +44,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Brutalist advanced interactions | tag input, custom multi-select, range, rating, reorder, wizard and structural comparison slider | In development | expanded list, keyboard and touch QA |
 | Brutalist motion | fade, directional reveal, stagger, scale, text mask, settle, exit and replay; stamp, grid, signal and exit studies | In development | reduced-motion, replay timing and touch QA |
 | Brutalist effects | signal inversion, grid reveal, edge tracking, industrial scan, offset mechanics and typographic interference | In development | pointer/touch fallback, contrast and performance QA |
+| Playground foundations | warm canvas, indigo ink, electric blue, acid lime, coral and lavender roles; color, shape, composition and interactive color studies | In development | owner visual review and contrast QA |
+| Playground typography | shared type fixture plus expressive poster, numbering, labels, type/shape and responsive-scale studies | In development | responsive type and reading-measure QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |

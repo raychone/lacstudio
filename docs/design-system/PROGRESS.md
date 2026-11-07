@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Brutalist Phase 4 complete — Motion and Effects.** Design 04 now has all 12/12 categories implemented while retaining its independent structural visual language.
+**Playground Phase 0 + 1 complete — art direction, foundations and typography.** Design 05 is selectable in the shared workspace with two implemented categories and its own expressive visual language.
 
 ## Completed
 
@@ -32,6 +32,7 @@
 - Brutalist actions, forms, disclosure and feedback: `acd9011`.
 - Brutalist data display, carousels, overlays and advanced controls: `7ee2107`.
 - Brutalist motion and effects: `d67121f`.
+- Playground architecture, Foundations, Typography and intentional development states: `df7efff`.
 
 ## Current coverage
 
@@ -41,9 +42,9 @@
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
 | 03 Editorial | 12/12 implemented — pending final visual and responsive QA | All shared categories and Editorial signature studies are implemented; no production certification yet. |
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
-| 05 Playground | Registered | No visual recipe yet. |
+| 05 Playground | 2/12 implemented — pending visual QA | Foundations and Typography are implemented; ten category positions intentionally remain under construction. |
 
-Latest verified implementation commit: `d67121f`.
+Latest verified implementation commit: `df7efff`.
 
 ## Known issues / deferred checks
 
@@ -61,4 +62,4 @@ Latest verified implementation commit: `d67121f`.
 
 ## Exact next step
 
-Brutalist is implemented. Stop here for final visual and responsive owner QA; do not begin Playground, the portfolio or package extraction automatically.
+Playground direction is documented in `PLAYGROUND-DIRECTION.md`. Stop here for owner review; do not begin Playground Actions or later categories, the portfolio or package extraction automatically.

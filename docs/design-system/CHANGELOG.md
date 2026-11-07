@@ -145,3 +145,10 @@
 - Added replayable mechanical motion primitives plus stamp, grid assembly, signal sequence and exit/replay studies.
 - Added CSS-first signal inversion, grid reveal, edge tracking, controlled scan, offset and typographic-interference studies without particle loops or glow.
 - Extended the final polish checklist for custom option lists, overlays, touch/swipe, responsive geometry, contrast and reduced motion.
+
+## 2026-11-08 — Playground Phase 0 + 1
+
+- Activated Design 05 Playground in the shared Lab without changing the shared workspace or Split View.
+- Added independent expressive tokens, organic geometry and Foundations/ Typography shared fixtures.
+- Added Color Playground, Shape Grammar, Composition Playground, interactive colour study, expressive poster, numbering, labels, type/shape and responsive-type studies.
+- Added deliberate under-construction states for the ten categories outside this phase.
