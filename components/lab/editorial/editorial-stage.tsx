@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type * as React from "react";
 import { useDesign } from "@/design-system/engine/provider";
+import { EditorialAdvanced, EditorialCarousels, EditorialDataDisplay, EditorialOverlays } from "./editorial-phase-three";
 
 function EditorialFoundations() {
   return <div className="editorial-signature editorial-foundations" data-component-id="foundation.palette"><div className="editorial-kicker">FOUNDATIONS / PAPER STUDIES</div><div className="editorial-paper-grid"><article><span>01 / CANVAS</span><strong>Paper holds<br />the pause.</strong><i>#F2EEE4</i></article><article><span>02 / INK</span><strong>Contrast<br />gives order.</strong><i>#1D1B18</i></article><article><span>03 / ACCENT</span><strong>One red<br />decision.</strong><i>#9D3C2F</i></article></div><div className="editorial-rule-study"><span>VOL. 03 — MATERIAL LANGUAGE</span><b>Whitespace,<br /><em>measured.</em></b><p>Paper tone, precise rules and a single accent create hierarchy without simulated depth.</p><i>72 / 24 / 12</i></div></div>;
@@ -42,5 +43,5 @@ function EditorialPlanned() {
 
 export function EditorialWorkspaceStage() {
   const { activeCategory } = useDesign();
-  return <div className="editorial-workspace-stage">{activeCategory === "foundations" ? <EditorialFoundations /> : activeCategory === "typography" ? <EditorialTypography /> : activeCategory === "actions" ? <EditorialActions /> : activeCategory === "forms" ? <EditorialForms /> : activeCategory === "disclosure" ? <EditorialDisclosure /> : activeCategory === "feedback" ? <EditorialFeedback /> : <EditorialPlanned />}</div>;
+  return <div className="editorial-workspace-stage">{activeCategory === "foundations" ? <EditorialFoundations /> : activeCategory === "typography" ? <EditorialTypography /> : activeCategory === "actions" ? <EditorialActions /> : activeCategory === "forms" ? <EditorialForms /> : activeCategory === "disclosure" ? <EditorialDisclosure /> : activeCategory === "feedback" ? <EditorialFeedback /> : activeCategory === "data-display" ? <EditorialDataDisplay /> : activeCategory === "carousels" ? <EditorialCarousels /> : activeCategory === "overlays" ? <EditorialOverlays /> : activeCategory === "advanced" ? <EditorialAdvanced /> : <EditorialPlanned />}</div>;
 }
