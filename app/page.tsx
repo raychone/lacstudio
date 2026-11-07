@@ -317,12 +317,19 @@ function FutureWorkspaceStage() {
 function DesignLab() {
   const { activeDesign, activeCategory, setActiveCategory, activeComponent, setActiveComponent, reducedMotion, setReducedMotion } = useDesign();
   const stageRef = useRef<HTMLElement>(null);
+  const previousDesignRef = useRef(activeDesign.id);
   const category = libraryCategories.find((item) => item.id === activeCategory) ?? libraryCategories[0];
   const showcase = showcaseFor(activeCategory);
   useEffect(() => {
+    const didSwitchDesign = previousDesignRef.current !== activeDesign.id;
+    previousDesignRef.current = activeDesign.id;
+    if (!didSwitchDesign) return;
     const frame = window.requestAnimationFrame(() => {
       const anchor = stageRef.current?.querySelector<HTMLElement>(`[data-component-id="${activeComponent}"]`);
-      anchor?.scrollIntoView({ block: "nearest", behavior: "auto" });
+      if (!anchor) return;
+      const rect = anchor.getBoundingClientRect();
+      const fullyVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+      if (!fullyVisible) anchor.scrollIntoView({ block: "nearest", behavior: "auto" });
     });
     return () => window.cancelAnimationFrame(frame);
   }, [activeDesign.id, activeComponent]);
