@@ -56,3 +56,39 @@
 .tactile-study-gallery button:focus-visible,.tactile-feedback-study button:focus-visible,.tactile-study-gallery [tabindex="0"]:focus-visible { outline:2px solid var(--neo-accent); outline-offset:3px; }
 @media (max-width:720px) { .tactile-study-gallery { grid-template-columns:1fr; } .tactile-study-gallery > article { padding:18px; } }
 @media (prefers-reduced-motion:reduce) { .tactile-study-gallery *, .tactile-feedback-study * { transition-duration:1ms !important; animation-duration:1ms !important; } }
+
+/* Tactile feedback: calm status signals with a physical surface instead of flat colour chips. */
+.tactile-toast-region { min-height:0; position:relative; z-index:8; }
+.tactile-toast { width:min(100%,430px); margin:0 0 18px auto; min-height:var(--layout-target-min); display:flex; align-items:center; gap:10px; padding:8px 10px 8px 12px; border-radius:15px; background:var(--neo-base); box-shadow:8px 8px 17px var(--neo-dark),-7px -7px 17px var(--neo-light); color:var(--neo-ink); font-size:12px; font-weight:700; }
+.tactile-toast > i,.tactile-alert > i,.tactile-state > i { width:28px; height:28px; flex:0 0 28px; display:grid; place-items:center; border-radius:50%; background:var(--neo-base); box-shadow:inset 3px 3px 6px var(--neo-dark),inset -3px -3px 6px var(--neo-light); color:var(--neo-accent); font-style:normal; font-weight:900; }
+.tactile-toast.error > i,.tactile-alert.error > i,.tactile-state.error > i { color:#9c4f45; }
+.tactile-toast.warning > i,.tactile-alert.warning > i { color:#96762b; }
+.tactile-toast button { width:30px; height:30px; margin-left:auto; border:0; border-radius:9px; color:var(--neo-ink); background:transparent; font-size:19px; cursor:pointer; }
+.tactile-feedback-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--layout-grid-gap); }
+.tactile-feedback-grid > article { display:flex; flex-direction:column; }
+.tactile-toast-triggers,.tactile-badge-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+.tactile-toast-triggers button,.tactile-progress-row button,.tactile-state-action { min-height:var(--layout-control-sm); padding:0 11px; border:0; border-radius:10px; color:var(--neo-ink); background:var(--neo-base); box-shadow:4px 4px 8px var(--neo-dark),-4px -4px 8px var(--neo-light); font:800 10px/1 var(--font-sans); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; }
+.tactile-toast-triggers button:active,.tactile-progress-row button:active,.tactile-state-action:active { box-shadow:inset 3px 3px 6px var(--neo-dark),inset -3px -3px 6px var(--neo-light); }
+.tactile-alert { display:flex; align-items:flex-start; gap:10px; padding:14px; border-radius:15px; background:var(--neo-base); box-shadow:var(--shadow-recessed); }
+.tactile-alert > div { min-width:0; }
+.tactile-alert b { display:block; margin:2px 0 4px; font-size:13px; }
+.tactile-alert p { margin:0; font-size:12px; line-height:1.45; opacity:.75; }
+.tactile-badge { display:inline-flex; align-items:center; min-height:28px; padding:0 10px; border-radius:999px; background:var(--neo-base); box-shadow:inset 3px 3px 6px var(--neo-dark),inset -3px -3px 6px var(--neo-light); color:var(--neo-accent); font-size:10px; font-weight:900; letter-spacing:.08em; }
+.tactile-badge.warning { color:#96762b; }.tactile-badge.error { color:#9c4f45; }
+.tactile-progress { height:12px; padding:3px; border-radius:999px; background:var(--neo-base); box-shadow:var(--shadow-recessed); overflow:hidden; }
+.tactile-progress > i { display:block; height:100%; width:0; border-radius:inherit; background:var(--neo-accent); box-shadow:1px 1px 3px color-mix(in srgb,var(--neo-accent) 55%,transparent); transition:width var(--duration-slow) var(--ease-emphasized); }
+.tactile-progress.indeterminate > i { width:36%; animation:tactile-progress 1.35s var(--ease-standard) infinite alternate; }
+.tactile-progress-row { display:flex; align-items:center; gap:16px; margin-top:17px; }
+.tactile-progress-row > div:last-child { flex:1; display:grid; gap:12px; }
+.tactile-circular-progress { --progress:0deg; width:68px; aspect-ratio:1; flex:0 0 68px; display:grid; place-items:center; border-radius:50%; background:conic-gradient(var(--neo-accent) var(--progress),transparent 0); box-shadow:5px 5px 10px var(--neo-dark),-5px -5px 10px var(--neo-light); }
+.tactile-circular-progress::before { content:""; position:absolute; width:53px; aspect-ratio:1; border-radius:50%; background:var(--neo-base); box-shadow:inset 3px 3px 6px var(--neo-dark),inset -3px -3px 6px var(--neo-light); }
+.tactile-circular-progress { position:relative; }.tactile-circular-progress span { position:relative; z-index:1; font-size:11px; font-weight:900; }
+.tactile-loading-row { display:flex; align-items:center; gap:12px; margin:0 0 20px; font-size:11px; letter-spacing:.06em; }
+.tactile-spinner { width:32px; height:32px; border:4px solid color-mix(in srgb,var(--neo-accent) 25%,transparent); border-top-color:var(--neo-accent); border-radius:50%; animation:tactile-spin .8s linear infinite; }
+.tactile-skeleton { display:grid; gap:10px; }.tactile-skeleton i { display:block; height:12px; border-radius:999px; background:var(--neo-base); box-shadow:var(--shadow-recessed); overflow:hidden; }.tactile-skeleton i:nth-child(2) { width:78%; }.tactile-skeleton i:nth-child(3) { width:56%; }.tactile-skeleton i::after { content:""; display:block; width:42%; height:100%; border-radius:inherit; background:color-mix(in srgb,var(--neo-light) 84%,transparent); animation:tactile-shimmer 1.6s ease-in-out infinite; }
+.tactile-result-row { display:grid; grid-template-columns:repeat(3,minmax(130px,1fr)); gap:10px; overflow:auto; padding:1px; }
+.tactile-state { min-width:130px; min-height:175px; display:flex; flex-direction:column; align-items:flex-start; padding:14px; border-radius:15px; background:var(--neo-base); box-shadow:var(--shadow-recessed); }
+.tactile-state > i { margin-bottom:13px; }.tactile-state b { font-size:12px; }.tactile-state p { margin:7px 0 0; font-size:11px; line-height:1.42; opacity:.73; }.tactile-state-action { margin-top:auto; }
+.tactile-steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin:0; padding:0; list-style:none; }.tactile-steps li { min-width:0; display:grid; justify-items:center; gap:8px; text-align:center; color:var(--neo-ink); font-size:10px; font-weight:700; opacity:.45; }.tactile-steps li i { width:30px; height:30px; display:grid; place-items:center; border-radius:50%; background:var(--neo-base); box-shadow:4px 4px 8px var(--neo-dark),-4px -4px 8px var(--neo-light); color:var(--neo-ink); font-style:normal; font-size:10px; }.tactile-steps li.done,.tactile-steps li.current { opacity:1; }.tactile-steps li.done i { color:var(--neo-accent); box-shadow:inset 3px 3px 6px var(--neo-dark),inset -3px -3px 6px var(--neo-light); }.tactile-steps li.current i { color:var(--neo-accent); }
+@keyframes tactile-spin { to { transform:rotate(360deg); } } @keyframes tactile-progress { from { transform:translateX(-80%); } to { transform:translateX(210%); } } @keyframes tactile-shimmer { 0%,100% { transform:translateX(-120%); } 50% { transform:translateX(270%); } }
+@media (max-width:720px) { .tactile-feedback-grid { grid-template-columns:1fr; } .tactile-feedback-grid > article { padding:18px; } .tactile-result-row { grid-template-columns:repeat(3,minmax(150px,1fr)); } }
