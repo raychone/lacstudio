@@ -34,6 +34,10 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Editorial effects | ink spread, rule reveal, paper texture, typographic direction, image frame and composition shift studies | In development | pointer/touch fallback, contrast and performance QA |
 | Brutalist foundations | industrial off-white, utility, near-black and safety-orange semantic roles; contrast, structural-grid, modular-geometry and signal-hierarchy studies | In development | owner visual review and contrast QA |
 | Brutalist typography | shared type fixture plus monumental poster, index, industrial labels, dense hierarchy and responsive-scale studies | In development | responsive type and reading-measure QA |
+| Brutalist actions | primary/secondary/outline/ghost/destructive/icon/loading/disabled, sizes, toggle, split, copy and hold-to-confirm controls | In development | hold timing, keyboard and reduced-motion QA |
+| Brutalist forms | text/email/password/textarea, custom option list, radio, checkbox, switch, validation and disabled states | In development | expanded option-list keyboard, touch and screen-reader QA |
+| Brutalist disclosure | multi-accordion, keyboard tabs, collapsible, tooltip, popover, dropdown, context menu, segmented control and breadcrumb | In development | full focus and context-menu QA |
+| Brutalist feedback | toast, alert, badges, linear/circular progress, spinner, skeleton, empty/error/success states and steps | In development | announcement timing, contrast and responsive QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |

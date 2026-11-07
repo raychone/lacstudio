@@ -126,3 +126,9 @@
 - Added independent industrial tokens, hard-edge workspace treatment, safety-orange signal accent, Foundations and Typography common fixtures.
 - Added structural colour, grid, module and hierarchy studies plus monumental poster, indexing, label, dense-information and responsive-type experiments.
 - Added deliberate under-construction states for the ten categories outside this phase.
+
+## 2026-11-07 — Brutalist Phase 2
+
+- Added functional Brutalist Actions, Forms, Disclosure and Feedback categories.
+- Added numbered command actions, mechanical hold-to-confirm, an industrial configuration form with custom option list, structural disclosure panels and instrumentation-style feedback.
+- Kept shared fixtures and outer geometry intact; Data Display through Effects remain intentionally pending.

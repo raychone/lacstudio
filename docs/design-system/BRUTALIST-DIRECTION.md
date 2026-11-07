@@ -50,8 +50,10 @@ Shared breakpoints and external preview dimensions are retained. Internal grids 
 
 ## Phase status
 
-Implemented: Foundations and Typography, including shared comparison fixtures and original structural studies.
+Implemented: Foundations, Typography, Actions, Forms, Disclosure and Feedback, including shared comparison fixtures and original structural studies.
 
-Pending: Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects. Each retains its shared Lab location through an explicit Brutalist under-construction state.
+Actions use mechanical inversion, directional fills, hard press offsets and numbered commands. Forms use two-pixel field borders, status labels and a custom industrial option list. Disclosure uses structural panels, numbered conditions and inverted active states. Feedback behaves as instrumentation: signal blocks, explicit status labels and strong progress markers.
 
-Brutalist is **2/12 categories implemented, pending visual and responsive QA**. It is not production-ready.
+Pending: Data Display, Carousels, Overlays, Advanced, Motion and Effects. Each retains its shared Lab location through an explicit Brutalist under-construction state.
+
+Brutalist is **6/12 categories implemented, pending visual and responsive QA**. It is not production-ready.

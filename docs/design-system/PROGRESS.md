@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Brutalist Phase 0 + 1 complete — art direction, foundations and typography.** Design 04 is selectable in the shared workspace with two implemented categories and an independent structural visual language.
+**Brutalist Phase 2 complete — actions, forms, disclosure and feedback.** Design 04 now has six implemented categories while retaining its independent structural visual language.
 
 ## Completed
 
@@ -29,6 +29,7 @@
 - Editorial data display, carousels, overlays and advanced controls: `ba6655a`.
 - Editorial motion and effects: `2fd0bcf`.
 - Brutalist architecture, Foundations, Typography and intentional development states: `9130f17`.
+- Brutalist actions, forms, disclosure and feedback: `acd9011`.
 
 ## Current coverage
 
@@ -37,10 +38,10 @@
 | 01 Tactile | B.7B ready for review | Shared comparison fixtures precede preserved material signature studies across all twelve categories. |
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
 | 03 Editorial | 12/12 implemented — pending final visual and responsive QA | All shared categories and Editorial signature studies are implemented; no production certification yet. |
-| 04 Brutalist | 2/12 implemented — pending visual QA | Foundations and Typography are implemented; ten category positions intentionally remain under construction. |
+| 04 Brutalist | 6/12 implemented — pending visual QA | Foundations through Feedback are implemented; six category positions intentionally remain under construction. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `9130f17`.
+Latest verified implementation commit: `acd9011`.
 
 ## Known issues / deferred checks
 
@@ -51,8 +52,9 @@ Latest verified implementation commit: `9130f17`.
 - Comprehensive responsive, assistive-technology and focus-management QA is deferred until the Nocturne library is complete.
 - Overlay focus trap and trigger-focus restoration are implemented; full screen-reader and mobile QA remains deferred.
 - Final Editorial polish must inspect custom select, dropdown, multi-select and autocomplete option menus in expanded state; native browser-default visual menus are not an approved end state.
+- Brutalist custom project-type option list needs manual keyboard, touch and screen-reader verification in its expanded state.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Brutalist direction is documented in `BRUTALIST-DIRECTION.md`. Stop here for owner review; do not begin Brutalist Actions or later categories, Playground, the portfolio or package extraction automatically.
+Brutalist direction is documented in `BRUTALIST-DIRECTION.md`. Stop here for owner review; do not begin Brutalist Data Display or later categories, Playground, the portfolio or package extraction automatically.
