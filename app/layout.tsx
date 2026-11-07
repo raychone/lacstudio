@@ -17,6 +17,7 @@ import "./spotlight-comet.css";
 import "./effect-studies.css";
 import "./effects-interaction.css";
 import "./multi-design-engine.css";
+import "../components/lab/nocturne/nocturne-lab.css";
 
 export const metadata: Metadata = {
   title: "LAC. Studio — Design Lab",

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type PointerEvent } from "react";
 import { DesignSwitcher } from "@/components/lab/design-switcher";
+import { NocturneLab } from "@/components/lab/nocturne/nocturne-lab";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 
 const sections = ["Color system", "Typography", "Buttons", "Motion", "Animations", "Effect studies"];
@@ -216,8 +217,7 @@ function LabPanel({ section, activeButton, setActiveButton, message, setMessage,
   </div>;
 }
 
-function DesignLab() {
-  const { activeDesign } = useDesign();
+function TactileLab() {
   const [activeSection, setActiveSection] = useState("Buttons");
   const [activeButton, setActiveButton] = useState("01");
   const [openItem, setOpenItem] = useState("Why a lab first?");
@@ -248,7 +248,7 @@ function DesignLab() {
   }, [activeSection, reducedMotion]);
 
   return (
-    <main data-design={activeDesign.id} className={reducedMotion ? `site neumorphic palette-${palette} reduce-motion` : `site neumorphic palette-${palette}`}>
+    <main data-design="tactile" className={reducedMotion ? `site neumorphic palette-${palette} reduce-motion` : `site neumorphic palette-${palette}`}>
       <div className="grain" aria-hidden="true" />
       <header className="topbar">
         <a className="brand" href="#top" aria-label="LAC Studio home">
@@ -277,7 +277,7 @@ function DesignLab() {
       <section id="lab" className="lab-shell">
         <div className="lab-top">
           <div><p className="eyebrow">LAC / LAB</p><h2>Build the feeling<br />before the page.</h2></div>
-          <div className="lab-note"><span>ACTIVE SYSTEM / {activeDesign.index} {activeDesign.name.toUpperCase()}</span>A growing shelf of interaction patterns: tested in public, refined for real projects.</div>
+          <div className="lab-note"><span>ACTIVE SYSTEM / 01 TACTILE</span>A growing shelf of interaction patterns: tested in public, refined for real projects.</div>
         </div>
         <DesignSwitcher />
         <div className="lab-layout">
@@ -322,6 +322,11 @@ function DesignLab() {
       </section>
     </main>
   );
+}
+
+function DesignLab() {
+  const { activeDesign } = useDesign();
+  return activeDesign.id === "nocturne" ? <NocturneLab /> : <TactileLab />;
 }
 
 export default function Home() {
