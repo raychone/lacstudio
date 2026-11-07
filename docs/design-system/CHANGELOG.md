@@ -11,3 +11,10 @@
 
 - Introduced semantic foundation tokens while retaining the existing `--neo-*` aliases.
 - Kept all five existing palettes and their computed values unchanged.
+
+## 2026-11-07 — Multi-design engine / Nocturne start
+
+- Added the typed five-design registry and safe client-side active-design persistence.
+- Added the global Design Lab selector with Tactile, Nocturne, Editorial, Brutalist and Playground.
+- Registered the existing Lab as Tactile and introduced Nocturne's first independent presentation layer.
+- Nocturne is intentionally marked in development; its components have not received visual approval yet.

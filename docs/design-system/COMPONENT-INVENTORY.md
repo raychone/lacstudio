@@ -16,6 +16,7 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Entry animations | button, card, badge, hover lift, loading + replay | Experiment | motion intent and reduced-motion QA |
 | Visual effects | Spotlight pointer effect | Approved | touch fallback and contrast test |
 | Effect studies | aurora haze, glass lens, soft grid | Experiment | performance and legibility test |
+| Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 
 ## Existing reusable primitive library
 
