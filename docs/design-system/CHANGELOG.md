@@ -18,3 +18,9 @@
 - Added the global Design Lab selector with Tactile, Nocturne, Editorial, Brutalist and Playground.
 - Registered the existing Lab as Tactile and introduced Nocturne's first independent presentation layer.
 - Nocturne is intentionally marked in development; its components have not received visual approval yet.
+
+## 2026-11-07 — Nocturne architecture correction
+
+- Replaced the Nocturne CSS override approach with an independent component tree and design-specific stylesheet.
+- Added distinct Nocturne component studies for typography, actions, motion, effects, cards, inputs, accordions and dialogs.
+- Kept Tactile's existing component tree and presentation intact.

@@ -17,6 +17,7 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Visual effects | Spotlight pointer effect | Approved | touch fallback and contrast test |
 | Effect studies | aurora haze, glass lens, soft grid | Experiment | performance and legibility test |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
+| Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
 
 ## Existing reusable primitive library
 

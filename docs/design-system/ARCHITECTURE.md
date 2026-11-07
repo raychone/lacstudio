@@ -34,7 +34,9 @@ docs/design-system/                # decision records and QA notes
 
 ## Implemented engine slice
 
-`design-system/engine/registry.ts` is the typed registry for Tactile, Nocturne, Editorial, Brutalist and Playground. `design-system/engine/provider.tsx` owns the client-only active-design preference and guards invalid local values. `components/lab/design-switcher.tsx` is the accessible global selector. The current first design-specific presentation layer is `app/multi-design-engine.css`; Tactile retains its existing CSS while Nocturne uses a scoped `[data-design="nocturne"]` layer.
+`design-system/engine/registry.ts` is the typed registry for Tactile, Nocturne, Editorial, Brutalist and Playground. `design-system/engine/provider.tsx` owns the client-only active-design preference and guards invalid local values. `components/lab/design-switcher.tsx` is the accessible global selector.
+
+Tactile retains its existing page/component tree. `components/lab/nocturne/nocturne-lab.tsx` is a separate Nocturne presentation tree; it owns its own study navigation and representative component markup. `components/lab/nocturne/nocturne-lab.css` owns the corresponding visual recipes. `app/multi-design-engine.css` now contains shared selector chrome only. This boundary prevents Tactile's neumorphic markup and `--neo-*` assumptions from becoming Nocturne's implementation.
 
 ## Constraints
 

@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase 2 — Shared multi-design engine.** Tactile remains Design 01 and is preserved. Design 02, Nocturne, has its first presentation batch; Editorial, Brutalist and Playground are registered but not implemented.
+**Phase 2 — Shared multi-design engine, architecture correction.** Tactile remains Design 01 and is preserved. Nocturne now mounts an independent component laboratory rather than inheriting the Tactile component tree.
 
 ## Completed
 
@@ -11,23 +11,27 @@
 - Clean lint baseline: `ccd2df3`.
 - Semantic foundation tokens with `--neo-*` compatibility: `516b803`.
 - Typed five-design registry, client provider, guarded local preference persistence, global design selector and Nocturne presentation layer: `f38473c`.
+- Independent Nocturne component tree, typography, action, card, input, accordion, overlay, effects and motion studies: `bf519c3`.
 
 ## Current coverage
 
 | Design | State | Notes |
 | --- | --- | --- |
 | 01 Tactile | Baseline preserved | Existing palettes and Lab behavior retained. |
-| 02 Nocturne | In development | Cinematic surfaces and first batch for actions, cards, inputs, overlays and Lab containers. |
+| 02 Nocturne | In development | Separate Lab presentation and representative component recipes: actions, cards, fields, accordion, dialog, type, motion and effects. |
 | 03 Editorial | Registered | No visual recipe yet. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
+Latest verified implementation commit: `bf519c35be2190daab45bb71b522009975ef464b`.
+
 ## Known issues / deferred checks
 
-- Local dev record names port 5173 but the endpoint did not respond; do not treat it as a successful runtime review.
-- Browser visual, keyboard, responsive and screen-reader QA remain deferred.
+- Built preview is available at `http://127.0.0.1:4175`; visual approval remains owner work.
+- Browser keyboard, responsive and screen-reader QA remain deferred.
+- Nocturne dialog has semantic dialog markup and dismissal controls, but focus trap / restoration is still deferred.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Visually review Tactile versus Nocturne in a working local browser, then refine Nocturne component recipes and its motion/effects without expanding into portfolio layouts.
+Review Tactile versus Nocturne at the local preview. If approved, finish Nocturne's missing component recipes and accessibility behavior before beginning Editorial.
