@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { DesignSwitcher } from "@/components/lab/design-switcher";
+import { NocturneButton, NocturneCopyButton, NocturneHoldButton, NocturneIconButton, NocturneSplitButton, NocturneToggle } from "@/design-system/designs/nocturne/components/actions";
+import { NocturneCheck, NocturneField, NocturneInput, NocturneSelect, NocturneSwitch, NocturneTextarea } from "@/design-system/designs/nocturne/components/forms";
 
-const studies = ["Foundations", "Typography", "Actions", "Motion", "Effects"] as const;
+const studies = ["Foundations", "Typography", "Actions", "Forms", "Motion", "Effects"] as const;
 type Study = (typeof studies)[number];
 
 function NocturneFoundations() {
@@ -25,18 +27,37 @@ function NocturneTypography() {
 }
 
 function NocturneActions() {
-  const [mode, setMode] = useState<"still" | "signal" | "sweep">("still");
-  const [feedback, setFeedback] = useState("Awaiting a signal.");
-  return <div className="nocturne-actions-study">
+  const [loading, setLoading] = useState(false);
+  const [pressed, setPressed] = useState(false);
+  const [feedback, setFeedback] = useState("Choose an action to inspect its signal.");
+  const transmit = () => { setLoading(true); setFeedback("Transmission in progress."); window.setTimeout(() => { setLoading(false); setFeedback("Transmission complete. The button returns to its resting light state."); }, 900); };
+  return <div className="nocturne-actions-study nocturne-actions-library">
     <div className="nocturne-action-orbit" aria-hidden="true"><i /><i /><i /></div>
-    <div className="nocturne-action-copy"><span>INTERACTION / 01</span><strong>A response,<br />not a bounce.</strong><p>Hover pulls a thin edge of light across the action; press settles the surface into the scene.</p></div>
-    <button className={`nocturne-primary-action ${mode}`} onClick={() => { setMode(mode === "signal" ? "sweep" : "signal"); setFeedback("Signal received. The action changes state without borrowing Tactile’s elevation."); }}>
-      <span>INITIATE SEQUENCE</span><b>↗</b>
-    </button>
-    <div className="nocturne-action-controls" aria-label="Nocturne action variations">
-      {(["still", "signal", "sweep"] as const).map((item) => <button key={item} className={mode === item ? "active" : ""} onClick={() => setMode(item)}>{item}</button>)}
+    <div className="nocturne-action-copy"><span>ACTIONS / CORE RECIPES</span><strong>Light follows<br />intent.</strong><p>Every variant has a distinct job: signal, supporting action, quiet utility, caution, or irreversible confirmation.</p></div>
+    <div className="nocturne-action-grid">
+      <NocturneButton loading={loading} onClick={transmit} icon="↗">TRANSMIT</NocturneButton><NocturneButton variant="secondary" onClick={() => setFeedback("Secondary action selected.")} icon="→">SECONDARY</NocturneButton><NocturneButton variant="ghost" onClick={() => setFeedback("Ghost action selected.")}>GHOST ACTION</NocturneButton><NocturneButton variant="outline" onClick={() => setFeedback("Outline action selected.")}>OUTLINE</NocturneButton><NocturneButton variant="luminous" onClick={() => setFeedback("Luminous edge activated.")}>LUMINOUS EDGE</NocturneButton><NocturneButton variant="destructive" onClick={() => setFeedback("Destructive action requires a separate confirmation flow.")}>DESTRUCTIVE</NocturneButton><NocturneIconButton label="Open signal map" onClick={() => setFeedback("Icon action selected.")}>⌁</NocturneIconButton><NocturneToggle pressed={pressed} onPressedChange={setPressed}>ORBIT MODE</NocturneToggle><NocturneSplitButton onPrimary={() => setFeedback("Primary channel opened.")} /><NocturneCopyButton value="--nocturne-signal: #b8aeff" /><NocturneHoldButton onConfirm={() => setFeedback("Hold confirmed. A deliberate action completed.")} /><NocturneButton disabled>DISABLED</NocturneButton>
     </div>
     <p className="nocturne-live" aria-live="polite">{feedback}</p>
+  </div>;
+}
+
+function NocturneForms() {
+  const [email, setEmail] = useState("");
+  const [note, setNote] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [remember, setRemember] = useState(false);
+  const [notifications, setNotifications] = useState(true);
+  const validEmail = /^\S+@\S+\.\S+$/.test(email);
+  return <div className="nocturne-forms-study">
+    <div className="nocturne-form-intro"><span>FORMS / SIGNAL FIELDS</span><strong>Clarity, held<br />in a quiet line.</strong><p>Labels remain visible, validation is explicit and the focus state illuminates only the active field.</p></div>
+    <form className="nocturne-form-grid" onSubmit={(event) => event.preventDefault()}>
+      <NocturneField label="CONTACT ADDRESS" status={email && !validEmail ? "error" : validEmail ? "success" : "default"} hint={email ? validEmail ? "Signal address verified" : "Enter a valid email address" : "We only use this to answer your brief."}><NocturneInput type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@studio.com" /></NocturneField>
+      <NocturneField label="CHANNEL TYPE"><NocturneSelect defaultValue="identity"><option value="identity">Identity system</option><option value="product">Digital product</option><option value="experience">Interactive experience</option></NocturneSelect></NocturneField>
+      <NocturneField label="PRIVATE KEY"><span className="nocturne-password-row"><NocturneInput type={passwordVisible ? "text" : "password"} placeholder="••••••••" /><button type="button" onClick={() => setPasswordVisible(!passwordVisible)}>{passwordVisible ? "HIDE" : "SHOW"}</button></span></NocturneField>
+      <NocturneField label="SHORT TRANSMISSION"><NocturneTextarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="Tell us the shape of the work…" maxLength={180} /><small>{note.length}/180</small></NocturneField>
+      <div className="nocturne-form-options"><NocturneCheck checked={remember} onChange={setRemember}>Remember this device</NocturneCheck><NocturneSwitch checked={notifications} onChange={setNotifications} label="Signal updates" /></div>
+      <div className="nocturne-form-submit"><NocturneButton type="submit" icon="↗">SEND TRANSMISSION</NocturneButton><NocturneButton type="button" variant="ghost" disabled>UNAVAILABLE</NocturneButton></div>
+    </form>
   </div>;
 }
 
@@ -76,6 +97,7 @@ function NocturnePanel({ study, reduced }: { study: Study; reduced: boolean }) {
   if (study === "Foundations") return <NocturneFoundations />;
   if (study === "Typography") return <NocturneTypography />;
   if (study === "Actions") return <NocturneActions />;
+  if (study === "Forms") return <NocturneForms />;
   if (study === "Motion") return <NocturneMotion reduced={reduced} />;
   return <NocturneEffects />;
 }
@@ -88,7 +110,7 @@ export function NocturneLab() {
     <header className="nocturne-masthead"><a href="#nocturne-top" aria-label="Nocturne Design Lab home"><b>LAC.</b><span>NOCTURNE / 02</span></a><span>COMPONENT CINEMA</span><button onClick={() => setReduced(!reduced)} aria-pressed={reduced}>{reduced ? "MOTION / OFF" : "MOTION / ON"}<i /></button></header>
     <section className="nocturne-intro"><p>DESIGN SYSTEM 02 / IN DEVELOPMENT</p><h1>Every surface<br />has an <em>afterglow.</em></h1><div><span>NOCTURNE</span><p>A separate component language for scenes that need depth, restraint and a trace of light.</p></div></section>
     <section className="nocturne-engine"><DesignSwitcher /></section>
-    <section className="nocturne-explorer" aria-labelledby="nocturne-explorer-title"><aside><span>STUDIES</span>{studies.map((item, index) => <button key={item} className={study === item ? "active" : ""} onClick={() => setStudy(item)}><small>0{index + 1}</small>{item}</button>)}<p>Components inherit behavior, not the visual rules of Tactile.</p></aside><div className="nocturne-stage"><div className="nocturne-stage-head"><span>NOCTURNE / {study.toUpperCase()}</span><span>PREVIEW 01</span></div><h2 id="nocturne-explorer-title">{study === "Foundations" ? "Set the scene." : study === "Typography" ? "Let type breathe." : study === "Actions" ? "Send a signal." : study === "Motion" ? "Move through depth." : "Shape the atmosphere."}</h2><NocturnePanel study={study} reduced={reduced} /></div></section>
+    <section className="nocturne-explorer" aria-labelledby="nocturne-explorer-title"><aside><span>STUDIES</span>{studies.map((item, index) => <button key={item} className={study === item ? "active" : ""} onClick={() => setStudy(item)}><small>{String(index + 1).padStart(2, "0")}</small>{item}</button>)}<p>Components inherit behavior, not the visual rules of Tactile.</p></aside><div className="nocturne-stage"><div className="nocturne-stage-head"><span>NOCTURNE / {study.toUpperCase()}</span><span>PREVIEW 01</span></div><h2 id="nocturne-explorer-title">{study === "Foundations" ? "Set the scene." : study === "Typography" ? "Let type breathe." : study === "Actions" ? "Send a signal." : study === "Forms" ? "Make intent legible." : study === "Motion" ? "Move through depth." : "Shape the atmosphere."}</h2><NocturnePanel study={study} reduced={reduced} /></div></section>
     <NocturneControls />
     <footer className="nocturne-footer"><span>LAC. / SYSTEM 02</span><span>NOCTURNE IS IN DEVELOPMENT</span><a href="#nocturne-top">RETURN TO TOP ↑</a></footer>
   </main>;

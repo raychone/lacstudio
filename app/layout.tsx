@@ -18,6 +18,7 @@ import "./effect-studies.css";
 import "./effects-interaction.css";
 import "./multi-design-engine.css";
 import "../components/lab/nocturne/nocturne-lab.css";
+import "../design-system/designs/nocturne/components/nocturne-components.css";
 
 export const metadata: Metadata = {
   title: "LAC. Studio — Design Lab",
