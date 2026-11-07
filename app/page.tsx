@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { DesignSwitcher } from "@/components/lab/design-switcher";
-import { NocturneLab } from "@/components/lab/nocturne/nocturne-lab";
+import { NocturneWorkspaceStage } from "@/components/lab/nocturne/nocturne-lab";
 import { CompatibilityPlayground } from "@/components/lab/compatibility-playground";
 import { TactileDisclosureStudy } from "@/components/lab/tactile/tactile-disclosure-study";
 import { TactileFeedbackStudy } from "@/components/lab/tactile/tactile-feedback-study";
@@ -203,7 +203,7 @@ function LabPanel({ section, activeButton, setActiveButton, message, setMessage,
   </div>;
 }
 
-function TactileLab() {
+export function TactileLab() {
   const [activeSection, setActiveSection] = useState<LibraryCategoryId | "compatibility">("actions");
   const [activeButton, setActiveButton] = useState("01");
   const [openItem, setOpenItem] = useState("Why a lab first?");
@@ -298,9 +298,41 @@ function TactileLab() {
   );
 }
 
+function TactileWorkspaceStage() {
+  const { activeCategory, activeComponent, setActiveComponent } = useDesign();
+  const [message, setMessage] = useState("Ready to explore.");
+  const [palette, setPalette] = useState("cream");
+  const activeButton = activeComponent.startsWith("action.buttons.") ? activeComponent.slice("action.buttons.".length) : "01";
+  const setActiveButton = (value: string) => setActiveComponent(`action.buttons.${value}`);
+  return <div className="tactile-workspace-stage" data-component-id={activeComponent}><LabPanel section={activeCategory} activeButton={activeButton} setActiveButton={setActiveButton} message={message} setMessage={setMessage} palette={palette} setPalette={setPalette} /></div>;
+}
+
+function FutureWorkspaceStage() {
+  const { activeDesign, activeCategory, activeComponent } = useDesign();
+  return <div className="workspace-fallback" data-component-id={activeComponent}><span>{activeDesign.name.toUpperCase()} / {activeCategory.toUpperCase()}</span><strong>This interpretation is reserved.</strong><p>The shared category and component position are retained so this future system can join the same comparison workspace without changing navigation.</p></div>;
+}
+
 function DesignLab() {
-  const { activeDesign } = useDesign();
-  return activeDesign.id === "nocturne" ? <NocturneLab /> : <TactileLab />;
+  const { activeDesign, activeCategory, setActiveCategory, activeComponent, setActiveComponent, reducedMotion, setReducedMotion } = useDesign();
+  const stageRef = useRef<HTMLElement>(null);
+  const category = libraryCategories.find((item) => item.id === activeCategory) ?? libraryCategories[0];
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const anchor = stageRef.current?.querySelector<HTMLElement>(`[data-component-id="${activeComponent}"]`);
+      anchor?.scrollIntoView({ block: "nearest", behavior: "auto" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeDesign.id, activeComponent]);
+  return <main className={`workspace-shell ${activeDesign.id === "nocturne" ? "nocturne-lab" : "site neumorphic palette-cream"} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id}>
+    {activeDesign.id === "nocturne" && <div className="nocturne-atmosphere" aria-hidden="true" />}
+    <section className="workspace" aria-label="LAC Design Lab workspace">
+      <DesignSwitcher />
+      <div className="workspace-layout">
+        <aside className="workspace-sidebar" aria-label="Component categories"><span>COMPONENT LIBRARY</span>{libraryCategories.map((item, index) => <button key={item.id} type="button" className={activeCategory === item.id && activeComponent !== "compatibility.fixture" ? "active" : ""} aria-pressed={activeCategory === item.id && activeComponent !== "compatibility.fixture"} onClick={() => setActiveCategory(item.id)}><small>{String(index + 1).padStart(2, "0")}</small>{item.label}</button>)}<div className="workspace-utility"><span>DEVELOPMENT</span><button type="button" className={activeComponent === "compatibility.fixture" ? "active" : ""} onClick={() => { setActiveCategory("foundations"); setActiveComponent("compatibility.fixture"); }}><small>↗</small>Compatibility</button></div><div className="workspace-motion"><span>REDUCE MOTION</span><button type="button" onClick={() => setReducedMotion(!reducedMotion)} aria-pressed={reducedMotion}><i /></button></div></aside>
+        <section className="workspace-stage" ref={stageRef} aria-labelledby="workspace-category-title"><div className="workspace-stage-head"><span>{activeDesign.name.toUpperCase()} / {category.label.toUpperCase()}</span><span>{activeComponent}</span></div><h1 id="workspace-category-title">{category.label}</h1>{activeComponent === "compatibility.fixture" ? <CompatibilityPlayground /> : activeDesign.id === "tactile" ? <TactileWorkspaceStage /> : activeDesign.id === "nocturne" ? <NocturneWorkspaceStage /> : <FutureWorkspaceStage />}</section>
+      </div>
+    </section>
+  </main>;
 }
 
 export default function Home() {

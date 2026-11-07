@@ -10,6 +10,7 @@ import { NocturneAdvancedStudy, NocturneOverlaysStudy } from "@/components/lab/n
 import { NocturneMotionPrimitives } from "@/design-system/designs/nocturne/components/motion";
 import { NocturneEffectsPrimitives } from "@/design-system/designs/nocturne/components/effects";
 import { libraryCategories, type LibraryCategoryId } from "@/design-system/engine/categories";
+import { useDesign } from "@/design-system/engine/provider";
 
 const studies = libraryCategories;
 type Study = LibraryCategoryId;
@@ -107,6 +108,16 @@ function NocturnePanel({ study, reduced }: { study: Study; reduced: boolean }) {
   if (study === "advanced") return <NocturneAdvancedStudy />;
   if (study === "motion") return <NocturneMotion reduced={reduced} />;
   return <NocturneEffects reduced={reduced} />;
+}
+
+export function NocturneWorkspaceStage() {
+  const { activeCategory, activeComponent, reducedMotion } = useDesign();
+  const activeStudy = studies.find((item) => item.id === activeCategory) ?? studies[0];
+  return <div className="nocturne-stage nocturne-workspace-stage" data-component-id={activeComponent}>
+    <div className="nocturne-stage-head"><span>NOCTURNE / {activeStudy.label.toUpperCase()}</span><span>{studyMaturity[activeCategory]}</span></div>
+    <h2>{activeCategory === "foundations" ? "Set the scene." : activeCategory === "typography" ? "Let type breathe." : activeCategory === "actions" ? "Send a signal." : activeCategory === "forms" ? "Make intent legible." : activeCategory === "disclosure" ? "Reveal with purpose." : activeCategory === "feedback" ? "Make state visible." : activeCategory === "data-display" ? "Give data a scene." : activeCategory === "carousels" ? "Move by choice." : activeCategory === "overlays" ? "Focus the frame." : activeCategory === "advanced" ? "Control the signal." : activeCategory === "motion" ? "Move through depth." : "Shape the atmosphere."}</h2>
+    <NocturnePanel study={activeCategory} reduced={reducedMotion} />
+  </div>;
 }
 
 export function NocturneLab() {
