@@ -34,3 +34,8 @@
 
 - Added reusable disclosure and feedback modules.
 - Added dedicated Disclosure and Feedback Lab studies with interactive menus, notifications and progress controls.
+
+## 2026-11-07 — Nocturne Batch 3
+
+- Added reusable data-display and carousel modules.
+- Added interactive cards, activity primitives, sortable/paginated table and four manual carousel studies.

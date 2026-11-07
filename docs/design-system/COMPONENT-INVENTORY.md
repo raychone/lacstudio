@@ -22,6 +22,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Nocturne forms | text/email, password visibility, textarea, native select, checkbox, switch, field validation states | In development | expand remaining form controls and run keyboard QA |
 | Nocturne disclosure | multi accordion, tabs, collapsible, tooltip, popover, dropdown, context menu, hover card, segmented control and breadcrumb | In development | full menu/focus QA |
 | Nocturne feedback | toast, alert, badge, linear/circular progress, spinner, skeleton, result states and steps | In development | timing, announcement and responsive QA |
+| Nocturne data display | eleven card structures, avatar/group/status, chips, timeline, sortable/paginated table | In development | table mobile/assistive-technology QA and additional action recipes |
+| Nocturne carousels | content, image, feature and compact variants; controls, indicators, keyboard and swipe | In development | reduced-motion / touch-device QA |
 
 ## Existing reusable primitive library
 
