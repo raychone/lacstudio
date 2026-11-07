@@ -54,4 +54,4 @@ Audited from the active workspace renderers, `app/page.tsx`, `components/lab/noc
 Tactile: **approved visual baseline, Disclosure and Feedback implementation ready for owner review.**
 Nocturne: **implementation complete, awaiting owner visual/interactions review.**
 Editorial: **12/12 categories implemented — pending final visual, responsive and assistive-technology QA.** It consumes the same shared fixture and external geometry contract; its paper, rule, type and ink compositions remain intentionally independent of the Tactile ↔ Nocturne Split View.
-Brutalist: **10/12 categories implemented — pending visual and responsive QA.** Foundations through Advanced use the same reference fixture dimensions, while its hard-edge grid, grotesk type and safety-orange signal remain independent of every existing visual system.
+Brutalist: **12/12 categories implemented — pending final visual, responsive and accessibility QA.** It consumes the same reference fixture dimensions while its hard-edge grid, grotesk type, safety-orange signal and mechanical interaction language remain independent of every existing visual system.

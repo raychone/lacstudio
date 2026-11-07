@@ -138,3 +138,10 @@
 - Added functional Brutalist Data Display, Carousels, Overlays and Advanced categories.
 - Added industrial data grid, signal metrics board, production timeline, manual slide machines, control-surface overlays, command index, parameter console, configuration wizard and structural comparison instrument.
 - Kept shared fixtures and external dimensions intact; Motion and Effects remain intentionally pending.
+
+## 2026-11-08 — Brutalist Phase 4
+
+- Added functional Brutalist Motion and Effects categories, completing the twelve-category Brutalist Lab implementation.
+- Added replayable mechanical motion primitives plus stamp, grid assembly, signal sequence and exit/replay studies.
+- Added CSS-first signal inversion, grid reveal, edge tracking, controlled scan, offset and typographic-interference studies without particle loops or glow.
+- Extended the final polish checklist for custom option lists, overlays, touch/swipe, responsive geometry, contrast and reduced motion.

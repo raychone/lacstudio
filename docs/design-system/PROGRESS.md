@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Brutalist Phase 3 complete — data display, carousels, overlays and advanced controls.** Design 04 now has ten implemented categories while retaining its independent structural visual language.
+**Brutalist Phase 4 complete — Motion and Effects.** Design 04 now has all 12/12 categories implemented while retaining its independent structural visual language.
 
 ## Completed
 
@@ -31,6 +31,7 @@
 - Brutalist architecture, Foundations, Typography and intentional development states: `9130f17`.
 - Brutalist actions, forms, disclosure and feedback: `acd9011`.
 - Brutalist data display, carousels, overlays and advanced controls: `7ee2107`.
+- Brutalist motion and effects: `d67121f`.
 
 ## Current coverage
 
@@ -39,10 +40,10 @@
 | 01 Tactile | B.7B ready for review | Shared comparison fixtures precede preserved material signature studies across all twelve categories. |
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
 | 03 Editorial | 12/12 implemented — pending final visual and responsive QA | All shared categories and Editorial signature studies are implemented; no production certification yet. |
-| 04 Brutalist | 10/12 implemented — pending visual QA | Foundations through Advanced are implemented; only Motion and Effects remain under construction. |
+| 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `7ee2107`.
+Latest verified implementation commit: `d67121f`.
 
 ## Known issues / deferred checks
 
@@ -55,8 +56,9 @@ Latest verified implementation commit: `7ee2107`.
 - Final Editorial polish must inspect custom select, dropdown, multi-select and autocomplete option menus in expanded state; native browser-default visual menus are not an approved end state.
 - Brutalist custom project-type option list needs manual keyboard, touch and screen-reader verification in its expanded state.
 - Brutalist custom multi-select needs manual expanded-list keyboard, touch and screen-reader verification.
+- Brutalist motion and effects need manual reduced-motion, coarse-pointer, contrast and performance QA.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Brutalist direction is documented in `BRUTALIST-DIRECTION.md`. Stop here for owner review; do not begin Brutalist Motion or Effects, Playground, the portfolio or package extraction automatically.
+Brutalist is implemented. Stop here for final visual and responsive owner QA; do not begin Playground, the portfolio or package extraction automatically.

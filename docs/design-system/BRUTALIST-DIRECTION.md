@@ -35,7 +35,7 @@ Use the installed Arial/Helvetica grotesk stack at high weight for display and i
 
 The shared Lab geometry remains untouched. Brutalist interprets its internals with two-pixel borders, rectangular controls, offset hard borders, grid divisions and inverted ink blocks instead of radius or shadow-based elevation.
 
-Future interaction is mechanical: hard cuts, directional wipes, snapping grid changes and inverted hover/focus states. Motion must remain brief and must resolve to a stable reading state under reduced motion. Phase 0 + 1 does not implement the Motion or Effects categories.
+Interaction is mechanical: hard cuts, directional wipes, snapping grid changes and inverted hover/focus states. Motion remains brief and resolves to a stable reading state under reduced motion. Effects use structural contrast, grids, hard tracking edges and typographic displacement rather than glow or ambient atmosphere.
 
 ## Responsive rules
 
@@ -50,10 +50,10 @@ Shared breakpoints and external preview dimensions are retained. Internal grids 
 
 ## Phase status
 
-Implemented: Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays and Advanced, including shared comparison fixtures and original structural studies.
+Implemented: all twelve categories — Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects — including shared comparison fixtures and original structural studies.
 
-Actions use mechanical inversion, directional fills, hard press offsets and numbered commands. Forms use two-pixel field borders, status labels and a custom industrial option list. Disclosure uses structural panels, numbered conditions and inverted active states. Feedback behaves as instrumentation: signal blocks, explicit status labels and strong progress markers. Data Display uses numbered records, industrial metric boards and dense tables. Carousels are manual slide machines with hard-cut transitions. Overlays are control surfaces, and Advanced controls act as calibrated instruments.
+Actions use mechanical inversion, directional fills, hard press offsets and numbered commands. Forms use two-pixel field borders, status labels and a custom industrial option list. Disclosure uses structural panels, numbered conditions and inverted active states. Feedback behaves as instrumentation: signal blocks, explicit status labels and strong progress markers. Data Display uses numbered records, industrial metric boards and dense tables. Carousels are manual slide machines with hard-cut transitions. Overlays are control surfaces, and Advanced controls act as calibrated instruments. Motion uses mechanical stamp, grid assembly, signal sequence and exit/replay studies. Effects use signal inversion, structural grids, edge tracking, controlled scanning, offset mechanics and typographic interference.
 
-Pending: Motion and Effects. Each retains its shared Lab location through an explicit Brutalist under-construction state.
+Pending: final visual, responsive, accessibility and interaction QA only.
 
-Brutalist is **10/12 categories implemented, pending visual and responsive QA**. It is not production-ready.
+Brutalist is **12/12 categories implemented, pending final visual and responsive QA**. It is not production-ready.
