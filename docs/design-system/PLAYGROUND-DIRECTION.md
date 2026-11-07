@@ -43,8 +43,8 @@ The shared Lab container, breakpoints and preview boundaries remain untouched. I
 
 ## Phase status
 
-Implemented: Foundations and Typography, including shared comparison fixtures, color/shape studies and expressive type studies.
+Implemented: Foundations, Typography, Actions, Forms, Disclosure and Feedback, including shared comparison fixtures and Playground-only functional studies. Actions include shape-shifting controls, a command board and hold-to-confirm. Forms include a custom expanded project-type list and Preference Builder. Disclosure includes keyboard tabs, menu surfaces and contextual reveals. Feedback includes dismissible live notifications, numeric progress and a controlled celebration state.
 
-Pending: Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects. Each has an intentional Playground under-construction state in the shared Lab.
+Pending: Data Display, Carousels, Overlays, Advanced, Motion and Effects. Each has an intentional Playground under-construction state in the shared Lab.
 
-Playground is **2/12 categories implemented, pending visual and responsive QA**. It is not production-ready.
+Playground is **6/12 categories implemented, pending visual and responsive QA**. It is not production-ready.

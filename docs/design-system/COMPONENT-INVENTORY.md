@@ -46,6 +46,10 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Brutalist effects | signal inversion, grid reveal, edge tracking, industrial scan, offset mechanics and typographic interference | In development | pointer/touch fallback, contrast and performance QA |
 | Playground foundations | warm canvas, indigo ink, electric blue, acid lime, coral and lavender roles; color, shape, composition and interactive color studies | In development | owner visual review and contrast QA |
 | Playground typography | shared type fixture plus expressive poster, numbering, labels, type/shape and responsive-scale studies | In development | responsive type and reading-measure QA |
+| Playground actions | primary/secondary/outline/ghost/destructive/icon/loading/disabled, sizes, toggle, split, copy and hold-to-confirm actions | In development | hold timing, keyboard and reduced-motion QA |
+| Playground forms | text/email/password/textarea, custom expanded project type list, radio, checkbox, switch, validation and disabled states | In development | expanded option-list keyboard, touch and screen-reader QA |
+| Playground disclosure | multi-accordion, keyboard tabs, collapsible, tooltip, popover, dropdown, context menu, segmented control and breadcrumb | In development | full focus and context-menu QA |
+| Playground feedback | live toast, alert, status badges, linear/circular progress, spinner, skeleton, result states, celebration and steps | In development | announcement timing, contrast and responsive QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
