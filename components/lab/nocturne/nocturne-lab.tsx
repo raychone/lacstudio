@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type PointerEvent } from "react";
 import { DesignSwitcher } from "@/components/lab/design-switcher";
 import { NocturneButton, NocturneCopyButton, NocturneHoldButton, NocturneIconButton, NocturneSplitButton, NocturneToggle } from "@/design-system/designs/nocturne/components/actions";
 import { NocturneCheck, NocturneField, NocturneInput, NocturneSelect, NocturneSwitch, NocturneTextarea } from "@/design-system/designs/nocturne/components/forms";
@@ -47,12 +47,13 @@ function NocturneForms() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [remember, setRemember] = useState(false);
   const [notifications, setNotifications] = useState(true);
+  const [channel, setChannel] = useState("identity");
   const validEmail = /^\S+@\S+\.\S+$/.test(email);
   return <div className="nocturne-forms-study">
     <div className="nocturne-form-intro"><span>FORMS / SIGNAL FIELDS</span><strong>Clarity, held<br />in a quiet line.</strong><p>Labels remain visible, validation is explicit and the focus state illuminates only the active field.</p></div>
     <form className="nocturne-form-grid" onSubmit={(event) => event.preventDefault()}>
       <NocturneField label="CONTACT ADDRESS" status={email && !validEmail ? "error" : validEmail ? "success" : "default"} hint={email ? validEmail ? "Signal address verified" : "Enter a valid email address" : "We only use this to answer your brief."}><NocturneInput type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@studio.com" /></NocturneField>
-      <NocturneField label="CHANNEL TYPE"><NocturneSelect defaultValue="identity"><option value="identity">Identity system</option><option value="product">Digital product</option><option value="experience">Interactive experience</option></NocturneSelect></NocturneField>
+      <NocturneField label="CHANNEL TYPE"><NocturneSelect value={channel} onChange={setChannel} label="Channel type" options={[{ value: "identity", label: "Identity system" }, { value: "product", label: "Digital product" }, { value: "experience", label: "Interactive experience" }]} /></NocturneField>
       <NocturneField label="PRIVATE KEY"><span className="nocturne-password-row"><NocturneInput type={passwordVisible ? "text" : "password"} placeholder="••••••••" /><button type="button" onClick={() => setPasswordVisible(!passwordVisible)}>{passwordVisible ? "HIDE" : "SHOW"}</button></span></NocturneField>
       <NocturneField label="SHORT TRANSMISSION"><NocturneTextarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="Tell us the shape of the work…" maxLength={180} /><small>{note.length}/180</small></NocturneField>
       <div className="nocturne-form-options"><NocturneCheck checked={remember} onChange={setRemember}>Remember this device</NocturneCheck><NocturneSwitch checked={notifications} onChange={setNotifications} label="Signal updates" /></div>
@@ -72,9 +73,14 @@ function NocturneMotion({ reduced }: { reduced: boolean }) {
 
 function NocturneEffects() {
   const [light, setLight] = useState(false);
-  return <div className={light ? "nocturne-effects-study active" : "nocturne-effects-study"}>
+  const moveLight = (event: PointerEvent<HTMLDivElement>) => {
+    const box = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--light-x", `${((event.clientX - box.left) / box.width) * 100}%`);
+    event.currentTarget.style.setProperty("--light-y", `${((event.clientY - box.top) / box.height) * 100}%`);
+  };
+  return <div className={light ? "nocturne-effects-study active" : "nocturne-effects-study"} onPointerMove={moveLight} onPointerLeave={(event) => { event.currentTarget.style.setProperty("--light-x", "74%"); event.currentTarget.style.setProperty("--light-y", "35%"); }}>
     <div className="nocturne-effects-glow" aria-hidden="true" /><div className="nocturne-effects-grid" aria-hidden="true" />
-    <div><span>ATMOSPHERIC LIGHT / 02</span><strong>Hold the<br />darkness.</strong><p>A slow glass refraction replaces cursor spectacle. It rests when you leave it alone.</p><button onClick={() => setLight(!light)}>{light ? "DIM THE FIELD" : "RAISE THE FIELD"} <b>↗</b></button></div>
+    <div><span>ATMOSPHERIC LIGHT / 02</span><strong>Hold the<br />darkness.</strong><p>Move through the field to shift the refraction. Raise it to increase the luminous depth.</p><button onClick={() => setLight(!light)}>{light ? "DIM THE FIELD" : "RAISE THE FIELD"} <b>↗</b></button></div>
   </div>;
 }
 
