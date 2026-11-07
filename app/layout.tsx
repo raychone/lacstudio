@@ -29,6 +29,7 @@ import "../components/lab/editorial/editorial-feedback.css";
 import "../components/lab/editorial/editorial-phase-three.css";
 import "../components/lab/editorial/editorial-phase-four.css";
 import "../components/lab/brutalist/brutalist-stage.css";
+import "../components/lab/brutalist/brutalist-phase-two.css";
 import "../components/lab/nocturne/nocturne-lab.css";
 import "../design-system/designs/nocturne/components/nocturne-components.css";
 import "../design-system/designs/nocturne/components/nocturne-refinements.css";
