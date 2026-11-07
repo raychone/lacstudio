@@ -1,0 +1,14 @@
+"use client";
+
+import { type CSSProperties, type ReactNode } from "react";
+
+export type NocturneTone = "info" | "success" | "warning" | "error";
+export function NocturneToast({ tone, title, onDismiss }: { tone: NocturneTone; title: string; onDismiss: () => void }) { return <div className={`nocturne-toast ${tone}`} role="status"><i>{tone === "success" ? "✓" : tone === "error" ? "!" : tone === "warning" ? "△" : "i"}</i><span>{title}</span><button onClick={onDismiss} aria-label="Dismiss notification">×</button></div>; }
+export function NocturneAlert({ tone = "info", title, children, action }: { tone?: NocturneTone; title: string; children: ReactNode; action?: ReactNode }) { return <div className={`nocturne-alert ${tone}`} role={tone === "error" ? "alert" : "status"}><i>{tone === "success" ? "✓" : tone === "error" ? "!" : tone === "warning" ? "△" : "i"}</i><div><b>{title}</b><p>{children}</p></div>{action}</div>; }
+export function NocturneBadge({ tone = "info", children }: { tone?: NocturneTone; children: ReactNode }) { return <span className={`nocturne-badge ${tone}`}>{children}</span>; }
+export function NocturneProgress({ value, indeterminate = false }: { value: number; indeterminate?: boolean }) { return <div className={indeterminate ? "nocturne-progress indeterminate" : "nocturne-progress"} role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={indeterminate ? undefined : value}><i style={{ width: indeterminate ? undefined : `${value}%` }} /></div>; }
+export function NocturneCircularProgress({ value }: { value: number }) { return <div className="nocturne-circular-progress" role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={100} style={{ "--progress": `${value * 3.6}deg` } as CSSProperties}><span>{value}%</span></div>; }
+export function NocturneSpinner({ label = "Loading" }: { label?: string }) { return <span className="nocturne-spinner" role="status" aria-label={label} />; }
+export function NocturneSkeleton({ lines = 3 }: { lines?: number }) { return <div className="nocturne-skeleton" aria-label="Loading content">{Array.from({ length: lines }, (_, index) => <i key={index} />)}</div>; }
+export function NocturneState({ type, title, children, action }: { type: "empty" | "error" | "success"; title: string; children: ReactNode; action?: ReactNode }) { return <div className={`nocturne-state ${type}`}><i>{type === "success" ? "✓" : type === "error" ? "!" : "○"}</i><b>{title}</b><p>{children}</p>{action}</div>; }
+export function NocturneSteps({ steps, current }: { steps: string[]; current: number }) { return <ol className="nocturne-steps">{steps.map((step, index) => <li key={step} className={index < current ? "done" : index === current ? "current" : ""}><i>{index < current ? "✓" : String(index + 1).padStart(2, "0")}</i><span>{step}</span></li>)}</ol>; }
