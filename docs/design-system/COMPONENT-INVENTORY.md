@@ -38,6 +38,10 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Brutalist forms | text/email/password/textarea, custom option list, radio, checkbox, switch, validation and disabled states | In development | expanded option-list keyboard, touch and screen-reader QA |
 | Brutalist disclosure | multi-accordion, keyboard tabs, collapsible, tooltip, popover, dropdown, context menu, segmented control and breadcrumb | In development | full focus and context-menu QA |
 | Brutalist feedback | toast, alert, badges, linear/circular progress, spinner, skeleton, empty/error/success states and steps | In development | announcement timing, contrast and responsive QA |
+| Brutalist data display | standard/selectable/expandable/media/stat/feature/loading/empty cards, metric board, timeline and sortable paginated table | In development | table mobile and assistive-technology QA |
+| Brutalist carousels | content, media, feature and compact slide machines; indicators, keyboard controls and touch swipe | In development | touch-device and reduced-motion QA |
+| Brutalist overlays | modal, confirmation, drawer, sheet, lightbox, control console and command index; focus trap, Escape and restoration | In development | screen-reader and mobile QA |
+| Brutalist advanced interactions | tag input, custom multi-select, range, rating, reorder, wizard and structural comparison slider | In development | expanded list, keyboard and touch QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |

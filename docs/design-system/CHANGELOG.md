@@ -132,3 +132,9 @@
 - Added functional Brutalist Actions, Forms, Disclosure and Feedback categories.
 - Added numbered command actions, mechanical hold-to-confirm, an industrial configuration form with custom option list, structural disclosure panels and instrumentation-style feedback.
 - Kept shared fixtures and outer geometry intact; Data Display through Effects remain intentionally pending.
+
+## 2026-11-08 — Brutalist Phase 3
+
+- Added functional Brutalist Data Display, Carousels, Overlays and Advanced categories.
+- Added industrial data grid, signal metrics board, production timeline, manual slide machines, control-surface overlays, command index, parameter console, configuration wizard and structural comparison instrument.
+- Kept shared fixtures and external dimensions intact; Motion and Effects remain intentionally pending.
