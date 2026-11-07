@@ -1,0 +1,21 @@
+"use client";
+
+import { useDesign } from "@/design-system/engine/provider";
+
+function BrutalistFoundations() {
+  return <div className="brutalist-signature brutalist-foundations" data-component-id="foundation.palette"><div className="brutalist-kicker">FOUNDATIONS / STRUCTURE IS VISIBLE</div><section className="brutalist-color-system"><article><span>01</span><b>CANVAS</b><i>#E7E5DF</i></article><article><span>02</span><b>UTILITY</b><i>#C9C7C0</i></article><article><span>03</span><b>INK</b><i>#11110F</i></article><article><span>04</span><b>SIGNAL</b><i>#FF4D00</i></article></section><section className="brutalist-grid-study"><span>EXPERIMENT / 01 — INDUSTRIAL COLOR &amp; CONTRAST</span><div><b>01</b><strong>ONE<br />SIGNAL.</strong><p>Orange is reserved for direction, focus and decisive state. The rest of the system stays structural.</p><i>AA / 11.6:1</i></div></section><section className="brutalist-structural-grid"><span>EXPERIMENT / 02 — STRUCTURAL GRID &amp; BORDER</span><div className="brutalist-grid-tiles"><b>GRID</b><b>01</b><b>02</b><b>03</b><b>04</b><b>05</b></div></section><section className="brutalist-modules"><span>EXPERIMENT / 03 — MODULAR GEOMETRY</span><div><article><small>A</small><b>HARD<br />EDGE</b></article><article><small>B</small><b>OFFSET<br />BORDER</b></article><article><small>C</small><b>INVERTED<br />BLOCK</b></article></div></section><section className="brutalist-hierarchy"><span>EXPERIMENT / 04 — SIGNAL HIERARCHY</span><div><b>STOP</b><p>Primary information occupies black. Action occupies orange. Context stays calm, direct and readable.</p><strong>→</strong></div></section></div>;
+}
+
+function BrutalistTypography() {
+  return <div className="brutalist-signature brutalist-type" data-component-id="typography.scale"><div className="brutalist-kicker">TYPOGRAPHY / NO SOFT EDGES</div><section className="brutalist-poster"><span>BRUTALIST SYSTEM / 04</span><h2>MAKE<br />THE<br /><em>GRID</em><br />LOUD.</h2><p>Monumental grotesk type gives structure its first impact.</p><b>2026 / LAC</b></section><section className="brutalist-indexing"><span>EXPERIMENT / 02 — OVERSIZED INDEXING</span><div><b>04</b><article><small>INDEX / TYPE SYSTEM</small><strong>Large figures locate the reader before any paragraph begins.</strong><p>Monospace metadata holds exact evidence beside oversized display type.</p></article></div></section><section className="brutalist-label-grid"><span>EXPERIMENT / 03 — INDUSTRIAL LABEL HIERARCHY</span><div><article><small>LABEL / 09PX</small><b>OPERATIONAL CONTEXT</b></article><article><small>H6 / 14PX</small><b>Supporting structure</b></article><article><small>BODY / 16PX</small><p>Body copy remains readable even when the composition is dense and direct.</p></article><article><small>METADATA / MONO</small><b>LOC: 04.12 / STATUS: LIVE</b></article></div></section><section className="brutalist-dense-grid"><span>EXPERIMENT / 04 — DENSE INFORMATION GRID</span><div><h1>H1<br />IMPACT</h1><h2>H2<br />ORDER</h2><h3>H3<br />WEIGHT</h3><h4>H4<br />SYSTEM</h4><h5>H5<br />DETAIL</h5><h6>H6<br />LABEL</h6><p><b>BODY / 16</b> A direct reading measure remains stable below the monumental layers.</p><small>CAPTION / 0123456789</small></div></section><section className="brutalist-responsive-type"><span>EXPERIMENT / 05 — RESPONSIVE TYPE SCALE</span><div><b>320</b><i>→</i><b>768</b><i>→</i><b>1440</b><strong>TYPE SCALES. IMPACT STAYS.</strong></div></section></div>;
+}
+
+function BrutalistPlanned() {
+  const { activeCategory, activeComponent } = useDesign();
+  return <div className="brutalist-planned" data-component-id={activeComponent}><span>BRUTALIST / {activeCategory.toUpperCase()} / 04</span><strong>UNDER<br /><em>CONSTRUCTION.</em></strong><p>This place in the shared system is reserved. The component language will be added without changing the Lab&apos;s structure.</p><i>NOT YET RELEASED →</i></div>;
+}
+
+export function BrutalistWorkspaceStage() {
+  const { activeCategory } = useDesign();
+  return <div className="brutalist-workspace-stage">{activeCategory === "foundations" ? <BrutalistFoundations /> : activeCategory === "typography" ? <BrutalistTypography /> : <BrutalistPlanned />}</div>;
+}

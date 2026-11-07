@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDesign } from "@/design-system/engine/provider";
 import { showcaseFor } from "@/design-system/showcase/schema";
 
-export function SharedShowcase({ designId }: { designId?: "tactile" | "nocturne" | "editorial" }) {
+export function SharedShowcase({ designId }: { designId?: "tactile" | "nocturne" | "editorial" | "brutalist" }) {
   const { activeCategory, activeComponent, activeDesign, setActiveComponent } = useDesign();
   const [motionReplay, setMotionReplay] = useState(0);
   const showcase = showcaseFor(activeCategory);

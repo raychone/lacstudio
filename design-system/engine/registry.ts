@@ -43,7 +43,7 @@ export const designRegistry: Record<DesignId, DesignDefinition> = {
     name: "Brutalist",
     descriptor: "Hard geometry, direct impact",
     status: "in-development",
-    preview: ["#ffed00", "#101010", "#ff4d2e"],
+    preview: ["#e7e5df", "#11110f", "#ff4d00"],
   },
   playground: {
     id: "playground",
