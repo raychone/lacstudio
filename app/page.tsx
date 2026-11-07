@@ -3,9 +3,10 @@
 import { useEffect, useState, type PointerEvent } from "react";
 import { DesignSwitcher } from "@/components/lab/design-switcher";
 import { NocturneLab } from "@/components/lab/nocturne/nocturne-lab";
+import { CompatibilityPlayground } from "@/components/lab/compatibility-playground";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 
-const sections = ["Color system", "Typography", "Buttons", "Motion", "Animations", "Effect studies"];
+const sections = ["Color system", "Typography", "Buttons", "Motion", "Animations", "Effect studies", "Compatibility"];
 
 const experiments = [
   { id: "01", label: "Magnetic", className: "magnetic" },
@@ -214,6 +215,7 @@ function LabPanel({ section, activeButton, setActiveButton, message, setMessage,
     {section === "Animations" && <AnimationsPreview />}
     {section === "Overlays" && <OverlaysPreview />}
     {section === "Effect studies" && <EffectStudies />}
+    {section === "Compatibility" && <CompatibilityPlayground />}
   </div>;
 }
 
