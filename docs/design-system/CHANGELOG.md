@@ -44,3 +44,8 @@
 
 - Added reusable overlay foundation with focus containment, Escape dismissal, scroll lock and trigger-focus restoration.
 - Added overlay variants, command palette and advanced-interaction studies.
+
+## 2026-11-07 — Nocturne Batch 5
+
+- Extracted reusable motion and effects primitives with replay and reduced-motion behavior.
+- Added the Nocturne visual/interactions review-readiness record.

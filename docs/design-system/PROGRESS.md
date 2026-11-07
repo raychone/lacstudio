@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Nocturne / Batch 4 — Overlays and advanced interactions.** Tactile remains Design 01 and is preserved. Nocturne now has reusable modules across all core functional families.
+**Nocturne implementation complete — awaiting visual and interaction review.** Tactile remains Design 01 and is preserved. Nocturne has reusable modules across all implemented core families.
 
 ## Completed
 
@@ -16,6 +16,7 @@
 - Reusable Nocturne disclosure and feedback components, including Hover Card, integrated in two interactive Lab studies: `213dcf6`, `f484d3c`.
 - Reusable Nocturne cards, display primitives, sortable/paginated table and manual carousel variants: `7b8453c`.
 - Reusable Nocturne overlay foundation, dialog variants, command palette and advanced interaction controls: `eed18af`.
+- Reusable Nocturne motion and effects primitives with reduced-motion behavior: `2517bc3`.
 
 ## Current coverage
 
@@ -27,7 +28,7 @@
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `eed18af8924dbc7dbca4ffe3e17a4e7e01e495af`.
+Latest verified implementation commit: `2517bc38db272e20423685d6f2614dae356c732a`.
 
 ## Known issues / deferred checks
 
@@ -41,4 +42,4 @@ Latest verified implementation commit: `eed18af8924dbc7dbca4ffe3e17a4e7e01e495af
 
 ## Exact next step
 
-Continue Nocturne Batch 5: motion/effects completeness audit, then prepare the owner-led Nocturne visual and functional review.
+Pause implementation for **NOCTURNE — VISUAL & INTERACTION REVIEW**. Use `NOCTURNE-REVIEW-READINESS.md` to guide the owner-led review; do not start Editorial before approval.
