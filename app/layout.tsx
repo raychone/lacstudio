@@ -24,6 +24,7 @@ import "../design-system/designs/nocturne/components/nocturne-disclosure-feedbac
 import "../design-system/designs/nocturne/components/nocturne-batch-two-refinements.css";
 import "../design-system/designs/nocturne/components/nocturne-data-display.css";
 import "../design-system/designs/nocturne/components/nocturne-overlays-advanced.css";
+import "../design-system/designs/nocturne/components/nocturne-motion-effects.css";
 import "../components/lab/nocturne/nocturne-effects-refinements.css";
 
 export const metadata: Metadata = {

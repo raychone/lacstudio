@@ -1,0 +1,8 @@
+"use client";
+import { useState, type PointerEvent } from "react";
+const effects = ["Spotlight", "Spectral haze", "Edge light", "Glass field", "Line reveal"] as const;
+export function NocturneEffectsPrimitives({ reduced = false }: { reduced?: boolean }) {
+  const [effect, setEffect] = useState<(typeof effects)[number]>("Spotlight"); const [raised, setRaised] = useState(false);
+  const move = (event: PointerEvent<HTMLDivElement>) => { if (reduced) return; const box = event.currentTarget.getBoundingClientRect(); event.currentTarget.style.setProperty("--fx", `${((event.clientX - box.left) / box.width) * 100}%`); event.currentTarget.style.setProperty("--fy", `${((event.clientY - box.top) / box.height) * 100}%`); };
+  return <div className={reduced ? "nocturne-effects-primitives reduced" : "nocturne-effects-primitives"}><div className="nocturne-effect-tabs">{effects.map((item) => <button key={item} className={effect === item ? "active" : ""} onClick={() => setEffect(item)}>{item}</button>)}</div><div onPointerMove={move} className={`nocturne-effect-canvas ${effect.toLowerCase().replaceAll(" ", "-")} ${raised ? "raised" : ""}`}><span>{effect.toUpperCase()} / INTERACTIVE</span><b>{effect === "Line reveal" ? "DRAW A\nQUIET PATH" : "LIGHT\nFINDS FORM"}</b><i /><i /><i /></div><div className="nocturne-motion-footer"><p>{reduced ? "Effects are reduced to a static compositional state." : "Move the pointer through the field; the effect is CSS-rendered and reads no React state per frame."}</p><button onClick={() => setRaised(!raised)}>{raised ? "DIM FIELD" : "RAISE FIELD"} ↗</button></div></div>;
+}

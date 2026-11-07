@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, type PointerEvent } from "react";
+import { useState } from "react";
 import { DesignSwitcher } from "@/components/lab/design-switcher";
 import { NocturneButton, NocturneCopyButton, NocturneHoldButton, NocturneIconButton, NocturneSplitButton, NocturneToggle } from "@/design-system/designs/nocturne/components/actions";
 import { NocturneCheck, NocturneField, NocturneInput, NocturneSelect, NocturneSwitch, NocturneTextarea } from "@/design-system/designs/nocturne/components/forms";
 import { NocturneDisclosureStudy, NocturneFeedbackStudy } from "@/components/lab/nocturne/nocturne-batch-two";
 import { NocturneCarouselsStudy, NocturneDataDisplayStudy } from "@/components/lab/nocturne/nocturne-batch-three";
 import { NocturneAdvancedStudy, NocturneOverlaysStudy } from "@/components/lab/nocturne/nocturne-batch-four";
+import { NocturneMotionPrimitives } from "@/design-system/designs/nocturne/components/motion";
+import { NocturneEffectsPrimitives } from "@/design-system/designs/nocturne/components/effects";
 
 const studies = ["Foundations", "Typography", "Actions", "Forms", "Disclosure", "Feedback", "Data display", "Carousels", "Overlays", "Advanced", "Motion", "Effects"] as const;
 type Study = (typeof studies)[number];
@@ -66,25 +68,11 @@ function NocturneForms() {
 }
 
 function NocturneMotion({ reduced }: { reduced: boolean }) {
-  const [replay, setReplay] = useState(0);
-  return <div className={reduced ? "nocturne-motion-study reduced" : "nocturne-motion-study"}>
-    <div className="nocturne-motion-head"><span>CINEMATIC TRANSITION</span><button onClick={() => setReplay((value) => value + 1)}>REPLAY / 680MS ↻</button></div>
-    <div className="nocturne-motion-frame" key={replay}><i /><i /><b>ARRIVE<br />IN LAYERS</b><span>opacity · blur · depth</span></div>
-    <p>{reduced ? "Reduced motion replaces the layered entrance with an immediate, stable state." : "Surfaces arrive in depth, with a short atmospheric delay instead of a spring lift."}</p>
-  </div>;
+  return <NocturneMotionPrimitives reduced={reduced} />;
 }
 
-function NocturneEffects() {
-  const [light, setLight] = useState(false);
-  const moveLight = (event: PointerEvent<HTMLDivElement>) => {
-    const box = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty("--light-x", `${((event.clientX - box.left) / box.width) * 100}%`);
-    event.currentTarget.style.setProperty("--light-y", `${((event.clientY - box.top) / box.height) * 100}%`);
-  };
-  return <div className={light ? "nocturne-effects-study active" : "nocturne-effects-study"} onPointerMove={moveLight} onPointerLeave={(event) => { event.currentTarget.style.setProperty("--light-x", "74%"); event.currentTarget.style.setProperty("--light-y", "35%"); }}>
-    <div className="nocturne-effects-glow" aria-hidden="true" /><div className="nocturne-effects-grid" aria-hidden="true" />
-    <div><span>ATMOSPHERIC LIGHT / 02</span><strong>Hold the<br />darkness.</strong><p>Move through the field to shift the refraction. Raise it to increase the luminous depth.</p><button onClick={() => setLight(!light)}>{light ? "DIM THE FIELD" : "RAISE THE FIELD"} <b>↗</b></button></div>
-  </div>;
+function NocturneEffects({ reduced }: { reduced: boolean }) {
+  return <NocturneEffectsPrimitives reduced={reduced} />;
 }
 
 function NocturneControls() {
@@ -114,7 +102,7 @@ function NocturnePanel({ study, reduced }: { study: Study; reduced: boolean }) {
   if (study === "Overlays") return <NocturneOverlaysStudy />;
   if (study === "Advanced") return <NocturneAdvancedStudy />;
   if (study === "Motion") return <NocturneMotion reduced={reduced} />;
-  return <NocturneEffects />;
+  return <NocturneEffects reduced={reduced} />;
 }
 
 export function NocturneLab() {
