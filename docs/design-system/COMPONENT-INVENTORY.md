@@ -32,6 +32,8 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Editorial advanced interactions | tag input, multi-select, range, rating, reorder controls, composer wizard and publication comparison slider | In development | touch and keyboard regression QA |
 | Editorial motion | fade, directional reveal, stagger, scale, text mask, restrained settle, exit and replay; typesetting, sequence, column and exit studies | In development | browser reduced-motion and replay timing QA |
 | Editorial effects | ink spread, rule reveal, paper texture, typographic direction, image frame and composition shift studies | In development | pointer/touch fallback, contrast and performance QA |
+| Brutalist foundations | industrial off-white, utility, near-black and safety-orange semantic roles; contrast, structural-grid, modular-geometry and signal-hierarchy studies | In development | owner visual review and contrast QA |
+| Brutalist typography | shared type fixture plus monumental poster, index, industrial labels, dense hierarchy and responsive-scale studies | In development | responsive type and reading-measure QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |

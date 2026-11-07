@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Editorial Phase 4 complete — Motion and Effects.** Design 03 now has all 12/12 categories implemented while preserving the shared workspace geometry and its own publication-style language.
+**Brutalist Phase 0 + 1 complete — art direction, foundations and typography.** Design 04 is selectable in the shared workspace with two implemented categories and an independent structural visual language.
 
 ## Completed
 
@@ -28,6 +28,7 @@
 - Editorial actions, forms, disclosure and feedback: `bfd2359`.
 - Editorial data display, carousels, overlays and advanced controls: `ba6655a`.
 - Editorial motion and effects: `2fd0bcf`.
+- Brutalist architecture, Foundations, Typography and intentional development states: `9130f17`.
 
 ## Current coverage
 
@@ -36,10 +37,10 @@
 | 01 Tactile | B.7B ready for review | Shared comparison fixtures precede preserved material signature studies across all twelve categories. |
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
 | 03 Editorial | 12/12 implemented — pending final visual and responsive QA | All shared categories and Editorial signature studies are implemented; no production certification yet. |
-| 04 Brutalist | Registered | No visual recipe yet. |
+| 04 Brutalist | 2/12 implemented — pending visual QA | Foundations and Typography are implemented; ten category positions intentionally remain under construction. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `2fd0bcf`.
+Latest verified implementation commit: `9130f17`.
 
 ## Known issues / deferred checks
 
@@ -54,4 +55,4 @@ Latest verified implementation commit: `2fd0bcf`.
 
 ## Exact next step
 
-Editorial is implemented. Stop here for final visual and responsive owner QA; do not begin Brutalist, Playground, the portfolio or package extraction automatically.
+Brutalist direction is documented in `BRUTALIST-DIRECTION.md`. Stop here for owner review; do not begin Brutalist Actions or later categories, Playground, the portfolio or package extraction automatically.

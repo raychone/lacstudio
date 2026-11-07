@@ -119,3 +119,10 @@
 - Added replayable fade, directional reveal, stagger, scale, text mask, restrained settle and exit studies, plus typesetting, sequence, column and publication-exit compositions.
 - Added CSS-first ink, rule, paper, typography, image-frame and composition effects without canvas loops or luminous visual language.
 - Made the shared Motion fixture replay control functional and recorded the expanded-menu polish checklist for later QA.
+
+## 2026-11-07 — Brutalist Phase 0 + 1
+
+- Activated Design 04 Brutalist in the shared Lab without changing the Tactile ↔ Nocturne Split View or shared category geometry.
+- Added independent industrial tokens, hard-edge workspace treatment, safety-orange signal accent, Foundations and Typography common fixtures.
+- Added structural colour, grid, module and hierarchy studies plus monumental poster, indexing, label, dense-information and responsive-type experiments.
+- Added deliberate under-construction states for the ten categories outside this phase.
