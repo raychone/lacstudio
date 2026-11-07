@@ -9,9 +9,13 @@ import { NocturneCarouselsStudy, NocturneDataDisplayStudy } from "@/components/l
 import { NocturneAdvancedStudy, NocturneOverlaysStudy } from "@/components/lab/nocturne/nocturne-batch-four";
 import { NocturneMotionPrimitives } from "@/design-system/designs/nocturne/components/motion";
 import { NocturneEffectsPrimitives } from "@/design-system/designs/nocturne/components/effects";
+import { libraryCategories, type LibraryCategoryId } from "@/design-system/engine/categories";
 
-const studies = ["Foundations", "Typography", "Actions", "Forms", "Disclosure", "Feedback", "Data display", "Carousels", "Overlays", "Advanced", "Motion", "Effects"] as const;
-type Study = (typeof studies)[number];
+const studies = libraryCategories;
+type Study = LibraryCategoryId;
+const studyMaturity: Record<Study, "In progress" | "Experimental"> = {
+  foundations: "In progress", typography: "In progress", actions: "In progress", forms: "In progress", disclosure: "In progress", feedback: "In progress", "data-display": "In progress", carousels: "In progress", overlays: "In progress", advanced: "In progress", motion: "Experimental", effects: "Experimental",
+};
 
 function NocturneFoundations() {
   return <div className="nocturne-foundations">
@@ -91,29 +95,30 @@ function NocturneControls() {
 }
 
 function NocturnePanel({ study, reduced }: { study: Study; reduced: boolean }) {
-  if (study === "Foundations") return <NocturneFoundations />;
-  if (study === "Typography") return <NocturneTypography />;
-  if (study === "Actions") return <NocturneActions />;
-  if (study === "Forms") return <NocturneForms />;
-  if (study === "Disclosure") return <NocturneDisclosureStudy />;
-  if (study === "Feedback") return <NocturneFeedbackStudy />;
-  if (study === "Data display") return <NocturneDataDisplayStudy />;
-  if (study === "Carousels") return <NocturneCarouselsStudy />;
-  if (study === "Overlays") return <NocturneOverlaysStudy />;
-  if (study === "Advanced") return <NocturneAdvancedStudy />;
-  if (study === "Motion") return <NocturneMotion reduced={reduced} />;
+  if (study === "foundations") return <NocturneFoundations />;
+  if (study === "typography") return <NocturneTypography />;
+  if (study === "actions") return <NocturneActions />;
+  if (study === "forms") return <NocturneForms />;
+  if (study === "disclosure") return <NocturneDisclosureStudy />;
+  if (study === "feedback") return <NocturneFeedbackStudy />;
+  if (study === "data-display") return <NocturneDataDisplayStudy />;
+  if (study === "carousels") return <NocturneCarouselsStudy />;
+  if (study === "overlays") return <NocturneOverlaysStudy />;
+  if (study === "advanced") return <NocturneAdvancedStudy />;
+  if (study === "motion") return <NocturneMotion reduced={reduced} />;
   return <NocturneEffects reduced={reduced} />;
 }
 
 export function NocturneLab() {
-  const [study, setStudy] = useState<Study>("Foundations");
+  const [study, setStudy] = useState<Study>("foundations");
   const [reduced, setReduced] = useState(false);
+  const activeStudy = studies.find((item) => item.id === study) ?? studies[0];
   return <main id="nocturne-top" className={reduced ? "nocturne-lab reduce-motion" : "nocturne-lab"} data-design="nocturne">
     <div className="nocturne-atmosphere" aria-hidden="true" />
     <header className="nocturne-masthead"><a href="#nocturne-top" aria-label="Nocturne Design Lab home"><b>LAC.</b><span>NOCTURNE / 02</span></a><span>COMPONENT CINEMA</span><button onClick={() => setReduced(!reduced)} aria-pressed={reduced}>{reduced ? "MOTION / OFF" : "MOTION / ON"}<i /></button></header>
     <section className="nocturne-intro"><p>DESIGN SYSTEM 02 / IN DEVELOPMENT</p><h1>Every surface<br />has an <em>afterglow.</em></h1><div><span>NOCTURNE</span><p>A separate component language for scenes that need depth, restraint and a trace of light.</p></div></section>
     <section className="nocturne-engine"><DesignSwitcher /></section>
-    <section className="nocturne-explorer" aria-labelledby="nocturne-explorer-title"><aside><span>STUDIES</span>{studies.map((item, index) => <button key={item} className={study === item ? "active" : ""} onClick={() => setStudy(item)}><small>{String(index + 1).padStart(2, "0")}</small>{item}</button>)}<p>Components inherit behavior, not the visual rules of Tactile.</p></aside><div className="nocturne-stage"><div className="nocturne-stage-head"><span>NOCTURNE / {study.toUpperCase()}</span><span>PREVIEW 01</span></div><h2 id="nocturne-explorer-title">{study === "Foundations" ? "Set the scene." : study === "Typography" ? "Let type breathe." : study === "Actions" ? "Send a signal." : study === "Forms" ? "Make intent legible." : study === "Disclosure" ? "Reveal with purpose." : study === "Feedback" ? "Make state visible." : study === "Data display" ? "Give data a scene." : study === "Carousels" ? "Move by choice." : study === "Overlays" ? "Focus the frame." : study === "Advanced" ? "Control the signal." : study === "Motion" ? "Move through depth." : "Shape the atmosphere."}</h2><NocturnePanel study={study} reduced={reduced} /></div></section>
+    <section className="nocturne-explorer" aria-labelledby="nocturne-explorer-title"><aside><span>STUDIES</span>{studies.map((item, index) => <button key={item.id} className={study === item.id ? "active" : ""} onClick={() => setStudy(item.id)}><small>{String(index + 1).padStart(2, "0")}</small>{item.label}</button>)}<p>Components inherit behavior, not the visual rules of Tactile.</p></aside><div className="nocturne-stage"><div className="nocturne-stage-head"><span>NOCTURNE / {activeStudy.label.toUpperCase()}</span><span>{studyMaturity[study]}</span></div><h2 id="nocturne-explorer-title">{study === "foundations" ? "Set the scene." : study === "typography" ? "Let type breathe." : study === "actions" ? "Send a signal." : study === "forms" ? "Make intent legible." : study === "disclosure" ? "Reveal with purpose." : study === "feedback" ? "Make state visible." : study === "data-display" ? "Give data a scene." : study === "carousels" ? "Move by choice." : study === "overlays" ? "Focus the frame." : study === "advanced" ? "Control the signal." : study === "motion" ? "Move through depth." : "Shape the atmosphere."}</h2><NocturnePanel study={study} reduced={reduced} /></div></section>
     <NocturneControls />
     <footer className="nocturne-footer"><span>LAC. / SYSTEM 02</span><span>NOCTURNE IS IN DEVELOPMENT</span><a href="#nocturne-top">RETURN TO TOP ↑</a></footer>
   </main>;

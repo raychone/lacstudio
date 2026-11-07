@@ -7,8 +7,22 @@ import { CompatibilityPlayground } from "@/components/lab/compatibility-playgrou
 import { TactileDisclosureStudy } from "@/components/lab/tactile/tactile-disclosure-study";
 import { TactileFeedbackStudy } from "@/components/lab/tactile/tactile-feedback-study";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
+import { libraryCategories, type LibraryCategoryId } from "@/design-system/engine/categories";
 
-const sections = ["Color system", "Typography", "Buttons", "Disclosure", "Feedback", "Motion", "Animations", "Effect studies", "Compatibility"];
+const tactileCategoryMeta: Record<LibraryCategoryId, { title: string; description: string; maturity: "Stable" | "In progress" | "Experimental" | "Planned" }> = {
+  foundations: { title: "Make material intentional.", description: "Palette, depth and surface decisions are tested here before they shape a component.", maturity: "In progress" },
+  typography: { title: "Give hierarchy a pulse.", description: "Responsive type specimens make the editorial voice readable at every scale.", maturity: "Experimental" },
+  actions: { title: "Press with purpose.", description: "Buttons keep their tactile identity across default, hover, active, focus and disabled states.", maturity: "Experimental" },
+  forms: { title: "Make the reply feel easy.", description: "Fields, validation and the custom selector preserve their physical surface language.", maturity: "In progress" },
+  disclosure: { title: "Reveal without losing calm.", description: "Tactile disclosures combine familiar semantics with raised and recessed material states.", maturity: "In progress" },
+  feedback: { title: "Let state be felt.", description: "Notifications, loading and result states make progress legible without visual noise.", maturity: "In progress" },
+  "data-display": { title: "Give information a surface.", description: "Project cards are the current tactile data-display studies; denser data patterns are planned next.", maturity: "In progress" },
+  carousels: { title: "Move through work with weight.", description: "The project carousel retains its autoplay, controls and depth-focused active state.", maturity: "In progress" },
+  overlays: { title: "Hold a focused moment.", description: "Contained modal, drawer and command previews stay inside their local tactile canvas.", maturity: "In progress" },
+  advanced: { title: "Compose beyond the primitive.", description: "Navigation is the current advanced study; workflow controls are intentionally planned rather than implied.", maturity: "Planned" },
+  motion: { title: "Make depth move.", description: "Text, cards, buttons and loading states use distinct motion recipes with replay controls.", maturity: "Experimental" },
+  effects: { title: "Shape atmosphere carefully.", description: "Pointer light and atmosphere studies remain optional visual experiments, never a requirement for use.", maturity: "Experimental" },
+};
 
 const experiments = [
   { id: "01", label: "Magnetic", className: "magnetic" },
@@ -92,10 +106,14 @@ function NavigationApproved() {
   return <div className="navigation-showcase approved-navigation"><div className="nav-demo"><b>LAC.</b><div>{["Index", "Work", "About"].map((item) => <button key={item} className={view === item ? "selected" : ""} onClick={() => setView(item)}>{item}</button>)}</div><button className={megaOpen ? "nav-menu open" : "nav-menu"} onClick={() => setMegaOpen(!megaOpen)}>{megaOpen ? "CLOSE MENU" : "OPEN MEGA"} <span>{megaOpen ? "×" : "↗"}</span></button></div>{megaOpen && <div className="mini-mega"><button className="mega-close" onClick={() => setMegaOpen(false)} aria-label="Close mega menu">×</button><span>CAPABILITIES</span><b>Identity<br />Digital direction<br />Creative development</b><i>Desktop navigation with a large contextual panel.</i><button className="mega-cta" onClick={() => { setMegaOpen(false); setView("Work"); }}>VIEW WORK ↗</button></div>}<div className="nav-detail"><div className="nav-copy"><span>SELECTED VIEW / {view.toUpperCase()}</span><strong>{view === "Index" ? "An introduction, not an obstacle." : view === "Work" ? "Make the work easy to find." : "A studio with a point of view."}</strong><p>Desktop navigation, mega-menu and mobile drawer share a consistent material system.</p></div><div className={mobileOpen ? "mobile-nav-demo open" : "mobile-nav-demo"}><div className="mobile-top"><b>LAC.</b><button onClick={() => setMobileOpen(!mobileOpen)} aria-expanded={mobileOpen}>{mobileOpen ? "CLOSE" : "MENU"}<i>{mobileOpen ? "×" : "☰"}</i></button></div>{mobileOpen && <div className="mobile-drawer"><span>NAVIGATE</span><b>Index<br />Work<br />About</b><i>hello@lac.studio</i></div>}</div></div></div>;
 }
 
-function ReadyComponents() {
+function LegacyAccordionStudy() {
   const [open, setOpen] = useState("A clear question");
   const questions = ["A clear question", "A considered answer", "A useful next step"];
-  return <section id="ready" className="approved section-wrap"><div className="approved-heading"><div><p className="eyebrow">APPROVED COMPONENTS</p><h2>Ready to use,<br /><em>kept apart.</em></h2></div><p>Patterns that have passed the Lab review move here. They remain easy to inspect without competing with experiments still in progress.</p></div><div className="approved-grid"><div className="approved-surface"><div className="approved-label">ACCORDIONS / PRODUCTION READY</div><div className="lab-accordions">{questions.map((item, index) => <div key={item} className={open === item ? "lab-accordion open" : "lab-accordion"}><button onClick={() => setOpen(open === item ? "" : item)}><small>0{index + 1}</small><span>{item}</span><b>{open === item ? "−" : "+"}</b></button>{open === item && <p>{index === 0 ? "A reliable disclosure pattern: raised when closed, pressed into the material when open." : index === 1 ? "The visual state follows the physical metaphor, so the interaction is readable before the copy is." : "This component is now ready to be used in FAQs, services or project details."}</p>}</div>)}</div></div><div className="approved-surface input-surface"><div className="approved-label">INPUTS / PRODUCTION READY</div><InputsPreview /></div><div className="approved-surface navigation-surface"><div className="approved-label">NAVIGATION / PRODUCTION READY</div><NavigationApproved /></div><div className="approved-surface cards-surface"><div className="approved-label">CARDS / PRODUCTION READY</div><CardsApproved /></div><div className="approved-surface carousel-surface"><div className="approved-label">CAROUSELS / PRODUCTION READY</div><CarouselApproved /></div><div className="approved-surface visual-surface"><div className="approved-label">VISUAL EFFECTS / PRODUCTION READY</div><EffectsPreview /></div><div className="approved-surface overlay-surface"><div className="approved-label">OVERLAYS / PRODUCTION READY</div><OverlaysPreview /></div></div></section>;
+  return <div className="tactile-legacy-study"><span>LEGACY ACCORDION / SINGLE FOCUS</span><div className="lab-accordions">{questions.map((item, index) => <div key={item} className={open === item ? "lab-accordion open" : "lab-accordion"}><button onClick={() => setOpen(open === item ? "" : item)} aria-expanded={open === item}><small>0{index + 1}</small><span>{item}</span><b>{open === item ? "−" : "+"}</b></button>{open === item && <p>{index === 0 ? "A reliable disclosure pattern: raised when closed, pressed into the material when open." : index === 1 ? "The visual state follows the physical metaphor, so the interaction is readable before the copy is." : "This original Lab study remains available alongside the expanded Disclosure library."}</p>}</div>)}</div></div>;
+}
+
+function TactilePlannedState() {
+  return <div className="tactile-planned-state"><span>PLANNED / ADVANCED CONTROLS</span><strong>Navigation is available now.</strong><p>Tag input, multi-select, range, rating and workflow controls will enter this category when their Tactile recipes are ready.</p></div>;
 }
 
 function EffectsPreview() {
@@ -139,30 +157,19 @@ function ColorSystemPreview({ palette, setPalette }: { palette: string; setPalet
 }
 
 type LabPanelProps = {
-  section: string;
+  section: LibraryCategoryId | "compatibility";
   activeButton: string;
   setActiveButton: (value: string) => void;
   message: string;
   setMessage: (value: string) => void;
-  navView: string;
-  setNavView: (value: string) => void;
-  labOpen: string;
-  setLabOpen: (value: string) => void;
-  carouselSlide: number;
-  goToSlide: (index: number) => void;
-  previousSlide: () => void;
-  nextSlide: () => void;
   palette: string;
   setPalette: (palette: string) => void;
 };
 
-function LabPanel({ section, activeButton, setActiveButton, message, setMessage, navView, setNavView, labOpen, setLabOpen, carouselSlide, goToSlide, previousSlide, nextSlide, palette, setPalette }: LabPanelProps) {
-  const label = section.toUpperCase();
+function LabPanel({ section, activeButton, setActiveButton, message, setMessage, palette, setPalette }: LabPanelProps) {
+  const category = section === "compatibility" ? null : libraryCategories.find((item) => item.id === section) ?? libraryCategories[0];
+  const meta = category ? tactileCategoryMeta[category.id] : null;
   const [buttonLoading, setButtonLoading] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [carouselPointer, setCarouselPointer] = useState<number | null>(null);
-  const [carouselFullscreen, setCarouselFullscreen] = useState(false);
   const activeExperiment = experiments.find((item) => item.id === activeButton);
   const runButton = () => {
     if (activeButton !== "05") { setMessage("A tiny interaction, with a clear destination."); return; }
@@ -170,10 +177,11 @@ function LabPanel({ section, activeButton, setActiveButton, message, setMessage,
     window.setTimeout(() => { setButtonLoading(false); setMessage("Ready. Loading can still feel considered."); }, 1100);
   };
   return <div className="lab-stage">
-    <div className="stage-head"><span>{label} EXPLORATION</span><span>{label} — ACTIVE</span></div>
-    {section === "Color system" && <ColorSystemPreview palette={palette} setPalette={setPalette} />}
-    {section === "Typography" && <TypographyPreview />}
-    {section === "Buttons" && <>
+    <div className="stage-head"><span>{category ? `TACTILE / ${category.label.toUpperCase()}` : "DEVELOPMENT UTILITY / COMPATIBILITY"}</span><span>{meta?.maturity ?? "Utility"}</span></div>
+    {meta && <div className="tactile-category-head"><div><h3>{meta.title}</h3><span>{meta.maturity}</span></div><p>{meta.description}</p></div>}
+    {section === "foundations" && <ColorSystemPreview palette={palette} setPalette={setPalette} />}
+    {section === "typography" && <TypographyPreview />}
+    {section === "actions" && <>
       <div className="button-showcase">
         <div className="type-sample"><span>Explore work</span><strong>Explore<br />work</strong></div>
         <button className={`demo-button ${activeExperiment?.className} ${buttonLoading ? "is-loading" : ""}`} onClick={runButton}><span>{buttonLoading ? "Loading" : activeButton === "02" ? "View project" : "Explore work"}</span><b>{buttonLoading ? "◌" : "↗"}</b></button>
@@ -182,76 +190,37 @@ function LabPanel({ section, activeButton, setActiveButton, message, setMessage,
       <div className="variant-tabs button-variants">{experiments.map((item) => <button key={item.id} className={activeButton === item.id ? "selected" : ""} onClick={() => { setActiveButton(item.id); setMessage(`${item.label} selected.`); }}><small>{item.id}</small>{item.label}</button>)}</div>
       <div className="button-state-board"><span>STATE SYSTEM</span><button>DEFAULT</button><button className="hover-state">HOVER</button><button className="active-state">ACTIVE</button><button className="focus-state">FOCUS</button><button disabled>DISABLED</button></div>
     </>}
-    {section === "Cards" && <>
-      <div className="cards-showcase">
-        <button className="lab-card primary-card" onClick={() => setMessage("Project card: title, category and movement in one gesture.")}><span>01 / PROJECT CARD</span><strong>Future<br />objects</strong><i>↗</i><div className="card-shape" /></button>
-        <button className="lab-card outline-card" onClick={() => setMessage("Bento card: designed for scanning and discovery.")}><span>02 / BENTO CARD</span><strong>A place<br />for detail</strong><i>+</i><div className="card-lines"><b /><b /><b /></div></button>
-        <button className="lab-card orbit-card" onClick={() => setMessage("Orbit card: a more sculptural direction for featured projects.")}><span>03 / IMMERSIVE CARD</span><strong>Step<br />inside</strong><i>↗</i><div className="orbit-core" /><div className="orbit-ring" /></button>
-        <button className="lab-card index-card" onClick={() => setMessage("Index card: a quieter project listing pattern.")}><span>04 / INDEX CARD</span><strong>Proof of<br />craft</strong><i>04</i><div className="index-grid"><b /><b /><b /><b /></div></button>
-      </div>
-      <p className="stage-message" aria-live="polite">{message}</p>
-    </>}
-    {section === "Navigation" && <>
-      <div className="navigation-showcase">
-        <div className="nav-demo"><b>LAC.</b><div>{["Index", "Work", "About"].map((item) => <button key={item} className={navView === item ? "selected" : ""} onClick={() => setNavView(item)}>{item}</button>)}</div><button className={menuOpen ? "nav-menu open" : "nav-menu"} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "CLOSE MENU" : "OPEN MEGA"} <span>{menuOpen ? "×" : "↗"}</span></button></div>
-        {menuOpen && <div className="mini-mega"><button className="mega-close" onClick={() => setMenuOpen(false)} aria-label="Close mega menu">×</button><span>CAPABILITIES</span><b>Identity<br />Digital direction<br />Creative development</b><i>Desktop navigation with a large contextual panel.</i><button className="mega-cta" onClick={() => { setMenuOpen(false); setNavView("Work"); }}>VIEW WORK ↗</button></div>}
-        <div className="nav-detail"><div className="nav-copy"><span>SELECTED VIEW / {navView.toUpperCase()}</span><strong>{navView === "Index" ? "An introduction, not an obstacle." : navView === "Work" ? "Make the work easy to find." : "A studio with a point of view."}</strong><p>Try the links above: the selected state changes independently from the main site navigation.</p></div><div className={mobileNavOpen ? "mobile-nav-demo open" : "mobile-nav-demo"}><div className="mobile-top"><b>LAC.</b><button onClick={() => setMobileNavOpen(!mobileNavOpen)} aria-expanded={mobileNavOpen}>{mobileNavOpen ? "CLOSE" : "MENU"}<i>{mobileNavOpen ? "×" : "☰"}</i></button></div>{mobileNavOpen && <div className="mobile-drawer"><span>NAVIGATE</span><b>Index<br />Work<br />About</b><i>hello@lac.studio</i></div>}</div></div>
-      </div>
-      <p className="stage-message" aria-live="polite">{message}</p>
-    </>}
-    {section === "Accordions" && <>
-      <div className="lab-accordions">{["A clear question", "A considered answer", "A useful next step"].map((item, index) => <div key={item} className={labOpen === item ? "lab-accordion open" : "lab-accordion"}><button onClick={() => setLabOpen(labOpen === item ? "" : item)}><small>0{index + 1}</small><span>{item}</span><b>{labOpen === item ? "−" : "+"}</b></button>{labOpen === item && <p>{index === 0 ? "Accordions are ideal when a visitor wants detail on their own terms." : index === 1 ? "The reveal is deliberate, with a generous pace and a visible close control." : "Every expanded state should point toward a meaningful action or decision."}</p>}</div>)}</div>
-      <p className="stage-message" aria-live="polite">Click a row to test the open state.</p>
-    </>}
-    {section === "Carousels" && <>
-      <div className="mini-carousel">
-        <div className="mini-carousel-head"><span>AUTOPLAY / 4.5 SEC</span><button onClick={() => setCarouselFullscreen(true)}>FULL SCREEN ↗</button><span>{String(carouselSlide + 1).padStart(2, "0")} / 03</span></div>
-        <div className="mini-carousel-window" onPointerDown={(event) => setCarouselPointer(event.clientX)} onPointerUp={(event) => { if (carouselPointer === null) return; if (event.clientX - carouselPointer > 38) previousSlide(); if (carouselPointer - event.clientX > 38) nextSlide(); setCarouselPointer(null); }}><div className="mini-carousel-track" style={{ transform: `translateX(-${carouselSlide * 100}%)` }}>{projects.map((item, index) => <article className={`mini-slide ${item.tint} ${carouselSlide === index ? "active-slide" : ""}`} key={item.title}><span>{item.type}</span><strong>{item.title}</strong><i>0{index + 1}</i></article>)}</div></div>
-        <div className="mini-carousel-controls"><button onClick={previousSlide} aria-label="Previous carousel slide">←</button><div className="carousel-rail" aria-label={`Slide ${carouselSlide + 1} of ${projects.length}`}><i style={{ transform: `translateX(${carouselSlide * 100}%)` }} />{projects.map((item, index) => <button key={item.title} className={carouselSlide === index ? "active" : ""} onClick={() => goToSlide(index)}>{index + 1}</button>)}</div><button onClick={nextSlide} aria-label="Next carousel slide">→</button></div>
-      </div>
-      {carouselFullscreen && <div className="carousel-fullscreen"><button onClick={() => setCarouselFullscreen(false)} aria-label="Close fullscreen carousel">×</button><article className={`mini-slide ${projects[carouselSlide].tint}`}><span>FULLSCREEN / {projects[carouselSlide].type}</span><strong>{projects[carouselSlide].title}</strong><i>{String(carouselSlide + 1).padStart(2, "0")}</i></article><div><button onClick={previousSlide}>←</button><button onClick={nextSlide}>→</button></div></div>}
-      <p className="stage-message">Auto-advance · drag/snap ready · loop · full-screen trigger.</p>
-    </>}
-    {section === "Inputs" && <InputsPreview />}
-    {section === "Motion" && <MotionPreview />}
-    {section === "Animations" && <AnimationsPreview />}
-    {section === "Overlays" && <OverlaysPreview />}
-    {section === "Effect studies" && <EffectStudies />}
-    {section === "Disclosure" && <TactileDisclosureStudy />}
-    {section === "Feedback" && <TactileFeedbackStudy />}
-    {section === "Compatibility" && <CompatibilityPlayground />}
+    {section === "forms" && <InputsPreview />}
+    {section === "disclosure" && <div className="tactile-category-stack"><TactileDisclosureStudy /><LegacyAccordionStudy /></div>}
+    {section === "feedback" && <TactileFeedbackStudy />}
+    {section === "data-display" && <CardsApproved />}
+    {section === "carousels" && <CarouselApproved />}
+    {section === "overlays" && <OverlaysPreview />}
+    {section === "advanced" && <div className="tactile-category-stack"><NavigationApproved /><TactilePlannedState /></div>}
+    {section === "motion" && <div className="tactile-category-stack"><MotionPreview /><AnimationsPreview /></div>}
+    {section === "effects" && <div className="tactile-category-stack"><EffectsPreview /><EffectStudies /></div>}
+    {section === "compatibility" && <CompatibilityPlayground />}
   </div>;
 }
 
 function TactileLab() {
-  const [activeSection, setActiveSection] = useState("Buttons");
+  const [activeSection, setActiveSection] = useState<LibraryCategoryId | "compatibility">("actions");
   const [activeButton, setActiveButton] = useState("01");
   const [openItem, setOpenItem] = useState("Why a lab first?");
   const [project, setProject] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [message, setMessage] = useState("Ready to explore.");
-  const [navView, setNavView] = useState("Index");
-  const [labOpen, setLabOpen] = useState("A clear question");
-  const [carouselSlide, setCarouselSlide] = useState(0);
   const [workPaused, setWorkPaused] = useState(false);
   const [palette, setPalette] = useState("cream");
 
   const cycleProject = () => setProject((current) => (current + 1) % projects.length);
   const previousProject = () => setProject((current) => (current - 1 + projects.length) % projects.length);
-  const nextCarouselSlide = () => setCarouselSlide((current) => (current + 1) % projects.length);
-  const previousCarouselSlide = () => setCarouselSlide((current) => (current - 1 + projects.length) % projects.length);
 
   useEffect(() => {
     if (reducedMotion || workPaused) return;
     const timer = window.setInterval(cycleProject, 4500);
     return () => window.clearInterval(timer);
   }, [reducedMotion, workPaused]);
-
-  useEffect(() => {
-    if (reducedMotion || activeSection !== "Carousels") return;
-    const timer = window.setInterval(nextCarouselSlide, 4500);
-    return () => window.clearInterval(timer);
-  }, [activeSection, reducedMotion]);
 
   return (
     <main data-design="tactile" className={reducedMotion ? `site neumorphic palette-${palette} reduce-motion` : `site neumorphic palette-${palette}`}>
@@ -289,18 +258,17 @@ function TactileLab() {
         <div className="lab-layout">
           <aside className="lab-nav" aria-label="Lab categories">
             <span className="nav-label">COMPONENTS</span>
-            {sections.map((section, index) => <button key={section} onClick={() => setActiveSection(section)} className={activeSection === section ? "active" : ""}><small>0{index + 1}</small>{section}</button>)}
+            {libraryCategories.map((category, index) => <button key={category.id} onClick={() => setActiveSection(category.id)} className={activeSection === category.id ? "active" : ""}><small>{String(index + 1).padStart(2, "0")}</small>{category.label}</button>)}
+            <div className="lab-utility"><span>DEVELOPMENT</span><button onClick={() => setActiveSection("compatibility")} className={activeSection === "compatibility" ? "active" : ""}><small>↗</small>Compatibility</button></div>
             <div className="motion-toggle">
               <span>REDUCE MOTION</span>
               <button onClick={() => setReducedMotion(!reducedMotion)} className={reducedMotion ? "switch on" : "switch"} aria-pressed={reducedMotion}><i /></button>
             </div>
           </aside>
 
-          <LabPanel section={activeSection} activeButton={activeButton} setActiveButton={setActiveButton} message={message} setMessage={setMessage} navView={navView} setNavView={setNavView} labOpen={labOpen} setLabOpen={setLabOpen} carouselSlide={carouselSlide} goToSlide={setCarouselSlide} previousSlide={previousCarouselSlide} nextSlide={nextCarouselSlide} palette={palette} setPalette={setPalette} />
+          <LabPanel section={activeSection} activeButton={activeButton} setActiveButton={setActiveButton} message={message} setMessage={setMessage} palette={palette} setPalette={setPalette} />
         </div>
       </section>
-
-      <ReadyComponents />
 
       <section id="work" className="work section-wrap">
         <div className="section-heading"><p className="eyebrow">SELECTED DIRECTION</p><span>02 — PREVIEW</span></div>

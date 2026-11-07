@@ -1,0 +1,25 @@
+/* Shared information architecture; each system keeps its own visual recipe. */
+.lab-utility { margin-top:12px; padding-top:13px; border-top:1px solid rgba(38,49,59,.1); }
+.lab-utility > span { display:block; margin:0 0 5px 10px; color:#74716b; font-size:8px; letter-spacing:.11em; }
+.lab-utility > button { width:100%; border:0; border-radius:11px; padding:10px; color:#626662; background:transparent; text-align:left; font:inherit; font-size:14px; cursor:pointer; }
+.lab-utility > button small { display:inline-block; width:30px; color:#8f8b84; font-size:9px; vertical-align:middle; }
+.lab-utility > button.active { color:var(--neo-accent); background:var(--neo-base); box-shadow:inset 4px 4px 8px var(--neo-dark),inset -4px -4px 8px var(--neo-light); }
+.tactile-category-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,.8fr); gap:22px; align-items:end; margin:21px 0 18px; padding-bottom:16px; border-bottom:1px solid rgba(38,49,59,.1); }
+.tactile-category-head h3 { margin:0; color:var(--neo-ink); font-size:clamp(25px,3.3vw,44px); font-weight:500; letter-spacing:-.075em; line-height:.88; }
+.tactile-category-head span { display:inline-block; margin-top:9px; color:var(--neo-accent); font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.tactile-category-head p { max-width:310px; margin:0; color:#74716b; font-size:12px; line-height:1.45; }
+.tactile-category-stack { display:grid; gap:var(--layout-grid-gap); padding:8px 0 26px; }
+.tactile-legacy-study,.tactile-planned-state { padding:20px; border-radius:18px; background:var(--neo-base); box-shadow:var(--shadow-raised); }
+.tactile-legacy-study > span,.tactile-planned-state > span { display:block; margin-bottom:14px; color:#74716b; font-size:9px; font-weight:800; letter-spacing:.12em; }
+.tactile-legacy-study .lab-accordions { margin:0; }
+.tactile-planned-state { max-width:520px; box-shadow:var(--shadow-recessed); }
+.tactile-planned-state strong { display:block; margin-bottom:7px; color:var(--neo-ink); font-size:19px; font-weight:600; letter-spacing:-.04em; }
+.tactile-planned-state p { max-width:390px; margin:0; color:#74716b; font-size:13px; line-height:1.45; }
+.lab-stage > .approved-cards { margin:6px 0 26px; padding-bottom:0; }
+.lab-stage > .approved-carousel { margin:5px 0 26px; }
+.lab-stage > .approved-navigation { margin:0; padding-top:0; min-height:0; }
+.lab-stage > .overlays-lab { min-height:380px; }
+.lab-stage > .effects-lab { min-height:340px; }
+.lab-stage > .compatibility-playground { margin:12px 0 26px; }
+@media (max-width:980px) { .neumorphic .lab-layout { grid-template-columns:190px 1fr; } .tactile-category-head { grid-template-columns:1fr; gap:10px; } }
+@media (max-width:760px) { .neumorphic .lab-nav { grid-template-columns:repeat(2,minmax(0,1fr)); } .lab-utility { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:6px; margin-top:5px; padding-top:12px; } .lab-utility > span { margin:0; } .lab-utility > button { padding:8px; } .tactile-category-head { margin:16px 0; padding-bottom:13px; } .tactile-category-head h3 { font-size:31px; } .tactile-category-stack { gap:18px; padding-bottom:20px; } .tactile-legacy-study,.tactile-planned-state { padding:16px; } .lab-stage > .overlays-lab { min-height:340px; } }
