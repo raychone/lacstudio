@@ -106,3 +106,9 @@
 - Added functional Editorial Actions, Forms, Disclosure and Feedback categories.
 - Added numbered, ink and underline action studies; correspondence form; publication-index disclosure; and proof-status feedback studies.
 - Kept common reference fixtures and shared workspace dimensions intact; Data Display through Effects remain intentionally pending.
+
+## 2026-11-07 — Editorial Phase 3
+
+- Added functional Editorial Data Display, Carousels, Overlays and Advanced categories.
+- Added an editorial feature index, publication data story, rule-led timeline, magazine-spread and featured-story sequences, paper-sheet overlay studies, command index, preference composer, step-by-step composer and layout comparator.
+- Kept shared reference fixtures and external workspace dimensions intact; Motion and Effects remain intentionally pending.

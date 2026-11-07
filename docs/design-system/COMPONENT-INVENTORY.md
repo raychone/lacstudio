@@ -26,6 +26,10 @@ Status: **Approved** means visually selected for the Lab, not yet accessibility-
 | Editorial forms | text/email/password/select/textarea/radio/switch/validation/disabled states and correspondence signature form | In development | custom-control screen-reader and mobile QA |
 | Editorial disclosure | multi-accordion, tabs, collapsible, tooltip, popover, dropdown, context menu, segmented control and breadcrumb | In development | full keyboard/focus QA |
 | Editorial feedback | toast, alert, badges, linear/circular progress, spinner, skeleton, result states and steps | In development | live-announcement and timing QA |
+| Editorial data display | standard/selectable/expandable/media/stat/feature/loading/empty cards, avatars, chips, timeline, sortable paginated table | In development | table mobile and assistive-technology QA |
+| Editorial carousels | content, media, magazine-spread and featured-story variants; indicators, keyboard controls and touch swipe | In development | touch-device and reduced-motion QA |
+| Editorial overlays | modal, confirmation, drawer, bottom sheet, lightbox, reading panel and command index; focus trap, Escape, scroll lock and restoration | In development | screen-reader and mobile QA |
+| Editorial advanced interactions | tag input, multi-select, range, rating, reorder controls, composer wizard and publication comparison slider | In development | touch and keyboard regression QA |
 | Shared library navigation | Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects; Compatibility remains a separate utility | In development | browser category-navigation and narrow-width QA |
 | Global design selector | five typed design choices, local preference persistence, radio semantics | In development | browser persistence and keyboard QA |
 | Nocturne component lab | independent foundations, typography, action, card, input, accordion, dialog, motion and effects studies | In development | owner visual review, focus management and responsive QA |
