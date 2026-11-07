@@ -41,7 +41,7 @@ The active component is the scroll anchor. After a system switch, the workspace 
 
 `design-system/showcase/schema.ts` is a small design-neutral comparison contract. A definition carries the category and stable component identifier, display title, description, optional variants and a shared outer size class. The renderer supplies the common heading, fixture order, variant/state controls and preview boundary; each system retains its visual recipe and signature studies.
 
-The contract is deliberately partial in B.7A: Foundations, Typography, Actions and Forms are the reference categories. Its category-ID based shape is reusable for the remaining eight categories in B.7B without adding a second workspace or navigation model.
+All twelve categories now have a shared reference definition. Common references standardize their fixture copy, state label, outer boundary and size class; the richer original system studies remain below as Signature Experiments. This keeps geometry comparable without replacing actual system-specific behavior.
 
 ## Initial playground
 

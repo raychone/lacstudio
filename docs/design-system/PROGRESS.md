@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Phase B.7A complete — shared showcase reference categories.** Foundations, Typography, Actions and Forms now begin with the same comparison composition before preserving their original system-specific studies as Signature Experiments.
+**Phase B.7B complete — complete shared showcase parity.** Every category begins with one shared comparison fixture before preserving original system studies as Signature Experiments.
 
 ## Completed
 
@@ -23,18 +23,19 @@
 - Shared category registry and consolidated Tactile/Nocturne Lab architecture: `d67609a`.
 - Shared workspace shell, URL-addressable design/category/component state, scroll anchoring and shared Compatibility controls: `6f7be93`.
 - Shared showcase schema and rendered reference composition for the first four categories: `864b4c9`.
+- Shared reference fixtures for Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects: `f253db4`.
 
 ## Current coverage
 
 | Design | State | Notes |
 | --- | --- | --- |
-| 01 Tactile | B.7A ready for review | Shared reference fixtures precede preserved material signature studies in Foundations, Typography, Actions and Forms. |
-| 02 Nocturne | In development | Shared reference fixtures precede preserved cinematic signature studies in Foundations, Typography, Actions and Forms. |
+| 01 Tactile | B.7B ready for review | Shared comparison fixtures precede preserved material signature studies across all twelve categories. |
+| 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
 | 03 Editorial | Registered | No visual recipe yet. |
 | 04 Brutalist | Registered | No visual recipe yet. |
 | 05 Playground | Registered | No visual recipe yet. |
 
-Latest verified implementation commit: `864b4c9`.
+Latest verified implementation commit: `f253db4`.
 
 ## Known issues / deferred checks
 
@@ -48,4 +49,4 @@ Latest verified implementation commit: `864b4c9`.
 
 ## Exact next step
 
-Phase B.7A is documented in the shared showcase matrix. Stop here for owner review; do not begin B.7B, Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.
+Phase B.7B is documented in the shared showcase matrix. Stop here for owner review; do not begin Phase C, Editorial, Brutalist, the portfolio or package extraction automatically.

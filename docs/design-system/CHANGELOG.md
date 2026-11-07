@@ -86,3 +86,10 @@
 - Labeled original category studies as Signature Experiments rather than deleting, flattening or moving them into a separate approved library.
 - Bounded the Tactile Actions comparison area to prevent its editorial copy from overlapping the circular button surface in the unified stage.
 - Deferred Disclosure through Effects to B.7B; no new component category was started.
+
+## 2026-11-07 — Phase B.7B / Complete shared showcase parity
+
+- Extended the existing showcase schema and comparison renderer to Disclosure, Feedback, Data Display, Carousels, Overlays, Advanced, Motion and Effects.
+- Added common fixtures, variants/state labels and shared outer preview boundaries for all twelve categories.
+- Kept every original system study beneath the reference layer as a Signature Experiment; no Tactile or Nocturne effect, animation or interaction was removed.
+- Preserved URL component selection, switching, scroll anchoring and reduced-motion behavior from Phase B.6.
