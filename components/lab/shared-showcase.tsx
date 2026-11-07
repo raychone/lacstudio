@@ -3,12 +3,13 @@
 import { useDesign } from "@/design-system/engine/provider";
 import { showcaseFor } from "@/design-system/showcase/schema";
 
-export function SharedShowcase() {
+export function SharedShowcase({ designId }: { designId?: "tactile" | "nocturne" }) {
   const { activeCategory, activeComponent, activeDesign, setActiveComponent } = useDesign();
   const showcase = showcaseFor(activeCategory);
   if (!showcase) return null;
   const selected = activeComponent.startsWith(`${activeCategory}.`) ? activeComponent.slice(activeCategory.length + 1) : activeCategory === "actions" && activeComponent.startsWith("action.") ? activeComponent.slice("action.".length) : showcase.variants?.[0]?.id ?? "reference";
-  return <section className={`shared-showcase ${activeDesign.id}`} data-component-id={showcase.componentId} aria-labelledby="showcase-title">
+  const visualDesign = designId ?? activeDesign.id;
+  return <section className={`shared-showcase ${visualDesign}`} data-component-id={showcase.componentId} aria-labelledby="showcase-title">
     <div className="shared-showcase-head"><div><span>COMMON REFERENCE / {showcase.size.toUpperCase()}</span><h2 id="showcase-title">{showcase.title}</h2></div><p>{showcase.description}</p></div>
     {activeCategory === "foundations" && <div className="showcase-foundations"><div><span>Canvas</span><i /><b>Surface / 01</b></div><div><span>Raised</span><i /><b>Surface / 02</b></div><div><span>Recessed</span><i /><b>Surface / 03</b></div><div><span>Accent</span><i /><b>Signal</b></div><div><span>Ink</span><i /><b>Text / primary</b></div><div><span>Radius + spacing</span><i /><b>16 px · 24 px</b></div></div>}
     {activeCategory === "typography" && <div className="showcase-type"><span className="showcase-display">The work should<br />feel inevitable.</span><div className="showcase-type-grid"><h1>H1 / Make it clear</h1><h2>H2 / Give it room</h2><h3>H3 / A considered detail</h3><h4>H4 / Supporting structure</h4><h5>H5 / Quiet hierarchy</h5><h6>H6 / Useful context</h6><p><b>Body / 16</b> A shared specimen sentence lets typography remain comparable without making its voice identical.</p><small>CAPTION / Label 0123456789</small></div></div>}
