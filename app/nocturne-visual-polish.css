@@ -1,0 +1,61 @@
+/* Phase 5B.2 — Nocturne only. Shared dimensions and other systems remain untouched. */
+.workspace-shell.nocturne-lab[data-design="nocturne"]{
+  --nocturne-primary:#f5f6ff;
+  --nocturne-secondary:#c6cde9;
+  --nocturne-tertiary:#a6afd0;
+  --nocturne-edge:rgba(222,228,255,.26);
+  --nocturne-glass:linear-gradient(145deg,rgba(37,50,101,.78),rgba(8,13,31,.94));
+  --nocturne-menu:linear-gradient(145deg,rgba(35,48,94,.98),rgba(9,14,34,.99));
+}
+
+.workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-sidebar,
+.workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-stage{
+  border-color:var(--nocturne-edge);
+}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-sidebar{background:linear-gradient(160deg,rgba(15,23,50,.72),rgba(7,11,26,.82))}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-stage{background:linear-gradient(145deg,rgba(11,17,39,.72),rgba(5,8,20,.7))}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-sidebar>button{color:var(--nocturne-tertiary)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-sidebar>button:hover,
+.workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-sidebar>button.active{color:var(--nocturne-primary);background:rgba(184,174,255,.13);box-shadow:inset 2px 0 var(--signal),inset 0 1px rgba(255,255,255,.06)}
+
+.workspace-shell.nocturne-lab[data-design="nocturne"] .shared-showcase.nocturne{border-color:var(--nocturne-edge);background:var(--nocturne-glass);box-shadow:inset 0 1px rgba(255,255,255,.06),0 18px 42px rgba(0,0,0,.13)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .shared-showcase.nocturne .shared-showcase-head p,
+.workspace-shell.nocturne-lab[data-design="nocturne"] .shared-showcase.nocturne .showcase-generic-main p{color:var(--nocturne-secondary)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .shared-showcase.nocturne :where(input,textarea,select){border-color:rgba(205,214,255,.24);background:rgba(8,13,31,.68)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .shared-showcase.nocturne :where(button,input,textarea,select):focus-visible,
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage :where(button,input,textarea,[role="tab"]):focus-visible{outline:2px solid var(--signal-bright);outline-offset:3px;box-shadow:0 0 0 4px rgba(184,174,255,.18)}
+
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage :where(.nocturne-form-intro p,.nocturne-field small,.nocturne-data-card p,.nocturne-timeline p,.nocturne-carousel-track p,.nocturne-overlay-panel p,.nocturne-command p,.nocturne-alert,.nocturne-state,.nocturne-motion-footer){color:var(--nocturne-secondary)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage :where(.nocturne-data-card>span,.nocturne-table th button,.nocturne-carousel-announcement,.nocturne-overlays-study section>p,.nocturne-multi-select p,.nocturne-breadcrumb,.nocturne-steps li){color:var(--nocturne-tertiary)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage :where(.nocturne-study-gallery>article,.nocturne-feedback-grid>article,.nocturne-overlays-study section,.nocturne-advanced-study section,.nocturne-data-card){background:var(--nocturne-glass)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage :where(.nocturne-study-gallery,.nocturne-feedback-grid,.nocturne-overlays-study,.nocturne-advanced-study,.nocturne-card-grid){background:rgba(222,228,255,.22)}
+
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage :where(.nocturne-select-options,.nocturne-dropdown [role="menu"],.nocturne-popover>div,.nocturne-context>[role="menu"],.nocturne-command>div,.nocturne-split-menu){border-color:var(--nocturne-edge);background:var(--nocturne-menu);box-shadow:inset 0 1px rgba(255,255,255,.09),0 20px 42px rgba(0,0,0,.52)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage :where(.nocturne-select-options button,.nocturne-dropdown [role="menu"] button,.nocturne-command>div>button,.nocturne-context>[role="menu"] button):hover,
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-select-options button[aria-selected="true"],
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-command>div>button.active{background:rgba(184,174,255,.2);color:var(--nocturne-primary);box-shadow:inset 2px 0 var(--signal)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-field{border-bottom-color:rgba(205,214,255,.38)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-field>span{color:var(--nocturne-secondary)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-field:focus-within{border-color:var(--signal-bright);box-shadow:0 10px 19px -16px var(--signal)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-button:hover:not(:disabled),
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-overlay-trigger:hover{border-color:var(--signal-bright);box-shadow:0 0 16px rgba(184,174,255,.2),inset 0 0 18px rgba(184,174,255,.07)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-button:active:not(:disabled){transform:translateY(1px);box-shadow:inset 0 0 20px rgba(184,174,255,.18)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-button:disabled{color:#9aa3c2;opacity:.55}
+
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-data-card{box-shadow:inset 0 1px rgba(255,255,255,.045)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-data-card:hover .nocturne-card-edge,
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-data-card.selected .nocturne-card-edge{border-color:rgba(205,198,255,.72);box-shadow:inset 0 0 20px rgba(184,174,255,.1)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-data-card>span{font-size:8px}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-data-card p{font-size:10px;line-height:1.5}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-workspace-stage .nocturne-card-halo{box-shadow:0 0 0 13px rgba(157,146,255,.045),0 0 38px rgba(157,146,255,.15)}
+
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-overlay-backdrop{background:rgba(2,4,12,.82);backdrop-filter:blur(7px)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-overlay-panel{border-color:rgba(228,231,255,.46);background:var(--nocturne-menu);box-shadow:inset 0 1px rgba(255,255,255,.18),0 28px 76px rgba(0,0,0,.62)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-overlay-panel p{color:var(--nocturne-secondary)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-motion-canvas,.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-effect-canvas{border-color:var(--nocturne-edge)}
+.workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-effects-study:before{opacity:.8}
+
+@media(max-width:768px){
+  .workspace-shell.nocturne-lab[data-design="nocturne"] .workspace-stage{background:rgba(8,13,30,.8)}
+  .workspace-shell.nocturne-lab[data-design="nocturne"] .nocturne-overlay-panel{padding:24px}
+}
