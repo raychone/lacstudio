@@ -8,11 +8,13 @@ Generalize Split View to any two typed design IDs while preserving the existing 
 
 Implemented: typed pair state, all-five-system selectors, swap/exit, URL serialization, invalid-pair recovery, equal-width panel grid and narrow stacked panels. The original Tactile–Nocturne pair remains available as the default. Manual browser validation of selector controls, direct links and panel isolation remains pending.
 
-## Phase 2 — Functional and accessibility QA
+## Phase 2 — Functional and accessibility QA (source-level P1 remediation complete; manual QA pending)
 
 Audit and remediate overlays, selectors, menus, tabs, carousels, comparators, forms, live feedback and reduced motion. Start with focus traps/restoration, Escape behavior, custom listbox/menu keyboard handling and selected-state announcements. Reuse or improve accessible primitives only after behavior is measured.
 
-Exit criteria: keyboard-only scripts pass for critical paths; expanded selectors are readable and system-specific; no known focus-loss or trapped-background defect remains; screen-reader checks are recorded.
+Completed in source: P1 selector/menu/tab focus fixes, Nocturne command-dialog remediation, confirmation-overlay close integrity and a dependency-free roving-key test. The formal exit criteria are still open because manual browser, touch and screen-reader checks have not been recorded.
+
+Remaining exit criteria: keyboard-only scripts pass for critical paths; expanded selectors are readable and system-specific; no known focus-loss or trapped-background defect remains; screen-reader checks are recorded.
 
 ## Phase 3 — Responsive QA
 

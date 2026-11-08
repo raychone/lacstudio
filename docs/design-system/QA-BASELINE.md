@@ -78,19 +78,32 @@ Universal Split View is implemented through typed `ComparisonState` in `DesignPr
 | Medium | Motion/effects | Most effects use scoped CSS variables; reduced-motion paths exist but are not uniformly verified. | Lab toggle + OS preference, coarse pointer, flashing, contrast and CPU behavior. |
 | Medium | Forms/table/reorder/wizard | State is mostly local and functional in source. | Validation messages, label associations, sortable-table announcement, reorder semantics and wizard boundary states. |
 
+## Phase 2 remediation record
+
+The following P1 source-level remediations were completed on 2026-11-08. They are covered by lint/build and the focused pure keyboard-navigation test; they are **not** a substitute for a browser, touch or screen-reader audit.
+
+| Area | Remediation | Remaining manual evidence |
+| --- | --- | --- |
+| Nocturne selector and dropdown | Added pointer-outside dismissal, Escape with trigger restoration, roving option/menu focus, Home/End where applicable, and labelled tab/panel relations. | Expanded-list clipping, touch target behavior, screen-reader announcements and contrast. |
+| Nocturne overlays | `dismissible={false}` no longer exposes a bypass close control; the command palette now has modal semantics, backdrop dismissal, scroll lock, focus containment and trigger restoration. | Every overlay variant at narrow widths; nested sequencing; assistive-technology announcement. |
+| Playground and Brutalist selectors | Added outside dismissal, keyboard opening, option focus traversal, Escape and trigger restoration to the project-type controls. | Multi-select remains a separate P2/manual review item; test touch and long labels. |
+| Editorial, Brutalist, Playground tabs | Added roving tabindex, focus hand-off, Home/End and tab/panel IDs using one shared keyboard helper. | Browser keyboard-only walk-through and visible branded focus review. |
+
+The persistent custom multi-select studies, context-menu placement, carousel/comparator touch paths, reduced-motion coverage and form/table/reorder semantics remain P2/manual review items. No P0 defect was established by source inspection or automated checks.
+
 ## Expanded selector register
 
 | System | Static implementation | Current risk / recommended remediation |
 | --- | --- | --- |
 | Tactile | Shared fixture uses native `<select>`; Tactile disclosure has custom dropdown/popover primitives. | Keep native select until a tested custom primitive is required. Browser-review the native expanded menu and custom dropdown styling/escape/outside-click separately. |
-| Nocturne | `NocturneSelect` is custom listbox with selected marker and trigger arrow handling. | Add/verify Escape, focus return, option navigation and outside-click behavior before reuse; inspect dark contrast and viewport clipping. |
+| Nocturne | `NocturneSelect` is custom listbox with selected marker, pointer-outside dismissal and roving keyboard focus. | Source remediation is complete; manually inspect dark contrast, viewport clipping and screen-reader behavior. |
 | Editorial | Form uses native controlled `<select>`; disclosure has custom menu. | Native select is accessible but its browser-expanded visual is not system-specific; decide in Phase 2 whether a tested custom primitive is justified. Audit custom menu keyboard/dismissal. |
-| Brutalist | Custom `BrutalistSelect` plus persistent custom multi-select listbox. | Expanded option behavior is incomplete to certify: inspect focus strategy, keyboard traversal, Escape, touch and long-label overflow. |
-| Playground | Custom project-type combobox and expandable multi-select listbox. | Selected indicators and styling exist; audit option focus, outside-click, Escape, touch and stacking above surrounding cards. |
+| Brutalist | Custom `BrutalistSelect` plus persistent custom multi-select listbox. | Project-type control has source-level keyboard/dismissal remediation; multi-select, touch and long-label overflow remain manual review. |
+| Playground | Custom project-type combobox and expandable multi-select listbox. | Project-type control has source-level keyboard/dismissal remediation; multi-select, touch and stacking remain manual review. |
 
 ## Existing testing capability
 
-`package.json` exposes `lint` and `build`; no authored unit, integration, E2E, Playwright, Cypress, Vitest or Jest suite was found. Existing browser/screenshot automation was not found in the repository. The production build is a Vinext/Vite compilation check, not an interaction or visual test.
+`package.json` exposes `lint`, `build`, `test:comparison` and `test:interactions`. The latter is a dependency-free test for the shared roving-index helper, not DOM or browser automation. No authored integration, E2E, Playwright, Cypress, Vitest or Jest suite was found. The production build is a Vinext/Vite compilation check, not an interaction or visual test.
 
 ## Recommended remediation order
 

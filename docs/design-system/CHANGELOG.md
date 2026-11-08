@@ -192,3 +192,11 @@
 - Extended the existing URL state with `compare=1`, `left` and `right`; invalid pair input safely returns to a valid single-system state while old URLs continue to work.
 - Added dependency-free focused comparison tests for URL restoration, invalid values, duplicate selection, swap and exit serialization.
 - Kept comparison panels limited to the shared fixture layer, isolating Signature Experiments and their global listeners from paired rendering.
+
+## 2026-11-08 — Cross-System QA Phase 2
+
+- Added a shared, dependency-free roving-key helper with focused Arrow/Home/End boundary tests.
+- Remediated Nocturne custom selector, dropdown, tabs, non-dismissible confirmation close integrity and command-palette dialog behavior.
+- Remediated Playground and Brutalist project-type selectors; added roving focus, semantic tab/panel relationships and Home/End behavior to Editorial, Brutalist and Playground tab studies.
+- Preserved the universal comparison contract and all system-specific visual styles; no global geometry or responsive redesign was introduced.
+- Passed `test:comparison`, `test:interactions`, lint and production build. Browser, touch, screen-reader and responsive visual verification remain explicitly pending.

@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Cross-System QA Phase 1 complete — universal Split View.** Any two registered systems can now compare the same shared fixture with URL-addressable pair state; functional/accessibility remediation remains deliberately deferred to Phase 2.
+**Cross-System QA Phase 2 source remediation complete — manual validation pending.** Universal Split View remains intact; P1 keyboard/focus and overlay fixes now cover the critical source paths without claiming browser or assistive-technology approval.
 
 ## Completed
 
@@ -38,6 +38,7 @@
 - Playground Motion and Effects: `623940d`.
 - Cross-System QA Phase 0 documentation and static inventory baseline: `9d37f8f`.
 - Cross-System QA Phase 1 universal comparison infrastructure: `426d9c7`.
+- Cross-System QA Phase 2 P1 interaction/accessibility remediation: current working change (commit pending).
 
 ## Current coverage
 
@@ -49,21 +50,21 @@
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | 12/12 implemented — pending final visual, responsive and accessibility QA | Complete component inventory; no category remains under construction. |
 
-Latest verified implementation commit: `426d9c7`.
+Latest verified implementation commit: `426d9c7` (Phase 2 working tree passed focused tests, lint and build; commit pending).
 
 ## Known issues / deferred checks
 
 - Built preview is available at `http://127.0.0.1:4175`; visual approval remains owner work.
 - Browser keyboard, 320px/375px/768px responsive, reduced-motion and screen-reader QA remain deferred; lint and production build passed for Phase B.
-- Nocturne dialog has semantic dialog markup and dismissal controls, but focus trap / restoration is still deferred.
+- Nocturne command palette now has source-level modal focus containment, scroll lock and trigger restoration; browser and screen-reader verification remain deferred.
 - Copy uses the browser clipboard when available; fallback feedback is visual only.
 - Comprehensive responsive, assistive-technology and focus-management QA is deferred until the Nocturne library is complete.
 - Overlay focus trap and trigger-focus restoration are implemented; full screen-reader and mobile QA remains deferred.
 - Final Editorial polish must inspect custom select, dropdown, multi-select and autocomplete option menus in expanded state; native browser-default visual menus are not an approved end state.
-- Brutalist custom project-type option list needs manual keyboard, touch and screen-reader verification in its expanded state.
+- Brutalist custom project-type option list has source-level keyboard/dismissal coverage; touch and screen-reader verification remain pending.
 - Brutalist custom multi-select needs manual expanded-list keyboard, touch and screen-reader verification.
 - Brutalist motion and effects need manual reduced-motion, coarse-pointer, contrast and performance QA.
-- Playground custom project-type option list needs manual expanded-list keyboard, touch and screen-reader verification.
+- Playground custom project-type option list has source-level keyboard/dismissal coverage; touch and screen-reader verification remain pending.
 - Playground hold-to-confirm, celebratory feedback and live-notification timing need manual keyboard, reduced-motion and narrow-width verification.
 - Playground sortable table, carousel swipe, custom multi-select, overlay focus behavior and comparator pointer/touch behavior need manual browser and assistive-technology QA.
 - Playground motion replay, reduced-motion behavior, effect pointer/touch fallback, contrast, readability and motion performance need manual cross-viewport QA.
@@ -75,4 +76,4 @@ Latest verified implementation commit: `426d9c7`.
 
 ## Exact next step
 
-Review `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is QA Phase 2 functional and accessibility QA; do not begin it, cross-system polish, the portfolio or package extraction automatically.
+Review `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is manual QA Phase 2 evidence at 320/375/768/1024/1440px, keyboard-only, touch and screen-reader checks; do not begin responsive polish, the portfolio or package extraction automatically.
