@@ -14,6 +14,7 @@
     "test:comparison": "node --experimental-strip-types design-system/engine/comparison.test.ts",
     "test:interactions": "node --experimental-strip-types design-system/engine/keyboard.test.ts",
     "test:sizing": "node --experimental-strip-types design-system/engine/sizing-contract.test.ts",
+    "test:responsive": "node --experimental-strip-types design-system/engine/responsive-contract.test.ts",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
