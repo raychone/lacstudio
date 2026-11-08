@@ -221,3 +221,10 @@
 - Added browser smoke coverage for Split View URL/swap/exit behavior, visible keyboard focus and the reduced-motion root state.
 - Fixed confirmed narrow-width overflow in the design switcher and Editorial/Brutalist signature-study grid wrappers; labelled the reduced-motion control.
 - Recorded exact evidence, limitations and the remaining expanded-state/touch/screen-reader work in `BROWSER-QA.md`.
+
+## 2026-11-08 — Cross-System QA Phase 5A
+
+- Added Playwright interaction coverage and 35 ignored open/active-state screenshots at mobile and desktop dimensions.
+- Validated representative custom/native select, disclosure, modal, command, advanced-control and reduced-motion paths without changing the five visual languages or shared sizing contract.
+- Remediated Tactile custom select and contained overlay semantics/focus behavior, plus the Nocturne custom select combobox relationship.
+- Recorded the component inventory, verified scope, defects and manual limits in `EXPANDED-STATES-QA.md`; Phase 5B visual polish remains deferred.

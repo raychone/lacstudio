@@ -78,6 +78,11 @@ Latest verified implementation commit: Phase 4.5 working tree verification pendi
 - Phase 4.5 established browser-rendered evidence for the full five-system/category matrix. Expanded selectors/menus/overlays, touch, screen-reader, contrast and owner visual approval remain open; see `BROWSER-QA.md`.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
+## Phase 5A interaction update
+
+- Representative expanded states are now reproducibly tested in Chromium and recorded in `EXPANDED-STATES-QA.md`; all systems remain in development.
+- Remaining work is deliberately limited to full variant interaction coverage, physical touch, screen-reader, contrast and owner visual approval. Phase 5B polish has not begun.
+
 ## Exact next step
 
 Review `RESPONSIVE-QA.md`, `SIZING-CONTRACT.md`, `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is manual browser evidence at 320/375/768/1024/1440px, keyboard-only, touch and screen-reader checks; do not begin Phase 5 polish, the portfolio or package extraction automatically.

@@ -130,3 +130,7 @@ All five systems need browser verification for keyboard-only operation, screen r
 ## Phase 4.5 browser update
 
 Automated Chromium now covers all direct design/category URL states across six viewport widths and verifies document-level overflow, fixture visibility and captured runtime/console errors. It also smoke-checks one stacked Split View pair, URL swap/exit, keyboard focus and the Lab reduced-motion state. This is automated browser evidence only; the manual checks listed above, particularly expanded state and assistive-technology coverage, remain required. See `BROWSER-QA.md`.
+
+## Phase 5A interaction update
+
+Representative expanded-state browser coverage now tests custom select keyboard/open/select/Escape/outside-dismissal behavior, native Editorial select semantics, disclosure menus, accordions/tabs, modal focus restoration, a command palette and representative advanced controls. The verified P1 selector/overlay semantic gaps are remediated. This does not replace the pending complete overlay-variant, physical-touch, screen-reader, contrast or owner visual review; see `EXPANDED-STATES-QA.md`.

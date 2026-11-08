@@ -36,6 +36,12 @@ Use the recorded QA evidence to refine typography, contrast, spacing, focus stat
 
 Phase 4.5 now provides a rendered Chromium baseline and 360 ignored local screenshots. Before visual polish, add expanded-state evidence for custom selectors, menus and overlay variants, then complete physical touch, screen-reader, contrast and owner-review checks.
 
+## Phase 5A — Expanded-state interaction validation (complete for representative paths)
+
+Implemented: reproducible Chromium interaction coverage and screenshots for custom selects, native select semantics, disclosure menus, accordion/tabs, modal lifecycle, command focus, representative advanced controls and reduced-motion emulation. P1 semantic/focus gaps in Tactile and Nocturne were remediated.
+
+Remaining before Phase 5B: dedicated variant coverage for every overlay and persistent multi-select, physical touch/device testing, screen-reader review, contrast/readability review and owner approval. See `EXPANDED-STATES-QA.md`.
+
 Exit criteria: system-specific visual acceptance plus documented contrast/readability checks; no new behavior regressions.
 
 ## Phase 5 — Final regression and approval

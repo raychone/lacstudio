@@ -41,3 +41,8 @@ Baseline date: 2026-11-08. Legend: **I** implemented; **S** statically inspected
 - Chromium rendered all 360 direct URL states: five systems × twelve categories × six viewports (320, 375, 768, 900, 1024 and 1440px). Every state loaded its requested design/category fixture with no document-level horizontal overflow or captured runtime/console error.
 - Screenshots are local, ignored artifacts under `qa-artifacts/responsive/`; see `BROWSER-QA.md` for the exact runtime and limits.
 - This changes the matrix from browser-unrendered to browser-rendered layout baseline only. Expanded overlays/selectors, touch, screen-reader, contrast and owner visual approval remain open.
+
+## Phase 5A interaction baseline
+
+- Playwright now covers custom select keyboard/open/select/Escape/outside-dismissal paths, native Editorial select semantics, disclosure menus/accordion/tabs, modal open/Escape/focus restoration, Nocturne command focus and representative advanced controls.
+- 35 ignored local screenshots record open or active states at 375px and 1440px. This is reproducible Chromium evidence, not full variant, touch, screen-reader or visual acceptance. See `EXPANDED-STATES-QA.md`.
