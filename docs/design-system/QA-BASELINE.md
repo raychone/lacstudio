@@ -126,3 +126,7 @@ The persistent custom multi-select studies, context-menu placement, carousel/com
 ## Manual QA still required
 
 All five systems need browser verification for keyboard-only operation, screen readers, focus visibility, menu expansion, touch, reduced motion, overlays, carousel/comparator gestures, contrast and responsive geometry. No manual verification is claimed by this document.
+
+## Phase 4.5 browser update
+
+Automated Chromium now covers all direct design/category URL states across six viewport widths and verifies document-level overflow, fixture visibility and captured runtime/console errors. It also smoke-checks one stacked Split View pair, URL swap/exit, keyboard focus and the Lab reduced-motion state. This is automated browser evidence only; the manual checks listed above, particularly expanded state and assistive-technology coverage, remain required. See `BROWSER-QA.md`.

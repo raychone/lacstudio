@@ -34,6 +34,8 @@ Remaining work: collect actual rendered evidence at 320, 375, 768, 1024 and 1440
 
 Use the recorded QA evidence to refine typography, contrast, spacing, focus states, effects and artistic cohesion. Keep shared outer geometry comparable while preserving the five visual identities. Fix critical functional defects before any cosmetic work.
 
+Phase 4.5 now provides a rendered Chromium baseline and 360 ignored local screenshots. Before visual polish, add expanded-state evidence for custom selectors, menus and overlay variants, then complete physical touch, screen-reader, contrast and owner-review checks.
+
 Exit criteria: system-specific visual acceptance plus documented contrast/readability checks; no new behavior regressions.
 
 ## Phase 5 — Final regression and approval

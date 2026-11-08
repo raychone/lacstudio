@@ -41,3 +41,7 @@ Date: 2026-11-08. Scope: responsive source audit plus deterministic contract tes
 At 320, 375, 768, 1024 and 1440px, inspect all five systems and twelve categories for: actual horizontal overflow; long text wrapping; custom select/multi-select placement; tables; carousel gestures; overlay keyboard-visible areas; effects clipping; Split View pair switching; touch target usability; and visual readability. Test at least Tactile/Nocturne, Editorial/Brutalist and Playground/Tactile in Split View.
 
 This document does not mark any system production-ready.
+
+## Phase 4.5 rendered follow-up
+
+Phase 4.5 replaced the unavailable-runner condition above with a local Playwright Chromium baseline. The full five-system/twelve-category matrix rendered at 320, 375, 768, 900, 1024 and 1440px (360 states) without document-level horizontal overflow or captured runtime/console error. The artifact directory is ignored by Git. See `BROWSER-QA.md` for the exact command, screenshots, confirmed fixes and remaining expanded-state, touch, screen-reader and visual-review limits.

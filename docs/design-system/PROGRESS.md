@@ -52,7 +52,7 @@
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | 12/12 implemented — pending final visual, responsive and accessibility QA | Complete component inventory; no category remains under construction. |
 
-Latest verified implementation commit: `0e47896` (Phase 4 working tree verification pending final commit).
+Latest verified implementation commit: Phase 4.5 working tree verification pending final commit; rendered Chromium baseline is recorded in `BROWSER-QA.md`.
 
 ## Known issues / deferred checks
 
@@ -75,7 +75,7 @@ Latest verified implementation commit: `0e47896` (Phase 4 working tree verificat
 - QA Phase 0 found the registry status `production-ready` for Tactile inconsistent with the project-wide unverified QA state; status semantics require a future decision.
 - Universal Split View has focused source tests but still needs browser verification for native selectors, direct-link restoration, narrow stacked panels, theme isolation and Back/Forward behavior.
 - Phase 3 validates token mapping and shared fixture sizing classes only; manual computed-size, overflow and touch-target checks at 320/375/768/1024/1440px remain required.
-- Phase 4 has no browser-rendered evidence in this environment; see `RESPONSIVE-QA.md` for the unavailable tooling, source-level fixes and exact manual matrix.
+- Phase 4.5 established browser-rendered evidence for the full five-system/category matrix. Expanded selectors/menus/overlays, touch, screen-reader, contrast and owner visual approval remain open; see `BROWSER-QA.md`.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step

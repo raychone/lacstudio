@@ -35,3 +35,9 @@ Baseline date: 2026-11-08. Legend: **I** implemented; **S** statically inspected
 - The highest-priority manual rows are every system's Forms, Disclosure, Overlays, Advanced, Motion and Effects. Tactile/Nocturne comparison behavior is additionally covered by the Phase 1 proposal in `QA-BASELINE.md`.
 - Browser widths still pending: 320, 375, 768, 1024 and 1440px.
 - Phase 1 added unit-level coverage for comparison URL parsing, invalid-pair recovery, same-system rejection, swap and exit serialization. Phase 2 added a focused roving-index keyboard contract. Neither replaces browser validation of the selector UI or panel isolation.
+
+## Phase 4.5 browser baseline
+
+- Chromium rendered all 360 direct URL states: five systems × twelve categories × six viewports (320, 375, 768, 900, 1024 and 1440px). Every state loaded its requested design/category fixture with no document-level horizontal overflow or captured runtime/console error.
+- Screenshots are local, ignored artifacts under `qa-artifacts/responsive/`; see `BROWSER-QA.md` for the exact runtime and limits.
+- This changes the matrix from browser-unrendered to browser-rendered layout baseline only. Expanded overlays/selectors, touch, screen-reader, contrast and owner visual approval remain open.

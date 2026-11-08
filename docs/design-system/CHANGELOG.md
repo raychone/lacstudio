@@ -213,3 +213,11 @@
 - Added a focused responsive contract test and corrected the intermediate-width Split View compression path by stacking paired fixtures before the stage becomes too narrow.
 - Aligned the shared workspace and sizing-layer narrow breakpoint to 768px; added an explicit overlay-preview height token rather than reusing a width constraint as height.
 - Added `RESPONSIVE-QA.md` with the actual tooling limitation: no available browser runner and no reachable existing local preview port. No rendered, visual, touch or screen-reader result is claimed.
+
+## 2026-11-08 — Cross-System QA Phase 4.5
+
+- Added Playwright Chromium configuration and a browser matrix covering all five systems, twelve categories and six responsive/boundary viewports.
+- Generated 360 ignored local screenshots and verified the requested URL state, shared fixture visibility, no document-level horizontal overflow and no captured runtime/console error.
+- Added browser smoke coverage for Split View URL/swap/exit behavior, visible keyboard focus and the reduced-motion root state.
+- Fixed confirmed narrow-width overflow in the design switcher and Editorial/Brutalist signature-study grid wrappers; labelled the reduced-motion control.
+- Recorded exact evidence, limitations and the remaining expanded-state/touch/screen-reader work in `BROWSER-QA.md`.
