@@ -1,0 +1,102 @@
+# Cross-system QA baseline
+
+Baseline date: 2026-11-08. Scope: static repository inspection plus lint/build verification. This is not browser, assistive-technology or visual certification.
+
+## Verification language
+
+- **Implemented**: a category has a registered stage path and source implementation.
+- **Statically inspected**: source wiring was read or mechanically checked.
+- **Automatically tested**: lint/build completed; this proves neither interaction nor visual correctness.
+- **Manually verified**: no status is granted in this baseline unless a browser/manual result is recorded.
+
+## Actual architecture
+
+| Concern | Current implementation | Baseline assessment |
+| --- | --- | --- |
+| Design registry | `design-system/engine/registry.ts` declares Tactile, Nocturne, Editorial, Brutalist and Playground. | Five typed IDs are present. Tactile is still marked `production-ready`, which conflicts with the documented unverified QA state. |
+| Category registry | `design-system/engine/categories.ts` is the ordered source for the twelve category IDs and default component IDs. | One ordered category contract is shared by all systems. |
+| Workspace + URL | `DesignProvider` owns active design/category/component, reduced-motion and Compatibility fixture state; `design`, `category` and `component` are pushed to the URL. | Design preference persists in local storage; category/component persistence relies on URL. |
+| Shared fixture | `design-system/showcase/schema.ts` defines all twelve reference fixtures; `SharedShowcase` renders them before signature experiments. | Shared copy and outer fixture type exist; identical internal dimensions are not mechanically enforced for every signature study. |
+| System stages | Tactile remains in `app/page.tsx`; Nocturne, Editorial, Brutalist and Playground have dedicated workspace stages. | The stage mapping is complete but interaction/overlay helpers are duplicated across systems. |
+| Style composition | `app/layout.tsx` imports global/theme CSS followed by system CSS; external geometry lives in `layout-contract.css` and `workspace.css`. | Import order and local hard-coded dimensions are a maintenance and regression risk. |
+| Reduced motion | Manual Lab setting is context state, added as `reduce-motion` and passed to several system components. CSS also uses `prefers-reduced-motion` in selected areas. | There is no inspected provider-level `matchMedia` sync; coverage is not yet proven across all components. |
+| Accessibility infrastructure | Native controls, ARIA roles and some local focus-trap hooks exist; reusable UI primitives are available under `components/ui/`. | The Lab does not consistently consume one accessibility primitive layer. Browser and screen-reader verification is pending. |
+
+The untracked root-level `effects-interaction.css` was deliberately excluded from inspection, staging and commits. The distinct imported `app/effects-interaction.css` remains part of the application stylesheet chain.
+
+## Inventory result
+
+A corrected source scan found all twelve category paths in each of five system stages and all twelve shared showcase definitions. This confirms reachability at source level only. No missing import or active under-construction fallback was found for a registered category path; the fallback components remain in source as future guards.
+
+See `QA-MATRIX.md` for the explicit 60-cell record.
+
+## Shared geometry assessment
+
+### Shared contract found
+
+- Container: `--layout-container-max: 1440px`; `--layout-gutter: clamp(16px, 5vw, 80px)`.
+- Workspace: shared two-column grid (`210px` sidebar + fluid stage) with `--layout-grid-gap`; stacks at `max-width: 760px`.
+- Controls: 32 / 42 / 52px size classes; documented target minimum is 44px.
+- Preview helpers: card min 168px, feature stage min 280px, carousel min 255px, common overlay limits and table density token.
+- Shared showcase has responsive breakpoints at 620px; Split View stacks at 760px.
+
+### Risks to inspect in browser
+
+1. The contract defines tokens, but individual system CSS still supplies many local min-heights, widths, padding and overlay bounds. Comparable outer geometry is therefore a convention, not an enforceable component API.
+2. The workspace switches at 760px while the contract names 768px as tablet. Check 768px and nearby widths for an awkward intermediate layout.
+3. Tables use explicit minimum widths and scroll wrappers in several systems; check 320px/375px focus order and horizontal scroll containment.
+4. Decorative absolute shapes, dense display type and overlay-specific fixed positioning require visual overflow checks at every target width.
+5. `--layout-target-min` is documented but not statically asserted on every icon action or compact control.
+
+## Comparison architecture assessment
+
+Current Split View is not generalized. `DesignLab` stores a local `comparisonOpen` boolean, and when enabled it always renders two `SharedShowcase` panels: Tactile and Nocturne. Both consume the currently selected category/component context and receive the same panel grid/bounds, so shared fixture selection is synchronized. It does not render signature experiments in the comparison panels.
+
+Limitations:
+
+- The control is hidden for Editorial but visible for Brutalist and Playground, where it still compares Tactile ↔ Nocturne rather than the active system.
+- The open/closed state is not URL-addressable or persisted.
+- Pair selection is hard-coded; no typed comparison state exists.
+- Reduced motion is global context state but has no pair-specific comparison record.
+
+### Phase 1 proposal (not implemented)
+
+Add a typed `ComparisonState` containing `enabled`, `leftDesign`, `rightDesign`, category and fixture state. Default to Tactile/Nocturne to preserve existing behavior; allow any distinct registry pair. Serialize the pair and enabled state in URL parameters, preserve the shared stage anchor, and keep comparison panels limited to shared fixtures. Signature experiments remain rendered only in the active system stage. The shared showcase schema remains the common geometry source; the workspace owns panel dimensions and no comparison action should scroll the page unless the current anchor leaves the viewport.
+
+## Interaction risk register (static inspection)
+
+| Priority | Area | Static finding | Required next check |
+| --- | --- | --- | --- |
+| Critical | Overlays | Editorial, Brutalist and Playground each implement similar local focus-trap/scroll-lock hooks; Nocturne is already documented as lacking verified trap/restoration. | Keyboard trap, Escape, backdrop, nested/open-close sequencing and trigger restoration in every system. |
+| High | Custom selectors | Custom listboxes exist in Nocturne, Brutalist and Playground; custom multi-select exists in Brutalist and Playground. | Arrow navigation, active descendant/focus strategy, Escape, outside click, touch and clipping. |
+| High | Tabs/menus/context | ARIA roles appear in system studies, but focus movement is often state-only and menu dismissal differs by system. | Roving tabindex, focus hand-off, Escape, Shift+F10/ContextMenu and outside click. |
+| High | Carousels/comparators | Keyboard and pointer handlers exist; carousel pointer capture/cancel coverage varies. | Touch swipe thresholds, boundary controls, live announcements and comparison pointer release. |
+| Medium | Hold/loading/toasts | Timers and live regions exist in several systems, with local cleanup patterns. | Repeated activation, unmount cleanup, announcement timing and disabled/keyboard behavior. |
+| Medium | Motion/effects | Most effects use scoped CSS variables; reduced-motion paths exist but are not uniformly verified. | Lab toggle + OS preference, coarse pointer, flashing, contrast and CPU behavior. |
+| Medium | Forms/table/reorder/wizard | State is mostly local and functional in source. | Validation messages, label associations, sortable-table announcement, reorder semantics and wizard boundary states. |
+
+## Expanded selector register
+
+| System | Static implementation | Current risk / recommended remediation |
+| --- | --- | --- |
+| Tactile | Shared fixture uses native `<select>`; Tactile disclosure has custom dropdown/popover primitives. | Keep native select until a tested custom primitive is required. Browser-review the native expanded menu and custom dropdown styling/escape/outside-click separately. |
+| Nocturne | `NocturneSelect` is custom listbox with selected marker and trigger arrow handling. | Add/verify Escape, focus return, option navigation and outside-click behavior before reuse; inspect dark contrast and viewport clipping. |
+| Editorial | Form uses native controlled `<select>`; disclosure has custom menu. | Native select is accessible but its browser-expanded visual is not system-specific; decide in Phase 2 whether a tested custom primitive is justified. Audit custom menu keyboard/dismissal. |
+| Brutalist | Custom `BrutalistSelect` plus persistent custom multi-select listbox. | Expanded option behavior is incomplete to certify: inspect focus strategy, keyboard traversal, Escape, touch and long-label overflow. |
+| Playground | Custom project-type combobox and expandable multi-select listbox. | Selected indicators and styling exist; audit option focus, outside-click, Escape, touch and stacking above surrounding cards. |
+
+## Existing testing capability
+
+`package.json` exposes `lint` and `build`; no authored unit, integration, E2E, Playwright, Cypress, Vitest or Jest suite was found. Existing browser/screenshot automation was not found in the repository. The production build is a Vinext/Vite compilation check, not an interaction or visual test.
+
+## Recommended remediation order
+
+1. Phase 1: typed generalized comparison state and pair-safe shared fixture view.
+2. Phase 2: critical interaction/accessibility paths — overlays first, then selectors/menus, tabs and keyboard/focus routines.
+3. Phase 3: 320/375/768/1024/1440 responsive runs, including overflow/table/carousel/overlay checks.
+4. Phase 4: visual polish informed by the measured findings, never by compilation alone.
+5. Phase 5: regression matrix, manual approval and documented certification criteria.
+
+## Manual QA still required
+
+All five systems need browser verification for keyboard-only operation, screen readers, focus visibility, menu expansion, touch, reduced motion, overlays, carousel/comparator gestures, contrast and responsive geometry. No manual verification is claimed by this document.

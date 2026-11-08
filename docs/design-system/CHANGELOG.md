@@ -177,3 +177,10 @@
 - Added bounded CSS-first color-field, shape-response, organic-spotlight, cutout-layer and edge-energy effects plus Color Collision, Magnetic Shapes, Organic Spotlight, Cutout Studio and Edge Energy studies.
 - Passed the Lab reduced-motion setting into both categories and used static/near-instant states for reduced motion; pointer decoration uses scoped CSS custom properties rather than a global animation loop.
 - Kept final visual, responsive, keyboard, touch, contrast, screen-reader, overlay and performance QA explicitly deferred.
+
+## 2026-11-08 — Cross-System QA Phase 0
+
+- Added a source-inspected architecture baseline, explicit 60-cell inventory matrix and proposed five-phase QA roadmap.
+- Recorded shared layout tokens, stage/provider/fixture architecture, selection persistence and the current Tactile–Nocturne-only Split View constraints.
+- Distinguished implementation/static inspection/automated compilation from manual browser and accessibility verification.
+- Recorded selector, overlay, keyboard, responsive, reduced-motion, contrast and performance risks without redesigning or refactoring components.

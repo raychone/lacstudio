@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Playground Phase 4 complete — Motion and Effects.** Design 05 now has all twelve implemented categories; all five design systems have complete component inventories pending final QA.
+**Cross-System QA Phase 0 complete — architecture, inventory and audit baseline.** All five systems retain twelve implemented categories; verification and remediation now proceed from an explicit static baseline rather than implementation-completion claims.
 
 ## Completed
 
@@ -36,6 +36,7 @@
 - Playground Actions, Forms, Disclosure and Feedback: `d028bf6`, with Disclosure coverage completion in `bc662d3`.
 - Playground Data Display, Carousels, Overlays and Advanced: `2864b86`.
 - Playground Motion and Effects: `623940d`.
+- Cross-System QA Phase 0 documentation and static inventory baseline: pending focused documentation commit.
 
 ## Current coverage
 
@@ -47,7 +48,7 @@
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | 12/12 implemented — pending final visual, responsive and accessibility QA | Complete component inventory; no category remains under construction. |
 
-Latest verified implementation commit: `623940d`.
+Latest verified implementation commit: pending Cross-System QA Phase 0 documentation commit.
 
 ## Known issues / deferred checks
 
@@ -66,8 +67,10 @@ Latest verified implementation commit: `623940d`.
 - Playground sortable table, carousel swipe, custom multi-select, overlay focus behavior and comparator pointer/touch behavior need manual browser and assistive-technology QA.
 - Playground motion replay, reduced-motion behavior, effect pointer/touch fallback, contrast, readability and motion performance need manual cross-viewport QA.
 - Final five-system QA must inspect all expanded custom select/multi-select/dropdown menus, keyboard and screen-reader behavior, overlay traps/restoration, touch/swipe, responsive geometry, contrast/readability and reduced-motion behavior.
+- QA Phase 0 found the current Split View hard-coded to Tactile ↔ Nocturne, including when opened from Brutalist or Playground; pair selection and URL persistence are deferred to QA Phase 1.
+- QA Phase 0 found the registry status `production-ready` for Tactile inconsistent with the project-wide unverified QA state; status semantics require a future decision.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-All five systems now have twelve implemented categories (sixty total). Stop here for owner review; do not begin the portfolio, cross-system polish or package extraction automatically.
+Review `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is QA Phase 1 comparison infrastructure; do not begin it, cross-system polish, the portfolio or package extraction automatically.
