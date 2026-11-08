@@ -1,0 +1,39 @@
+/* Cross-system geometry overrides. Visual recipes remain in each system stylesheet. */
+.shared-showcase{--fixture-padding:var(--layout-card-padding-md);--fixture-preview-min:var(--layout-card-feature-min);padding:var(--fixture-padding)}
+.shared-showcase[data-size="control"]{--fixture-preview-min:var(--layout-control-md)}
+.shared-showcase[data-size="form"]{--fixture-preview-min:var(--layout-field-md)}
+.shared-showcase .showcase-actions button,.shared-showcase .showcase-form>button{min-height:var(--layout-control-md);padding-inline:var(--layout-control-pad-inline)}
+.shared-showcase .showcase-actions .icon{width:var(--layout-control-md);height:var(--layout-control-md)}
+.shared-showcase .showcase-form input,.shared-showcase .showcase-form select{min-height:var(--layout-field-md)}
+.shared-showcase .showcase-form textarea{min-height:var(--layout-textarea-min)}
+.shared-showcase .showcase-form label{gap:8px}
+.shared-showcase .showcase-generic{min-height:var(--fixture-preview-min);padding:var(--layout-card-padding-md)}
+.shared-showcase[data-category="carousels"] .showcase-generic{min-height:var(--layout-carousel-min);aspect-ratio:var(--layout-media-ratio)}
+.shared-showcase[data-category="overlays"] .showcase-generic{min-height:var(--layout-overlay-sm)}
+.shared-showcase[data-category="data-display"] .showcase-generic{min-height:var(--layout-card-feature-min)}
+.shared-showcase .showcase-variants button{min-height:var(--layout-control-sm)}
+.shared-showcase .showcase-data-row span{min-height:var(--layout-badge-min);display:inline-flex;align-items:center;padding-inline:8px}
+.comparison-panel .shared-showcase{min-height:0;padding:var(--layout-card-padding-sm)}
+.comparison-panel .shared-showcase .showcase-generic{min-height:var(--fixture-preview-min)}
+
+/* Equivalent signature controls: only the documented standard class is normalized. */
+.nocturne-button,.nocturne-icon-button,.ed-action,.brutal-action:not(.small):not(.large),.pg-action:not(.small):not(.large){min-height:var(--layout-control-md)}
+.nocturne-icon-button,.ed-action.icon{width:var(--layout-control-md);height:var(--layout-control-md)}
+.nocturne-input,.nocturne-select-trigger,.brutal-form input,.brutal-select>button,.pg-form-grid input:not([type=checkbox]):not([type=radio]),.pg-select>button,.editorial-form input,.editorial-form select{min-height:var(--layout-field-md)}
+.brutal-form textarea,.pg-form-grid textarea,.editorial-form textarea{min-height:var(--layout-textarea-min)}
+.brutal-select>div button,.pg-select [role=option]{min-height:var(--layout-control-md)}
+.ed-tabs button,.ed-segmented button,.brutal-tabs button,.brutal-segmented button{min-height:var(--layout-control-md)}
+.ed-disclosure-tools button,.brutal-disclosure-tools button,.pg-shape-actions button{min-height:var(--layout-control-sm)}
+
+/* Shared data, carousel and overlay bounds retain local composition inside them. */
+.ed-table th,.ed-table td,.brutal-table-wrap th,.brutal-table-wrap td,.pg-table-wrap th,.pg-table-wrap td{padding-block:var(--layout-table-density)}
+.ed-carousel-track article,.brutal-carousel article,.pg-carousel-track article{min-height:var(--layout-carousel-min)}
+.ed-carousel.compact .ed-carousel-track article,.brutal-carousel.compact article,.pg-carousel.compact .pg-carousel-track article{min-height:var(--layout-carousel-compact-min)}
+.ed-carousel.feature .ed-carousel-track article,.brutal-carousel.feature article{min-height:var(--layout-carousel-feature-min)}
+.ed-carousel-controls>button,.brutal-carousel nav>button,.pg-carousel-controls>button{min-width:var(--layout-control-md);min-height:var(--layout-control-md)}
+.nocturne-overlay-panel,.ed-layer-panel,.brutal-layer-panel,.pg-layer-panel{width:min(100%,var(--layout-overlay-md));max-height:var(--layout-overlay-height-max);padding:var(--layout-card-padding-md)}
+.nocturne-command .nocturne-command-panel,.ed-command-panel,.brutal-command,.pg-command{width:min(100%,var(--layout-command-max));max-height:var(--layout-overlay-height-max)}
+.nocturne-overlay.drawer .nocturne-overlay-panel,.ed-layer.drawer .ed-layer-panel,.brutal-layer.drawer .brutal-layer-panel{width:var(--layout-drawer)}
+.nocturne-overlay.sheet .nocturne-overlay-panel,.ed-layer.sheet .ed-layer-panel,.brutal-layer.sheet .brutal-layer-panel,.pg-layer.sheet .pg-layer-panel{width:min(100%,var(--layout-sheet-max))}
+
+@media(max-width:760px){.shared-showcase{padding:var(--layout-card-padding-sm)}.shared-showcase .showcase-generic{padding:var(--layout-card-padding-sm)}.shared-showcase[data-category="carousels"] .showcase-generic{aspect-ratio:auto;min-height:var(--layout-carousel-min)}.nocturne-overlay-panel,.ed-layer-panel,.brutal-layer-panel,.pg-layer-panel{padding:var(--layout-card-padding-sm)}}

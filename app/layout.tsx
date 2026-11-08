@@ -46,6 +46,7 @@ import "../design-system/designs/nocturne/components/nocturne-overlays-advanced.
 import "../design-system/designs/nocturne/components/nocturne-command-a11y.css";
 import "../design-system/designs/nocturne/components/nocturne-motion-effects.css";
 import "../components/lab/nocturne/nocturne-effects-refinements.css";
+import "./sizing-contract.css";
 
 export const metadata: Metadata = {
   title: "LAC. Studio — Design Lab",
