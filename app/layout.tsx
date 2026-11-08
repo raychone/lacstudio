@@ -23,6 +23,7 @@ import "./multi-design-engine.css";
 import "./unified-library.css";
 import "./workspace.css";
 import "./browser-qa-fixes.css";
+import "./tactile-visual-polish.css";
 import "../components/lab/shared-showcase.css";
 import "../components/lab/editorial/editorial-stage.css";
 import "../components/lab/editorial/editorial-phase-two.css";

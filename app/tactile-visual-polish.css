@@ -1,0 +1,63 @@
+/* Phase 5B.1 — Tactile only. Preserve shared geometry; refine material contrast. */
+.workspace-shell.site[data-design="tactile"]{
+  --tactile-ink-muted:#5f6258;
+  --tactile-sage-deep:#667342;
+  --tactile-surface-line:rgba(65,72,53,.14);
+  --tactile-raised:10px 12px 24px rgba(104,101,91,.2),-8px -8px 18px rgba(255,255,255,.72);
+  --tactile-inset:inset 4px 5px 10px rgba(126,122,112,.22),inset -4px -4px 10px rgba(255,255,255,.72);
+}
+
+.workspace-shell.site[data-design="tactile"] .workspace-stage,
+.workspace-shell.site[data-design="tactile"] .workspace-sidebar,
+.workspace-shell.site[data-design="tactile"] .design-switcher{box-shadow:var(--tactile-raised)}
+.workspace-shell.site[data-design="tactile"] .workspace-stage{border:1px solid rgba(255,255,255,.48)}
+.workspace-shell.site[data-design="tactile"] .workspace-sidebar>button{color:var(--tactile-ink-muted)}
+.workspace-shell.site[data-design="tactile"] .workspace-sidebar>button.active{color:var(--tactile-sage-deep);box-shadow:var(--tactile-inset)}
+.workspace-shell.site[data-design="tactile"] .workspace-stage-head,
+.workspace-shell.site[data-design="tactile"] .shared-showcase-head span,
+.workspace-shell.site[data-design="tactile"] .showcase-state-row{color:var(--tactile-sage-deep)}
+.workspace-shell.site[data-design="tactile"] .shared-showcase{border:1px solid rgba(255,255,255,.5);box-shadow:var(--tactile-raised)}
+.workspace-shell.site[data-design="tactile"] .shared-showcase-head p,
+.workspace-shell.site[data-design="tactile"] .signature-heading p{color:var(--tactile-ink-muted)}
+
+.workspace-shell.site[data-design="tactile"] :where(button,input,textarea,select):focus-visible{outline:2px solid var(--tactile-sage-deep);outline-offset:3px;box-shadow:0 0 0 5px rgba(163,173,130,.24)}
+.workspace-shell.site[data-design="tactile"] .shared-showcase.tactile .showcase-actions button:hover:not(:disabled),
+.workspace-shell.site[data-design="tactile"] .shared-showcase.tactile .showcase-form>button:hover{transform:translateY(-1px);box-shadow:7px 8px 14px rgba(104,101,91,.24),-5px -5px 12px rgba(255,255,255,.78)}
+.workspace-shell.site[data-design="tactile"] .shared-showcase.tactile .showcase-actions button:active,
+.workspace-shell.site[data-design="tactile"] .shared-showcase.tactile .showcase-form>button:active{transform:none;box-shadow:var(--tactile-inset)}
+.workspace-shell.site[data-design="tactile"] .shared-showcase.tactile .showcase-actions button.active{color:var(--tactile-sage-deep);box-shadow:var(--tactile-inset)}
+.workspace-shell.site[data-design="tactile"] .shared-showcase.tactile .showcase-actions button:disabled{color:#86857d;opacity:.72;box-shadow:none}
+
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .variant-tabs{border:1px solid rgba(255,255,255,.54);box-shadow:var(--tactile-inset)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .variant-tabs button{color:var(--tactile-ink-muted)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .variant-tabs button.selected{color:var(--tactile-sage-deep)!important;box-shadow:6px 7px 13px rgba(104,101,91,.2),-5px -5px 11px rgba(255,255,255,.75)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .button-state-board button.hover-state{color:var(--tactile-sage-deep)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .button-state-board button.focus-state{outline:2px solid var(--tactile-sage-deep);outline-offset:2px;color:var(--tactile-sage-deep)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .button-state-board button.active-state{box-shadow:var(--tactile-inset)}
+
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .floating-field,
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .select-row,
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .message-field{border:1px solid rgba(255,255,255,.5)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .floating-field:focus-within,
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .select-row:focus-within,
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .message-field:focus-within{box-shadow:var(--tactile-inset),0 0 0 2px rgba(163,173,130,.2)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .select-options{border:1px solid var(--tactile-surface-line);background:var(--neo-base);box-shadow:14px 17px 28px rgba(91,88,79,.28),-6px -6px 13px rgba(255,255,255,.68)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .select-options button{border-bottom-color:var(--tactile-surface-line)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .select-options button[aria-selected="true"],
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .select-options button:hover{color:var(--tactile-sage-deep);background:rgba(163,173,130,.13);box-shadow:inset 3px 3px 6px rgba(126,122,112,.17),inset -3px -3px 6px rgba(255,255,255,.5)}
+
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .cards-showcase .lab-card{border:1px solid rgba(255,255,255,.55);box-shadow:8px 10px 19px rgba(95,93,84,.2),-7px -7px 15px rgba(255,255,255,.67)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .cards-showcase .lab-card:hover{box-shadow:12px 15px 24px rgba(95,93,84,.25),-7px -7px 16px rgba(255,255,255,.72)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .mini-carousel-controls button,
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .carousel-rail{border:1px solid rgba(255,255,255,.5)}
+
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .tactile-study-gallery article,
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .tactile-feedback-study>section{border-color:var(--tactile-surface-line)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .overlay-panel{border:1px solid rgba(255,255,255,.58);box-shadow:12px 15px 28px rgba(91,88,79,.28),-7px -7px 15px rgba(255,255,255,.7)}
+.workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .overlay-scrim{background:rgba(231,227,219,.76);backdrop-filter:blur(5px)}
+
+@media(max-width:768px){
+  .workspace-shell.site[data-design="tactile"] .workspace-stage{border-radius:18px}
+  .workspace-shell.site[data-design="tactile"] .shared-showcase{box-shadow:7px 9px 18px rgba(104,101,91,.18),-6px -6px 13px rgba(255,255,255,.68)}
+  .workspace-shell.site[data-design="tactile"] .tactile-workspace-stage .select-options{box-shadow:9px 12px 21px rgba(91,88,79,.26),-4px -4px 10px rgba(255,255,255,.62)}
+}
