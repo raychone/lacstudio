@@ -1,6 +1,8 @@
-export const designIds = ["tactile", "nocturne", "editorial", "brutalist", "playground"] as const;
+import { comparisonDesignIds, type DesignId } from "./comparison";
 
-export type DesignId = (typeof designIds)[number];
+export const designIds = comparisonDesignIds;
+
+export type { DesignId } from "./comparison";
 export type DesignStatus = "production-ready" | "in-development";
 
 export type DesignDefinition = {
@@ -18,7 +20,7 @@ export const designRegistry: Record<DesignId, DesignDefinition> = {
     index: "01",
     name: "Tactile",
     descriptor: "Warm material, soft elevation",
-    status: "production-ready",
+    status: "in-development",
     preview: ["#e7e3db", "#c5c0b6", "#a3ad82"],
   },
   nocturne: {
