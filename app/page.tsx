@@ -64,10 +64,24 @@ function InputsPreview() {
   const [note, setNote] = useState("");
   const [projectType, setProjectType] = useState("");
   const [selectOpen, setSelectOpen] = useState(false);
+  const selectRoot = useRef<HTMLDivElement>(null);
+  const selectTrigger = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const projectOptions = ["Portfolio & studio", "Digital product", "Brand site"];
   const valid = /^\S+@\S+\.\S+$/.test(email);
+  const selectedIndex = Math.max(0, projectOptions.indexOf(projectType));
+  const closeSelect = (restoreFocus = false) => { setSelectOpen(false); if (restoreFocus) window.requestAnimationFrame(() => selectTrigger.current?.focus()); };
+  const focusOption = (index: number) => window.requestAnimationFrame(() => optionRefs.current[index]?.focus());
+  const openSelect = (index = selectedIndex) => { setSelectOpen(true); focusOption(index); };
+  const selectOption = (item: string) => { setProjectType(item); closeSelect(true); };
+  useEffect(() => {
+    const dismiss = (event: PointerEvent) => { if (!selectRoot.current?.contains(event.target as Node)) setSelectOpen(false); };
+    window.addEventListener("pointerdown", dismiss);
+    return () => window.removeEventListener("pointerdown", dismiss);
+  }, []);
   return <form className="inputs-lab" onSubmit={(event) => event.preventDefault()}>
     <label className={email ? "floating-field filled" : "floating-field"}><span>Your email</span><input value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="hello@studio.com" />{email && <b>{valid ? "✓" : "!"}</b>}</label>
-    <div className={selectOpen ? "select-row custom-select open" : "select-row custom-select"}><span>PROJECT TYPE</span><button type="button" className="select-trigger" onClick={() => setSelectOpen(!selectOpen)}>{projectType || "Choose a direction"}<b>⌄</b></button>{selectOpen && <div className="select-options">{["Portfolio & studio", "Digital product", "Brand site"].map((item) => <button type="button" key={item} className={projectType === item ? "selected" : ""} onClick={() => { setProjectType(item); setSelectOpen(false); }}>{item}<i>↗</i></button>)}</div>}</div>
+    <div ref={selectRoot} className={selectOpen ? "select-row custom-select open" : "select-row custom-select"}><span>PROJECT TYPE</span><button ref={selectTrigger} type="button" role="combobox" aria-label="Project type" aria-haspopup="listbox" aria-controls="tactile-project-options" aria-expanded={selectOpen} className="select-trigger" onClick={() => selectOpen ? closeSelect() : openSelect()} onKeyDown={(event) => { if (event.key === "ArrowDown") { event.preventDefault(); openSelect(Math.min(selectedIndex + 1, projectOptions.length - 1)); } if (event.key === "ArrowUp") { event.preventDefault(); openSelect(Math.max(selectedIndex - 1, 0)); } if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openSelect(); } if (event.key === "Escape") closeSelect(true); }}>{projectType || "Choose a direction"}<b>⌄</b></button>{selectOpen && <div id="tactile-project-options" className="select-options" role="listbox" aria-label="Project type">{projectOptions.map((item, index) => <button ref={(node) => { optionRefs.current[index] = node; }} type="button" role="option" key={item} aria-selected={projectType === item} className={projectType === item ? "selected" : ""} onKeyDown={(event) => { if (event.key === "ArrowDown") { event.preventDefault(); focusOption(Math.min(index + 1, projectOptions.length - 1)); } if (event.key === "ArrowUp") { event.preventDefault(); focusOption(Math.max(index - 1, 0)); } if (event.key === "Home") { event.preventDefault(); focusOption(0); } if (event.key === "End") { event.preventDefault(); focusOption(projectOptions.length - 1); } if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectOption(item); } if (event.key === "Escape") closeSelect(true); }} onClick={() => selectOption(item)}>{item}<i>↗</i></button>)}</div>}</div>
     <label className="message-field"><span>Tell us the shape of it</span><textarea maxLength={160} value={note} onChange={(event) => setNote(event.target.value)} placeholder="A short note is enough…" /><i>{note.length}/160</i></label>
     <button className="input-submit">SEND BRIEF <b>↗</b></button>
   </form>;
@@ -75,8 +89,27 @@ function InputsPreview() {
 
 function OverlaysPreview() {
   const [overlay, setOverlay] = useState<"modal" | "drawer" | "command" | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeOverlay = () => setOverlay(null);
+  const openOverlay = (next: "modal" | "drawer" | "command", trigger: HTMLButtonElement) => { triggerRef.current = trigger; setOverlay(next); };
+  useEffect(() => {
+    if (!overlay) return;
+    const focusable = () => Array.from(panelRef.current?.querySelectorAll<HTMLElement>("button,input,[href],[tabindex]:not([tabindex='-1'])") ?? []);
+    window.requestAnimationFrame(() => focusable()[0]?.focus());
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); closeOverlay(); return; }
+      if (event.key !== "Tab") return;
+      const items = focusable(); if (!items.length) return;
+      const first = items[0]; const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => { window.removeEventListener("keydown", onKeyDown); triggerRef.current?.focus(); };
+  }, [overlay]);
   return <div className="overlays-lab">
-    <div className="overlay-canvas"><div className="overlay-actions"><button onClick={() => setOverlay("modal")}>MODAL</button><button onClick={() => setOverlay("drawer")}>DRAWER</button><button onClick={() => setOverlay("command")}>COMMAND <span>⌘K</span></button></div><div className="tooltip-sample">Hover state <i>Built for a specific moment, never just for decoration.</i></div>{overlay && <div className={`overlay-preview ${overlay}`}><button className="overlay-scrim" onClick={() => setOverlay(null)} aria-label="Close overlay" /><div className="overlay-panel"><button className="overlay-close" onClick={() => setOverlay(null)}>×</button>{overlay === "modal" && <><span>NEW CONVERSATION</span><strong>What are we<br />making?</strong><button className="overlay-cta">START HERE ↗</button></>}{overlay === "drawer" && <><span>MENU / 01</span><strong>Index<br />Work<br />About</strong><small>Instagram · Behance · Email</small></>}{overlay === "command" && <><span>JUMP TO…</span><input autoFocus placeholder="Search pages or actions" /><div className="command-option">View selected work <b>↵</b></div><div className="command-option">Start a project <b>↵</b></div></>}</div></div>}</div>
+    <div className="overlay-canvas"><div className="overlay-actions"><button aria-haspopup="dialog" onClick={(event) => openOverlay("modal", event.currentTarget)}>MODAL</button><button aria-haspopup="dialog" onClick={(event) => openOverlay("drawer", event.currentTarget)}>DRAWER</button><button aria-haspopup="dialog" onClick={(event) => openOverlay("command", event.currentTarget)}>COMMAND <span>⌘K</span></button></div><div className="tooltip-sample">Hover state <i>Built for a specific moment, never just for decoration.</i></div>{overlay && <div className={`overlay-preview ${overlay}`}><button className="overlay-scrim" onClick={closeOverlay} aria-label="Close overlay" /><div ref={panelRef} className="overlay-panel" role="dialog" aria-modal="true" aria-label={`${overlay} preview`}><button className="overlay-close" onClick={closeOverlay} aria-label="Close overlay">×</button>{overlay === "modal" && <><span>NEW CONVERSATION</span><strong>What are we<br />making?</strong><button className="overlay-cta" onClick={closeOverlay}>START HERE ↗</button></>}{overlay === "drawer" && <><span>MENU / 01</span><strong>Index<br />Work<br />About</strong><small>Instagram · Behance · Email</small></>}{overlay === "command" && <><span>JUMP TO…</span><input autoFocus placeholder="Search pages or actions" /><button className="command-option" onClick={closeOverlay}>View selected work <b>↵</b></button><button className="command-option" onClick={closeOverlay}>Start a project <b>↵</b></button></>}</div></div>}</div>
   </div>;
 }
 
