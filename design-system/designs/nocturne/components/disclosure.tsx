@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { nextRovingIndex } from "@/design-system/engine/keyboard";
 
 export function NocturneAccordion({ items, multiple = false }: { items: { title: string; content: string }[]; multiple?: boolean }) {
   const [open, setOpen] = useState<number[]>([0]);
@@ -10,8 +11,9 @@ export function NocturneAccordion({ items, multiple = false }: { items: { title:
 
 export function NocturneTabs({ tabs }: { tabs: { label: string; content: ReactNode }[] }) {
   const [selected, setSelected] = useState(0);
-  const choose = (index: number) => setSelected((index + tabs.length) % tabs.length);
-  return <div className="nocturne-tabs"><div role="tablist" aria-label="Nocturne tabs">{tabs.map((tab, index) => <button key={tab.label} role="tab" aria-selected={selected === index} tabIndex={selected === index ? 0 : -1} onClick={() => choose(index)} onKeyDown={(event) => { if (event.key === "ArrowRight") choose(index + 1); if (event.key === "ArrowLeft") choose(index - 1); }}>{tab.label}</button>)}</div><div role="tabpanel">{tabs[selected].content}</div></div>;
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const choose = (index: number, focus = false) => { const next = (index + tabs.length) % tabs.length; setSelected(next); if (focus) window.requestAnimationFrame(() => tabRefs.current[next]?.focus()); };
+  return <div className="nocturne-tabs"><div role="tablist" aria-label="Nocturne tabs">{tabs.map((tab, index) => <button ref={(node) => { tabRefs.current[index] = node; }} id={`nocturne-tab-${index}`} key={tab.label} role="tab" aria-controls={`nocturne-panel-${index}`} aria-selected={selected === index} tabIndex={selected === index ? 0 : -1} onClick={() => choose(index)} onKeyDown={(event) => { const next = nextRovingIndex(event.key, index, tabs.length); if (next !== null) { event.preventDefault(); choose(next, true); } }}>{tab.label}</button>)}</div><div id={`nocturne-panel-${selected}`} role="tabpanel" aria-labelledby={`nocturne-tab-${selected}`}>{tabs[selected].content}</div></div>;
 }
 
 export function NocturneCollapsible({ title, children }: { title: string; children: ReactNode }) {
@@ -37,8 +39,11 @@ export function NocturnePopover({ trigger, children }: { trigger: string; childr
 }
 
 export function NocturneDropdown({ onSelect }: { onSelect: (value: string) => void }) {
-  const [open, setOpen] = useState(false); const options = ["Save sequence", "Duplicate signal", "Archive study"];
-  return <div className="nocturne-dropdown"><button aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen(!open)}>OPTIONS <i>⌄</i></button>{open && <div role="menu">{options.map((option) => <button key={option} role="menuitem" onClick={() => { onSelect(option); setOpen(false); }}>{option}</button>)}</div>}</div>;
+  const [open, setOpen] = useState(false); const options = ["Save sequence", "Duplicate signal", "Archive study"]; const root = useRef<HTMLDivElement>(null); const triggerRef = useRef<HTMLButtonElement>(null); const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const focusItem = (index: number) => window.requestAnimationFrame(() => itemRefs.current[index]?.focus());
+  const close = (restoreFocus = false) => { setOpen(false); if (restoreFocus) window.requestAnimationFrame(() => triggerRef.current?.focus()); };
+  useEffect(() => { const dismiss = (event: PointerEvent) => { if (!root.current?.contains(event.target as Node)) setOpen(false); }; window.addEventListener("pointerdown", dismiss); return () => window.removeEventListener("pointerdown", dismiss); }, []);
+  return <div ref={root} className="nocturne-dropdown"><button ref={triggerRef} aria-haspopup="menu" aria-expanded={open} onClick={() => open ? close() : (setOpen(true), focusItem(0))} onKeyDown={(event) => { if (event.key === "ArrowDown") { event.preventDefault(); setOpen(true); focusItem(0); } if (event.key === "ArrowUp") { event.preventDefault(); setOpen(true); focusItem(options.length - 1); } if (event.key === "Escape") close(true); }}>OPTIONS <i>⌄</i></button>{open && <div role="menu">{options.map((option, index) => <button ref={(node) => { itemRefs.current[index] = node; }} key={option} role="menuitem" onKeyDown={(event) => { const next = nextRovingIndex(event.key, index, options.length); if (next !== null) { event.preventDefault(); focusItem(next); } if (event.key === "Escape") { event.preventDefault(); close(true); } }} onClick={() => { onSelect(option); close(); }}>{option}</button>)}</div>}</div>;
 }
 
 export function NocturneContextMenu({ children }: { children: ReactNode }) {

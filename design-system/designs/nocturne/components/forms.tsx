@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
+import { nextRovingIndex } from "@/design-system/engine/keyboard";
 
 type FieldStatus = "default" | "error" | "success";
 type FieldProps = { label: string; hint?: string; status?: FieldStatus; children: ReactNode };
@@ -22,19 +23,21 @@ export type NocturneSelectOption = { value: string; label: string };
 export function NocturneSelect({ options, value, onChange, label = "Choose an option" }: { options: NocturneSelectOption[]; value: string; onChange: (value: string) => void; label?: string }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const selected = options.find((option) => option.value === value);
+  const selectedIndex = Math.max(0, options.findIndex((option) => option.value === value));
+  const focusOption = (index: number) => window.requestAnimationFrame(() => optionRefs.current[index]?.focus());
+  const close = (restoreFocus = false) => { setOpen(false); if (restoreFocus) window.requestAnimationFrame(() => triggerRef.current?.focus()); };
   useEffect(() => {
-    const close = (event: MouseEvent) => { if (!root.current?.contains(event.target as Node)) setOpen(false); };
-    window.addEventListener("mousedown", close);
-    return () => window.removeEventListener("mousedown", close);
+    const dismiss = (event: PointerEvent) => { if (!root.current?.contains(event.target as Node)) setOpen(false); };
+    window.addEventListener("pointerdown", dismiss);
+    return () => window.removeEventListener("pointerdown", dismiss);
   }, []);
-  const move = (direction: 1 | -1) => {
-    const current = Math.max(0, options.findIndex((option) => option.value === value));
-    onChange(options[(current + direction + options.length) % options.length].value);
-  };
+  const openAt = (index = selectedIndex) => { setOpen(true); focusOption(index); };
   return <div ref={root} className={open ? "nocturne-select-wrap open" : "nocturne-select-wrap"}>
-    <button type="button" className="nocturne-select-trigger" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen(!open)} onKeyDown={(event) => { if (event.key === "ArrowDown") { event.preventDefault(); move(1); } if (event.key === "ArrowUp") { event.preventDefault(); move(-1); } }}>{selected?.label ?? label}<i aria-hidden="true">⌄</i></button>
-    {open && <div className="nocturne-select-options" role="listbox" aria-label={label}>{options.map((option) => <button type="button" key={option.value} role="option" aria-selected={option.value === value} onClick={() => { onChange(option.value); setOpen(false); }}><span>{option.label}</span><i aria-hidden="true">{option.value === value ? "✓" : ""}</i></button>)}</div>}
+    <button ref={triggerRef} type="button" className="nocturne-select-trigger" aria-haspopup="listbox" aria-expanded={open} onClick={() => open ? close() : openAt()} onKeyDown={(event) => { const next = nextRovingIndex(event.key, selectedIndex, options.length); if (next !== null) { event.preventDefault(); openAt(next); } if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openAt(); } if (event.key === "Escape") close(true); }}>{selected?.label ?? label}<i aria-hidden="true">⌄</i></button>
+    {open && <div className="nocturne-select-options" role="listbox" aria-label={label}>{options.map((option, index) => <button ref={(node) => { optionRefs.current[index] = node; }} type="button" key={option.value} role="option" aria-selected={option.value === value} onKeyDown={(event) => { const next = nextRovingIndex(event.key, index, options.length); if (next !== null) { event.preventDefault(); focusOption(next); } if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onChange(option.value); close(true); } if (event.key === "Escape") { event.preventDefault(); close(true); } }} onClick={() => { onChange(option.value); close(); }}><span>{option.label}</span><i aria-hidden="true">{option.value === value ? "✓" : ""}</i></button>)}</div>}
   </div>;
 }
 

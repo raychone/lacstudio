@@ -1,0 +1,6 @@
+.nocturne-command .nocturne-command-layer{position:fixed;z-index:120;inset:0;display:grid;place-items:center;padding:18px}
+.nocturne-command .nocturne-command-backdrop{position:absolute;inset:0;border:0;background:rgba(3,5,14,.78);backdrop-filter:blur(9px)}
+.nocturne-command .nocturne-command-panel{position:relative;top:auto;left:auto;width:min(100%,350px);max-height:calc(100dvh - 36px);overflow:auto;padding:30px 7px 7px;border:1px solid rgba(205,214,255,.25);background:#111936;box-shadow:0 20px 40px rgba(0,0,0,.42)}
+.nocturne-command .nocturne-command-panel>button:not(.nocturne-command-close){display:flex;justify-content:space-between;width:100%;padding:10px;border:0;background:transparent;color:#cbd2ed;text-align:left;font-size:10px}
+.nocturne-command .nocturne-command-panel>button.active{background:rgba(184,174,255,.15);color:#fff}
+.nocturne-command .nocturne-command-close{position:absolute;top:7px;right:7px;width:auto;padding:0;border:0;background:transparent;color:#e8eaff;font-size:20px}
