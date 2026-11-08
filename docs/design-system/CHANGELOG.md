@@ -169,3 +169,11 @@
 - Added modal, confirmation, drawer, sheet, lightbox and command palette surfaces with Escape, focus trap and trigger restoration.
 - Added tag input, custom expanded multi-select, range, rating, reorder controls, configuration wizard and pointer/range-driven comparison slider.
 - Kept Motion and Effects intentionally pending; expanded-list, overlay, touch and assistive-technology QA remain manual review work.
+
+## 2026-11-08 — Playground Phase 4
+
+- Added functional Playground Motion and Effects categories, completing the twelve-category Design 05 inventory and the five-system, sixty-category implementation milestone.
+- Added replayable fade, directional, stagger, scale, text mask, spring and exit primitives plus Elastic Typography, Shape Morph, Kinetic Color, Stagger Orchestra and Motion Mixer studies.
+- Added bounded CSS-first color-field, shape-response, organic-spotlight, cutout-layer and edge-energy effects plus Color Collision, Magnetic Shapes, Organic Spotlight, Cutout Studio and Edge Energy studies.
+- Passed the Lab reduced-motion setting into both categories and used static/near-instant states for reduced motion; pointer decoration uses scoped CSS custom properties rather than a global animation loop.
+- Kept final visual, responsive, keyboard, touch, contrast, screen-reader, overlay and performance QA explicitly deferred.

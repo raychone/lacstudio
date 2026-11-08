@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Playground Phase 3 complete — Data Display, Carousels, Overlays and Advanced.** Design 05 now has ten implemented categories and retains the common fixture geometry alongside its own expressive interaction language.
+**Playground Phase 4 complete — Motion and Effects.** Design 05 now has all twelve implemented categories; all five design systems have complete component inventories pending final QA.
 
 ## Completed
 
@@ -35,6 +35,7 @@
 - Playground architecture, Foundations, Typography and intentional development states: `df7efff`.
 - Playground Actions, Forms, Disclosure and Feedback: `d028bf6`, with Disclosure coverage completion in `bc662d3`.
 - Playground Data Display, Carousels, Overlays and Advanced: `2864b86`.
+- Playground Motion and Effects: `623940d`.
 
 ## Current coverage
 
@@ -44,9 +45,9 @@
 | 02 Nocturne | In development | Shared comparison fixtures precede preserved cinematic signature studies across all twelve categories. |
 | 03 Editorial | 12/12 implemented — pending final visual and responsive QA | All shared categories and Editorial signature studies are implemented; no production certification yet. |
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
-| 05 Playground | 10/12 implemented — pending visual QA | Foundations through Advanced are implemented; only Motion and Effects intentionally remain under construction. |
+| 05 Playground | 12/12 implemented — pending final visual, responsive and accessibility QA | Complete component inventory; no category remains under construction. |
 
-Latest verified implementation commit: `2864b86`.
+Latest verified implementation commit: `623940d`.
 
 ## Known issues / deferred checks
 
@@ -63,8 +64,10 @@ Latest verified implementation commit: `2864b86`.
 - Playground custom project-type option list needs manual expanded-list keyboard, touch and screen-reader verification.
 - Playground hold-to-confirm, celebratory feedback and live-notification timing need manual keyboard, reduced-motion and narrow-width verification.
 - Playground sortable table, carousel swipe, custom multi-select, overlay focus behavior and comparator pointer/touch behavior need manual browser and assistive-technology QA.
+- Playground motion replay, reduced-motion behavior, effect pointer/touch fallback, contrast, readability and motion performance need manual cross-viewport QA.
+- Final five-system QA must inspect all expanded custom select/multi-select/dropdown menus, keyboard and screen-reader behavior, overlay traps/restoration, touch/swipe, responsive geometry, contrast/readability and reduced-motion behavior.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Stop here for owner review; do not begin Playground Motion, Effects, the portfolio or package extraction automatically.
+All five systems now have twelve implemented categories (sixty total). Stop here for owner review; do not begin the portfolio, cross-system polish or package extraction automatically.

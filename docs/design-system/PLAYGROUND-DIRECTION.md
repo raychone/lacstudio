@@ -43,8 +43,8 @@ The shared Lab container, breakpoints and preview boundaries remain untouched. I
 
 ## Phase status
 
-Implemented: Foundations, Typography, Actions, Forms, Disclosure, Feedback, Data Display, Carousels, Overlays and Advanced, including shared comparison fixtures and Playground-only functional studies. Data Display adds colorful card families, metrics and chronology. Carousels remain manually controlled. Overlays use expressive color blocking while preserving focus management. Advanced combines custom selection, ordering, wizard and comparison tools.
+Implemented: all twelve categories, including shared comparison fixtures and Playground-only functional studies. Data Display adds colorful card families, metrics and chronology. Carousels remain manually controlled. Overlays use expressive color blocking while preserving focus management. Advanced combines custom selection, ordering, wizard and comparison tools. Motion adds replayable transform/opacity vocabulary and five interactive studies; Effects adds bounded pointer-responsive, keyboard-accessible color and shape studies.
 
-Pending: Motion and Effects. Each has an intentional Playground under-construction state in the shared Lab.
+Pending: final visual, responsive, interaction and accessibility QA only. No Playground category remains under construction.
 
-Playground is **10/12 categories implemented, pending visual and responsive QA**. It is not production-ready.
+Playground is **12/12 categories implemented — pending final visual, responsive and accessibility QA**. It is not production-ready.
