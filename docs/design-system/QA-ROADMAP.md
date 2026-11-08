@@ -44,6 +44,12 @@ Remaining before Phase 5B: dedicated variant coverage for every overlay and pers
 
 Exit criteria: system-specific visual acceptance plus documented contrast/readability checks; no new behavior regressions.
 
+## Phase 5B.1 — Tactile visual polish (implemented; approval pending)
+
+Tactile received a constrained, system-scoped refinement of material elevation, muted-text contrast, sage focus/selected states, custom selector surfaces, cards and contained overlays. Shared component dimensions and the other four visual systems remain unchanged.
+
+Automated Chromium captures now cover all twelve Tactile categories at 320, 375, 768, 1024 and 1440px without page-level overflow. See `TACTILE-VISUAL-QA.md`. The next step is owner visual acceptance plus contrast, touch and screen-reader checks—not automatic polish of another system.
+
 ## Phase 5 — Final regression and approval
 
 Re-run the full matrix, lint/build, interaction scripts and browser review. Verify URL restoration, Split View, shared fixtures, state controls and documentation. Record owner approval separately from automated success.

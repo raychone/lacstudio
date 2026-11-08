@@ -1,5 +1,12 @@
 # Design-system changelog
 
+## 2026-11-08 — Cross-System QA Phase 5B.1 / Tactile visual polish
+
+- Added a Tactile-only visual polish layer for controlled warm elevation, stronger muted-text contrast, deep-sage focus and selected states, custom selector separation, cards and contained overlays.
+- Preserved shared geometry, existing accessibility interactions and the visual implementations of Nocturne, Editorial, Brutalist and Playground.
+- Added reproducible Tactile-only browser coverage across all twelve categories at 320, 375, 768, 1024 and 1440px, with ignored local screenshots for review.
+- Recorded the visual audit, evidence, remaining manual checks and owner-approval request in `TACTILE-VISUAL-QA.md`; Tactile remains in development.
+
 ## 2026-11-07 — Phase A
 
 - Recorded the pre-expansion checkpoint: `04f81eb`.

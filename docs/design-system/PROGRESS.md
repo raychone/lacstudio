@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Cross-System QA Phase 4 source remediation complete — browser evidence pending.** Universal Split View now avoids intermediate-width compression; five identities retain their own visual language inside the shared geometry contract.
+**Cross-System QA Phase 5B.1 Tactile visual polish implemented — owner approval pending.** Universal Split View retains its shared geometry; Tactile now has a scoped materiality and state-contrast refinement without changing the other four identities.
 
 ## Completed
 
@@ -41,6 +41,7 @@
 - Cross-System QA Phase 2 P1 interaction/accessibility remediation: current working change (commit pending).
 - Cross-System QA Phase 3 shared sizing contract: current working change (commit pending).
 - Cross-System QA Phase 4 responsive source remediation: current working change (commit pending).
+- Cross-System QA Phase 5B.1 Tactile visual polish: scoped material, form/select, state, card and overlay refinement with five-width Chromium captures (commit pending).
 
 ## Current coverage
 
@@ -85,4 +86,4 @@ Latest verified implementation commit: Phase 4.5 working tree verification pendi
 
 ## Exact next step
 
-Review `RESPONSIVE-QA.md`, `SIZING-CONTRACT.md`, `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is manual browser evidence at 320/375/768/1024/1440px, keyboard-only, touch and screen-reader checks; do not begin Phase 5 polish, the portfolio or package extraction automatically.
+Review `TACTILE-VISUAL-QA.md` plus the local Tactile Lab at 320/375/768/1024/1440px. Record owner visual acceptance, a contrast assessment, keyboard-only and screen-reader results, and real-device touch checks before beginning any other system’s visual-polish phase.

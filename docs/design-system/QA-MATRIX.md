@@ -46,3 +46,9 @@ Baseline date: 2026-11-08. Legend: **I** implemented; **S** statically inspected
 
 - Playwright now covers custom select keyboard/open/select/Escape/outside-dismissal paths, native Editorial select semantics, disclosure menus/accordion/tabs, modal open/Escape/focus restoration, Nocturne command focus and representative advanced controls.
 - 35 ignored local screenshots record open or active states at 375px and 1440px. This is reproducible Chromium evidence, not full variant, touch, screen-reader or visual acceptance. See `EXPANDED-STATES-QA.md`.
+
+## Phase 5B.1 Tactile visual polish
+
+- Tactile now has a design-scoped materiality, focus, selector and overlay polish layer. The other four system roots, shared geometry tokens and breakpoint contract were not changed.
+- `tactile-visual-polish.spec.ts` records 60 rendered states across every Tactile category at 320, 375, 768, 1024 and 1440px with no document-level horizontal overflow. See `TACTILE-VISUAL-QA.md`.
+- This is browser-rendered visual evidence, not a contrast, touch, screen-reader or owner-approval result; matrix cells remain `M—` for those manual dimensions.
