@@ -1,5 +1,12 @@
 # Design-system changelog
 
+## 2026-11-08 — Cross-System QA Phase 5B.2 / Nocturne visual polish
+
+- Added a Nocturne-only polish layer for readable text roles, controlled navy glass elevation, violet focus/selected states, custom menu/select separation, information cards and overlay layers.
+- Preserved Phase 5A behavior, shared dimensions, reduced-motion handling and the visual implementations of Tactile, Editorial, Brutalist and Playground.
+- Added reproducible Nocturne browser coverage across all twelve categories at 320, 375, 768, 1024 and 1440px plus expanded select/command captures.
+- Recorded the audit, opaque-role contrast calculations, remaining manual checks and owner-approval request in `NOCTURNE-VISUAL-QA.md`; Nocturne remains in development.
+
 ## 2026-11-08 — Cross-System QA Phase 5B.1 / Tactile visual polish
 
 - Added a Tactile-only visual polish layer for controlled warm elevation, stronger muted-text contrast, deep-sage focus and selected states, custom selector separation, cards and contained overlays.

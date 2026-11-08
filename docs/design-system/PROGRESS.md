@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Cross-System QA Phase 5B.1 Tactile visual polish implemented — owner approval pending.** Universal Split View retains its shared geometry; Tactile now has a scoped materiality and state-contrast refinement without changing the other four identities.
+**Cross-System QA Phase 5B.2 Nocturne visual polish implemented — owner approval pending.** Universal Split View retains its shared geometry; Tactile and Nocturne have independent, scoped refinements without changing Editorial, Brutalist or Playground.
 
 ## Completed
 
@@ -42,6 +42,7 @@
 - Cross-System QA Phase 3 shared sizing contract: current working change (commit pending).
 - Cross-System QA Phase 4 responsive source remediation: current working change (commit pending).
 - Cross-System QA Phase 5B.1 Tactile visual polish: scoped material, form/select, state, card and overlay refinement with five-width Chromium captures (commit pending).
+- Cross-System QA Phase 5B.2 Nocturne visual polish: scoped readability, glass/menu, data, overlay and luminous-state refinement with five-width Chromium captures (commit pending).
 
 ## Current coverage
 
@@ -86,4 +87,4 @@ Latest verified implementation commit: Phase 4.5 working tree verification pendi
 
 ## Exact next step
 
-Review `TACTILE-VISUAL-QA.md` plus the local Tactile Lab at 320/375/768/1024/1440px. Record owner visual acceptance, a contrast assessment, keyboard-only and screen-reader results, and real-device touch checks before beginning any other system’s visual-polish phase.
+Review `TACTILE-VISUAL-QA.md` and `NOCTURNE-VISUAL-QA.md` in the local Lab at 320/375/768/1024/1440px. Record owner visual acceptance, rendered contrast assessment, keyboard-only and screen-reader results, and real-device touch checks before beginning the Editorial visual-polish phase.

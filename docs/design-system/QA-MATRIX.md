@@ -52,3 +52,9 @@ Baseline date: 2026-11-08. Legend: **I** implemented; **S** statically inspected
 - Tactile now has a design-scoped materiality, focus, selector and overlay polish layer. The other four system roots, shared geometry tokens and breakpoint contract were not changed.
 - `tactile-visual-polish.spec.ts` records 60 rendered states across every Tactile category at 320, 375, 768, 1024 and 1440px with no document-level horizontal overflow. See `TACTILE-VISUAL-QA.md`.
 - This is browser-rendered visual evidence, not a contrast, touch, screen-reader or owner-approval result; matrix cells remain `M—` for those manual dimensions.
+
+## Phase 5B.2 Nocturne visual polish
+
+- Nocturne now has a design-scoped contrast, glass-surface, menu/select, data-display and overlay polish layer. Tactile, Editorial, Brutalist, Playground and the shared geometry contract were not changed.
+- `nocturne-visual-polish.spec.ts` records sixty direct states plus two expanded surfaces across the five required viewport widths, with no document-level horizontal overflow. See `NOCTURNE-VISUAL-QA.md`.
+- Calculated opaque role contrasts against the core night surface meet AA for normal text; translucent/effect-overlaid text, touch, screen-reader and owner approval remain manual checks. Matrix cells remain `M—` for those dimensions.

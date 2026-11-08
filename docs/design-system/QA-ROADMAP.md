@@ -50,6 +50,12 @@ Tactile received a constrained, system-scoped refinement of material elevation, 
 
 Automated Chromium captures now cover all twelve Tactile categories at 320, 375, 768, 1024 and 1440px without page-level overflow. See `TACTILE-VISUAL-QA.md`. The next step is owner visual acceptance plus contrast, touch and screen-reader checks—not automatic polish of another system.
 
+## Phase 5B.2 — Nocturne visual polish (implemented; approval pending)
+
+Nocturne received a constrained, system-scoped refinement of text contrast roles, navy glass surfaces, luminous focus/selected states, elevated custom menu/select surfaces, information cards and overlays. The shared sizing contract and other design systems remain unchanged.
+
+Automated Chromium captures cover twelve categories at 320, 375, 768, 1024 and 1440px plus expanded select/command surfaces, without page-level overflow. See `NOCTURNE-VISUAL-QA.md`. The next task is owner acceptance and manual contrast, touch and screen-reader review—do not automatically start the Editorial pass.
+
 ## Phase 5 — Final regression and approval
 
 Re-run the full matrix, lint/build, interaction scripts and browser review. Verify URL restoration, Split View, shared fixtures, state controls and documentation. Record owner approval separately from automated success.
