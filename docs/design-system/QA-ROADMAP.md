@@ -24,7 +24,13 @@ Remaining work: run every system/category at 320, 375, 768, 1024 and 1440px. Pri
 
 Exit criteria: no unintended horizontal overflow, clipping or hidden controls; touch targets and readable hierarchy remain intact at each approved width.
 
-## Phase 4 — Visual polish
+## Phase 4 — Responsive and layout validation (source remediation complete; browser evidence pending)
+
+Completed in source: Split View now stacks before intermediate panels compress, workspace collapse aligns to 768px, and the overlay preview uses a height-specific token. The focused responsive contract test passes. Browser, visual, touch and screen-reader validation are still open because no runner was available in this environment.
+
+Remaining work: collect actual rendered evidence at 320, 375, 768, 1024 and 1440px, then remediate confirmed P0/P1 layout defects without redesigning systems.
+
+## Phase 5 — Visual polish
 
 Use the recorded QA evidence to refine typography, contrast, spacing, focus states, effects and artistic cohesion. Keep shared outer geometry comparable while preserving the five visual identities. Fix critical functional defects before any cosmetic work.
 

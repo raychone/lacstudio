@@ -22,6 +22,12 @@ Baseline date: 2026-11-08. Legend: **I** implemented; **S** statically inspected
 - Standard equivalent action/field/tab controls receive the 44px MD contract in the systems that expose those classes. Compact/expressive variants are retained as explicit exceptions.
 - No cell receives manual responsive approval from this source-level work; overflow and computed geometry remain `M—` pending browser evidence.
 
+## Phase 4 responsive status
+
+- `test:responsive` validates the shared workspace's 768px collapse, the <=900px Split View stack, selector-grid geometry and the explicit overlay preview-height token.
+- Browser-rendered coverage is **none** in this environment: no browser runner was available, and the pre-existing local Vinext server lock did not provide a reachable port. No visual, touch or screen-reader cell status changed.
+- `RESPONSIVE-QA.md` contains the exact source-audit findings, fixes and required manual viewport matrix.
+
 ## Baseline notes
 
 - Mechanical scan: five system-stage sources each expose all twelve category paths; the shared showcase schema defines all twelve fixture categories.

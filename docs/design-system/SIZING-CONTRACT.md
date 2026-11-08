@@ -9,7 +9,7 @@ Status: source-level contract introduced in Cross-System QA Phase 3. It aligns g
 | Controls | `--layout-control-xs/sm/md/lg` | 32 / 36 / 44 / 52px. MD is the standard interactive size; XS and SM are compact, labelled exceptions. |
 | Fields | `--layout-field-md/lg`, `--layout-textarea-min` | 44 / 52px; textareas start at 96px and grow with content. |
 | Cards | `--layout-card-padding-sm/md/lg` | 16 / 24 / 32px; cards have no fixed height unless the fixture defines a content-safe minimum. |
-| Overlays | `--layout-overlay-sm/md/lg` | 400 / 560 / 720px maximums, constrained by viewport width; drawers use a 420px maximum. |
+| Overlays | `--layout-overlay-preview-min`, `--layout-overlay-sm/md/lg` | 240px preview minimum; 400 / 560 / 720px maximums, constrained by viewport width; drawers use a 420px maximum. |
 | Carousel | `--layout-carousel-min/compact-min/feature-min` | 280 / 200 / 340px minimum viewport heights; slides remain content-driven above those bounds. |
 | Data | `--layout-table-density`, `--layout-badge-min` | 12px table-cell vertical padding; 24px minimum badge height. |
 

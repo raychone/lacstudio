@@ -207,3 +207,9 @@
 - Added typed fixture sizing metadata and a focused sizing test so every shared category carries a valid external geometry class in Split View.
 - Applied the standard geometry to equivalent shared fixtures and named signature control classes while preserving system typography, radius, borders, shadows, motion and expressive variants.
 - Recorded observed pre-contract differences and manual responsive limitations in `SIZING-CONTRACT.md`; no production-ready or pixel-parity claim is made.
+
+## 2026-11-08 — Cross-System QA Phase 4
+
+- Added a focused responsive contract test and corrected the intermediate-width Split View compression path by stacking paired fixtures before the stage becomes too narrow.
+- Aligned the shared workspace and sizing-layer narrow breakpoint to 768px; added an explicit overlay-preview height token rather than reusing a width constraint as height.
+- Added `RESPONSIVE-QA.md` with the actual tooling limitation: no available browser runner and no reachable existing local preview port. No rendered, visual, touch or screen-reader result is claimed.

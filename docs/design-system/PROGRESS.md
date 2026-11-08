@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Cross-System QA Phase 3 sizing contract complete — responsive evidence pending.** Universal Split View remains intact; five identities now share a documented geometry contract without collapsing into a single visual theme.
+**Cross-System QA Phase 4 source remediation complete — browser evidence pending.** Universal Split View now avoids intermediate-width compression; five identities retain their own visual language inside the shared geometry contract.
 
 ## Completed
 
@@ -40,6 +40,7 @@
 - Cross-System QA Phase 1 universal comparison infrastructure: `426d9c7`.
 - Cross-System QA Phase 2 P1 interaction/accessibility remediation: current working change (commit pending).
 - Cross-System QA Phase 3 shared sizing contract: current working change (commit pending).
+- Cross-System QA Phase 4 responsive source remediation: current working change (commit pending).
 
 ## Current coverage
 
@@ -51,7 +52,7 @@
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | 12/12 implemented — pending final visual, responsive and accessibility QA | Complete component inventory; no category remains under construction. |
 
-Latest verified implementation commit: `ecc5e33` (Phase 3 working tree verification pending final build).
+Latest verified implementation commit: `0e47896` (Phase 4 working tree verification pending final commit).
 
 ## Known issues / deferred checks
 
@@ -74,8 +75,9 @@ Latest verified implementation commit: `ecc5e33` (Phase 3 working tree verificat
 - QA Phase 0 found the registry status `production-ready` for Tactile inconsistent with the project-wide unverified QA state; status semantics require a future decision.
 - Universal Split View has focused source tests but still needs browser verification for native selectors, direct-link restoration, narrow stacked panels, theme isolation and Back/Forward behavior.
 - Phase 3 validates token mapping and shared fixture sizing classes only; manual computed-size, overflow and touch-target checks at 320/375/768/1024/1440px remain required.
+- Phase 4 has no browser-rendered evidence in this environment; see `RESPONSIVE-QA.md` for the unavailable tooling, source-level fixes and exact manual matrix.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Review `SIZING-CONTRACT.md`, `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is manual sizing evidence at 320/375/768/1024/1440px, keyboard-only, touch and screen-reader checks; do not begin responsive polish, the portfolio or package extraction automatically.
+Review `RESPONSIVE-QA.md`, `SIZING-CONTRACT.md`, `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is manual browser evidence at 320/375/768/1024/1440px, keyboard-only, touch and screen-reader checks; do not begin Phase 5 polish, the portfolio or package extraction automatically.

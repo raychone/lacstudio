@@ -54,6 +54,10 @@ The shared sizing token layer now maps component classes to 44px standard contro
 
 Static contract coverage does not prove computed dimensions in a browser. Tactile's approved signature experiments and intentionally compact/dense controls remain documented exceptions rather than forced visual matches. See `SIZING-CONTRACT.md`.
 
+## Phase 4 responsive remediation record
+
+Source inspection found and fixed an intermediate-width Split View compression path, aligned the shared workspace breakpoint to the 768px contract, and separated overlay preview height from overlay width. `RESPONSIVE-QA.md` records that the environment had no usable browser automation or reachable local preview, so these are source and contract-test results only.
+
 ## Comparison architecture assessment
 
 Universal Split View is implemented through typed `ComparisonState` in `DesignProvider`. A pair selector offers every registered design on the left and right, with swap and exit controls. Both panels consume the current category/component and render `SharedShowcase` only, so they share reference content, variant state and outer fixture class while Signature Experiments remain outside comparison mode.
