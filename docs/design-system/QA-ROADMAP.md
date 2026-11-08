@@ -2,11 +2,11 @@
 
 This is a proposed order based on the Phase 0 static baseline. It intentionally separates structural work, functional accessibility, responsive evidence and visual refinement.
 
-## Phase 1 — Shared comparison infrastructure
+## Phase 1 — Shared comparison infrastructure (complete in source; manual QA pending)
 
 Generalize Split View to any two typed design IDs while preserving the existing Tactile–Nocturne default. Keep category/component/fixture selection synchronized, use the existing shared showcase bounds, preserve URL coherence and avoid scroll resets. Signature Experiments remain independent and are not flattened into comparison panels.
 
-Exit criteria: arbitrary distinct pair selection works; current Tactile–Nocturne path stays functional; pair state is URL-addressable; panel dimensions derive from one shared workspace rule.
+Implemented: typed pair state, all-five-system selectors, swap/exit, URL serialization, invalid-pair recovery, equal-width panel grid and narrow stacked panels. The original Tactile–Nocturne pair remains available as the default. Manual browser validation of selector controls, direct links and panel isolation remains pending.
 
 ## Phase 2 — Functional and accessibility QA
 

@@ -13,9 +13,9 @@ Baseline date: 2026-11-08. Scope: static repository inspection plus lint/build v
 
 | Concern | Current implementation | Baseline assessment |
 | --- | --- | --- |
-| Design registry | `design-system/engine/registry.ts` declares Tactile, Nocturne, Editorial, Brutalist and Playground. | Five typed IDs are present. Tactile is still marked `production-ready`, which conflicts with the documented unverified QA state. |
+| Design registry | `design-system/engine/registry.ts` declares Tactile, Nocturne, Editorial, Brutalist and Playground. | Five typed IDs are present; all registry entries now remain `in-development` until QA is certified. |
 | Category registry | `design-system/engine/categories.ts` is the ordered source for the twelve category IDs and default component IDs. | One ordered category contract is shared by all systems. |
-| Workspace + URL | `DesignProvider` owns active design/category/component, reduced-motion and Compatibility fixture state; `design`, `category` and `component` are pushed to the URL. | Design preference persists in local storage; category/component persistence relies on URL. |
+| Workspace + URL | `DesignProvider` owns active design/category/component, reduced-motion, Compatibility fixture and typed comparison state; `design`, `category`, `component`, `compare`, `left` and `right` are pushed to the URL. | Design preference persists in local storage; category/component and valid comparison-pair state are URL-addressable. |
 | Shared fixture | `design-system/showcase/schema.ts` defines all twelve reference fixtures; `SharedShowcase` renders them before signature experiments. | Shared copy and outer fixture type exist; identical internal dimensions are not mechanically enforced for every signature study. |
 | System stages | Tactile remains in `app/page.tsx`; Nocturne, Editorial, Brutalist and Playground have dedicated workspace stages. | The stage mapping is complete but interaction/overlay helpers are duplicated across systems. |
 | Style composition | `app/layout.tsx` imports global/theme CSS followed by system CSS; external geometry lives in `layout-contract.css` and `workspace.css`. | Import order and local hard-coded dimensions are a maintenance and regression risk. |
@@ -50,18 +50,21 @@ See `QA-MATRIX.md` for the explicit 60-cell record.
 
 ## Comparison architecture assessment
 
-Current Split View is not generalized. `DesignLab` stores a local `comparisonOpen` boolean, and when enabled it always renders two `SharedShowcase` panels: Tactile and Nocturne. Both consume the currently selected category/component context and receive the same panel grid/bounds, so shared fixture selection is synchronized. It does not render signature experiments in the comparison panels.
+Universal Split View is implemented through typed `ComparisonState` in `DesignProvider`. A pair selector offers every registered design on the left and right, with swap and exit controls. Both panels consume the current category/component and render `SharedShowcase` only, so they share reference content, variant state and outer fixture class while Signature Experiments remain outside comparison mode.
 
-Limitations:
+### URL schema
 
-- The control is hidden for Editorial but visible for Brutalist and Playground, where it still compares Tactile ↔ Nocturne rather than the active system.
-- The open/closed state is not URL-addressable or persisted.
-- Pair selection is hard-coded; no typed comparison state exists.
-- Reduced motion is global context state but has no pair-specific comparison record.
+`?design=<active>&category=<category>&component=<component>&compare=1&left=<designId>&right=<designId>`
 
-### Phase 1 proposal (not implemented)
+`left` and `right` must be distinct registered IDs. Invalid or duplicate values safely leave comparison disabled; valid old URLs without comparison fields continue as single-system URLs. Pair changes, swap and exit update the existing URL state mechanism, so Back/Forward restores them.
 
-Add a typed `ComparisonState` containing `enabled`, `leftDesign`, `rightDesign`, category and fixture state. Default to Tactile/Nocturne to preserve existing behavior; allow any distinct registry pair. Serialize the pair and enabled state in URL parameters, preserve the shared stage anchor, and keep comparison panels limited to shared fixtures. Signature experiments remain rendered only in the active system stage. The shared showcase schema remains the common geometry source; the workspace owns panel dimensions and no comparison action should scroll the page unless the current anchor leaves the viewport.
+### Isolation and responsive strategy
+
+- Each panel receives its own design root class and a separately mounted `SharedShowcase`, isolating local fixture state and system tokens.
+- Signature Experiments, overlays and global command shortcuts are intentionally not mounted in comparison panels; this prevents duplicate document listeners or simultaneous command-palette ownership.
+- The neutral control shell reports active category/component and rejects same-system selection without changing either displayed side.
+- Panels use the existing equal-width grid and stack below 760px instead of compressing complex fixtures. No scroll-to-top behavior is added for pair changes.
+- Reduced motion stays in the shared provider and therefore applies consistently to the two shared fixture previews. Per-system visual/manual behavior remains Phase 2 work.
 
 ## Interaction risk register (static inspection)
 

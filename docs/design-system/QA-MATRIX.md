@@ -16,3 +16,4 @@ Baseline date: 2026-11-08. Legend: **I** implemented; **S** statically inspected
 - `D—` means no defect was established by this static baseline. It is not a functional approval.
 - The highest-priority manual rows are every system's Forms, Disclosure, Overlays, Advanced, Motion and Effects. Tactile/Nocturne comparison behavior is additionally covered by the Phase 1 proposal in `QA-BASELINE.md`.
 - Browser widths still pending: 320, 375, 768, 1024 and 1440px.
+- Phase 1 added unit-level coverage for comparison URL parsing, invalid-pair recovery, same-system rejection, swap and exit serialization. It does not replace browser validation of the selector UI or panel isolation.

@@ -184,3 +184,11 @@
 - Recorded shared layout tokens, stage/provider/fixture architecture, selection persistence and the current Tactile–Nocturne-only Split View constraints.
 - Distinguished implementation/static inspection/automated compilation from manual browser and accessibility verification.
 - Recorded selector, overlay, keyboard, responsive, reduced-motion, contrast and performance risks without redesigning or refactoring components.
+
+## 2026-11-08 — Cross-System QA Phase 1
+
+- Replaced the hard-coded Tactile ↔ Nocturne Split View with typed universal pair state for any two of the five registered systems.
+- Added left/right selectors, same-pair rejection feedback, swap and exit controls, equal fixture panels and narrow-width stacking.
+- Extended the existing URL state with `compare=1`, `left` and `right`; invalid pair input safely returns to a valid single-system state while old URLs continue to work.
+- Added dependency-free focused comparison tests for URL restoration, invalid values, duplicate selection, swap and exit serialization.
+- Kept comparison panels limited to the shared fixture layer, isolating Signature Experiments and their global listeners from paired rendering.
