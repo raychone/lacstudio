@@ -36,7 +36,7 @@
 - Playground Actions, Forms, Disclosure and Feedback: `d028bf6`, with Disclosure coverage completion in `bc662d3`.
 - Playground Data Display, Carousels, Overlays and Advanced: `2864b86`.
 - Playground Motion and Effects: `623940d`.
-- Cross-System QA Phase 0 documentation and static inventory baseline: pending focused documentation commit.
+- Cross-System QA Phase 0 documentation and static inventory baseline: `9d37f8f`.
 
 ## Current coverage
 
@@ -48,7 +48,7 @@
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | 12/12 implemented — pending final visual, responsive and accessibility QA | Complete component inventory; no category remains under construction. |
 
-Latest verified implementation commit: pending Cross-System QA Phase 0 documentation commit.
+Latest verified implementation commit: `9d37f8f`.
 
 ## Known issues / deferred checks
 
