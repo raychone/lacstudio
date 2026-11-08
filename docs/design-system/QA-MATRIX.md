@@ -16,6 +16,12 @@ Baseline date: 2026-11-08. Legend: **I** implemented; **S** statically inspected
 - `test:interactions` proves only the pure Arrow/Home/End index contract. All cells remain `M—`: no browser, touch, screen-reader or visual approval is claimed.
 - Custom multi-selects, carousel/comparator gestures, contextual menus and most responsive evidence remain pending manual review.
 
+## Phase 3 sizing status
+
+- Every shared fixture category now carries one of the tested `control`, `form` or `content` sizing classes; the same class is rendered in either Split View panel.
+- Standard equivalent action/field/tab controls receive the 44px MD contract in the systems that expose those classes. Compact/expressive variants are retained as explicit exceptions.
+- No cell receives manual responsive approval from this source-level work; overflow and computed geometry remain `M—` pending browser evidence.
+
 ## Baseline notes
 
 - Mechanical scan: five system-stage sources each expose all twelve category paths; the shared showcase schema defines all twelve fixture categories.

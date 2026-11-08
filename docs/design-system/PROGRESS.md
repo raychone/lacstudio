@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Cross-System QA Phase 2 source remediation complete — manual validation pending.** Universal Split View remains intact; P1 keyboard/focus and overlay fixes now cover the critical source paths without claiming browser or assistive-technology approval.
+**Cross-System QA Phase 3 sizing contract complete — responsive evidence pending.** Universal Split View remains intact; five identities now share a documented geometry contract without collapsing into a single visual theme.
 
 ## Completed
 
@@ -39,6 +39,7 @@
 - Cross-System QA Phase 0 documentation and static inventory baseline: `9d37f8f`.
 - Cross-System QA Phase 1 universal comparison infrastructure: `426d9c7`.
 - Cross-System QA Phase 2 P1 interaction/accessibility remediation: current working change (commit pending).
+- Cross-System QA Phase 3 shared sizing contract: current working change (commit pending).
 
 ## Current coverage
 
@@ -50,7 +51,7 @@
 | 04 Brutalist | 12/12 implemented — pending final visual and responsive QA | All shared categories and Brutalist signature studies are implemented; no production certification yet. |
 | 05 Playground | 12/12 implemented — pending final visual, responsive and accessibility QA | Complete component inventory; no category remains under construction. |
 
-Latest verified implementation commit: `426d9c7` (Phase 2 working tree passed focused tests, lint and build; commit pending).
+Latest verified implementation commit: `ecc5e33` (Phase 3 working tree verification pending final build).
 
 ## Known issues / deferred checks
 
@@ -72,8 +73,9 @@ Latest verified implementation commit: `426d9c7` (Phase 2 working tree passed fo
 - QA Phase 0 found the current Split View hard-coded to Tactile ↔ Nocturne, including when opened from Brutalist or Playground; pair selection and URL persistence are deferred to QA Phase 1.
 - QA Phase 0 found the registry status `production-ready` for Tactile inconsistent with the project-wide unverified QA state; status semantics require a future decision.
 - Universal Split View has focused source tests but still needs browser verification for native selectors, direct-link restoration, narrow stacked panels, theme isolation and Back/Forward behavior.
+- Phase 3 validates token mapping and shared fixture sizing classes only; manual computed-size, overflow and touch-target checks at 320/375/768/1024/1440px remain required.
 - The root `effects-interaction.css` is an untracked, unused duplicate and remains intentionally untouched.
 
 ## Exact next step
 
-Review `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is manual QA Phase 2 evidence at 320/375/768/1024/1440px, keyboard-only, touch and screen-reader checks; do not begin responsive polish, the portfolio or package extraction automatically.
+Review `SIZING-CONTRACT.md`, `QA-BASELINE.md`, `QA-MATRIX.md` and `QA-ROADMAP.md`. Next proposed step is manual sizing evidence at 320/375/768/1024/1440px, keyboard-only, touch and screen-reader checks; do not begin responsive polish, the portfolio or package extraction automatically.

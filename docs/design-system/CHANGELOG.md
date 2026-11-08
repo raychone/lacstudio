@@ -200,3 +200,10 @@
 - Remediated Playground and Brutalist project-type selectors; added roving focus, semantic tab/panel relationships and Home/End behavior to Editorial, Brutalist and Playground tab studies.
 - Preserved the universal comparison contract and all system-specific visual styles; no global geometry or responsive redesign was introduced.
 - Passed `test:comparison`, `test:interactions`, lint and production build. Browser, touch, screen-reader and responsive visual verification remain explicitly pending.
+
+## 2026-11-08 — Cross-System QA Phase 3
+
+- Expanded the shared layout tokens into a five-system sizing contract for controls, fields, card padding, carousel viewports, overlays, commands and table density.
+- Added typed fixture sizing metadata and a focused sizing test so every shared category carries a valid external geometry class in Split View.
+- Applied the standard geometry to equivalent shared fixtures and named signature control classes while preserving system typography, radius, borders, shadows, motion and expressive variants.
+- Recorded observed pre-contract differences and manual responsive limitations in `SIZING-CONTRACT.md`; no production-ready or pixel-parity claim is made.

@@ -16,9 +16,11 @@ Completed in source: P1 selector/menu/tab focus fixes, Nocturne command-dialog r
 
 Remaining exit criteria: keyboard-only scripts pass for critical paths; expanded selectors are readable and system-specific; no known focus-loss or trapped-background defect remains; screen-reader checks are recorded.
 
-## Phase 3 — Responsive QA
+## Phase 3 — Unified sizing contract (source complete; responsive evidence pending)
 
-Run every system/category at 320, 375, 768, 1024 and 1440px. Prioritize stage/sidebar collapse, long labels, tables, overlay geometry, custom option menus, carousels, comparators and decorative effects. Record actual screenshots or manual results rather than inferred findings.
+Implemented in source: the shared sizing contract, fixture size metadata, common control/field/card/overlay/carousel bounds, Split View fixture consistency and focused token coverage. This is structural normalization, not responsive visual approval.
+
+Remaining work: run every system/category at 320, 375, 768, 1024 and 1440px. Prioritize stage/sidebar collapse, long labels, tables, overlay geometry, custom option menus, carousels, comparators and decorative effects. Record actual screenshots or manual results rather than inferred findings.
 
 Exit criteria: no unintended horizontal overflow, clipping or hidden controls; touch targets and readable hierarchy remain intact at each approved width.
 

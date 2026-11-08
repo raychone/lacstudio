@@ -10,10 +10,10 @@ Source: `design-system/tokens/layout-contract.css`.
 | --- | --- | --- |
 | Containers | `--layout-container-max`, `--layout-content-max`, `--layout-gutter` | page and readable-content boundaries |
 | Spacing | `--layout-section`, `--layout-grid-gap` | section rhythm and grid gutters |
-| Controls | `--layout-control-sm/md/lg`, `--layout-target-min` | compatible control classes and target minimum |
-| Cards/media | `--layout-card-min`, `--layout-card-feature-min`, `--layout-media-ratio` | stable outer content dimensions |
-| Overlays | `--layout-overlay-sm/lg`, `--layout-drawer` | dialog and drawer limits |
-| Data/motion | `--layout-carousel-min`, `--layout-table-density` | stable carousel and table sizing |
+| Controls | `--layout-control-xs/sm/md/lg`, `--layout-target-min` | 32/36/44/52px classes and target minimum |
+| Cards/media | `--layout-card-padding-sm/md/lg`, `--layout-card-min`, `--layout-card-feature-min`, `--layout-media-ratio` | stable outer content dimensions |
+| Overlays | `--layout-overlay-sm/md/lg`, `--layout-drawer`, `--layout-command-max` | dialog, drawer and command limits |
+| Data/motion | `--layout-carousel-min/compact-min/feature-min`, `--layout-table-density` | stable carousel and table sizing |
 
 ## Rules
 
@@ -22,6 +22,7 @@ Source: `design-system/tokens/layout-contract.css`.
 - Interactive targets are at least `--layout-target-min` where the pattern requires a touch target.
 - Breakpoint changes may alter grids, never hide essential content.
 - System switches preserve outer width classes; visual recipes remain local to Tactile or Nocturne.
+- The complete Phase 3 token values and permitted compact/artistic exceptions are documented in `SIZING-CONTRACT.md`.
 
 ## Unified Lab workspace — Phase B.6
 

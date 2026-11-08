@@ -36,7 +36,7 @@ See `QA-MATRIX.md` for the explicit 60-cell record.
 
 - Container: `--layout-container-max: 1440px`; `--layout-gutter: clamp(16px, 5vw, 80px)`.
 - Workspace: shared two-column grid (`210px` sidebar + fluid stage) with `--layout-grid-gap`; stacks at `max-width: 760px`.
-- Controls: 32 / 42 / 52px size classes; documented target minimum is 44px.
+- Controls: Phase 3 now provides 32 / 36 / 44 / 52px size classes; documented target minimum is 44px.
 - Preview helpers: card min 168px, feature stage min 280px, carousel min 255px, common overlay limits and table density token.
 - Shared showcase has responsive breakpoints at 620px; Split View stacks at 760px.
 
@@ -47,6 +47,12 @@ See `QA-MATRIX.md` for the explicit 60-cell record.
 3. Tables use explicit minimum widths and scroll wrappers in several systems; check 320px/375px focus order and horizontal scroll containment.
 4. Decorative absolute shapes, dense display type and overlay-specific fixed positioning require visual overflow checks at every target width.
 5. `--layout-target-min` is documented but not statically asserted on every icon action or compact control.
+
+## Phase 3 sizing remediation record
+
+The shared sizing token layer now maps component classes to 44px standard controls/fields, 16/24/32px card padding, shared overlay bounds and 280px standard carousel viewport bounds. Shared fixture categories declare their sizing class in source and the Split View renders the same fixture contract in each panel.
+
+Static contract coverage does not prove computed dimensions in a browser. Tactile's approved signature experiments and intentionally compact/dense controls remain documented exceptions rather than forced visual matches. See `SIZING-CONTRACT.md`.
 
 ## Comparison architecture assessment
 
