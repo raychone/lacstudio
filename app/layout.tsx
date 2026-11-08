@@ -35,6 +35,7 @@ import "../components/lab/brutalist/brutalist-phase-four.css";
 import "../components/lab/playground/playground-stage.css";
 import "../components/lab/playground/playground-phase-two.css";
 import "../components/lab/playground/playground-phase-three.css";
+import "../components/lab/playground/playground-phase-four.css";
 import "../components/lab/nocturne/nocturne-lab.css";
 import "../design-system/designs/nocturne/components/nocturne-components.css";
 import "../design-system/designs/nocturne/components/nocturne-refinements.css";
