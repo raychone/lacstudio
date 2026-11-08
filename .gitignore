@@ -19,6 +19,9 @@ next-env.d.ts
 
 # Test output
 /coverage/
+/playwright-report/
+/test-results/
+/qa-artifacts/
 
 # Package-manager logs
 npm-debug.log*

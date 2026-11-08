@@ -15,6 +15,7 @@
     "test:interactions": "node --experimental-strip-types design-system/engine/keyboard.test.ts",
     "test:sizing": "node --experimental-strip-types design-system/engine/sizing-contract.test.ts",
     "test:responsive": "node --experimental-strip-types design-system/engine/responsive-contract.test.ts",
+    "test:browser": "playwright test",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",
     "@cloudflare/workers-types": "4.20260515.1",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",

@@ -1,0 +1,7 @@
+/* Browser QA Phase 4.5: keep signature-study grids inside the shared stage. */
+.editorial-data-display,.editorial-carousels,.editorial-overlays,.editorial-advanced{grid-template-columns:minmax(0,1fr)}
+.editorial-data-display>*,.editorial-carousels>*,.editorial-overlays>*,.editorial-advanced>*{min-width:0}
+.brutalist-data,.brutalist-carousels,.brutalist-overlays,.brutalist-advanced,.playground-data,.playground-carousels,.playground-overlays,.playground-advanced{grid-template-columns:minmax(0,1fr)}
+.brutalist-data>*,.brutalist-carousels>*,.brutalist-overlays>*,.brutalist-advanced>*,.playground-data>*,.playground-carousels>*,.playground-overlays>*,.playground-advanced>*{min-width:0}
+.brutalist-motion,.brutalist-effects,.playground-motion,.playground-effects{grid-template-columns:minmax(0,1fr)}
+.brutalist-motion>*,.brutalist-effects>*,.playground-motion>*,.playground-effects>*{min-width:0}
