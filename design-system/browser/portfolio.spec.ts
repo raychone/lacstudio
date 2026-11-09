@@ -222,8 +222,12 @@ test.describe("public portfolio", () => {
       await page.goto(`/services?design=${design}`, { waitUntil: "networkidle" });
       const effect = page.locator(`.portfolio-ambient-effect.${design}`);
       await expect(effect).toHaveCount(1);
-      await page.mouse.move(360, 280);
+      await page.mouse.move(560, 380);
       await expect(effect).toHaveAttribute("data-active", "true");
+      if (design === "brutalist") {
+        await expect(effect).toHaveCSS("mix-blend-mode", "difference");
+        expect(await effect.evaluate((element) => getComputedStyle(element, "::before").backgroundColor)).toBe("rgb(255, 255, 255)");
+      }
       await page.waitForTimeout(240);
       await page.screenshot({ path: `qa-artifacts/portfolio/effect-${design}.png`, fullPage: false });
     }

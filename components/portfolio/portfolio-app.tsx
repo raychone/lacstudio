@@ -257,7 +257,7 @@ function CaseStudy({ project }: { project: PublicProject }) { return <main class
 
 function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
   const { activeDesign, reducedMotion } = useDesign();
-  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id}><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} /><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /></div>;
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id}><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} /></div>;
 }
 
 function LegacyLabRedirect({ children }: { children: ReactNode }) {
