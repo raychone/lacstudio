@@ -25,6 +25,18 @@ test.describe("public portfolio", () => {
     expect(new Set(dimensions.map((entry) => entry.firstSection)).size).toBe(1);
   });
 
+  test("keeps navigation sticky and gives the footer a breathing edge", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/?design=playground", { waitUntil: "networkidle" });
+    const header = page.locator(".portfolio-header");
+    await page.evaluate(() => window.scrollTo(0, 700));
+    await expect.poll(() => header.evaluate((element) => Math.round(element.getBoundingClientRect().top))).toBe(0);
+    const footerBox = await page.locator(".portfolio-footer").boundingBox();
+    expect(footerBox).not.toBeNull();
+    expect(footerBox!.x).toBeGreaterThan(0);
+    expect(footerBox!.width).toBeLessThan(1440);
+  });
+
   test("uses the supplied black mark on light surfaces and its white treatment in Nocturne", async ({ page }) => {
     await page.goto("/?design=tactile", { waitUntil: "networkidle" });
     await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-black")).toBeVisible();
