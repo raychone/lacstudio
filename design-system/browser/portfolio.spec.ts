@@ -224,6 +224,8 @@ test.describe("public portfolio", () => {
       await expect(effect).toHaveCount(1);
       await page.mouse.move(360, 280);
       await expect(effect).toHaveAttribute("data-active", "true");
+      await page.waitForTimeout(240);
+      await page.screenshot({ path: `qa-artifacts/portfolio/effect-${design}.png`, fullPage: false });
     }
   });
 

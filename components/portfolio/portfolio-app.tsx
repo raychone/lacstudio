@@ -56,9 +56,8 @@ function PortfolioAmbientEffect({ design, reducedMotion }: { design: DesignId; r
     const update = (event: PointerEvent) => {
       const target = effect.current;
       if (!target) return;
-      target.style.setProperty("--portfolio-fx-x", `${event.clientX}px`);
-      target.style.setProperty("--portfolio-fx-y", `${event.clientY}px`);
-      target.style.setProperty("--portfolio-fx-rotate", `${((event.clientX / window.innerWidth) - .5) * 26}deg`);
+      target.style.setProperty("--portfolio-fx-x", `${(event.clientX / window.innerWidth) * 100}%`);
+      target.style.setProperty("--portfolio-fx-y", `${(event.clientY / window.innerHeight) * 100}%`);
       target.dataset.active = "true";
     };
     const press = () => { if (effect.current) effect.current.dataset.pressed = "true"; };
