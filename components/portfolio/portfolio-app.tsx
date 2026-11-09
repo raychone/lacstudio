@@ -115,20 +115,19 @@ type WorkShowcaseSlide = {
   title: string;
   summary: string;
   meta: string;
-  tags: string[];
   href?: string;
   image?: string;
   placeholder?: boolean;
 };
 
 const workPlaceholders: readonly WorkShowcaseSlide[] = [
-  { id: "slot-01", eyebrow: "CASE STUDY SLOT / 01", title: "A considered product story.", summary: "This featured space is reserved for an approved case study with a verified brief, process, visual direction and outcome.", meta: "APPROVED MEDIA / PENDING", tags: ["Product", "Case study", "In review"], placeholder: true },
-  { id: "slot-02", eyebrow: "CASE STUDY SLOT / 02", title: "A useful system, explained clearly.", summary: "The work page is prepared to present the context behind an interface, rather than just an isolated screen or an unverified claim.", meta: "APPROVED MEDIA / PENDING", tags: ["System", "Process", "In review"], placeholder: true },
-  { id: "slot-03", eyebrow: "CASE STUDY SLOT / 03", title: "A real-world workflow, when ready.", summary: "Each public story will be introduced only after its description, media and publishing permission have been confirmed.", meta: "APPROVED MEDIA / PENDING", tags: ["Workflow", "Evidence", "In review"], placeholder: true },
+  { id: "slot-01", eyebrow: "CASE STUDY SLOT / 01", title: "A considered product story.", summary: "This featured space is reserved for an approved case study with a verified brief, process, visual direction and outcome.", meta: "APPROVED MEDIA / PENDING", placeholder: true },
+  { id: "slot-02", eyebrow: "CASE STUDY SLOT / 02", title: "A useful system, explained clearly.", summary: "The work page is prepared to present the context behind an interface, rather than just an isolated screen or an unverified claim.", meta: "APPROVED MEDIA / PENDING", placeholder: true },
+  { id: "slot-03", eyebrow: "CASE STUDY SLOT / 03", title: "A real-world workflow, when ready.", summary: "Each public story will be introduced only after its description, media and publishing permission have been confirmed.", meta: "APPROVED MEDIA / PENDING", placeholder: true },
 ];
 
 function FeaturedWorkCarousel() {
-  const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => ({ id: project.id, eyebrow: `${project.category.toUpperCase()} / FEATURED WORK`, title: project.title, summary: project.summary, meta: project.platforms.join(" · ").toUpperCase(), tags: project.technologies.slice(0, 3), href: `/work/${project.slug}`, image: project.heroImage ?? project.thumbnail }));
+  const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => ({ id: project.id, eyebrow: `${project.category.toUpperCase()} / FEATURED WORK`, title: project.title, summary: project.summary, meta: project.platforms.join(" · ").toUpperCase(), href: `/work/${project.slug}`, image: project.heroImage ?? project.thumbnail }));
   const slides = publishedSlides.length ? publishedSlides : workPlaceholders;
   const [activeIndex, setActiveIndex] = useState(0);
   const pointerStart = useRef<number | null>(null);
@@ -156,7 +155,6 @@ function FeaturedWorkCarousel() {
           <span>{active.eyebrow}</span>
           <h3>{active.title}</h3>
           <p>{active.summary}</p>
-          <ul>{active.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
           <div className="work-carousel-actions"><Link href={active.href ? `${active.href}#workflow` : "/process"}>Workflow <b>→</b></Link><Link href={active.href ? `${active.href}#evidence` : "/work#publication-policy"}>Evidence <b>→</b></Link><Link className="primary" href="/contact">Discuss your project <b>↗</b></Link></div>
         </div>
         <div className="work-carousel-media" aria-label={active.placeholder ? "Approved project media placeholder" : `${active.title} media`}>

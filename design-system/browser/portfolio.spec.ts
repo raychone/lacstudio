@@ -194,9 +194,14 @@ test.describe("public portfolio", () => {
       expect(filter && clear && controls).toBeTruthy();
       expect(Math.abs(filter!.height - clear!.height), `${design} clear filter height`).toBeLessThanOrEqual(1);
       await page.getByRole("button", { name: "Next featured project" }).click();
-      const [nextControls, scrollAfter] = await Promise.all([page.locator(".work-carousel-controls").boundingBox(), page.evaluate(() => window.scrollY)]);
+      const [nextControls, scrollAfter, copyMetrics, pagination] = await Promise.all([page.locator(".work-carousel-controls").boundingBox(), page.evaluate(() => window.scrollY), page.locator(".work-carousel-copy").evaluate((element) => ({ clientHeight: element.clientHeight, scrollHeight: element.scrollHeight })), page.locator(".work-carousel-pagination").evaluate((element) => [...element.querySelectorAll("button")].map((button) => {
+        const box = button.getBoundingClientRect(); const text = button.querySelector("span")?.getBoundingClientRect();
+        return { center: box.x + box.width / 2, textCenter: text ? text.x + text.width / 2 : 0 };
+      }))]);
       expect(nextControls).not.toBeNull();
       expect(Math.abs((nextControls!.y + scrollAfter) - (controls!.y + scrollBefore)), `${design} carousel controls y`).toBeLessThanOrEqual(1);
+      expect(copyMetrics.scrollHeight, `${design} carousel copy should not scroll`).toBeLessThanOrEqual(copyMetrics.clientHeight + 1);
+      pagination.forEach((item, index) => expect(Math.abs(item.center - item.textCenter), `${design} slide ${index + 1} number centering`).toBeLessThanOrEqual(1));
     }
   });
 
