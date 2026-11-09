@@ -59,3 +59,6 @@
 
 /* Orange surface states carry dark content, never the neighboring orange accent. */
 .portfolio-brutalist .hero-preview>span,.portfolio-brutalist .hero-preview strong em,.portfolio-brutalist .empty-published>span,.portfolio-brutalist .asset-slot>span{color:var(--p-ink)}
+
+/* Keep the translucent Nocturne masthead above its positioned cinematic surfaces while scrolling. */
+.portfolio-nocturne .portfolio-header{z-index:60;isolation:isolate;background:rgba(7,10,20,.96)}

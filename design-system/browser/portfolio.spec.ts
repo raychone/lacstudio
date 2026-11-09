@@ -32,6 +32,7 @@ test.describe("public portfolio", () => {
       const header = page.locator(".portfolio-header");
       await page.evaluate(() => window.scrollTo(0, 700));
       await expect.poll(() => header.evaluate((element) => Math.round(element.getBoundingClientRect().top))).toBe(0);
+      if (design === "nocturne") await expect(header).toHaveCSS("z-index", "60");
     }
     const footerBox = await page.locator(".portfolio-footer").boundingBox();
     const footerContentBox = await page.locator(".portfolio-footer .footer-grid").boundingBox();
