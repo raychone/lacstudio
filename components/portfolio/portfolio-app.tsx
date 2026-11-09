@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
 import { featuredProjects, publishedProjects, type PublicProject } from "@/content/projects";
@@ -43,13 +44,17 @@ function PortfolioDesignSwitcher() {
   </div>;
 }
 
+function BrandLogo() {
+  return <span className="brand-logo" aria-hidden="true"><Image className="brand-logo-black" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-white" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /></span>;
+}
+
 function Header({ page }: { page: Page }) {
   const [open, setOpen] = useState(false);
-  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home">LAC<span>STUDIO</span></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label="Main navigation">{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{label}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>Start a project ↗</Link></nav><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
+  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label="Main navigation">{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{label}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>Start a project ↗</Link></nav><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
 }
 
 function Footer() {
-  return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div><Link className="portfolio-brand" href="/">LAC<span>STUDIO</span></Link><p>Independent creative software development studio for products that need to work in the real world.</p></div><nav aria-label="Footer navigation"><Link href="/work">Work</Link><Link href="/services">Services</Link><Link href="/about">About</Link><Link href="/process">Process</Link></nav><nav aria-label="Studio information"><Link href="/contact">Contact</Link><Link href="/privacy">Privacy</Link><Link href="/legal">Legal</Link><Link href="/lab">Design Lab</Link></nav></div><div className="portfolio-container footer-note">© {new Date().getFullYear()} LAC STUDIO <span>Independent by design.</span></div></footer>;
+  return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo /></Link><p>Independent creative software development studio for products that need to work in the real world.</p></div><nav aria-label="Footer navigation"><Link href="/work">Work</Link><Link href="/services">Services</Link><Link href="/about">About</Link><Link href="/process">Process</Link></nav><nav aria-label="Studio information"><Link href="/contact">Contact</Link><Link href="/privacy">Privacy</Link><Link href="/legal">Legal</Link><Link href="/lab">Design Lab</Link></nav></div><div className="portfolio-container footer-note">© {new Date().getFullYear()} LAC STUDIO <span>Independent by design.</span></div></footer>;
 }
 
 function Section({ eyebrow, title, children, className = "" }: { eyebrow?: string; title?: string; children: ReactNode; className?: string }) {

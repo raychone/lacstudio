@@ -25,6 +25,16 @@ test.describe("public portfolio", () => {
     expect(new Set(dimensions.map((entry) => entry.firstSection)).size).toBe(1);
   });
 
+  test("uses the supplied black mark on light surfaces and its white treatment in Nocturne", async ({ page }) => {
+    await page.goto("/?design=tactile", { waitUntil: "networkidle" });
+    await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-black")).toBeVisible();
+    await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-white")).toBeHidden();
+    await page.goto("/?design=nocturne", { waitUntil: "networkidle" });
+    await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-black")).toBeHidden();
+    await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-white")).toBeVisible();
+    await page.getByLabel("LAC Studio home").first().screenshot({ path: "qa-artifacts/portfolio/logo-nocturne-white.png" });
+  });
+
   for (const width of [320, 375, 768, 1024, 1440]) {
     test(`renders public routes without horizontal overflow at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774 887" role="img" aria-label="LAC Studio">
+  <filter id="white-mark">
+    <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+  </filter>
+  <image href="/branding/lac-studio-black.png" width="1774" height="887" filter="url(#white-mark)"/>
+</svg>
