@@ -49,6 +49,23 @@ test.describe("public portfolio", () => {
     await expect(page.locator(".hero-preview > span")).toHaveCSS("color", "rgb(17, 17, 15)");
   });
 
+  test("keeps the mobile footer compact and organized in three link columns", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto("/?design=tactile", { waitUntil: "networkidle" });
+    const brand = page.locator(".footer-brand");
+    const logo = brand.locator(".portfolio-brand");
+    const statement = brand.locator("p");
+    const [brandBox, logoBox, statementBox] = await Promise.all([brand.boundingBox(), logo.boundingBox(), statement.boundingBox()]);
+    expect(brandBox && logoBox && statementBox).toBeTruthy();
+    expect(logoBox!.x).toBeLessThan(statementBox!.x);
+    expect(Math.abs(logoBox!.y - statementBox!.y)).toBeLessThan(8);
+    const boxes = await Promise.all(["Explore", "Studio", "Contact"].map((label) => page.locator(`.portfolio-footer nav[aria-label=\"${label}\"]`).boundingBox()));
+    expect(boxes.every(Boolean)).toBe(true);
+    expect(Math.max(...boxes.map((box) => box!.y)) - Math.min(...boxes.map((box) => box!.y))).toBeLessThan(2);
+    expect(boxes[0]!.x).toBeLessThan(boxes[1]!.x);
+    expect(boxes[1]!.x).toBeLessThan(boxes[2]!.x);
+  });
+
   test("uses the supplied black mark on light surfaces and its white treatment in Nocturne", async ({ page }) => {
     await page.goto("/?design=tactile", { waitUntil: "networkidle" });
     await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-black")).toBeVisible();
