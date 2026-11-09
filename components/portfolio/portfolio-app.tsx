@@ -45,7 +45,7 @@ function PortfolioDesignSwitcher() {
 }
 
 function BrandLogo() {
-  return <span className="brand-logo" aria-hidden="true"><Image className="brand-logo-black" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-white" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /></span>;
+  return <span className="brand-logo" aria-hidden="true"><Image className="brand-logo-black" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-white" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-playground" src="/branding/lac-studio-playground.png" alt="" width={1774} height={887} priority /></span>;
 }
 
 function Header({ page }: { page: Page }) {

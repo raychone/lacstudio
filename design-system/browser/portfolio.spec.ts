@@ -33,6 +33,10 @@ test.describe("public portfolio", () => {
     await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-black")).toBeHidden();
     await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-white")).toBeVisible();
     await page.getByLabel("LAC Studio home").first().screenshot({ path: "qa-artifacts/portfolio/logo-nocturne-white.png" });
+    await page.goto("/?design=playground", { waitUntil: "networkidle" });
+    await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-black")).toBeHidden();
+    await expect(page.getByLabel("LAC Studio home").first().locator(".brand-logo-playground")).toBeVisible();
+    await page.getByLabel("LAC Studio home").first().screenshot({ path: "qa-artifacts/portfolio/logo-playground.png" });
   });
 
   for (const width of [320, 375, 768, 1024, 1440]) {
