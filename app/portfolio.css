@@ -92,3 +92,12 @@
 
 /* The legal signature belongs to the final row of the footer grid at every desktop width. */
 .footer-note{grid-column:1/-1;width:100%}
+
+/* Shared header geometry: every system occupies the same header coordinates. */
+.portfolio-header :where(.portfolio-nav,.portfolio-switcher){font-family:Arial,Helvetica,sans-serif}
+.portfolio-header .portfolio-nav a:not(.header-contact){padding:0;font-size:12px;letter-spacing:normal;line-height:normal;text-transform:none}
+.portfolio-header .portfolio-nav .header-contact{font-size:12px;letter-spacing:normal;text-transform:none}
+.portfolio-switcher-label{flex:0 0 38px;width:38px}
+.portfolio-tactile .portfolio-nav a:not(.header-contact){padding:0}
+.portfolio-tactile .portfolio-nav .header-contact{padding:0 12px}
+.portfolio-tactile .portfolio-nav a.active{background:transparent;box-shadow:0 0 0 8px var(--p-surface),inset 2px 2px 5px rgba(126,122,112,.22),inset -2px -2px 5px rgba(255,255,255,.62)}

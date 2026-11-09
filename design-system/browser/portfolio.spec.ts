@@ -25,6 +25,23 @@ test.describe("public portfolio", () => {
     expect(new Set(dimensions.map((entry) => entry.firstSection)).size).toBe(1);
   });
 
+  test("uses identical navbar geometry across every visual system", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const selectors = [".portfolio-header .portfolio-brand", ".portfolio-header .portfolio-nav a:nth-of-type(1)", ".portfolio-header .portfolio-nav a:nth-of-type(2)", ".portfolio-header .portfolio-nav a:nth-of-type(3)", ".portfolio-header .portfolio-nav a:nth-of-type(4)", ".portfolio-header .portfolio-nav .header-contact", ".portfolio-header .portfolio-switcher"];
+    const snapshots: Array<{ design: string; boxes: Array<{ x: number; y: number; width: number; height: number }> }> = [];
+    for (const design of designs) {
+      await page.goto(`/work?design=${design}`, { waitUntil: "networkidle" });
+      snapshots.push({ design, boxes: await Promise.all(selectors.map((selector) => page.locator(selector).evaluate((element) => {
+        const box = element.getBoundingClientRect();
+        return { x: box.x, y: box.y, width: box.width, height: box.height };
+      }))) });
+    }
+    for (const snapshot of snapshots.slice(1)) snapshot.boxes.forEach((box, index) => {
+      const baseline = snapshots[0].boxes[index];
+      for (const key of ["x", "y", "width", "height"] as const) expect(Math.abs(box[key] - baseline[key]), `${snapshot.design} · ${selectors[index]} · ${key}: ${baseline[key]} vs ${box[key]}`).toBeLessThanOrEqual(1);
+    });
+  });
+
   test("keeps navigation sticky and pads footer content instead of its full-width surface", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     for (const design of ["playground", "nocturne"]) {
