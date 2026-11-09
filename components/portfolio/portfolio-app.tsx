@@ -109,6 +109,86 @@ function PortfolioSelect({ name, value, options, placeholder, ariaLabel, onChang
   </div>;
 }
 
+type WorkShowcaseSlide = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  summary: string;
+  meta: string;
+  tags: string[];
+  href?: string;
+  placeholder?: boolean;
+};
+
+const workPlaceholders: readonly WorkShowcaseSlide[] = [
+  { id: "slot-01", eyebrow: "CASE STUDY SLOT / 01", title: "A considered product story.", summary: "This featured space is reserved for an approved case study with a verified brief, process, visual direction and outcome.", meta: "APPROVED MEDIA / PENDING", tags: ["Product", "Case study", "In review"], placeholder: true },
+  { id: "slot-02", eyebrow: "CASE STUDY SLOT / 02", title: "A useful system, explained clearly.", summary: "The work page is prepared to present the context behind an interface, rather than just an isolated screen or an unverified claim.", meta: "APPROVED MEDIA / PENDING", tags: ["System", "Process", "In review"], placeholder: true },
+  { id: "slot-03", eyebrow: "CASE STUDY SLOT / 03", title: "A real-world workflow, when ready.", summary: "Each public story will be introduced only after its description, media and publishing permission have been confirmed.", meta: "APPROVED MEDIA / PENDING", tags: ["Workflow", "Evidence", "In review"], placeholder: true },
+];
+
+function FeaturedWorkCarousel() {
+  const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => ({ id: project.id, eyebrow: `${project.category.toUpperCase()} / FEATURED WORK`, title: project.title, summary: project.summary, meta: project.platforms.join(" · ").toUpperCase(), tags: project.technologies.slice(0, 3), href: `/work/${project.slug}` }));
+  const slides = publishedSlides.length ? publishedSlides : workPlaceholders;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const pointerStart = useRef<number | null>(null);
+  const active = slides[activeIndex] ?? slides[0];
+  const move = (direction: -1 | 1) => setActiveIndex((index) => (index + direction + slides.length) % slides.length);
+  const goTo = (index: number) => setActiveIndex(index);
+  const pointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    pointerStart.current = event.clientX;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+  const pointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (pointerStart.current === null) return;
+    const distance = event.clientX - pointerStart.current;
+    pointerStart.current = null;
+    if (Math.abs(distance) > 42) move(distance > 0 ? -1 : 1);
+  };
+
+  return <div className="work-carousel" role="region" aria-roledescription="carousel" aria-label="Featured work" tabIndex={0} onKeyDown={(event) => {
+    if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); }
+  }}>
+    <div className="work-carousel-viewport" onPointerDown={pointerDown} onPointerUp={pointerUp} onPointerCancel={() => { pointerStart.current = null; }}>
+      <article className="work-carousel-slide" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${slides.length}`}>
+        <div className="work-carousel-copy">
+          <span>{active.eyebrow}</span>
+          <h3>{active.title}</h3>
+          <p>{active.summary}</p>
+          <ul>{active.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+          {active.href ? <Link className="text-link" href={active.href}>Read case study ↗</Link> : <Link className="text-link" href="/contact">Discuss your project ↗</Link>}
+        </div>
+        <div className="work-carousel-media" aria-label={active.placeholder ? "Approved project media placeholder" : `${active.title} media`}>
+          <div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /><div className="work-carousel-media-note"><span>{active.meta}</span><b>{String(activeIndex + 1).padStart(2, "0")}</b></div>
+        </div>
+      </article>
+    </div>
+    <div className="work-carousel-controls">
+      <div className="work-carousel-arrows"><button type="button" aria-label="Previous featured project" onClick={() => move(-1)}>←</button><button type="button" aria-label="Next featured project" onClick={() => move(1)}>→</button></div>
+      <div className="work-carousel-pagination" role="tablist" aria-label="Choose featured work">{slides.map((slide, index) => <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`Show featured work ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><i /><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div>
+      <p aria-live="polite"><b>{String(activeIndex + 1).padStart(2, "0")}</b> / {String(slides.length).padStart(2, "0")}</p>
+    </div>
+  </div>;
+}
+
+const workFaq = [
+  ["What kind of work do you take on?", "LAC STUDIO works on web applications, Android products, SaaS platforms and the technical systems that make them useful in the real world."],
+  ["Can you work from an early idea?", "Yes. Early conversations can start with the problem, the people involved and the next useful decision — not a finished specification."],
+  ["Do you only design interfaces?", "No. The studio can shape product direction, experience design, frontend, backend, integrations and a practical path to release."],
+  ["How do case studies get published?", "A project appears only when its description, media, outcomes and permission to share them have been confirmed."],
+  ["Can you improve an existing product?", "Yes. Existing workflows, interfaces and technical foundations can be assessed and improved without pretending a rebuild is always the answer."],
+  ["What should a first message include?", "A short outline of what you are trying to make, improve or untangle is enough to begin a useful conversation."],
+] as const;
+
+function WorkFaq() {
+  const [open, setOpen] = useState<number | null>(0);
+  return <div className="work-faq-list">{workFaq.map(([question, answer], index) => {
+    const expanded = open === index;
+    const panelId = `work-faq-${index}`;
+    return <article className={expanded ? "open" : ""} key={question}><button type="button" aria-expanded={expanded} aria-controls={panelId} onClick={() => setOpen(expanded ? null : index)}><span>{String(index + 1).padStart(2, "0")}</span><b>{question}</b><i aria-hidden="true">{expanded ? "−" : "+"}</i></button><div id={panelId} hidden={!expanded}><p>{answer}</p></div></article>;
+  })}</div>;
+}
+
 function HomePage() {
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "LAC STUDIO", description: "Independent creative software-development studio building complete digital products for web, mobile, and beyond." }) }} />
@@ -131,7 +211,13 @@ function WorkPage() {
   const platforms = Array.from(new Set(publishedProjects.flatMap((project) => project.platforms)));
   const results = useMemo(() => publishedProjects.filter((project) => `${project.title} ${project.summary} ${project.category}`.toLowerCase().includes(query.toLowerCase()) && (category === "all" || project.category === category) && (platform === "all" || project.platforms.includes(platform as never))), [query, category, platform]);
   const update = (next: { q?: string; category?: string; platform?: string }) => { const params = new URLSearchParams(window.location.search); const values = { q: query, category, platform, ...next }; Object.entries(values).forEach(([key, value]) => value && value !== "all" ? params.set(key, value) : params.delete(key)); window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`); setQuery(values.q); setCategory(values.category); setPlatform(values.platform); };
-  return <main className="portfolio-page portfolio-container"><Section eyebrow="PORTFOLIO / PROJECT INDEX" title="Work"><p className="page-intro">A public project index will grow only with approved descriptions, visuals and outcomes.</p><div className="work-filters"><label>Search<input value={query} onChange={(event) => update({ q: event.target.value })} placeholder="Search published work" /></label><label>Category<PortfolioSelect ariaLabel="Filter work by category" value={category} onChange={(value) => update({ category: value })} placeholder="All categories" options={[{ value: "all", label: "All categories" }, ...categories.map((item) => ({ value: item, label: item }))]} /></label><label>Platform<PortfolioSelect ariaLabel="Filter work by platform" value={platform} onChange={(value) => update({ platform: value })} placeholder="All platforms" options={[{ value: "all", label: "All platforms" }, ...platforms.map((item) => ({ value: item, label: item }))]} /></label><button type="button" onClick={() => update({ q: "", category: "all", platform: "all" })}>Clear filters</button></div>{results.length ? <div className="project-grid">{results.map((project) => <ProjectPreview key={project.id} project={project} />)}</div> : <UnpublishedWork />}</Section></main>;
+  return <main className="portfolio-page portfolio-container">
+    <Section eyebrow="PORTFOLIO / PROJECT INDEX" title="Work" className="work-intro-section"><p className="page-intro">A public project index that grows only with approved descriptions, visuals and outcomes.</p><div className="work-filters"><label>Search<input value={query} onChange={(event) => update({ q: event.target.value })} placeholder="Search published work" /></label><label>Category<PortfolioSelect ariaLabel="Filter work by category" value={category} onChange={(value) => update({ category: value })} placeholder="All categories" options={[{ value: "all", label: "All categories" }, ...categories.map((item) => ({ value: item, label: item }))]} /></label><label>Platform<PortfolioSelect ariaLabel="Filter work by platform" value={platform} onChange={(value) => update({ platform: value })} placeholder="All platforms" options={[{ value: "all", label: "All platforms" }, ...platforms.map((item) => ({ value: item, label: item }))]} /></label><button type="button" onClick={() => update({ q: "", category: "all", platform: "all" })}>Clear filters</button></div></Section>
+    <Section eyebrow="01 / FEATURED WORK" title="Built for the work behind the screen." className="work-featured-section"><FeaturedWorkCarousel /></Section>
+    <Section eyebrow="02 / PUBLIC PROJECT INDEX" title="Case studies, with the right context." className="work-gallery-section"><p className="page-intro">Project cards appear here after a public description and the media around it have been approved.</p>{results.length ? <div className="project-grid work-project-grid">{results.map((project) => <ProjectPreview key={project.id} project={project} />)}</div> : <UnpublishedWork />}</Section>
+    <Section eyebrow="03 / QUESTIONS" title="A clear place to start." className="work-faq-section"><WorkFaq /></Section>
+    <Section className="contact-cta work-contact-cta"><span>04 / START A CONVERSATION</span><h2>Have something<br />worth building?</h2><p>Bring the context. We&apos;ll work out the useful next step.</p><Link className="button primary" href="/contact">Start a project <b>→</b></Link></Section>
+  </main>;
 }
 
 function ServicesPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="SERVICES / FROM PRODUCT IDEA TO RELEASE" title="What we can build together"><p className="page-intro">Clear technical thinking and product-minded design for software that has to do real work.</p><div className="services-grid">{services.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div><div className="inline-cta"><h2>Not sure where to start?</h2><Link className="button primary" href="/contact">Start a conversation →</Link></div></Section></main>; }

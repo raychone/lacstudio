@@ -19,5 +19,7 @@ Manual browser checks still required before launch:
 - Submit valid and invalid contact data; confirm that unconfigured delivery never reports success.
 - Open `/lab` with a category/component URL and Split View URL; confirm all controls remain available.
 - Check published case studies only after approved content is added.
+- On `/work`, test carousel arrows, pagination, keyboard left/right keys and a horizontal pointer swipe. Confirm it does not auto-advance and its selected slide remains selected while changing designs.
+- On `/work`, expand and collapse FAQ items using mouse and keyboard, then verify the filters, carousel, gallery and CTA at 320, 375, 768, 1024 and 1440px.
 
 The automated suite does not replace real-device, assistive-technology or legal review.

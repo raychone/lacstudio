@@ -1,5 +1,12 @@
 # Design-system changelog
 
+## 2026-11-09 — Portfolio / Premium Work showcase
+
+- Expanded the shared `/work` composition with filters, a manual featured-work carousel, a public-only gallery, FAQ and closing CTA.
+- Kept the geometry shared across Tactile, Nocturne, Editorial, Brutalist and Playground while adding design-specific surface treatments.
+- Added browser coverage for the Work carousel state, FAQ interaction and five-system visual captures at desktop and mobile widths.
+- Kept draft projects and local media out of the public bundle; unapproved carousel slots are clearly marked as pending.
+
 ## 2026-11-08 — Cross-System QA Phase 5B.2 / Nocturne visual polish
 
 - Added a Nocturne-only polish layer for readable text roles, controlled navy glass elevation, violet focus/selected states, custom menu/select separation, information cards and overlay layers.

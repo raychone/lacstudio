@@ -42,6 +42,17 @@ test.describe("public portfolio", () => {
     });
   });
 
+  test("captures the shared Work composition across all visual systems", async ({ page }) => {
+    for (const width of [1440, 375]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const design of designs) {
+        await page.goto(`/work?design=${design}`, { waitUntil: "networkidle" });
+        await expect(page.getByRole("region", { name: "Featured work" })).toBeVisible();
+        await page.screenshot({ path: `qa-artifacts/portfolio/work-${design}-${width}.png`, fullPage: true });
+      }
+    }
+  });
+
   test("uses an accessible sliding design selector and Playground bottom corners", async ({ page }) => {
     await page.goto("/?design=tactile", { waitUntil: "networkidle" });
     const options = page.locator(".portfolio-switcher-options");
@@ -152,6 +163,22 @@ test.describe("public portfolio", () => {
     await page.getByRole("radio", { name: "02 Nocturne" }).click();
     await expect(page).toHaveURL(/\/work\?q=software&design=nocturne|\/work\?design=nocturne&q=software/);
     await expect(page.locator('.portfolio-shell[data-design="nocturne"]')).toBeVisible();
+  });
+
+  test("keeps featured Work carousel state through a design change and exposes FAQ controls", async ({ page }) => {
+    await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
+    const carousel = page.getByRole("region", { name: "Featured work" });
+    await carousel.getByRole("button", { name: "Next featured project" }).click();
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 03");
+    await page.getByRole("radio", { name: "02 Nocturne" }).click();
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 03");
+    await carousel.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("03 / 03");
+    const question = page.getByRole("button", { name: /What kind of work do you take on/ });
+    await expect(question).toHaveAttribute("aria-expanded", "true");
+    await question.click();
+    await expect(question).toHaveAttribute("aria-expanded", "false");
   });
 
   test("migrates unambiguous legacy Lab links and preserves their state", async ({ page }) => {

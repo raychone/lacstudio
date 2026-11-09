@@ -8,4 +8,6 @@ The provider has two scopes. `lab` preserves `design`, `category`, `component`, 
 
 The five visual treatments are scoped to `.portfolio-{design-id}` in `app/portfolio.css`. Shared geometry lives above those presentation scopes. No portfolio route has a design-specific layout branch.
 
+`/work` follows the same rule. Its title, filters, featured carousel, public gallery, FAQ and closing CTA are rendered from the shared `WorkPage` composition. The carousel is deliberately manual: arrow buttons, pagination, keyboard left/right keys and pointer swipes change the slide; it never advances automatically. The selected slide is local component state, so switching visual systems changes the treatment without resetting the chosen work item.
+
 The browser-safe registry is `content/projects.ts`. The initial draft queue is in `content/projects.private.ts`, which no public route or client component imports. Move an approved, public-safe project entry into `publishedProjects` only when it is ready for publication.

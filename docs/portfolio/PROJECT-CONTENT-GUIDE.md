@@ -10,4 +10,6 @@ To publish a project:
 4. Set `featured` and `featuredOrder` only when it should appear on the homepage.
 5. Add optional detail fields only when verified. The reusable case-study template omits absent sections.
 
+The Work carousel reads `featuredProjects` from the same browser-safe registry. Until featured work is approved, it renders neutral, explicitly labelled "APPROVED MEDIA / PENDING" placeholders. These slots are presentation scaffolding, not claims about a client, a product, a result or a project image.
+
 Never import `projects.private.ts` into a public route or client component. Draft, private, archived and in-development entries must not appear in listings, routes, related-project links, sitemap output or metadata.
