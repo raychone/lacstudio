@@ -66,4 +66,20 @@ test.describe("public portfolio", () => {
     expect(response?.status()).toBe(404);
     await expect(page.getByRole("heading", { name: "This page is not public." })).toBeVisible();
   });
+
+  test("uses keyboard-accessible custom selects in every design", async ({ page }) => {
+    for (const design of designs) {
+      await page.goto(`/contact?design=${design}`, { waitUntil: "networkidle" });
+      await expect(page.locator(".contact-form select")).toHaveCount(0);
+      const projectType = page.getByRole("combobox", { name: "Project type" });
+      await projectType.focus();
+      await page.keyboard.press("ArrowDown");
+      await expect(page.getByRole("listbox", { name: "Project type" })).toBeVisible();
+      await page.screenshot({ path: `qa-artifacts/portfolio/contact-${design}-custom-select-open.png`, fullPage: true });
+      await page.getByRole("option", { name: "Other software" }).focus();
+      await page.keyboard.press("Enter");
+      await expect(projectType).toContainText("Other software");
+      await page.screenshot({ path: `qa-artifacts/portfolio/contact-${design}-custom-select.png`, fullPage: true });
+    }
+  });
 });
