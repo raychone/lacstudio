@@ -30,7 +30,7 @@ type DesignContextValue = {
 
 const DesignContext = createContext<DesignContextValue | null>(null);
 
-export function DesignProvider({ children }: { children: ReactNode }) {
+export function DesignProvider({ children, scope = "lab" }: { children: ReactNode; scope?: "lab" | "portfolio" }) {
   const [activeId, setActiveId] = useState<DesignId>("tactile");
   const [activeCategory, setActiveCategoryState] = useState<LibraryCategoryId>("foundations");
   const [activeComponent, setActiveComponentState] = useState("foundation.palette");
@@ -56,21 +56,37 @@ export function DesignProvider({ children }: { children: ReactNode }) {
       const saved = window.localStorage.getItem(storageKey);
       const params = new URLSearchParams(window.location.search);
       const hasWorkspaceUrl = Boolean(params.get("design") || params.get("category") || params.get("compare"));
-      if (hasWorkspaceUrl) applyLocation(); else if (isDesignId(saved)) setActiveId(saved);
+      if (scope === "lab" && hasWorkspaceUrl) applyLocation(); else if (isDesignId(params.get("design"))) setActiveId(params.get("design") as DesignId); else if (isDesignId(saved)) setActiveId(saved);
       setRestored(true);
     }, 0);
     return () => window.clearTimeout(restore);
-  }, []);
+  }, [scope]);
 
-  useEffect(() => { const onPopState = () => applyLocation(); window.addEventListener("popstate", onPopState); return () => window.removeEventListener("popstate", onPopState); }, []);
+  useEffect(() => {
+    const onPopState = () => {
+      if (scope === "portfolio") {
+        const design = new URLSearchParams(window.location.search).get("design");
+        if (isDesignId(design)) setActiveId(design);
+        return;
+      }
+      applyLocation();
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [scope]);
 
   const pushWorkspaceUrl = useCallback((design: DesignId, category: LibraryCategoryId, component: string, nextComparison: ComparisonState) => {
     const url = new URL(window.location.href);
+    if (scope === "portfolio") {
+      url.searchParams.set("design", design);
+      window.history.replaceState(null, "", url);
+      return;
+    }
     url.searchParams.set("design", design); url.searchParams.set("category", category); url.searchParams.set("component", component);
     const comparisonValues = comparisonParams(nextComparison);
     Object.entries(comparisonValues).forEach(([key, value]) => value === null ? url.searchParams.delete(key) : url.searchParams.set(key, value));
     window.history.pushState(null, "", url);
-  }, []);
+  }, [scope]);
   const setActiveDesign = useCallback((id: DesignId) => { setActiveId(id); pushWorkspaceUrl(id, activeCategory, activeComponent, comparison); }, [activeCategory, activeComponent, comparison, pushWorkspaceUrl]);
   const setActiveCategory = useCallback((id: LibraryCategoryId) => { const component = componentForCategory(id); setActiveCategoryState(id); setActiveComponentState(component); pushWorkspaceUrl(activeId, id, component, comparison); }, [activeId, comparison, pushWorkspaceUrl]);
   const setActiveComponent = useCallback((id: string) => { setActiveComponentState(id); pushWorkspaceUrl(activeId, activeCategory, id, comparison); }, [activeId, activeCategory, comparison, pushWorkspaceUrl]);

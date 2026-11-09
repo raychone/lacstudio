@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const directUrl = (design: string, category: string) => `/?design=${design}&category=${category}&component=${category}.reference`;
+const directUrl = (design: string, category: string) => `/lab?design=${design}&category=${category}&component=${category}.reference`;
 const sizes = [{ name: "mobile", width: 375, height: 812 }, { name: "desktop", width: 1440, height: 900 }] as const;
 
 const customSelects = [

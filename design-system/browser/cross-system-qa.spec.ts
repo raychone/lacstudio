@@ -11,7 +11,7 @@ const viewports = [
 ] as const;
 
 const directUrl = (design: string, category: string, comparison = "") =>
-  `/?design=${design}&category=${category}&component=${category}.reference${comparison}`;
+  `/lab?design=${design}&category=${category}&component=${category}.reference${comparison}`;
 
 async function inspectStableFixture(page: Page, design: string, heading: string) {
   await expect(page.locator(`main[data-design="${design}"]`)).toBeVisible();

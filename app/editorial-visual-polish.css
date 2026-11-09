@@ -1,0 +1,53 @@
+/* Phase 5B.3 — Editorial only. Preserve shared geometry and the other systems. */
+.workspace-shell.editorial-lab[data-design="editorial"]{
+  --editorial-muted-polished:#635d55;
+  --editorial-paper-lift:#f8f5ee;
+  --editorial-rule-strong:#afa494;
+  --editorial-ink-soft:#322f2a;
+}
+
+.workspace-shell.editorial-lab[data-design="editorial"] .workspace-sidebar,
+.workspace-shell.editorial-lab[data-design="editorial"] .workspace-stage{border-color:var(--editorial-ink)}
+.workspace-shell.editorial-lab[data-design="editorial"] .workspace-sidebar{background:linear-gradient(180deg,rgba(242,238,228,.96),rgba(233,226,213,.62))}
+.workspace-shell.editorial-lab[data-design="editorial"] .workspace-sidebar>button{color:var(--editorial-muted-polished)}
+.workspace-shell.editorial-lab[data-design="editorial"] .workspace-sidebar>button:hover,
+.workspace-shell.editorial-lab[data-design="editorial"] .workspace-sidebar>button.active{color:var(--editorial-accent);background:rgba(157,60,47,.055);box-shadow:inset 2px 0 var(--editorial-accent)}
+
+.workspace-shell.editorial-lab[data-design="editorial"] .shared-showcase.editorial{border-color:var(--editorial-ink);background:linear-gradient(110deg,rgba(242,238,228,.7),rgba(233,226,213,.38))}
+.workspace-shell.editorial-lab[data-design="editorial"] .shared-showcase.editorial .shared-showcase-head p,
+.workspace-shell.editorial-lab[data-design="editorial"] .signature-heading p{color:var(--editorial-muted-polished)}
+.workspace-shell.editorial-lab[data-design="editorial"] :where(button,input,textarea,select):focus-visible{outline:2px solid var(--editorial-accent);outline-offset:3px;box-shadow:0 0 0 3px rgba(157,60,47,.14)}
+.workspace-shell.editorial-lab[data-design="editorial"] .shared-showcase.editorial :where(input,textarea,select){border-color:var(--editorial-rule-strong);background:var(--editorial-paper-lift)}
+.workspace-shell.editorial-lab[data-design="editorial"] .shared-showcase.editorial .showcase-actions button:hover:not(:disabled){border-color:var(--editorial-accent);color:var(--editorial-accent);background:rgba(157,60,47,.045)}
+
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage :where(.editorial-rule-study p,.editorial-type-feature p,.editorial-type-article small,.editorial-actions>p,.ed-accordion p,.ed-collapse-copy,.ed-tab-panel,.ed-breadcrumb,.ed-data-card p,.ed-feature-index p,.ed-data-story p,.ed-timeline p,.ed-carousel-track p,.ed-carousel-track small,.ed-carousel-status,.ed-command-study p,.ed-layer-panel>p,.ed-motion-canvas p,.ed-motion-footer p,.ed-effects-canvas p,.ed-ink-field p,.ed-composition-field p){color:var(--editorial-muted-polished)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage :where(.editorial-form input,.editorial-form select,.editorial-form textarea){border-bottom-color:var(--editorial-ink-soft)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .editorial-form :where(input,select,textarea):focus-visible{border-bottom-color:var(--editorial-accent);background:rgba(157,60,47,.035)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-action:hover:not(:disabled),
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-overlay-trigger:hover{border-color:var(--editorial-accent);color:var(--editorial-accent);background:rgba(157,60,47,.045)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-action.primary:hover:not(:disabled){background:var(--editorial-accent);border-color:var(--editorial-accent);color:var(--editorial-paper)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-action:disabled{color:#978f84;opacity:.72}
+
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage :where(.ed-popover,.ed-menu,.ed-tooltip i,.ed-context [role="menu"]){border-color:var(--editorial-ink);background:var(--editorial-paper-lift);box-shadow:4px 5px 0 rgba(29,27,24,.13)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage :where(.ed-menu button,.ed-context [role="menu"] button):hover{background:var(--editorial-ink);color:var(--editorial-paper)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-tabs button:hover,
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-tabs button[aria-selected="true"]{color:var(--editorial-ink);border-color:var(--editorial-accent)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage :where(.ed-data-grid,.ed-feature-index,.ed-table-wrap){border-color:var(--editorial-rule-strong)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-data-card:hover{background:var(--editorial-paper-lift)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-data-card.selectable.selected{background:var(--editorial-ink)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-data-card>span{color:var(--editorial-muted-polished)}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-data-card.selectable.selected>span{color:#f0c8c1}
+.workspace-shell.editorial-lab[data-design="editorial"] .editorial-workspace-stage .ed-table th button{color:var(--editorial-muted-polished)}
+
+.workspace-shell.editorial-lab[data-design="editorial"] .ed-layer-backdrop{background:rgba(29,27,24,.62)}
+.workspace-shell.editorial-lab[data-design="editorial"] :where(.ed-layer-panel,.ed-command-panel){border-color:var(--editorial-ink);background:var(--editorial-paper-lift);box-shadow:0 24px 58px rgba(49,40,31,.28),inset 0 1px rgba(255,255,255,.7)}
+.workspace-shell.editorial-lab[data-design="editorial"] .ed-layer-panel>p{color:var(--editorial-muted-polished)}
+.workspace-shell.editorial-lab[data-design="editorial"] .ed-command-panel input{border-bottom-color:var(--editorial-ink)}
+.workspace-shell.editorial-lab[data-design="editorial"] .ed-command-panel>button:hover,
+.workspace-shell.editorial-lab[data-design="editorial"] .ed-command-panel>button.active{background:var(--editorial-ink);color:var(--editorial-paper)}
+.workspace-shell.editorial-lab[data-design="editorial"] .ed-motion-canvas,.workspace-shell.editorial-lab[data-design="editorial"] .ed-effects-canvas{background-color:var(--editorial-surface)}
+
+@media(max-width:768px){
+  .workspace-shell.editorial-lab[data-design="editorial"] .workspace-stage{background:var(--editorial-paper)}
+  .workspace-shell.editorial-lab[data-design="editorial"] :where(.ed-layer-panel,.ed-command-panel){padding:21px}
+}

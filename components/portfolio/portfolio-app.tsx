@@ -1,0 +1,124 @@
+"use client";
+
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import Link from "next/link";
+import { DesignProvider, useDesign } from "@/design-system/engine/provider";
+import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
+import { featuredProjects, publishedProjects, type PublicProject } from "@/content/projects";
+import { services } from "@/content/services";
+
+type Page = "home" | "work" | "services" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "not-found";
+
+const navigation: Array<[string, Page]> = [["Work", "work"], ["Services", "services"], ["Process", "process"], ["About", "about"]];
+const hrefFor = (page: Page) => page === "home" ? "/" : page === "case-study" ? "/work" : `/${page}`;
+const capabilities = [
+  ["Web Applications", "Useful, responsive products shaped around actual workflows."],
+  ["Android Applications", "Native mobile experiences with device-aware and offline-ready foundations."],
+  ["SaaS Platforms", "Product systems that can grow from a focused need into a durable service."],
+  ["Backend & APIs", "Data, permissions, integrations and background work behind the interface."],
+  ["Offline-First Systems", "Software that remains useful when a connection is not guaranteed."],
+  ["Automation & Integrations", "Practical connections that remove repeat work and keep teams informed."],
+];
+const expertise = [
+  ["Authentication & roles", "Clear permissions and access designed for the people who use the product."],
+  ["Databases", "Information architecture and data models that support the product's real work."],
+  ["API architecture", "Clear interfaces between the product, its data and the services it relies on."],
+  ["Background processing", "Queues, scheduled processes and dependable operational handoffs."],
+  ["Offline synchronization", "Useful local-first behavior for work that cannot depend on a connection."],
+  ["Notifications", "Practical messages, delivery paths and status communication at the right moment."],
+  ["Integrations", "Careful connections to the tools and systems a team already uses."],
+  ["Testing & deployment", "Pragmatic quality checks and a path from development to release."],
+];
+const process = ["Discover", "Define", "Design", "Build", "Validate", "Launch"];
+
+function PortfolioDesignSwitcher() {
+  const { activeDesign, setActiveDesign, restored } = useDesign();
+  return <div className="portfolio-switcher" role="radiogroup" aria-label="Choose portfolio design system">
+    <span className="portfolio-switcher-label">Design</span>
+    <div className="portfolio-switcher-options">{designIds.map((id) => {
+      const design = designRegistry[id]; const active = id === activeDesign.id;
+      return <button key={id} type="button" role="radio" aria-checked={active} aria-label={`${design.index} ${design.name}`} className={active ? "active" : ""} onClick={() => setActiveDesign(id as DesignId)}><i aria-hidden="true">{design.index}</i><span>{design.name}</span></button>;
+    })}</div>
+    <span className="portfolio-switcher-status" aria-live="polite">{restored ? activeDesign.name : "Loading"}</span>
+  </div>;
+}
+
+function Header({ page }: { page: Page }) {
+  const [open, setOpen] = useState(false);
+  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home">LAC<span>STUDIO</span></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label="Main navigation">{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{label}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>Start a project ↗</Link></nav><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
+}
+
+function Footer() {
+  return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div><Link className="portfolio-brand" href="/">LAC<span>STUDIO</span></Link><p>Independent creative software development studio for products that need to work in the real world.</p></div><nav aria-label="Footer navigation"><Link href="/work">Work</Link><Link href="/services">Services</Link><Link href="/about">About</Link><Link href="/process">Process</Link></nav><nav aria-label="Studio information"><Link href="/contact">Contact</Link><Link href="/privacy">Privacy</Link><Link href="/legal">Legal</Link><Link href="/lab">Design Lab</Link></nav></div><div className="portfolio-container footer-note">© {new Date().getFullYear()} LAC STUDIO <span>Independent by design.</span></div></footer>;
+}
+
+function Section({ eyebrow, title, children, className = "" }: { eyebrow?: string; title?: string; children: ReactNode; className?: string }) {
+  return <section className={`portfolio-section ${className}`}>{(eyebrow || title) && <div className="portfolio-section-heading">{eyebrow && <span>{eyebrow}</span>}{title && <h2>{title}</h2>}</div>}{children}</section>;
+}
+
+function ProjectPreview({ project }: { project: PublicProject }) {
+  return <article className="project-card"><div className="project-art" aria-label="Project media placeholder"><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p><ul>{project.technologies.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul><Link href={`/work/${project.slug}`}>Read case study ↗</Link></div></article>;
+}
+
+function UnpublishedWork() {
+  return <div className="empty-published"><span>WORK IN PUBLICATION REVIEW</span><h3>Case studies are being prepared with the right context.</h3><p>LAC STUDIO does not publish confidential project detail, invented outcomes or unapproved visuals. The public catalogue will appear here when each project is ready to be shared.</p><Link className="text-link" href="/contact">Discuss your project ↗</Link></div>;
+}
+
+function HomePage() {
+  return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "LAC STUDIO", description: "Independent creative software-development studio building complete digital products for web, mobile, and beyond." }) }} />
+    <section className="portfolio-hero"><div className="portfolio-container hero-grid"><div><span className="eyebrow">LAC STUDIO / DIGITAL PRODUCT DEVELOPMENT</span><h1>From idea to<br /><em>working product.</em></h1><p>We design and build complete digital products — web applications, native Android apps, SaaS platforms, and custom software that solves real problems.</p><div className="hero-actions"><Link className="button primary" href="/work">Explore Work <b>→</b></Link><Link className="button secondary" href="/contact">Start a Project <b>→</b></Link></div></div><div className="hero-preview" aria-label="Abstract portfolio preview placeholder"><span>SELECTED PRODUCT / PREVIEW</span><strong>Structure<br />before<br /><em>surface.</em></strong><i /><div className="hero-preview-meta"><b>WEB · ANDROID · SYSTEMS</b><small>Approved project media will appear here.</small></div></div></div></section>
+    <div className="portfolio-container">
+      <Section eyebrow="01 / SELECTED WORK" title="Selected Work">{featuredProjects.length ? <div className="project-grid">{featuredProjects.slice(0, 4).map((project) => <ProjectPreview project={project} key={project.id} />)}</div> : <UnpublishedWork />}</Section>
+      <Section eyebrow="02 / CAPABILITIES" title="What We Build"><div className="capability-grid">{capabilities.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></Section>
+      <Section eyebrow="03 / TECHNICAL EXPERTISE" title="Built Beyond the Interface"><div className="expertise-grid">{expertise.map(([title, copy]) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div></Section>
+      <Section eyebrow="04 / PROCESS" title="How We Build"><ol className="process-row">{process.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><b>{item}</b></li>)}</ol><Link className="text-link" href="/process">See the full process ↗</Link></Section>
+      <Section eyebrow="05 / ABOUT" title="Independent by Design" className="about-preview"><p>LAC STUDIO is an independent software studio combining product thinking, software engineering and an understanding of human behavior to make useful digital products.</p><Link className="text-link" href="/about">About the studio ↗</Link></Section>
+      <Section className="contact-cta"><span>06 / START A CONVERSATION</span><h2>Have something<br />worth building?</h2><p>Let&apos;s turn your idea into a working product.</p><Link className="button primary" href="/contact">Let&apos;s Talk <b>→</b></Link></Section>
+    </div>
+  </>;
+}
+
+function WorkPage() {
+  const getParam = (key: string, fallback: string) => typeof window === "undefined" ? fallback : new URLSearchParams(window.location.search).get(key) ?? fallback;
+  const [query, setQuery] = useState(() => getParam("q", "")); const [category, setCategory] = useState(() => getParam("category", "all")); const [platform, setPlatform] = useState(() => getParam("platform", "all"));
+  const categories = Array.from(new Set(publishedProjects.map((project) => project.category)));
+  const platforms = Array.from(new Set(publishedProjects.flatMap((project) => project.platforms)));
+  const results = useMemo(() => publishedProjects.filter((project) => `${project.title} ${project.summary} ${project.category}`.toLowerCase().includes(query.toLowerCase()) && (category === "all" || project.category === category) && (platform === "all" || project.platforms.includes(platform as never))), [query, category, platform]);
+  const update = (next: { q?: string; category?: string; platform?: string }) => { const params = new URLSearchParams(window.location.search); const values = { q: query, category, platform, ...next }; Object.entries(values).forEach(([key, value]) => value && value !== "all" ? params.set(key, value) : params.delete(key)); window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`); setQuery(values.q); setCategory(values.category); setPlatform(values.platform); };
+  return <main className="portfolio-page portfolio-container"><Section eyebrow="PORTFOLIO / PROJECT INDEX" title="Work"><p className="page-intro">A public project index will grow only with approved descriptions, visuals and outcomes.</p><div className="work-filters"><label>Search<input value={query} onChange={(event) => update({ q: event.target.value })} placeholder="Search published work" /></label><label>Category<select value={category} onChange={(event) => update({ category: event.target.value })}><option value="all">All categories</option>{categories.map((item) => <option key={item}>{item}</option>)}</select></label><label>Platform<select value={platform} onChange={(event) => update({ platform: event.target.value })}><option value="all">All platforms</option>{platforms.map((item) => <option key={item}>{item}</option>)}</select></label><button type="button" onClick={() => update({ q: "", category: "all", platform: "all" })}>Clear filters</button></div>{results.length ? <div className="project-grid">{results.map((project) => <ProjectPreview key={project.id} project={project} />)}</div> : <UnpublishedWork />}</Section></main>;
+}
+
+function ServicesPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="SERVICES / FROM PRODUCT IDEA TO RELEASE" title="What we can build together"><p className="page-intro">Clear technical thinking and product-minded design for software that has to do real work.</p><div className="services-grid">{services.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div><div className="inline-cta"><h2>Not sure where to start?</h2><Link className="button primary" href="/contact">Start a conversation →</Link></div></Section></main>; }
+function AboutPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="ABOUT / LAC STUDIO" title="Independent by Design"><div className="two-column"><div><p className="lead">LAC STUDIO is an independent development studio for teams and ideas that need thoughtful software, not just a surface.</p><p>It combines product design, web and Android development, backend architecture and practical problem solving. A background in psychology informs the work: useful software starts with a clear understanding of people, decisions and context.</p></div><aside className="asset-slot"><span>PORTRAIT / OPTIONAL</span><p>An approved founder portrait and expanded biography can be added here.</p></aside></div></Section><Section eyebrow="WAYS OF WORKING" title="End-to-end, with a useful level of detail"><div className="expertise-grid">{expertise.map(([title, copy]) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div></Section></main>; }
+function ProcessPage() { const stages = [["Discovery", "Understand the problem, people, constraints and the decision worth making."], ["Product Definition", "Turn the idea into a useful scope, priorities and a shared direction."], ["Experience Design", "Shape the flows, information and interface around the work people need to do."], ["Architecture", "Choose practical foundations for data, permissions, integrations and growth."], ["Development", "Build the product in focused, reviewable increments."], ["Testing", "Check the critical journeys, edge cases and real-world behavior."], ["Deployment", "Prepare a reliable release path and handoff."], ["Evolution", "Learn from use and improve the part of the product that matters next."]]; return <main className="portfolio-page portfolio-container"><Section eyebrow="PROCESS / A CLEAR PATH" title="How we build"><div className="process-list">{stages.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></Section></main>; }
+
+function ContactPage() {
+  const [status, setStatus] = useState<"idle" | "loading" | "error" | "success">("idle"); const [message, setMessage] = useState("");
+  async function submit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setStatus("loading"); const form = new FormData(event.currentTarget); try { const response = await fetch("/api/contact", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(Object.fromEntries(form.entries())) }); const body = await response.json(); if (!response.ok) throw new Error(body.error ?? "Your message could not be sent."); setStatus("success"); setMessage(body.message); event.currentTarget.reset(); } catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "Your message could not be sent."); } }
+  return <main className="portfolio-page portfolio-container"><Section eyebrow="CONTACT / START A PROJECT" title="Let&apos;s make the next step clear."><div className="two-column"><div><p className="lead">Tell us what you are considering. A useful first message can be short.</p><p>No contact email is published until it has been configured and verified. This form validates your inquiry but cannot claim delivery until a provider is connected.</p></div><form className="contact-form" onSubmit={submit}><label>Name<input name="name" autoComplete="name" required /></label><label>Email<input name="email" type="email" autoComplete="email" required /></label><label>Project type<select name="projectType" defaultValue=""><option value="" disabled>Choose a direction</option><option>Web application</option><option>Android application</option><option>SaaS platform</option><option>Website</option><option>Other software</option></select></label><label>Budget range <select name="budget"><option value="">Prefer not to say</option><option>Under €5,000</option><option>€5,000–€15,000</option><option>€15,000+</option></select></label><label>Timeline <select name="timeline"><option value="">Flexible</option><option>Within 1 month</option><option>1–3 months</option><option>More than 3 months</option></select></label><label className="wide">Project description<textarea name="message" required minLength={20} placeholder="What are you trying to make, improve or untangle?" /></label><label className="honeypot" aria-hidden="true">Company<input name="company" tabIndex={-1} autoComplete="off" /></label><small className="wide">By sending this inquiry, you agree that LAC STUDIO may use your details to respond. See <a href="/privacy">Privacy</a>.</small><button className="button primary" disabled={status === "loading"}>{status === "loading" ? "Checking inquiry…" : "Send inquiry →"}</button>{status !== "idle" && <p className={`form-status ${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}</form></div></Section></main>;
+}
+function LegalPage({ privacy }: { privacy: boolean }) { return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? "PRIVACY" : "LEGAL"} title={privacy ? "Privacy, without assumptions." : "Legal information to complete before publication."}><div className="legal-copy">{privacy ? <><p>LAC STUDIO currently does not install analytics or publish a contact address through this portfolio. The inquiry form validates submissions and is configured not to claim delivery until a sending provider is enabled.</p><p>When delivery is configured, this notice must be updated with the data controller, contact method, processing purpose, retention period, legal basis and any provider details.</p></> : <><p>Business registration details, registered address, governing-law details and other legally required information have not been supplied for publication.</p><p>Before publishing this portfolio, replace this notice with verified information appropriate to the studio&apos;s legal situation and the markets it serves.</p></>}</div></Section></main>; }
+function NotFoundPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="404 / NOT FOUND" title="This page is not public."><p className="page-intro">The page may be unavailable, unpublished or have moved. Public case studies appear only after their content has been approved.</p><Link className="button primary" href="/work">Return to work →</Link></Section></main>; }
+
+function CaseStudy({ project }: { project: PublicProject }) { return <main className="portfolio-page portfolio-container"><Section eyebrow={`${project.category.toUpperCase()} / CASE STUDY`} title={project.title}><p className="page-intro">{project.summary}</p><div className="case-meta"><span>{project.platforms.join(" · ")}</span><span>{project.technologies.join(" · ")}</span></div><div className="asset-slot case-slot"><span>APPROVED CASE-STUDY MEDIA REQUIRED</span><p>This reusable structure renders only approved public project content.</p></div></Section><Section eyebrow="OVERVIEW" title="A public record, when ready"><p className="page-intro">Detailed problem, solution, features, engineering notes, outcomes and media are intentionally omitted until they are approved for publication.</p></Section><Section className="contact-cta"><h2>Have a related<br />challenge?</h2><a className="button primary" href="/contact">Let&apos;s Talk →</a></Section></main>; }
+
+function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
+  const { activeDesign, reducedMotion } = useDesign();
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id}><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /></div>;
+}
+
+function LegacyLabRedirect({ children }: { children: ReactNode }) {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const isLegacyLabLink = ["category", "component", "compare", "left", "right"].some((key) => params.has(key));
+    if (window.location.pathname === "/" && isLegacyLabLink) {
+      window.location.replace(`/lab${window.location.search}`);
+    }
+  }, []);
+  return <>{children}</>;
+}
+
+export function PortfolioApp({ page, project }: { page: Page; project?: PublicProject }) {
+  return <LegacyLabRedirect><DesignProvider scope="portfolio"><PortfolioContent page={page} project={project} /></DesignProvider></LegacyLabRedirect>;
+}

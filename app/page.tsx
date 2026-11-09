@@ -10,10 +10,11 @@ import { CompatibilityPlayground } from "@/components/lab/compatibility-playgrou
 import { TactileDisclosureStudy } from "@/components/lab/tactile/tactile-disclosure-study";
 import { TactileFeedbackStudy } from "@/components/lab/tactile/tactile-feedback-study";
 import { SharedShowcase } from "@/components/lab/shared-showcase";
-import { DesignProvider, useDesign } from "@/design-system/engine/provider";
+import { useDesign } from "@/design-system/engine/provider";
 import { libraryCategories, type LibraryCategoryId } from "@/design-system/engine/categories";
 import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
 import { showcaseFor } from "@/design-system/showcase/schema";
+import { PortfolioApp } from "@/components/portfolio/portfolio-app";
 
 const tactileCategoryMeta: Record<LibraryCategoryId, { title: string; description: string; maturity: "Stable" | "In progress" | "Experimental" | "Planned" }> = {
   foundations: { title: "Make material intentional.", description: "Palette, depth and surface decisions are tested here before they shape a component.", maturity: "In progress" },
@@ -358,7 +359,7 @@ function ComparisonControls() {
   return <section className="comparison-controls" aria-label="Universal system comparison controls"><div><span>UNIVERSAL SPLIT VIEW</span><b>{activeCategory.toUpperCase()} / {activeComponent}</b></div><label>LEFT<select value={comparison.left} onChange={(event) => setComparisonSystem("left", event.target.value as DesignId)}>{designIds.map((id) => <option key={id} value={id}>{designRegistry[id].name}</option>)}</select></label><button type="button" className="comparison-swap" onClick={swapComparisonSystems} aria-label="Swap comparison systems">↔</button><label>RIGHT<select value={comparison.right} onChange={(event) => setComparisonSystem("right", event.target.value as DesignId)}>{designIds.map((id) => <option key={id} value={id}>{designRegistry[id].name}</option>)}</select></label><button type="button" className="comparison-exit" onClick={stopComparison}>EXIT COMPARE ×</button>{comparison.notice && <p role="status">{comparison.notice}</p>}</section>;
 }
 
-function DesignLab() {
+export function DesignLab() {
   const { activeDesign, activeCategory, setActiveCategory, activeComponent, setActiveComponent, reducedMotion, setReducedMotion, comparison, startComparison, stopComparison } = useDesign();
   const stageRef = useRef<HTMLElement>(null);
   const previousDesignRef = useRef(activeDesign.id);
@@ -392,5 +393,5 @@ function DesignLab() {
 }
 
 export default function Home() {
-  return <DesignProvider><DesignLab /></DesignProvider>;
+  return <PortfolioApp page="home" />;
 }

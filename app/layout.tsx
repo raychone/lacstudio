@@ -25,6 +25,8 @@ import "./workspace.css";
 import "./browser-qa-fixes.css";
 import "./tactile-visual-polish.css";
 import "./nocturne-visual-polish.css";
+import "./editorial-visual-polish.css";
+import "./portfolio.css";
 import "../components/lab/shared-showcase.css";
 import "../components/lab/editorial/editorial-stage.css";
 import "../components/lab/editorial/editorial-phase-two.css";
@@ -52,8 +54,16 @@ import "../components/lab/nocturne/nocturne-effects-refinements.css";
 import "./sizing-contract.css";
 
 export const metadata: Metadata = {
-  title: "LAC. Studio — Design Lab",
-  description: "Independent creative development studio. Design systems, interactions and digital experiences.",
+  title: { default: "LAC STUDIO — Digital Product Development", template: "%s | LAC STUDIO" },
+  description: "Independent creative development studio for web applications, Android apps, SaaS platforms and custom software.",
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "LAC STUDIO",
+    title: "LAC STUDIO — Digital Product Development",
+    description: "Independent creative development studio for web applications, Android apps, SaaS platforms and custom software.",
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
