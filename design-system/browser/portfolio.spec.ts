@@ -25,16 +25,27 @@ test.describe("public portfolio", () => {
     expect(new Set(dimensions.map((entry) => entry.firstSection)).size).toBe(1);
   });
 
-  test("keeps navigation sticky and gives the footer a breathing edge", async ({ page }) => {
+  test("keeps navigation sticky and pads footer content instead of its full-width surface", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/?design=playground", { waitUntil: "networkidle" });
-    const header = page.locator(".portfolio-header");
-    await page.evaluate(() => window.scrollTo(0, 700));
-    await expect.poll(() => header.evaluate((element) => Math.round(element.getBoundingClientRect().top))).toBe(0);
+    for (const design of ["playground", "nocturne"]) {
+      await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
+      const header = page.locator(".portfolio-header");
+      await page.evaluate(() => window.scrollTo(0, 700));
+      await expect.poll(() => header.evaluate((element) => Math.round(element.getBoundingClientRect().top))).toBe(0);
+    }
     const footerBox = await page.locator(".portfolio-footer").boundingBox();
+    const footerContentBox = await page.locator(".portfolio-footer .footer-grid").boundingBox();
     expect(footerBox).not.toBeNull();
-    expect(footerBox!.x).toBeGreaterThan(0);
-    expect(footerBox!.width).toBeLessThan(1440);
+    expect(footerContentBox).not.toBeNull();
+    expect(footerBox!.x).toBe(0);
+    expect(footerBox!.width).toBe(1440);
+    expect(footerContentBox!.x).toBeGreaterThan(0);
+    expect(footerContentBox!.x + footerContentBox!.width).toBeLessThan(1440);
+  });
+
+  test("uses readable ink on Brutalist orange surfaces", async ({ page }) => {
+    await page.goto("/?design=brutalist", { waitUntil: "networkidle" });
+    await expect(page.locator(".hero-preview > span")).toHaveCSS("color", "rgb(17, 17, 15)");
   });
 
   test("uses the supplied black mark on light surfaces and its white treatment in Nocturne", async ({ page }) => {

@@ -48,3 +48,14 @@
 .portfolio-footer{margin:clamp(18px,3vw,42px);padding:clamp(46px,7vw,90px) 0 clamp(30px,4vw,52px);border:1px solid var(--p-line);border-radius:var(--p-radius)}
 .portfolio-editorial .portfolio-footer,.portfolio-brutalist .portfolio-footer{border-radius:0}
 .portfolio-playground .portfolio-footer{border:2px solid var(--p-ink);border-radius:37px 14px 37px 14px;box-shadow:7px 7px 0 var(--p-accent)}
+
+/* Full-width footer surface; the content—not the surface—gets the horizontal breathing room. */
+.portfolio-footer{margin:0;padding:clamp(46px,7vw,90px) clamp(24px,5vw,80px) clamp(30px,4vw,52px);border:0;border-radius:0}
+.portfolio-footer .portfolio-container{width:min(var(--portfolio-max),100%)}
+.portfolio-playground .portfolio-footer{border:0;border-radius:0;box-shadow:none}
+
+/* Nocturne's decorative stacking context must not replace the shared sticky behavior. */
+.portfolio-nocturne .portfolio-header{position:sticky}
+
+/* Orange surface states carry dark content, never the neighboring orange accent. */
+.portfolio-brutalist .hero-preview>span,.portfolio-brutalist .hero-preview strong em,.portfolio-brutalist .empty-published>span,.portfolio-brutalist .asset-slot>span{color:var(--p-ink)}
