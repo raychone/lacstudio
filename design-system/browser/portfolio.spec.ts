@@ -52,6 +52,10 @@ test.describe("public portfolio", () => {
     await expect(tactile.locator(".portfolio-switcher-tooltip")).toHaveCSS("opacity", "1");
     await page.getByRole("radio", { name: "02 Nocturne" }).click();
     await expect(options).toHaveAttribute("data-active-index", "1");
+    const nocturne = page.getByRole("radio", { name: "02 Nocturne" });
+    await nocturne.hover();
+    await expect(nocturne.locator(".portfolio-switcher-tooltip")).toHaveCSS("background-color", "rgb(13, 19, 40)");
+    await expect(nocturne.locator(".portfolio-switcher-tooltip")).toHaveCSS("color", "rgb(238, 240, 255)");
     await page.goto("/?design=playground", { waitUntil: "networkidle" });
     const header = page.locator(".portfolio-header");
     await expect(header).toHaveCSS("border-top-left-radius", "0px");

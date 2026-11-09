@@ -119,3 +119,4 @@
 .portfolio-playground .portfolio-switcher-options{border-radius:11px 3px 11px 3px;border:2px solid var(--p-ink);padding:1px;background:var(--p-surface)}
 .portfolio-playground .portfolio-switcher-options .portfolio-switcher-indicator{top:1px;left:1px;width:calc((100% - 2px)/5);height:27px;border-radius:8px 2px 8px 2px;box-shadow:2px 2px 0 var(--p-ink)}
 .portfolio-playground .portfolio-header{border-radius:0 0 var(--p-radius) var(--p-radius)}
+.portfolio-nocturne .portfolio-switcher-tooltip{border-color:rgba(204,212,255,.35);background:var(--p-surface);color:var(--p-ink)!important;box-shadow:0 10px 22px rgba(0,0,0,.3)}
