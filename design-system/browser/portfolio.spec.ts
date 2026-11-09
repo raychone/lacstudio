@@ -181,6 +181,25 @@ test.describe("public portfolio", () => {
     await expect(question).toHaveAttribute("aria-expanded", "false");
   });
 
+  test("keeps Work filter and carousel controls geometrically stable in every design", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    for (const design of designs) {
+      await page.goto(`/work?design=${design}`, { waitUntil: "networkidle" });
+      const [filter, clear, controls, scrollBefore] = await Promise.all([
+        page.locator(".work-filters input").boundingBox(),
+        page.locator(".clear-work-filters").boundingBox(),
+        page.locator(".work-carousel-controls").boundingBox(),
+        page.evaluate(() => window.scrollY),
+      ]);
+      expect(filter && clear && controls).toBeTruthy();
+      expect(Math.abs(filter!.height - clear!.height), `${design} clear filter height`).toBeLessThanOrEqual(1);
+      await page.getByRole("button", { name: "Next featured project" }).click();
+      const [nextControls, scrollAfter] = await Promise.all([page.locator(".work-carousel-controls").boundingBox(), page.evaluate(() => window.scrollY)]);
+      expect(nextControls).not.toBeNull();
+      expect(Math.abs((nextControls!.y + scrollAfter) - (controls!.y + scrollBefore)), `${design} carousel controls y`).toBeLessThanOrEqual(1);
+    }
+  });
+
   test("migrates unambiguous legacy Lab links and preserves their state", async ({ page }) => {
     await page.goto("/?design=editorial&category=actions&component=actions.reference", { waitUntil: "networkidle" });
     await expect(page).toHaveURL(/\/lab\?design=editorial&category=actions&component=actions.reference/);

@@ -117,6 +117,7 @@ type WorkShowcaseSlide = {
   meta: string;
   tags: string[];
   href?: string;
+  image?: string;
   placeholder?: boolean;
 };
 
@@ -127,7 +128,7 @@ const workPlaceholders: readonly WorkShowcaseSlide[] = [
 ];
 
 function FeaturedWorkCarousel() {
-  const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => ({ id: project.id, eyebrow: `${project.category.toUpperCase()} / FEATURED WORK`, title: project.title, summary: project.summary, meta: project.platforms.join(" · ").toUpperCase(), tags: project.technologies.slice(0, 3), href: `/work/${project.slug}` }));
+  const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => ({ id: project.id, eyebrow: `${project.category.toUpperCase()} / FEATURED WORK`, title: project.title, summary: project.summary, meta: project.platforms.join(" · ").toUpperCase(), tags: project.technologies.slice(0, 3), href: `/work/${project.slug}`, image: project.heroImage ?? project.thumbnail }));
   const slides = publishedSlides.length ? publishedSlides : workPlaceholders;
   const [activeIndex, setActiveIndex] = useState(0);
   const pointerStart = useRef<number | null>(null);
@@ -156,16 +157,16 @@ function FeaturedWorkCarousel() {
           <h3>{active.title}</h3>
           <p>{active.summary}</p>
           <ul>{active.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
-          {active.href ? <Link className="text-link" href={active.href}>Read case study ↗</Link> : <Link className="text-link" href="/contact">Discuss your project ↗</Link>}
+          <div className="work-carousel-actions"><Link href={active.href ? `${active.href}#workflow` : "/process"}>Workflow <b>→</b></Link><Link href={active.href ? `${active.href}#evidence` : "/work#publication-policy"}>Evidence <b>→</b></Link><Link className="primary" href="/contact">Discuss your project <b>↗</b></Link></div>
         </div>
         <div className="work-carousel-media" aria-label={active.placeholder ? "Approved project media placeholder" : `${active.title} media`}>
-          <div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /><div className="work-carousel-media-note"><span>{active.meta}</span><b>{String(activeIndex + 1).padStart(2, "0")}</b></div>
+          {active.image ? <Image src={active.image} alt="" fill sizes="(max-width: 840px) 100vw, 50vw" /> : <><div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /></>}<div className="work-carousel-media-note"><span>{active.meta}</span><b>{String(activeIndex + 1).padStart(2, "0")}</b></div>
         </div>
       </article>
     </div>
     <div className="work-carousel-controls">
       <div className="work-carousel-arrows"><button type="button" aria-label="Previous featured project" onClick={() => move(-1)}>←</button><button type="button" aria-label="Next featured project" onClick={() => move(1)}>→</button></div>
-      <div className="work-carousel-pagination" role="tablist" aria-label="Choose featured work">{slides.map((slide, index) => <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`Show featured work ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><i /><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div>
+      <div className="work-carousel-pagination" role="tablist" aria-label="Choose featured work" style={{ "--work-active-slide": activeIndex } as React.CSSProperties}><i className="work-carousel-pagination-indicator" aria-hidden="true" />{slides.map((slide, index) => <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`Show featured work ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div>
       <p aria-live="polite"><b>{String(activeIndex + 1).padStart(2, "0")}</b> / {String(slides.length).padStart(2, "0")}</p>
     </div>
   </div>;
@@ -212,9 +213,9 @@ function WorkPage() {
   const results = useMemo(() => publishedProjects.filter((project) => `${project.title} ${project.summary} ${project.category}`.toLowerCase().includes(query.toLowerCase()) && (category === "all" || project.category === category) && (platform === "all" || project.platforms.includes(platform as never))), [query, category, platform]);
   const update = (next: { q?: string; category?: string; platform?: string }) => { const params = new URLSearchParams(window.location.search); const values = { q: query, category, platform, ...next }; Object.entries(values).forEach(([key, value]) => value && value !== "all" ? params.set(key, value) : params.delete(key)); window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`); setQuery(values.q); setCategory(values.category); setPlatform(values.platform); };
   return <main className="portfolio-page portfolio-container">
-    <Section eyebrow="PORTFOLIO / PROJECT INDEX" title="Work" className="work-intro-section"><p className="page-intro">A public project index that grows only with approved descriptions, visuals and outcomes.</p><div className="work-filters"><label>Search<input value={query} onChange={(event) => update({ q: event.target.value })} placeholder="Search published work" /></label><label>Category<PortfolioSelect ariaLabel="Filter work by category" value={category} onChange={(value) => update({ category: value })} placeholder="All categories" options={[{ value: "all", label: "All categories" }, ...categories.map((item) => ({ value: item, label: item }))]} /></label><label>Platform<PortfolioSelect ariaLabel="Filter work by platform" value={platform} onChange={(value) => update({ platform: value })} placeholder="All platforms" options={[{ value: "all", label: "All platforms" }, ...platforms.map((item) => ({ value: item, label: item }))]} /></label><button type="button" onClick={() => update({ q: "", category: "all", platform: "all" })}>Clear filters</button></div></Section>
+    <Section eyebrow="PORTFOLIO / PROJECT INDEX" title="Work" className="work-intro-section"><p className="page-intro">A public project index that grows only with approved descriptions, visuals and outcomes.</p><div className="work-filters"><label>Search<input value={query} onChange={(event) => update({ q: event.target.value })} placeholder="Search published work" /></label><label>Category<PortfolioSelect ariaLabel="Filter work by category" value={category} onChange={(value) => update({ category: value })} placeholder="All categories" options={[{ value: "all", label: "All categories" }, ...categories.map((item) => ({ value: item, label: item }))]} /></label><label>Platform<PortfolioSelect ariaLabel="Filter work by platform" value={platform} onChange={(value) => update({ platform: value })} placeholder="All platforms" options={[{ value: "all", label: "All platforms" }, ...platforms.map((item) => ({ value: item, label: item }))]} /></label><button className="clear-work-filters" type="button" onClick={() => update({ q: "", category: "all", platform: "all" })}>Clear filters</button></div></Section>
     <Section eyebrow="01 / FEATURED WORK" title="Built for the work behind the screen." className="work-featured-section"><FeaturedWorkCarousel /></Section>
-    <Section eyebrow="02 / PUBLIC PROJECT INDEX" title="Case studies, with the right context." className="work-gallery-section"><p className="page-intro">Project cards appear here after a public description and the media around it have been approved.</p>{results.length ? <div className="project-grid work-project-grid">{results.map((project) => <ProjectPreview key={project.id} project={project} />)}</div> : <UnpublishedWork />}</Section>
+    <Section eyebrow="02 / PUBLIC PROJECT INDEX" title="Case studies, with the right context." className="work-gallery-section"><p className="page-intro">Project cards appear here after a public description and the media around it have been approved.</p><div id="publication-policy">{results.length ? <div className="project-grid work-project-grid">{results.map((project) => <ProjectPreview key={project.id} project={project} />)}</div> : <UnpublishedWork />}</div></Section>
     <Section eyebrow="03 / QUESTIONS" title="A clear place to start." className="work-faq-section"><WorkFaq /></Section>
     <Section className="contact-cta work-contact-cta"><span>04 / START A CONVERSATION</span><h2>Have something<br />worth building?</h2><p>Bring the context. We&apos;ll work out the useful next step.</p><Link className="button primary" href="/contact">Start a project <b>→</b></Link></Section>
   </main>;
