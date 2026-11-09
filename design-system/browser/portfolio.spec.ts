@@ -72,7 +72,8 @@ test.describe("public portfolio", () => {
       await expect(page.locator(".portfolio-section.contact-cta")).toHaveCSS("border-bottom-width", "0px");
     }
     await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
-    await expect(page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Work", exact: true })).toHaveCSS("box-shadow", /inset/);
+    const tactileWork = page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Work", exact: true });
+    expect(await tactileWork.evaluate((element) => getComputedStyle(element, "::before").boxShadow)).toContain("inset");
     await page.goto("/?design=editorial", { waitUntil: "networkidle" });
     await expect(page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Work", exact: true })).toHaveCSS("text-transform", "none");
   });
