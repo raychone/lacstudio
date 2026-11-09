@@ -79,3 +79,16 @@
 /* Footer density: keep the signature compact below the desktop columns. */
 .footer-note{justify-content:flex-start;align-items:center;gap:9px}
 @media(max-width:640px){.footer-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 12px}.footer-brand{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;align-items:start}.footer-brand .portfolio-brand{margin:0}.footer-brand p{padding-top:1px;font-size:13px;line-height:1.45}.footer-grid nav{gap:9px}.footer-grid nav>span{margin-bottom:4px;font-size:8px;letter-spacing:.1em}.footer-grid nav a{font-size:11px}.footer-note{flex-direction:row;align-items:center;gap:7px;margin-top:30px;font-size:8px;letter-spacing:.07em}}
+
+/* The final CTA is a standalone rounded surface, without a section rule cutting across its corners. */
+.portfolio-section.about-preview,.portfolio-section.contact-cta{border-bottom:0}
+
+/* Tactile navigation uses the same recessed active state as its other pressed controls. */
+.portfolio-tactile .portfolio-nav a{padding:8px 10px;border-radius:11px;transition:color .18s ease,box-shadow .18s ease}
+.portfolio-tactile .portfolio-nav a.active{color:var(--p-accent);background:var(--p-surface);box-shadow:inset 2px 2px 5px rgba(126,122,112,.22),inset -2px -2px 5px rgba(255,255,255,.62)}
+
+/* Editorial keeps its type-led character without forcing the shared navigation labels into capitals. */
+.portfolio-editorial .portfolio-nav a{font-size:12px;letter-spacing:normal;text-transform:none}
+
+/* The legal signature belongs to the final row of the footer grid at every desktop width. */
+.footer-note{grid-column:1/-1;width:100%}

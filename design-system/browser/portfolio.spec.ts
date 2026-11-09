@@ -36,12 +36,28 @@ test.describe("public portfolio", () => {
     }
     const footerBox = await page.locator(".portfolio-footer").boundingBox();
     const footerContentBox = await page.locator(".portfolio-footer .footer-grid").boundingBox();
+    const footerNoteBox = await page.locator(".portfolio-footer .footer-note").boundingBox();
+    const contactColumnBox = await page.locator('.portfolio-footer nav[aria-label="Contact"]').boundingBox();
     expect(footerBox).not.toBeNull();
     expect(footerContentBox).not.toBeNull();
+    expect(footerNoteBox).not.toBeNull();
+    expect(contactColumnBox).not.toBeNull();
     expect(footerBox!.x).toBe(0);
     expect(footerBox!.width).toBe(1440);
     expect(footerContentBox!.x).toBeGreaterThan(0);
     expect(footerContentBox!.x + footerContentBox!.width).toBeLessThan(1440);
+    expect(footerNoteBox!.y).toBeGreaterThan(contactColumnBox!.y + contactColumnBox!.height);
+  });
+
+  test("keeps CTA corners clear and aligns navigation treatments to their systems", async ({ page }) => {
+    for (const design of ["tactile", "playground"]) {
+      await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
+      await expect(page.locator(".portfolio-section.contact-cta")).toHaveCSS("border-bottom-width", "0px");
+    }
+    await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
+    await expect(page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Work", exact: true })).toHaveCSS("box-shadow", /inset/);
+    await page.goto("/?design=editorial", { waitUntil: "networkidle" });
+    await expect(page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Work", exact: true })).toHaveCSS("text-transform", "none");
   });
 
   test("uses readable ink on Brutalist orange surfaces", async ({ page }) => {
