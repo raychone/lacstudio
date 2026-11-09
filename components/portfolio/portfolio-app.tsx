@@ -49,6 +49,28 @@ function BrandLogo() {
   return <span className="brand-logo" aria-hidden="true"><Image className="brand-logo-black" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-white" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-playground" src="/branding/lac-studio-playground.png" alt="" width={1774} height={887} priority /></span>;
 }
 
+function PortfolioAmbientEffect({ design, reducedMotion }: { design: DesignId; reducedMotion: boolean }) {
+  const effect = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (reducedMotion || !window.matchMedia("(pointer: fine)").matches) return;
+    const update = (event: PointerEvent) => {
+      const target = effect.current;
+      if (!target) return;
+      target.style.setProperty("--portfolio-fx-x", `${event.clientX}px`);
+      target.style.setProperty("--portfolio-fx-y", `${event.clientY}px`);
+      target.style.setProperty("--portfolio-fx-rotate", `${((event.clientX / window.innerWidth) - .5) * 26}deg`);
+      target.dataset.active = "true";
+    };
+    const press = () => { if (effect.current) effect.current.dataset.pressed = "true"; };
+    const release = () => { if (effect.current) effect.current.dataset.pressed = "false"; };
+    window.addEventListener("pointermove", update, { passive: true });
+    window.addEventListener("pointerdown", press, { passive: true });
+    window.addEventListener("pointerup", release, { passive: true });
+    return () => { window.removeEventListener("pointermove", update); window.removeEventListener("pointerdown", press); window.removeEventListener("pointerup", release); };
+  }, [reducedMotion]);
+  return <div ref={effect} className={`portfolio-ambient-effect ${design}`} data-active="false" data-pressed="false" aria-hidden="true" />;
+}
+
 function Header({ page }: { page: Page }) {
   const [open, setOpen] = useState(false);
   return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label="Main navigation">{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{label}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>Start a project ↗</Link></nav><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
@@ -236,7 +258,7 @@ function CaseStudy({ project }: { project: PublicProject }) { return <main class
 
 function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
   const { activeDesign, reducedMotion } = useDesign();
-  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id}><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /></div>;
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id}><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} /><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /></div>;
 }
 
 function LegacyLabRedirect({ children }: { children: ReactNode }) {

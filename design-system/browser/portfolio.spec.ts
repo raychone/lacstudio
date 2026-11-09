@@ -205,6 +205,28 @@ test.describe("public portfolio", () => {
     }
   });
 
+  test("signals the active Nocturne slide inside its numeric rail", async ({ page }) => {
+    await page.goto("/work?design=nocturne", { waitUntil: "networkidle" });
+    const pagination = page.locator(".portfolio-nocturne .work-carousel-pagination");
+    const slides = pagination.getByRole("tab");
+
+    await expect(slides.nth(0)).toHaveAttribute("aria-selected", "true");
+    expect(await slides.nth(0).evaluate((element) => getComputedStyle(element).backgroundImage)).not.toBe("none");
+    await page.getByRole("button", { name: "Next featured project" }).click();
+    await expect(slides.nth(1)).toHaveAttribute("aria-selected", "true");
+    expect(await slides.nth(1).evaluate((element) => getComputedStyle(element, "::after").backgroundColor)).toBe("rgb(184, 174, 255)");
+  });
+
+  test("mounts a theme-specific pointer signature across public portfolio pages", async ({ page }) => {
+    for (const design of designs) {
+      await page.goto(`/services?design=${design}`, { waitUntil: "networkidle" });
+      const effect = page.locator(`.portfolio-ambient-effect.${design}`);
+      await expect(effect).toHaveCount(1);
+      await page.mouse.move(360, 280);
+      await expect(effect).toHaveAttribute("data-active", "true");
+    }
+  });
+
   test("migrates unambiguous legacy Lab links and preserves their state", async ({ page }) => {
     await page.goto("/?design=editorial&category=actions&component=actions.reference", { waitUntil: "networkidle" });
     await expect(page).toHaveURL(/\/lab\?design=editorial&category=actions&component=actions.reference/);
