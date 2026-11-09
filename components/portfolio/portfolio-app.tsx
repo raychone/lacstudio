@@ -34,11 +34,12 @@ const process = ["Discover", "Define", "Design", "Build", "Validate", "Launch"];
 
 function PortfolioDesignSwitcher() {
   const { activeDesign, setActiveDesign, restored } = useDesign();
+  const activeIndex = designIds.indexOf(activeDesign.id);
   return <div className="portfolio-switcher" role="radiogroup" aria-label="Choose portfolio design system">
     <span className="portfolio-switcher-label">Design</span>
-    <div className="portfolio-switcher-options">{designIds.map((id) => {
+    <div className="portfolio-switcher-options" data-active-index={activeIndex} style={{ "--active-index": activeIndex } as React.CSSProperties}><i className="portfolio-switcher-indicator" aria-hidden="true" />{designIds.map((id) => {
       const design = designRegistry[id]; const active = id === activeDesign.id;
-      return <button key={id} type="button" role="radio" aria-checked={active} aria-label={`${design.index} ${design.name}`} className={active ? "active" : ""} onClick={() => setActiveDesign(id as DesignId)}><i aria-hidden="true">{design.index}</i><span>{design.name}</span></button>;
+      return <button key={id} type="button" role="radio" aria-checked={active} aria-label={`${design.index} ${design.name}`} className={active ? "active" : ""} onClick={() => setActiveDesign(id as DesignId)}><i aria-hidden="true">{design.index}</i><span className="portfolio-switcher-tooltip" role="tooltip">{design.name}</span></button>;
     })}</div>
     <span className="portfolio-switcher-status" aria-live="polite">{restored ? activeDesign.name : "Loading"}</span>
   </div>;

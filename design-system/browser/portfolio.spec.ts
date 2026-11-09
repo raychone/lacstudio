@@ -42,6 +42,24 @@ test.describe("public portfolio", () => {
     });
   });
 
+  test("uses an accessible sliding design selector and Playground bottom corners", async ({ page }) => {
+    await page.goto("/?design=tactile", { waitUntil: "networkidle" });
+    const options = page.locator(".portfolio-switcher-options");
+    const tactile = page.getByRole("radio", { name: "01 Tactile" });
+    await tactile.hover();
+    await expect(tactile.locator(".portfolio-switcher-tooltip")).toHaveCSS("opacity", "1");
+    await tactile.focus();
+    await expect(tactile.locator(".portfolio-switcher-tooltip")).toHaveCSS("opacity", "1");
+    await page.getByRole("radio", { name: "02 Nocturne" }).click();
+    await expect(options).toHaveAttribute("data-active-index", "1");
+    await page.goto("/?design=playground", { waitUntil: "networkidle" });
+    const header = page.locator(".portfolio-header");
+    await expect(header).toHaveCSS("border-top-left-radius", "0px");
+    await expect(header).toHaveCSS("border-top-right-radius", "0px");
+    await expect(header).toHaveCSS("border-bottom-left-radius", "22px");
+    await expect(header).toHaveCSS("border-bottom-right-radius", "22px");
+  });
+
   test("keeps navigation sticky and pads footer content instead of its full-width surface", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     for (const design of ["playground", "nocturne"]) {
