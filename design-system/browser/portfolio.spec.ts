@@ -169,12 +169,12 @@ test.describe("public portfolio", () => {
     await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
     const carousel = page.getByRole("region", { name: "Featured work" });
     await carousel.getByRole("button", { name: "Next featured project" }).click();
-    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 03");
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 04");
     await page.getByRole("radio", { name: "02 Nocturne" }).click();
-    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 03");
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 04");
     await carousel.focus();
     await page.keyboard.press("ArrowRight");
-    await expect(page.locator(".work-carousel-controls > p")).toContainText("03 / 03");
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("03 / 04");
     const question = page.getByRole("button", { name: /What kind of work do you take on/ });
     await expect(question).toHaveAttribute("aria-expanded", "true");
     await question.click();
@@ -240,19 +240,19 @@ test.describe("public portfolio", () => {
     await expect(page.getByRole("heading", { name: "Actions", exact: true }).first()).toBeVisible();
   });
 
-  test("keeps drafts out of public routes and offers an accessible mobile navigation", async ({ page }) => {
+  test("shows approved project media and offers an accessible mobile navigation", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/work", { waitUntil: "networkidle" });
-    await expect(page.getByText("Work in publication review")).toBeVisible();
-    await expect(page.getByText("MedicHelp", { exact: true })).toHaveCount(0);
+    await expect(page.getByText("MedicHelp", { exact: true }).first()).toBeVisible();
+    await expect(page.locator('.project-art img[src*="medichelp-work"]')).toBeVisible();
     await page.getByRole("button", { name: "Toggle navigation" }).click();
     await expect(page.getByRole("navigation", { name: "Main navigation" })).toBeVisible();
     await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Services", exact: true }).click();
     await expect(page).toHaveURL(/\/services/);
   });
 
-  test("invalid project slugs use the not-found route", async ({ page }) => {
-    const response = await page.goto("/work/medichelp", { waitUntil: "networkidle" });
+  test("unapproved project slugs use the not-found route", async ({ page }) => {
+    const response = await page.goto("/work/odonta", { waitUntil: "networkidle" });
     expect(response?.status()).toBe(404);
     await expect(page.getByRole("heading", { name: "This page is not public." })).toBeVisible();
   });

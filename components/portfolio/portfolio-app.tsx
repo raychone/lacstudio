@@ -84,7 +84,7 @@ function Section({ eyebrow, title, children, className = "" }: { eyebrow?: strin
 }
 
 function ProjectPreview({ project }: { project: PublicProject }) {
-  return <article className="project-card"><div className="project-art" aria-label="Project media placeholder"><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p><ul>{project.technologies.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul><Link href={`/work/${project.slug}`}>Read case study ↗</Link></div></article>;
+  return <article className="project-card"><div className="project-art" aria-label={`${project.title} product preview`}>{project.thumbnail ? <Image src={project.thumbnail} alt="" fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p><ul>{project.technologies.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul><Link href={`/work/${project.slug}`}>Read case study ↗</Link></div></article>;
 }
 
 function UnpublishedWork() {
@@ -185,7 +185,7 @@ function FeaturedWorkCarousel() {
     </div>
     <div className="work-carousel-controls">
       <div className="work-carousel-arrows"><button type="button" aria-label="Previous featured project" onClick={() => move(-1)}>←</button><button type="button" aria-label="Next featured project" onClick={() => move(1)}>→</button></div>
-      <div className="work-carousel-pagination" role="tablist" aria-label="Choose featured work" style={{ "--work-active-slide": activeIndex } as React.CSSProperties}><i className="work-carousel-pagination-indicator" aria-hidden="true" />{slides.map((slide, index) => <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`Show featured work ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div>
+      <div className="work-carousel-pagination" role="tablist" aria-label="Choose featured work" style={{ "--work-active-slide": activeIndex, "--work-slide-count": slides.length } as React.CSSProperties}><i className="work-carousel-pagination-indicator" aria-hidden="true" />{slides.map((slide, index) => <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`Show featured work ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div>
       <p aria-live="polite"><b>{String(activeIndex + 1).padStart(2, "0")}</b> / {String(slides.length).padStart(2, "0")}</p>
     </div>
   </div>;
