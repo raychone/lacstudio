@@ -1,12 +1,18 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
-import Link from "next/link";
+import { useEffect, useId, useRef, useState, type ComponentPropsWithoutRef, type FormEvent, type ReactNode } from "react";
 import Image from "next/image";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
 import { featuredProjects, publishedProjects, type PublicProject } from "@/content/projects";
 import { services } from "@/content/services";
+
+// Vinext's experimental RSC prefetcher can fail after an otherwise valid Vercel
+// deployment. Portfolio navigation does not need client-side data prefetching,
+// so normal document links give every route a dependable, accessible transition.
+function Link({ href, ...props }: ComponentPropsWithoutRef<"a"> & { href: string }) {
+  return <a href={href} {...props} />;
+}
 
 type Page = "home" | "work" | "services" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "not-found";
 
