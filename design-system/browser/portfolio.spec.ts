@@ -224,6 +224,21 @@ test.describe("public portfolio", () => {
     await expect(page).toHaveURL("/contact?design=playground");
   });
 
+  test("uses a non-clipping signal hover for the featured carousel CTA in every design", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    for (const design of designs) {
+      await page.goto(`/work?design=${design}`, { waitUntil: "networkidle" });
+      const cta = page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Discuss your project/ });
+      await cta.scrollIntoViewIfNeeded();
+      const before = await cta.boundingBox();
+      await cta.hover();
+      const after = await cta.boundingBox();
+      expect(before && after).toBeTruthy();
+      expect(Math.abs(after!.x - before!.x), design).toBeLessThanOrEqual(0.5);
+      expect(Math.abs(after!.y - before!.y), design).toBeLessThanOrEqual(0.5);
+    }
+  });
+
   test("shows accurate demo availability and system-styled actions in project cards", async ({ page }) => {
     await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
     const medicHelp = page.locator(".project-card").filter({ hasText: "MedicHelp" });
