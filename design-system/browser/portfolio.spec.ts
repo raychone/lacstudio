@@ -73,6 +73,15 @@ test.describe("public portfolio", () => {
     await expect(header).toHaveCSS("border-top-right-radius", "0px");
     await expect(header).toHaveCSS("border-bottom-left-radius", "22px");
     await expect(header).toHaveCSS("border-bottom-right-radius", "22px");
+    for (const [design, inset] of [["editorial", 1], ["brutalist", 1], ["playground", 2]] as const) {
+      await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
+      const track = page.locator(".portfolio-switcher-options");
+      const [trackBox, indicatorBox] = await Promise.all([track.boundingBox(), track.locator(".portfolio-switcher-indicator").boundingBox()]);
+      expect(trackBox).not.toBeNull();
+      expect(indicatorBox).not.toBeNull();
+      expect(Math.abs(indicatorBox!.y - (trackBox!.y + inset)), `${design} active thumb top`).toBeLessThanOrEqual(.5);
+      expect(Math.abs((indicatorBox!.y + indicatorBox!.height) - (trackBox!.y + trackBox!.height - inset)), `${design} active thumb bottom`).toBeLessThanOrEqual(.5);
+    }
   });
 
   test("keeps navigation sticky and pads footer content instead of its full-width surface", async ({ page }) => {
