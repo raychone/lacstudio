@@ -12,14 +12,6 @@ type Page = "home" | "work" | "services" | "about" | "process" | "contact" | "pr
 
 const navigation: Array<[string, Page]> = [["Work", "work"], ["Services", "services"], ["Process", "process"], ["About", "about"]];
 const hrefFor = (page: Page) => page === "home" ? "/" : page === "case-study" ? "/work" : `/${page}`;
-const capabilities = [
-  ["Web Applications", "Useful, responsive products shaped around actual workflows."],
-  ["Android Applications", "Native mobile experiences with device-aware and offline-ready foundations."],
-  ["SaaS Platforms", "Product systems that can grow from a focused need into a durable service."],
-  ["Backend & APIs", "Data, permissions, integrations and background work behind the interface."],
-  ["Offline-First Systems", "Software that remains useful when a connection is not guaranteed."],
-  ["Automation & Integrations", "Practical connections that remove repeat work and keep teams informed."],
-];
 const expertise = [
   ["Authentication & roles", "Clear permissions and access designed for the people who use the product."],
   ["Databases", "Information architecture and data models that support the product's real work."],
@@ -31,6 +23,11 @@ const expertise = [
   ["Testing & deployment", "Pragmatic quality checks and a path from development to release."],
 ];
 const process = ["Discover", "Define", "Design", "Build", "Validate", "Launch"];
+const homeFocus = [
+  ["Product direction", "Turn an early idea, an unclear workflow or a fragmented brief into a product direction worth building."],
+  ["Digital products", "Design and build web applications, Android experiences and SaaS platforms around the people who use them."],
+  ["Systems that hold up", "Connect the interface to data, permissions, integrations and delivery details that make the product dependable."],
+] as const;
 
 function PortfolioDesignSwitcher() {
   const { activeDesign, setActiveDesign, restored } = useDesign();
@@ -85,10 +82,10 @@ function Section({ eyebrow, title, children, className = "", id }: { eyebrow?: s
   return <section id={id} className={`portfolio-section ${className}`}>{(eyebrow || title) && <div className="portfolio-section-heading">{eyebrow && <span>{eyebrow}</span>}{title && <h2>{title}</h2>}</div>}{children}</section>;
 }
 
-function ProjectPreview({ project }: { project: PublicProject }) {
+function ProjectPreview({ project, compact = false }: { project: PublicProject; compact?: boolean }) {
   const { activeDesign } = useDesign();
   const designQuery = `?design=${activeDesign.id}`;
-  return <article className="project-card"><div className="project-art" aria-label={`${project.title} product preview`}>{project.thumbnail ? <Image src={project.thumbnail} alt="" fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p>{project.problem && <div className="project-problem"><b>Problem solved</b><p>{project.problem}</p></div>}<ul>{project.technologies.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul><div className="project-card-links">{project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noreferrer">Open live demo <b>↗</b></a> : project.demoOnRequest ? <Link href={`/contact${designQuery}`}>Request live demo <b>↗</b></Link> : null}<Link href={`/work/${project.slug}${designQuery}`}>Read case study <b>→</b></Link></div>{project.demoNotice && <small className="project-demo-notice">{project.demoNotice}</small>}</div></article>;
+  return <article className={`project-card ${compact ? "project-card-compact" : ""}`}><div className="project-art" aria-label={`${project.title} product preview`}>{project.thumbnail ? <Image src={project.thumbnail} alt="" fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p>{!compact && project.problem && <div className="project-problem"><b>Problem solved</b><p>{project.problem}</p></div>}<ul>{project.technologies.slice(0, compact ? 2 : 3).map((item) => <li key={item}>{item}</li>)}</ul><div className="project-card-links">{!compact && (project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noreferrer">Open live demo <b>↗</b></a> : project.demoOnRequest ? <Link href={`/contact${designQuery}`}>Request live demo <b>↗</b></Link> : null)}<Link href={`/work/${project.slug}${designQuery}`}>{compact ? "View project" : "Read case study"} <b>→</b></Link></div>{!compact && project.demoNotice && <small className="project-demo-notice">{project.demoNotice}</small>}</div></article>;
 }
 
 function UnpublishedWork() {
@@ -218,16 +215,16 @@ function WorkFaq() {
 }
 
 function HomePage() {
+  const heroProject = featuredProjects[0];
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "LAC STUDIO", description: "Independent creative software-development studio building complete digital products for web, mobile, and beyond." }) }} />
-    <section className="portfolio-hero"><div className="portfolio-container hero-grid"><div><span className="eyebrow">LAC STUDIO / DIGITAL PRODUCT DEVELOPMENT</span><h1>From idea to<br /><em>working product.</em></h1><p>We design and build complete digital products — web applications, native Android apps, SaaS platforms, and custom software that solves real problems.</p><div className="hero-actions"><Link className="button primary" href="/work">Explore Work <b>→</b></Link><Link className="button secondary" href="/contact">Start a Project <b>→</b></Link></div></div><div className="hero-preview" aria-label="Abstract portfolio preview placeholder"><span>SELECTED PRODUCT / PREVIEW</span><strong>Structure<br />before<br /><em>surface.</em></strong><i /><div className="hero-preview-meta"><b>WEB · ANDROID · SYSTEMS</b><small>Approved project media will appear here.</small></div></div></div></section>
+    <section className="portfolio-hero home-hero"><div className="portfolio-container hero-grid"><div className="hero-copy"><span className="eyebrow">LAC STUDIO / INDEPENDENT PRODUCT DEVELOPMENT</span><h1>From idea to<br /><em>working product.</em></h1><p>We turn useful ideas and complex operations into considered digital products — from the first product decision through design, engineering and launch.</p><div className="hero-actions"><Link className="button primary" href="/work">Explore work <b>→</b></Link><Link className="button secondary" href="/contact">Start a project <b>↗</b></Link></div><ul className="hero-proof" aria-label="LAC Studio product focus"><li><b>Web</b><span>Applications &amp; platforms</span></li><li><b>Android</b><span>Field-ready experiences</span></li><li><b>Systems</b><span>Workflows that connect</span></li></ul></div>{heroProject ? <aside className="hero-preview home-project-preview" aria-label={`${heroProject.title} selected product preview`}><Image src={heroProject.heroImage ?? heroProject.thumbnail ?? ""} alt="" fill priority sizes="(max-width: 840px) 100vw, 50vw" /><div className="home-project-shade" /><div className="home-project-top"><span>01 / SELECTED PRODUCT</span><small>{heroProject.category}</small></div><div className="home-project-bottom"><div><b>{heroProject.title}</b><small>{heroProject.platforms.join(" · ")}</small></div><Link href={`/work/${heroProject.slug}`}>View case study <i>↗</i></Link></div></aside> : <div className="hero-preview" />}</div></section>
     <div className="portfolio-container">
-      <Section eyebrow="01 / SELECTED WORK" title="Selected Work">{featuredProjects.length ? <div className="project-grid">{featuredProjects.slice(0, 4).map((project) => <ProjectPreview project={project} key={project.id} />)}</div> : <UnpublishedWork />}</Section>
-      <Section eyebrow="02 / CAPABILITIES" title="What We Build"><div className="capability-grid">{capabilities.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></Section>
-      <Section eyebrow="03 / TECHNICAL EXPERTISE" title="Built Beyond the Interface"><div className="expertise-grid">{expertise.map(([title, copy]) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div></Section>
-      <Section eyebrow="04 / PROCESS" title="How We Build"><ol className="process-row">{process.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><b>{item}</b></li>)}</ol><Link className="text-link" href="/process">See the full process ↗</Link></Section>
-      <Section eyebrow="05 / ABOUT" title="Independent by Design" className="about-preview"><p>LAC STUDIO is an independent software studio combining product thinking, software engineering and an understanding of human behavior to make useful digital products.</p><Link className="text-link" href="/about">About the studio ↗</Link></Section>
-      <Section className="contact-cta"><span>06 / START A CONVERSATION</span><h2>Have something<br />worth building?</h2><p>Let&apos;s turn your idea into a working product.</p><Link className="button primary" href="/contact">Let&apos;s Talk <b>→</b></Link></Section>
+      <Section eyebrow="01 / SELECTED WORK" title="Built for the work behind the screen." className="home-selected-section">{featuredProjects.length ? <><div className="project-grid home-selected-grid">{featuredProjects.slice(1, 4).map((project) => <ProjectPreview project={project} compact key={project.id} />)}</div><Link className="home-all-work" href="/work">See all projects <b>→</b></Link></> : <UnpublishedWork />}</Section>
+      <Section eyebrow="02 / WHAT LAC DOES" title="Clarity before complexity." className="home-focus-section"><div className="home-focus-grid">{homeFocus.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></Section>
+      <Section eyebrow="03 / HOW WE BUILD" title="One team across the useful decisions." className="home-process-section"><ol className="process-row">{process.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><b>{item}</b><small>{["Context", "Scope", "Experience", "System", "Real use", "Release"][index]}</small></li>)}</ol><Link className="text-link" href="/process">See the full process <b>↗</b></Link></Section>
+      <Section eyebrow="04 / INDEPENDENT BY DESIGN" title="A studio small enough to stay close to the work." className="about-preview home-about-preview"><p>LAC STUDIO combines product thinking, interaction design and engineering to make software people can actually use — without separating the strategy from the system that has to deliver it.</p><div><Link className="text-link" href="/about">About the studio <b>→</b></Link><Link className="text-link" href="/services">Explore services <b>→</b></Link></div></Section>
+      <Section className="contact-cta home-contact-cta"><span>05 / START A CONVERSATION</span><h2>Have something<br />worth building?</h2><p>Bring the first useful context. We&apos;ll find the next useful decision.</p><Link className="button primary" href="/contact">Start a project <b>↗</b></Link></Section>
     </div>
   </>;
 }

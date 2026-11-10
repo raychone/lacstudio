@@ -25,6 +25,23 @@ test.describe("public portfolio", () => {
     expect(new Set(dimensions.map((entry) => entry.firstSection)).size).toBe(1);
   });
 
+  test("uses real featured work in the premium home composition without mobile overflow", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    for (const design of designs) {
+      await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
+      await expect(page.locator(".home-project-preview")).toBeVisible();
+      await expect(page.locator(".home-project-preview img")).toHaveAttribute("src", /medichelp-work/);
+      await expect(page.locator(".home-focus-grid article")).toHaveCount(3);
+      await expect(page.locator(".home-selected-grid .project-card")).toHaveCount(3);
+    }
+    await page.setViewportSize({ width: 375, height: 900 });
+    await page.goto("/?design=playground", { waitUntil: "networkidle" });
+    const [preview, viewport] = await Promise.all([page.locator(".home-project-preview").boundingBox(), page.evaluate(() => window.innerWidth)]);
+    expect(preview).not.toBeNull();
+    expect(preview!.x + preview!.width).toBeLessThanOrEqual(viewport + .5);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+
   test("uses identical navbar geometry across every visual system", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     const selectors = [".portfolio-header .portfolio-brand", ".portfolio-header .portfolio-nav a:nth-of-type(1)", ".portfolio-header .portfolio-nav a:nth-of-type(2)", ".portfolio-header .portfolio-nav a:nth-of-type(3)", ".portfolio-header .portfolio-nav a:nth-of-type(4)", ".portfolio-header .portfolio-nav .header-contact", ".portfolio-header .portfolio-switcher"];
