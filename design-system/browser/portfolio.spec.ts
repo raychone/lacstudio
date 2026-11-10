@@ -30,8 +30,8 @@ test.describe("public portfolio", () => {
     for (const design of designs) {
       await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
       await expect(page.locator(".home-journey-preview")).toBeVisible();
-      await expect(page.locator(".home-journey-preview img")).toHaveAttribute("src", /lac-studio-product-journey/);
-      await expect(page.locator(".home-journey-preview img")).toHaveAttribute("alt", /five-stage product journey/);
+      await expect(page.locator(".home-journey-preview img")).toHaveAttribute("src", /lac-studio-hero-healthcare/);
+      await expect(page.locator(".home-journey-preview img")).toHaveAttribute("alt", /sketch, product-development milestones/);
       await expect(page.locator(".home-focus-grid article")).toHaveCount(3);
       await expect(page.locator(".home-selected-grid .project-card")).toHaveCount(3);
     }

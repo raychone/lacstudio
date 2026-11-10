@@ -81,7 +81,7 @@
 
 /* The product journey is deliberately a complete, portrait composition: five
    visible stages, no numeric hierarchy, and a different physical frame per system. */
-.home-journey-preview{align-self:center;width:min(100%,540px,calc(80svh - 104px));min-height:0!important;aspect-ratio:4/5;max-height:min(680px,calc(100svh - 130px));justify-self:center;background:var(--p-surface-alt);isolation:isolate}
+.home-journey-preview{align-self:center;width:min(100%,620px);min-height:0!important;aspect-ratio:16/10;max-height:none;justify-self:center;background:var(--p-surface-alt);isolation:isolate}
 .home-journey-preview>img{object-fit:contain!important;object-position:center!important;transform:none!important;filter:none!important}
 .portfolio-tactile .home-journey-preview{border:12px solid color-mix(in srgb,var(--p-bg) 88%,white);border-radius:42% 58% 46% 54% / 16% 22% 19% 24%;background:radial-gradient(ellipse at 48% 42%,#cfd5bb 0,transparent 63%),var(--p-bg);box-shadow:inset 18px 18px 34px rgba(103,99,88,.29),inset -18px -18px 34px rgba(255,255,255,.76),0 18px 32px rgba(104,101,91,.15)}
 .portfolio-tactile .home-journey-preview>img{top:15px!important;right:15px!important;bottom:15px!important;left:15px!important;width:auto!important;height:auto!important;border-radius:39% 61% 43% 57% / 15% 22% 18% 24%;box-shadow:inset 13px 13px 25px rgba(103,99,88,.27),inset -10px -10px 20px rgba(255,255,255,.42);filter:saturate(.76) contrast(.97)!important}
@@ -93,8 +93,14 @@
 .portfolio-brutalist .home-journey-preview>img{filter:saturate(1.22) contrast(1.08)!important}
 .portfolio-playground .home-journey-preview{border:3px solid var(--p-ink);border-radius:0;clip-path:polygon(0 14%,12% 0,88% 5%,100% 21%,94% 86%,78% 100%,13% 94%,0 78%);background:var(--p-blue,#3d4bff);box-shadow:10px 10px 0 var(--p-coral,#ff7058)}
 .portfolio-playground .home-journey-preview>img{filter:saturate(1.18) contrast(1.02)!important}
-@media(max-width:840px){.home-journey-preview{width:min(100%,460px);max-height:none;justify-self:center}}
-@media(max-width:560px){.home-journey-preview{width:100%;max-width:440px;aspect-ratio:4/5}.portfolio-tactile .home-journey-preview{border-width:9px;box-shadow:inset 12px 12px 23px rgba(103,99,88,.26),inset -12px -12px 23px rgba(255,255,255,.72)}}
+@media(max-width:840px){.home-journey-preview{width:min(100%,620px);max-height:none;justify-self:center}}
+@media(max-width:560px){.home-journey-preview{width:100%;max-width:520px;aspect-ratio:16/10}.portfolio-tactile .home-journey-preview{border-width:9px;box-shadow:inset 12px 12px 23px rgba(103,99,88,.26),inset -12px -12px 23px rgba(255,255,255,.72)}}
+
+/* This supplied hero artwork already has transparency. Let it sit directly in
+   each system instead of treating it as a component card. */
+.home-journey-preview,.portfolio-tactile .home-journey-preview,.portfolio-nocturne .home-journey-preview,.portfolio-editorial .home-journey-preview,.portfolio-brutalist .home-journey-preview,.portfolio-playground .home-journey-preview{border:0!important;border-radius:0!important;clip-path:none!important;background:transparent!important;box-shadow:none!important}
+.home-journey-preview:after{display:none!important}
+.home-journey-preview>img,.portfolio-tactile .home-journey-preview>img{top:0!important;right:0!important;bottom:0!important;left:0!important;width:100%!important;height:100%!important;border-radius:0!important;box-shadow:none!important}
 @media(max-width:640px){.footer-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 12px}.footer-brand{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;align-items:start}.footer-brand .portfolio-brand{margin:0}.footer-brand p{padding-top:1px;font-size:13px;line-height:1.45}.footer-grid nav{gap:9px}.footer-grid nav>span{margin-bottom:4px;font-size:8px;letter-spacing:.1em}.footer-grid nav a{font-size:11px}.footer-note{flex-direction:row;align-items:center;gap:7px;margin-top:30px;font-size:8px;letter-spacing:.07em}}
 
 /* The final CTA is a standalone rounded surface, without a section rule cutting across its corners. */
