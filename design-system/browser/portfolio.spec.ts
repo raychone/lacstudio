@@ -148,6 +148,24 @@ test.describe("public portfolio", () => {
     await expect(page.locator(".hero-preview > span")).toHaveCSS("color", "rgb(17, 17, 15)");
   });
 
+  test("keeps the process page interactive and complete across all visual systems", async ({ page }) => {
+    for (const design of designs) {
+      await page.goto(`/process?design=${design}`, { waitUntil: "networkidle" });
+      await expect(page.getByRole("tablist", { name: "Explore the product development process" })).toBeVisible();
+      await expect(page.getByRole("tab")).toHaveCount(6);
+      await expect(page.getByRole("tabpanel")).toContainText("Find the useful problem.");
+      await page.getByRole("tab", { name: /04 Build/ }).click();
+      await expect(page.getByRole("tab", { name: /04 Build/ })).toHaveAttribute("aria-selected", "true");
+      await expect(page.getByRole("tabpanel")).toContainText("Build the connected system.");
+      await expect(page.getByRole("link", { name: "Start a project ↗" }).first()).toHaveAttribute("href", "/contact");
+    }
+    await page.setViewportSize({ width: 320, height: 900 });
+    for (const design of designs) {
+      await page.goto(`/process?design=${design}`, { waitUntil: "networkidle" });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${design} process page must not overflow at 320px`).toBe(true);
+    }
+  });
+
   test("keeps case studies connected and allows visitors to disable ambient effects", async ({ page }) => {
     await page.goto("/work/medichelp?design=brutalist", { waitUntil: "networkidle" });
     const workflowNavigation = page.getByRole("navigation", { name: "Case study navigation after workflow" });
