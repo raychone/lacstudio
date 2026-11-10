@@ -1,109 +1,18 @@
-import vinext from "vinext";
 import tailwindcss from "@tailwindcss/postcss";
+import { nitro } from "nitro/vite";
+import vinext from "vinext";
 import { defineConfig } from "vite";
-import hostingConfig from "./.openai/hosting.json";
-import { readExecutionProfile } from "./scripts/execution-profile.mjs";
-import { configureToolEnvironment } from "./scripts/tool-environment.mjs";
-import { sites } from "./scripts/vite/sites-vite-plugin";
-import { connectorPreview } from "./scripts/vite/connector-preview-plugin.mjs";
 
-const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
-  "00000000-0000-4000-8000-000000000000";
-
-const { d1, r2 } = hostingConfig;
-
-// macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
-const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
-const managedLinux = readExecutionProfile() === "managed-linux";
-
-const localBindingConfig = {
-  main: "./worker/index.ts",
-  compatibility_flags: ["nodejs_compat"],
-  d1_databases: d1
-    ? [
-        {
-          binding: d1,
-          database_name: "site-creator-d1",
-          database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
-        },
-      ]
-    : [],
-  r2_buckets: r2
-    ? [
-        {
-          binding: r2,
-          bucket_name: "site-creator-r2",
-        },
-      ]
-    : [],
-};
-
-export default defineConfig(async ({ command }) => {
-  configureToolEnvironment(process.cwd());
-  const isVercelBuild = process.env.VERCEL === "1" || process.env.NITRO_PRESET === "vercel";
-
-  // Wrangler snapshots its log path while the Cloudflare plugin is imported.
-  const { cloudflare } = isVercelBuild ? { cloudflare: null } : await import("@cloudflare/vite-plugin");
-  const { nitro } = isVercelBuild ? await import("nitro/vite") : { nitro: null };
-
-  return {
-    // Nitro's Vercel build creates a nested Vite pipeline, which does not pick
-    // up the root PostCSS config consistently. Keep Tailwind in the Vercel
-    // config itself so the Design Lab utility components are compiled too.
-    ...(isVercelBuild
-      ? {
-          css: {
-            postcss: {
-              plugins: [tailwindcss()],
-            },
-          },
-        }
-      : {}),
-    server: {
-      ...(managedLinux
-        ? { host: "0.0.0.0", allowedHosts: ["terminal.local"] }
-        : {}),
-      ...(isCodexSeatbeltSandbox
-        ? { watch: { useFsEvents: false, usePolling: true } }
-        : {}),
+// Vinext supplies the App Router runtime; Nitro emits Vercel's Build Output API
+// artifact during production builds. Local development remains a plain Vite app.
+export default defineConfig(({ command }) => ({
+  css: {
+    postcss: {
+      plugins: [tailwindcss()],
     },
-    plugins: [
-      vinext(),
-      ...(isVercelBuild && nitro ? [nitro({ preset: "vercel" })] : [
-        sites({ mockAuth: !managedLinux }),
-        connectorPreview(),
-        cloudflare!({
-          viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
-          inspectorPort: false,
-          config: {
-            ...localBindingConfig,
-            ...(command === "serve"
-              ? {
-                  services: [
-                    {
-                      binding: "CONNECTORS",
-                      service: "sites-connector-preview",
-                      entrypoint: "ConnectorPreview",
-                    },
-                  ],
-                }
-              : {}),
-          },
-          ...(command === "serve"
-            ? {
-                auxiliaryWorkers: [
-                  {
-                    config: {
-                      name: "sites-connector-preview",
-                      main: "./scripts/connector-preview/worker.mjs",
-                      compatibility_date: "2026-05-15",
-                    },
-                  },
-                ],
-              }
-            : {}),
-        }),
-      ]),
-    ],
-  };
-});
+  },
+  plugins: [
+    vinext(),
+    ...(command === "build" ? [nitro({ preset: "vercel" })] : []),
+  ],
+}));
