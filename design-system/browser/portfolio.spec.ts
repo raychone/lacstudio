@@ -239,6 +239,19 @@ test.describe("public portfolio", () => {
     }
   });
 
+  test("keeps carousel action surfaces aligned with their system corners and spacing", async ({ page }) => {
+    await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
+    const tactileWorkflow = page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Workflow/ });
+    await expect(tactileWorkflow).toHaveCSS("border-top-left-radius", "11px");
+    await tactileWorkflow.hover();
+    await expect(tactileWorkflow).toHaveCSS("outline-style", "none");
+    await page.goto("/work?design=editorial", { waitUntil: "networkidle" });
+    const editorialWorkflow = page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Workflow/ });
+    const editorialEvidence = page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Evidence/ });
+    await expect(editorialWorkflow).toHaveCSS("padding-left", "10px");
+    await expect(editorialEvidence).toHaveCSS("padding-right", "10px");
+  });
+
   test("shows accurate demo availability and system-styled actions in project cards", async ({ page }) => {
     await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
     const medicHelp = page.locator(".project-card").filter({ hasText: "MedicHelp" });
