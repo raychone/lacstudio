@@ -35,12 +35,14 @@ test.describe("public portfolio", () => {
       await expect(page.locator(".home-focus-grid article")).toHaveCount(3);
       await expect(page.locator(".home-selected-grid .project-card")).toHaveCount(3);
     }
-    await page.setViewportSize({ width: 375, height: 900 });
-    await page.goto("/?design=playground", { waitUntil: "networkidle" });
-    const [preview, viewport] = await Promise.all([page.locator(".home-journey-preview").boundingBox(), page.evaluate(() => window.innerWidth)]);
-    expect(preview).not.toBeNull();
-    expect(preview!.x + preview!.width).toBeLessThanOrEqual(viewport + .5);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await page.setViewportSize({ width: 320, height: 900 });
+    for (const design of designs) {
+      await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
+      const [preview, viewport] = await Promise.all([page.locator(".home-journey-preview").boundingBox(), page.evaluate(() => window.innerWidth)]);
+      expect(preview).not.toBeNull();
+      expect(preview!.x + preview!.width, `${design} hero artwork must stay within the 320px viewport`).toBeLessThanOrEqual(viewport + .5);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), `${design} must not overflow at 320px`).toBe(true);
+    }
   });
 
   test("uses identical navbar geometry across every visual system", async ({ page }) => {
