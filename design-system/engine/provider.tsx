@@ -6,6 +6,7 @@ import { designRegistry, isDesignId, type DesignDefinition, type DesignId } from
 import { comparisonFromParams, comparisonParams, defaultComparisonPair, selectComparisonSide, swapComparisonPair, type ComparisonState } from "./comparison";
 
 const storageKey = "lac-design-system.active-design";
+const effectsStorageKey = "lac-design-system.effects-enabled";
 
 type DesignContextValue = {
   activeDesign: DesignDefinition;
@@ -16,6 +17,8 @@ type DesignContextValue = {
   setActiveComponent: (id: string) => void;
   reducedMotion: boolean;
   setReducedMotion: (value: boolean) => void;
+  effectsEnabled: boolean;
+  setEffectsEnabled: (value: boolean) => void;
   fixture: "short" | "long";
   setFixture: (value: "short" | "long") => void;
   fixtureViewport: "wide" | "mobile";
@@ -35,6 +38,7 @@ export function DesignProvider({ children, scope = "lab" }: { children: ReactNod
   const [activeCategory, setActiveCategoryState] = useState<LibraryCategoryId>("foundations");
   const [activeComponent, setActiveComponentState] = useState("foundation.palette");
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [effectsEnabled, setEffectsEnabled] = useState(true);
   const [fixture, setFixture] = useState<"short" | "long">("short");
   const [fixtureViewport, setFixtureViewport] = useState<"wide" | "mobile">("wide");
   const [comparison, setComparison] = useState<ComparisonState>({ enabled: false, ...defaultComparisonPair, notice: null });
@@ -54,9 +58,11 @@ export function DesignProvider({ children, scope = "lab" }: { children: ReactNod
   useEffect(() => {
     const restore = window.setTimeout(() => {
       const saved = window.localStorage.getItem(storageKey);
+      const savedEffects = window.localStorage.getItem(effectsStorageKey);
       const params = new URLSearchParams(window.location.search);
       const hasWorkspaceUrl = Boolean(params.get("design") || params.get("category") || params.get("compare"));
       if (scope === "lab" && hasWorkspaceUrl) applyLocation(); else if (isDesignId(params.get("design"))) setActiveId(params.get("design") as DesignId); else if (isDesignId(saved)) setActiveId(saved);
+      if (savedEffects !== null) setEffectsEnabled(savedEffects !== "false");
       setRestored(true);
     }, 0);
     return () => window.clearTimeout(restore);
@@ -99,9 +105,13 @@ export function DesignProvider({ children, scope = "lab" }: { children: ReactNod
     if (restored) window.localStorage.setItem(storageKey, activeId);
   }, [activeId, restored]);
 
+  useEffect(() => {
+    if (restored) window.localStorage.setItem(effectsStorageKey, String(effectsEnabled));
+  }, [effectsEnabled, restored]);
+
   const value = useMemo(
-    () => ({ activeDesign: designRegistry[activeId], setActiveDesign, activeCategory, setActiveCategory, activeComponent, setActiveComponent, reducedMotion, setReducedMotion, fixture, setFixture, fixtureViewport, setFixtureViewport, comparison, startComparison, stopComparison, setComparisonSystem, swapComparisonSystems, restored }),
-    [activeId, activeCategory, activeComponent, reducedMotion, fixture, fixtureViewport, comparison, restored, setActiveDesign, setActiveCategory, setActiveComponent, startComparison, stopComparison, setComparisonSystem, swapComparisonSystems],
+    () => ({ activeDesign: designRegistry[activeId], setActiveDesign, activeCategory, setActiveCategory, activeComponent, setActiveComponent, reducedMotion, setReducedMotion, effectsEnabled, setEffectsEnabled, fixture, setFixture, fixtureViewport, setFixtureViewport, comparison, startComparison, stopComparison, setComparisonSystem, swapComparisonSystems, restored }),
+    [activeId, activeCategory, activeComponent, reducedMotion, effectsEnabled, fixture, fixtureViewport, comparison, restored, setActiveDesign, setActiveCategory, setActiveComponent, startComparison, stopComparison, setComparisonSystem, swapComparisonSystems],
   );
 
   return <DesignContext.Provider value={value}>{children}</DesignContext.Provider>;

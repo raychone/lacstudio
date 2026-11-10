@@ -49,10 +49,10 @@ function BrandLogo() {
   return <span className="brand-logo" aria-hidden="true"><Image className="brand-logo-black" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-white" src="/branding/lac-studio-black.png" alt="" width={1774} height={887} priority /><Image className="brand-logo-playground" src="/branding/lac-studio-playground.png" alt="" width={1774} height={887} priority /></span>;
 }
 
-function PortfolioAmbientEffect({ design, reducedMotion }: { design: DesignId; reducedMotion: boolean }) {
+function PortfolioAmbientEffect({ design, reducedMotion, enabled }: { design: DesignId; reducedMotion: boolean; enabled: boolean }) {
   const effect = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (reducedMotion || !window.matchMedia("(pointer: fine)").matches) return;
+    if (!enabled || reducedMotion || !window.matchMedia("(pointer: fine)").matches) return;
     const update = (event: PointerEvent) => {
       const target = effect.current;
       if (!target) return;
@@ -66,13 +66,15 @@ function PortfolioAmbientEffect({ design, reducedMotion }: { design: DesignId; r
     window.addEventListener("pointerdown", press, { passive: true });
     window.addEventListener("pointerup", release, { passive: true });
     return () => { window.removeEventListener("pointermove", update); window.removeEventListener("pointerdown", press); window.removeEventListener("pointerup", release); };
-  }, [reducedMotion]);
+  }, [enabled, reducedMotion]);
+  if (!enabled) return null;
   return <div ref={effect} className={`portfolio-ambient-effect ${design}`} data-active="false" data-pressed="false" aria-hidden="true" />;
 }
 
 function Header({ page }: { page: Page }) {
   const [open, setOpen] = useState(false);
-  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label="Main navigation">{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{label}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>Start a project ↗</Link></nav><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
+  const { effectsEnabled, setEffectsEnabled } = useDesign();
+  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label="Main navigation">{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{label}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>Start a project ↗</Link></nav><button className="portfolio-effect-toggle" type="button" aria-pressed={effectsEnabled} aria-label={`${effectsEnabled ? "Disable" : "Enable"} interface effects`} onClick={() => setEffectsEnabled(!effectsEnabled)}><span aria-hidden="true">✦</span><b>{effectsEnabled ? "FX on" : "FX off"}</b></button><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
 }
 
 function Footer() {
@@ -250,6 +252,11 @@ function NotFoundPage() { return <main className="portfolio-page portfolio-conta
 
 function CaseStudy({ project }: { project: PublicProject }) {
   const image = project.heroImage ?? project.thumbnail;
+  const { activeDesign } = useDesign();
+  const projectIndex = publishedProjects.findIndex((item) => item.id === project.id);
+  const previous = publishedProjects[(projectIndex - 1 + publishedProjects.length) % publishedProjects.length];
+  const next = publishedProjects[(projectIndex + 1) % publishedProjects.length];
+  const designQuery = `?design=${activeDesign.id}`;
   return <main className="portfolio-page portfolio-container">
     <Section eyebrow={`${project.category.toUpperCase()} / CASE STUDY`} title={project.title}>
       <p className="page-intro">{project.summary}</p>
@@ -260,13 +267,14 @@ function CaseStudy({ project }: { project: PublicProject }) {
     </Section>
     <Section id="workflow" eyebrow="01 / PRODUCT OVERVIEW" title="Built around the real workflow."><div className="case-overview"><div><p className="lead">{project.longDescription ?? project.summary}</p>{project.problem && <div className="case-problem"><span>Problem solved</span><p>{project.problem}</p></div>}</div><ul>{(project.features ?? []).map((feature) => <li key={feature}>{feature}</li>)}</ul></div></Section>
     <Section id="evidence" eyebrow="02 / TECHNICAL EVIDENCE" title="Structure behind the surface."><div className="case-evidence"><article><span>STACK</span><ul>{project.technologies.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>IMPLEMENTATION</span><ul>{(project.technicalHighlights ?? []).map((item) => <li key={item}>{item}</li>)}</ul></article>{project.architecture && <article className="case-architecture"><span>ARCHITECTURE</span><p>{project.architecture}</p></article>}</div></Section>
+    <nav className="case-study-navigation" aria-label="Case study navigation"><Link href={`/work${designQuery}`}>← Back to Work</Link><div><Link href={`/work/${previous.slug}${designQuery}`}>← <span>Previous</span> {previous.title}</Link><Link href={`/work/${next.slug}${designQuery}`}><span>Next</span> {next.title} →</Link></div></nav>
     <Section className="contact-cta"><h2>Have a related<br />challenge?</h2><a className="button primary" href="/contact">Let&apos;s Talk →</a></Section>
   </main>;
 }
 
 function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
-  const { activeDesign, reducedMotion } = useDesign();
-  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id}><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} /></div>;
+  const { activeDesign, reducedMotion, effectsEnabled } = useDesign();
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
 }
 
 function LegacyLabRedirect({ children }: { children: ReactNode }) {

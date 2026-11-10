@@ -184,3 +184,27 @@
 /* Cards use a taller editorial crop; case studies retain the complete 16:9 product composition. */
 .project-art{min-height:0;aspect-ratio:4/3}.project-art>img{object-position:center center}.case-hero-media{position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--p-line);background:var(--p-surface-alt)}.case-hero-media>img{object-fit:contain;object-position:center}.case-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.case-demo-notice{max-width:680px;margin:14px 0 0;color:var(--p-muted);font-size:13px;line-height:1.5}.case-overview{display:grid;grid-template-columns:1fr 1fr;gap:var(--portfolio-gap)}.case-overview .lead{margin:0}.case-overview ul,.case-evidence ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}.case-overview li,.case-evidence li{padding:12px 0;border-top:1px solid var(--p-line);font-size:15px;line-height:1.45}.case-evidence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--portfolio-gap)}.case-evidence article{padding:var(--portfolio-card-pad);border:1px solid var(--p-line);background:var(--p-surface)}.case-evidence article>span{display:block;margin-bottom:18px;color:var(--p-accent);font-size:9px;font-weight:800;letter-spacing:.1em}.case-evidence .case-architecture{grid-column:1/-1}.case-evidence .case-architecture p{max-width:760px;margin:0;color:var(--p-muted);font-size:16px;line-height:1.6}.portfolio-tactile .case-hero-media,.portfolio-tactile .case-evidence article{border-color:rgba(255,255,255,.58);border-radius:var(--p-radius);box-shadow:8px 10px 20px rgba(104,101,91,.15),-7px -7px 16px rgba(255,255,255,.65)}.portfolio-nocturne .case-hero-media,.portfolio-nocturne .case-evidence article{border-color:rgba(204,212,255,.2);background:linear-gradient(145deg,rgba(39,50,102,.58),rgba(8,12,27,.85))}.portfolio-playground .case-hero-media,.portfolio-playground .case-evidence article{border:2px solid var(--p-line);border-radius:var(--p-radius);box-shadow:6px 6px 0 var(--p-accent)}.portfolio-brutalist .case-hero-media,.portfolio-brutalist .case-evidence article{border:2px solid var(--p-ink);box-shadow:5px 5px 0 var(--p-ink)}
 @media(max-width:840px){.case-overview,.case-evidence{grid-template-columns:1fr}.case-evidence .case-architecture{grid-column:auto}.project-art{aspect-ratio:16/10}}
+/* Persistent, user-controlled ambient effects in the shared portfolio header. */
+.portfolio-effect-toggle{min-height:31px;display:inline-flex;align-items:center;gap:5px;padding:0 8px;border:1px solid var(--p-line);background:transparent;color:var(--p-muted);font:800 8px var(--p-font);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.portfolio-effect-toggle>span{font-size:12px;line-height:1}.portfolio-effect-toggle b{font:inherit}.portfolio-effect-toggle[aria-pressed=true]{border-color:var(--p-accent);color:var(--p-accent)}
+.portfolio-effect-toggle:hover{background:var(--p-accent);border-color:var(--p-accent);color:var(--p-inverse)}
+.portfolio-tactile .portfolio-effect-toggle{border-color:rgba(255,255,255,.5);border-radius:11px;background:var(--p-surface);box-shadow:3px 4px 7px rgba(104,101,91,.12),-3px -3px 7px rgba(255,255,255,.58)}
+.portfolio-tactile .portfolio-effect-toggle[aria-pressed=true]{box-shadow:inset 2px 2px 5px rgba(126,122,112,.2),inset -2px -2px 5px rgba(255,255,255,.62)}
+.portfolio-tactile .portfolio-effect-toggle:hover{background:var(--p-surface);color:var(--p-accent)}
+.portfolio-brutalist .portfolio-effect-toggle{border-width:2px;box-shadow:3px 3px 0 var(--p-ink)}.portfolio-brutalist .portfolio-effect-toggle:hover{background:var(--p-ink);color:var(--p-inverse);transform:translate(2px,2px);box-shadow:none}
+.portfolio-playground .portfolio-effect-toggle{border-width:2px;border-radius:10px;box-shadow:2px 2px 0 var(--p-accent)}
+
+/* Case studies remain part of a browsable sequence, not a dead-end detail page. */
+.case-study-navigation{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0;border-bottom:1px solid var(--p-line)}
+.case-study-navigation>a,.case-study-navigation div a{color:var(--p-ink);font-size:11px;font-weight:800;letter-spacing:.06em;text-decoration:none}.case-study-navigation>a{color:var(--p-accent)}
+.case-study-navigation div{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:20px}.case-study-navigation span{color:var(--p-accent);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.case-study-navigation a:hover{color:var(--p-accent)}
+.portfolio-tactile .case-study-navigation{border-color:rgba(255,255,255,.55)}
+.portfolio-brutalist .case-study-navigation{border-bottom:2px solid var(--p-ink)}
+
+/* Brutalist uses orange as a surface; footer labels must therefore use the ink. */
+.portfolio-brutalist .footer-grid nav>span,.portfolio-brutalist .footer-grid nav>a,.portfolio-brutalist .footer-note{color:var(--p-ink)}
+.portfolio-brutalist .footer-grid nav>a:hover{color:var(--p-inverse);background:var(--p-ink)}
+
+@media(max-width:840px){.portfolio-effect-toggle{margin-left:auto}.portfolio-switcher{margin-left:0}.case-study-navigation{align-items:flex-start;flex-direction:column}.case-study-navigation div{justify-content:flex-start}}
+@media(max-width:560px){.portfolio-effect-toggle{min-width:31px;padding:0 7px;justify-content:center}.portfolio-effect-toggle b{display:none}.case-study-navigation div{display:grid;gap:12px}.case-study-navigation div a{font-size:10px}}

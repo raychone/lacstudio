@@ -116,6 +116,23 @@ test.describe("public portfolio", () => {
     await expect(page.locator(".hero-preview > span")).toHaveCSS("color", "rgb(17, 17, 15)");
   });
 
+  test("keeps case studies connected and allows visitors to disable ambient effects", async ({ page }) => {
+    await page.goto("/work/medichelp?design=brutalist", { waitUntil: "networkidle" });
+    const caseNavigation = page.getByRole("navigation", { name: "Case study navigation" });
+    await expect(caseNavigation.getByRole("link", { name: "← Back to Work" })).toHaveAttribute("href", "/work?design=brutalist");
+    await expect(caseNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ })).toHaveAttribute("href", "/work/dental-laboratory-management?design=brutalist");
+    await expect(page.locator('.portfolio-footer nav[aria-label="Explore"] > span')).toHaveCSS("color", "rgb(17, 17, 15)");
+    const effectsToggle = page.getByRole("button", { name: "Disable interface effects" });
+    await effectsToggle.click();
+    await expect(page.getByRole("button", { name: "Enable interface effects" })).toHaveAttribute("aria-pressed", "false");
+    await expect(page.locator(".portfolio-ambient-effect")).toHaveCount(0);
+    await page.reload({ waitUntil: "networkidle" });
+    const persistedToggle = page.getByRole("button", { name: "Enable interface effects" });
+    await expect(persistedToggle).toHaveAttribute("aria-pressed", "false");
+    await persistedToggle.click();
+    await expect(page.getByRole("button", { name: "Disable interface effects" })).toHaveAttribute("aria-pressed", "true");
+  });
+
   test("keeps the mobile footer compact and organized in three link columns", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/?design=tactile", { waitUntil: "networkidle" });
