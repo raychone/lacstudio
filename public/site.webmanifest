@@ -1,0 +1,21 @@
+{
+  "name": "LAC STUDIO",
+  "short_name": "LAC",
+  "description": "Independent creative development studio for useful digital products.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e7e3db",
+  "theme_color": "#e7e3db",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

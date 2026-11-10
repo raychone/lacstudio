@@ -244,7 +244,35 @@ function WorkPage() {
 }
 
 function ServicesPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="SERVICES / FROM PRODUCT IDEA TO RELEASE" title="What we can build together"><p className="page-intro">Clear technical thinking and product-minded design for software that has to do real work.</p><div className="services-grid">{services.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div><div className="inline-cta"><h2>Not sure where to start?</h2><Link className="button primary" href="/contact">Start a conversation →</Link></div></Section></main>; }
-function AboutPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="ABOUT / LAC STUDIO" title="Independent by Design"><div className="two-column"><div><p className="lead">LAC STUDIO is an independent development studio for teams and ideas that need thoughtful software, not just a surface.</p><p>It combines product design, web and Android development, backend architecture and practical problem solving. A background in psychology informs the work: useful software starts with a clear understanding of people, decisions and context.</p></div><aside className="asset-slot"><span>PORTRAIT / OPTIONAL</span><p>An approved founder portrait and expanded biography can be added here.</p></aside></div></Section><Section eyebrow="WAYS OF WORKING" title="End-to-end, with a useful level of detail"><div className="expertise-grid">{expertise.map(([title, copy]) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div></Section></main>; }
+function AboutPage() {
+  return <main className="portfolio-page portfolio-container about-page">
+    <Section eyebrow="ABOUT / LAC STUDIO" title="Independent thinking, built into the product." className="about-intro-section">
+      <div className="about-profile">
+        <div className="about-profile-copy">
+          <p className="lead">LAC STUDIO is led by an independent product developer who connects how people think, what teams need to do and the technology that makes it possible.</p>
+          <p>My first profession was psychology. That background still shapes every project: I look for the real context behind a request, the people who will use the product and the decisions an interface has to make easier.</p>
+          <p>After a professional transition into software seven years ago — and more than three decades working with computers — I now design and build complete web, mobile and operational products. The work stays close to both the technical system and the human reality around it.</p>
+        </div>
+        <figure className="about-portrait">
+          <Image src="/branding/lac-studio-founder.png" alt="Founder of LAC Studio" width={264} height={290} sizes="(max-width: 700px) 180px, 264px" priority />
+          <figcaption><span>PSYCHOLOGY → SOFTWARE</span><b>30+ years around computers.<br />7 years building professionally.</b></figcaption>
+        </figure>
+      </div>
+    </Section>
+    <Section eyebrow="WHAT GUIDES THE WORK" title="Software is useful when it respects the people using it." className="about-principles-section">
+      <div className="about-principles">
+        <article><span>01</span><h3>Understand before adding</h3><p>Start with the actual task, the people doing it and the friction worth removing — not a list of features in isolation.</p></article>
+        <article><span>02</span><h3>Design the connected whole</h3><p>Interface, workflow, data, roles and integrations are treated as one product, because users experience them that way.</p></article>
+        <article><span>03</span><h3>Make room for craft</h3><p>I enjoy turning an unclear idea into something tangible: a considered interface, a useful system or a visual detail that gives the work character.</p></article>
+      </div>
+    </Section>
+    <Section eyebrow="CAPABILITIES / END TO END" title="One person, close to the useful decisions." className="about-capabilities-section">
+      <p className="page-intro">You work directly with the person shaping the product direction and building the system. It keeps feedback clear, decisions connected and ownership close to the work.</p>
+      <div className="expertise-grid">{expertise.map(([title, copy]) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div>
+    </Section>
+    <Section className="contact-cta about-contact-cta"><span>START A CONVERSATION</span><h2>Bring the problem.<br />We&apos;ll shape the useful product.</h2><p>A first conversation can begin with the work that needs to change — no finished brief required.</p><Link className="button primary" href="/contact">Start a project <b>↗</b></Link></Section>
+  </main>;
+}
 const processStages = [
   { number: "01", tab: "Align", title: "Find the useful problem.", summary: "Start with the work that needs to change: the people involved, the decisions they make, the constraints and the smallest useful outcome.", outputs: ["Problem and context map", "Roles, journeys and constraints", "A practical first decision"], involvement: "You bring the context; we turn it into a direction that is clear enough to act on." },
   { number: "02", tab: "Frame", title: "Make the scope useful.", summary: "Turn the direction into a focused product plan — what matters first, what can wait and what a working first release needs to prove.", outputs: ["Priorities and release scope", "Core flows and success criteria", "A shared delivery plan"], involvement: "The scope stays visible, so every decision can be weighed against the real need." },
