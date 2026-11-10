@@ -172,4 +172,5 @@
 
 /* Approved product media: every card shares the same crop while each system keeps its own material frame. */
 .project-art>img{object-fit:cover;object-position:center}.portfolio-tactile .project-art>img{filter:saturate(.82) contrast(.97)}.portfolio-nocturne .project-art>img{filter:saturate(.88) brightness(.9)}.portfolio-editorial .project-art>img{filter:saturate(.76) contrast(.94)}.portfolio-brutalist .project-art>img{filter:saturate(1.12) contrast(1.06)}.portfolio-playground .project-art>img{filter:saturate(1.06)}
+.project-card-links{display:flex;flex-wrap:wrap;gap:12px}.project-demo-notice{display:block;margin-top:12px;color:var(--p-muted);font-size:10px;line-height:1.45}
 .portfolio-tactile .work-carousel-pagination{grid-template-columns:repeat(var(--work-slide-count,3),1fr)}.portfolio-tactile .work-carousel-pagination .work-carousel-pagination-indicator{width:calc((100% - 8px)/var(--work-slide-count,3))}.portfolio-nocturne .work-carousel-pagination,.portfolio-editorial .work-carousel-pagination,.portfolio-brutalist .work-carousel-pagination,.portfolio-playground .work-carousel-pagination{grid-template-columns:repeat(var(--work-slide-count,3),1fr)}

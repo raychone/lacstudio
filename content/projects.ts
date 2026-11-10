@@ -28,6 +28,7 @@ export type PublicProject = {
   mockups?: string[];
   video?: string;
   liveUrl?: string;
+  demoNotice?: string;
   repositoryUrl?: string;
   relatedProjects?: string[];
 };
@@ -56,7 +57,8 @@ export const publishedProjects: readonly PublicProject[] = [
     category: "Business platform", platforms: ["Web", "Backend"], technologies: ["TypeScript", "Web application", "Business workflows"],
     publicationState: "published", featured: true, featuredOrder: 2, year: "2026",
     thumbnail: "/projects/dental-lab-work.png", heroImage: "/projects/dental-lab-work.png", screenshots: ["/projects/dental-lab-work.png"],
-    liveUrl: "https://dental-lab-web.onrender.com/",
+    liveUrl: "https://dental-lab-web.onrender.com/login",
+    demoNotice: "Demo hosting uses a free database tier. The first opening may take up to around 30 seconds while it wakes up.",
   },
   {
     id: "restaurant-saas", slug: "restaurant-saas", title: "Restaurant SaaS", subtitle: "Ordering and operations",

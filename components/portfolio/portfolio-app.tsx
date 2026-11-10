@@ -84,7 +84,7 @@ function Section({ eyebrow, title, children, className = "" }: { eyebrow?: strin
 }
 
 function ProjectPreview({ project }: { project: PublicProject }) {
-  return <article className="project-card"><div className="project-art" aria-label={`${project.title} product preview`}>{project.thumbnail ? <Image src={project.thumbnail} alt="" fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p><ul>{project.technologies.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul><Link href={`/work/${project.slug}`}>Read case study ↗</Link></div></article>;
+  return <article className="project-card"><div className="project-art" aria-label={`${project.title} product preview`}>{project.thumbnail ? <Image src={project.thumbnail} alt="" fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p><ul>{project.technologies.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul><div className="project-card-links">{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Open live demo ↗</a>}<Link href={`/work/${project.slug}`}>Read case study ↗</Link></div>{project.demoNotice && <small className="project-demo-notice">{project.demoNotice}</small>}</div></article>;
 }
 
 function UnpublishedWork() {
