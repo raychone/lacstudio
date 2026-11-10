@@ -208,3 +208,12 @@
 
 @media(max-width:840px){.portfolio-effect-toggle{margin-left:auto}.portfolio-switcher{margin-left:0}.case-study-navigation{align-items:flex-start;flex-direction:column}.case-study-navigation div{justify-content:flex-start}}
 @media(max-width:560px){.portfolio-effect-toggle{min-width:31px;padding:0 7px;justify-content:center}.portfolio-effect-toggle b{display:none}.case-study-navigation div{display:grid;gap:12px}.case-study-navigation div a{font-size:10px}}
+/* Carousel actions sit above rich artwork: give every label its own readable surface. */
+.work-carousel-overlay .work-carousel-actions a{background:var(--p-surface)!important;color:var(--p-ink)!important;opacity:.98;box-shadow:0 3px 12px rgba(0,0,0,.13);text-shadow:none}
+.work-carousel-overlay .work-carousel-actions a.primary{border-color:var(--p-ink)!important;background:var(--p-ink)!important;color:var(--p-inverse)!important}
+.work-carousel-overlay .work-carousel-actions a:hover{background:var(--p-accent)!important;border-color:var(--p-accent)!important;color:var(--p-inverse)!important}
+.portfolio-tactile .work-carousel-overlay .work-carousel-actions a{box-shadow:4px 4px 8px rgba(104,101,91,.22),-3px -3px 7px rgba(255,255,255,.62)}
+.portfolio-tactile .work-carousel-overlay .work-carousel-actions a.primary{background:var(--p-ink)!important;color:var(--p-inverse)!important}
+.portfolio-nocturne .work-carousel-overlay .work-carousel-actions a.primary{border-color:var(--p-accent)!important;background:var(--p-accent)!important;color:#0d1328!important}
+.portfolio-editorial .work-carousel-overlay .work-carousel-actions a.primary,.portfolio-brutalist .work-carousel-overlay .work-carousel-actions a.primary{background:var(--p-ink)!important;color:var(--p-inverse)!important}
+.portfolio-playground .work-carousel-overlay .work-carousel-actions a.primary{background:var(--p-accent)!important;color:#fff!important}

@@ -198,6 +198,28 @@ test.describe("public portfolio", () => {
     await expect(question).toHaveAttribute("aria-expanded", "false");
   });
 
+  test("keeps featured carousel actions clickable and legible above project media", async ({ page }) => {
+    await page.goto("/work?design=playground", { waitUntil: "networkidle" });
+    const carousel = page.getByRole("region", { name: "Featured work" });
+    const workflow = carousel.getByRole("link", { name: /Workflow/ });
+    const evidence = carousel.getByRole("link", { name: /Evidence/ });
+    const discuss = carousel.getByRole("link", { name: /Discuss your project/ });
+    await expect(workflow).toHaveAttribute("href", "/work/medichelp?design=playground#workflow");
+    await expect(evidence).toHaveAttribute("href", "/work/medichelp?design=playground#evidence");
+    await expect(discuss).toHaveAttribute("href", "/contact?design=playground");
+    await expect(workflow).toHaveCSS("color", "rgb(36, 32, 82)");
+    await workflow.click();
+    await expect(page).toHaveURL(/\/work\/medichelp\?design=playground#workflow/);
+    await expect(page.locator("#workflow")).toBeVisible();
+    await page.goto("/work?design=playground", { waitUntil: "networkidle" });
+    await page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Evidence/ }).click();
+    await expect(page).toHaveURL(/\/work\/medichelp\?design=playground#evidence/);
+    await expect(page.locator("#evidence")).toBeVisible();
+    await page.goto("/work?design=playground", { waitUntil: "networkidle" });
+    await page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Discuss your project/ }).click();
+    await expect(page).toHaveURL("/contact?design=playground");
+  });
+
   test("keeps Work filter and carousel controls geometrically stable in every design", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     for (const design of designs) {

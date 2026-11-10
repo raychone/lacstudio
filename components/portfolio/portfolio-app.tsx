@@ -150,6 +150,7 @@ const workPlaceholders: readonly WorkShowcaseSlide[] = [
 ];
 
 function FeaturedWorkCarousel() {
+  const { activeDesign } = useDesign();
   const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => ({ id: project.id, eyebrow: `${project.category.toUpperCase()} / FEATURED WORK`, title: project.title, summary: project.summary, meta: project.platforms.join(" · ").toUpperCase(), href: `/work/${project.slug}`, image: project.heroImage ?? project.thumbnail }));
   const slides = publishedSlides.length ? publishedSlides : workPlaceholders;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -157,6 +158,8 @@ function FeaturedWorkCarousel() {
   const active = slides[activeIndex] ?? slides[0];
   const move = (direction: -1 | 1) => setActiveIndex((index) => (index + direction + slides.length) % slides.length);
   const goTo = (index: number) => setActiveIndex(index);
+  const actionHref = (fragment: "workflow" | "evidence") => active.href ? `${active.href}?design=${activeDesign.id}#${fragment}` : fragment === "workflow" ? "/process" : "/work#publication-policy";
+  const keepActionClickable = (event: React.PointerEvent<HTMLAnchorElement>) => event.stopPropagation();
   const pointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     pointerStart.current = event.clientX;
     event.currentTarget.setPointerCapture?.(event.pointerId);
@@ -176,7 +179,7 @@ function FeaturedWorkCarousel() {
       <article className="work-carousel-slide" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${slides.length}`}>
         <div className="work-carousel-media" aria-label={active.placeholder ? "Approved project media placeholder" : `${active.title} media`}>
           {active.image ? <Image src={active.image} alt="" fill sizes="100vw" /> : <><div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /></>}
-          <div className="work-carousel-copy work-carousel-overlay"><div className="work-carousel-actions"><Link href={active.href ? `${active.href}#workflow` : "/process"}>Workflow <b>→</b></Link><Link href={active.href ? `${active.href}#evidence` : "/work#publication-policy"}>Evidence <b>→</b></Link><Link className="primary" href="/contact">Discuss your project <b>↗</b></Link></div></div>
+          <div className="work-carousel-copy work-carousel-overlay"><div className="work-carousel-actions"><Link href={actionHref("workflow")} onPointerDown={keepActionClickable}>Workflow <b>→</b></Link><Link href={actionHref("evidence")} onPointerDown={keepActionClickable}>Evidence <b>→</b></Link><Link className="primary" href={`/contact?design=${activeDesign.id}`} onPointerDown={keepActionClickable}>Discuss your project <b>↗</b></Link></div></div>
         </div>
       </article>
     </div>
