@@ -252,3 +252,15 @@
 .portfolio-editorial .work-carousel-overlay .work-carousel-actions a{min-height:34px;padding-inline:10px!important;border:1px solid var(--p-ink)!important;background:var(--p-surface)!important}
 .portfolio-editorial .work-carousel-overlay .work-carousel-actions a.primary{padding-inline:16px!important;background:var(--p-ink)!important}
 .work-carousel-overlay .work-carousel-actions a.primary:hover{outline:0}
+
+/* The three featured actions are one control family: a stable shared footprint, distinct material response. */
+.work-carousel-overlay .work-carousel-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:min(100%,510px);gap:8px}
+.work-carousel-overlay .work-carousel-actions a{width:100%;min-width:0;height:42px;min-height:42px!important;justify-content:center;padding-inline:10px!important;box-sizing:border-box}
+.work-carousel-overlay .work-carousel-actions a.primary{padding-inline:10px!important}
+.portfolio-tactile .work-carousel-overlay .work-carousel-actions a{background:var(--p-surface)!important;color:var(--p-ink)!important;box-shadow:5px 5px 10px rgba(104,101,91,.2),-4px -4px 9px rgba(255,255,255,.62)}
+.portfolio-tactile .work-carousel-overlay .work-carousel-actions a:hover{background:var(--p-surface)!important;color:var(--p-accent)!important;box-shadow:inset 4px 4px 8px rgba(126,122,112,.22),inset -4px -4px 8px rgba(255,255,255,.64)!important}
+.portfolio-nocturne .work-carousel-overlay .work-carousel-actions a:hover{background:rgba(28,39,86,.92)!important;color:var(--p-ink)!important;box-shadow:inset 0 0 0 1px rgba(210,204,255,.56),0 0 16px rgba(184,174,255,.42)!important}
+.portfolio-editorial .work-carousel-overlay .work-carousel-actions a:hover{background:var(--p-ink)!important;color:var(--p-inverse)!important;box-shadow:inset 0 -3px 0 var(--p-accent)!important}
+.portfolio-brutalist .work-carousel-overlay .work-carousel-actions a:hover{background:var(--p-ink)!important;color:var(--p-inverse)!important;box-shadow:4px 4px 0 var(--p-accent)!important}
+.portfolio-playground .work-carousel-overlay .work-carousel-actions a:hover{background:var(--p-accent)!important;color:#fff!important;box-shadow:3px 3px 0 var(--p-ink)!important}
+@media(max-width:560px){.work-carousel-overlay .work-carousel-actions{grid-template-columns:1fr 1fr;width:100%}.work-carousel-overlay .work-carousel-actions a{height:34px;min-height:34px!important}.work-carousel-overlay .work-carousel-actions a.primary{grid-column:1/-1}}

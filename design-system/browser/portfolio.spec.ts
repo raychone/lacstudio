@@ -252,6 +252,26 @@ test.describe("public portfolio", () => {
     await expect(editorialEvidence).toHaveCSS("padding-right", "10px");
   });
 
+  test("gives featured actions one shared footprint and theme-specific hover response", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    for (const design of designs) {
+      await page.goto(`/work?design=${design}`, { waitUntil: "networkidle" });
+      const actions = page.getByRole("region", { name: "Featured work" }).locator(".work-carousel-actions a");
+      const boxes = await Promise.all([0, 1, 2].map((index) => actions.nth(index).boundingBox()));
+      expect(boxes.every(Boolean), design).toBe(true);
+      expect(new Set(boxes.map((box) => Math.round(box!.width))).size, `${design} widths`).toBe(1);
+      expect(new Set(boxes.map((box) => Math.round(box!.height))).size, `${design} heights`).toBe(1);
+      expect(Math.round(boxes[0]!.height), `${design} height`).toBe(42);
+    }
+    await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
+    const tactileAction = page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Workflow/ });
+    const raisedShadow = await tactileAction.evaluate((element) => getComputedStyle(element).boxShadow);
+    await tactileAction.hover();
+    const recessedShadow = await tactileAction.evaluate((element) => getComputedStyle(element).boxShadow);
+    expect(raisedShadow).not.toContain("inset");
+    expect(recessedShadow).toContain("inset");
+  });
+
   test("shows accurate demo availability and system-styled actions in project cards", async ({ page }) => {
     await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
     const medicHelp = page.locator(".project-card").filter({ hasText: "MedicHelp" });
