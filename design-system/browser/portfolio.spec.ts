@@ -34,6 +34,9 @@ test.describe("public portfolio", () => {
       await expect(page.locator(".home-journey-preview img")).toHaveAttribute("alt", /sketch, product-development milestones/);
       await expect(page.locator(".home-focus-grid article")).toHaveCount(3);
       await expect(page.locator(".home-selected-grid .project-card")).toHaveCount(3);
+      await expect(page.locator(".home-section-cta")).toHaveCount(3);
+      await expect(page.locator(".home-section-cta").first()).toHaveClass(/button/);
+      await expect(page.locator(".home-about-preview > p")).toHaveCSS("border-left-width", "0px");
     }
     await page.setViewportSize({ width: 320, height: 900 });
     for (const design of designs) {

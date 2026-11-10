@@ -352,3 +352,37 @@
 /* Final responsive calibration for the homepage hero. */
 @media(min-width:768px) and (max-width:1024px){.home-hero .hero-grid{grid-template-columns:minmax(250px,.7fr) minmax(0,1.3fr);grid-template-areas:"copy visual" "proof visual";column-gap:clamp(18px,3vw,32px);align-items:center}.home-hero .home-journey-preview{width:calc(100% + 3vw);max-width:680px;margin-right:0;justify-self:center}.home-hero .hero-actions{width:100%;flex-wrap:nowrap;gap:8px}.home-hero .hero-actions .button{min-width:0;flex:1;padding-inline:9px;gap:7px;font-size:10px;white-space:nowrap}.home-hero .hero-proof{width:100%;margin-top:24px}.home-hero .hero-proof li{min-height:66px;padding-inline:8px}}
 @media(max-width:640px){.home-hero{padding-block:32px 38px}.home-hero .hero-grid h1{margin-block:16px}.home-hero .hero-copy .hero-actions{margin-top:24px}.home-hero .home-journey-preview{margin-top:20px;margin-bottom:18px}.home-hero .hero-proof li{min-height:58px;padding-block:7px}.home-hero .hero-proof{margin-top:0}}
+
+/* Homepage conversion actions: one clear CTA family, with material feedback from every design system. */
+.home-section-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,3vw,34px)}
+.home-section-actions .home-section-cta{display:inline-flex;width:auto;min-height:46px;padding:0 18px;border:1px solid var(--p-ink);background:var(--p-ink);color:var(--p-inverse);font-size:11px;font-weight:800;letter-spacing:.045em;line-height:1;text-decoration:none;transition:background .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease,filter .22s ease}
+.home-section-actions .home-section-cta.secondary{background:var(--p-surface);color:var(--p-ink)}
+.home-section-actions .home-section-cta:hover{background:var(--p-accent);border-color:var(--p-accent);color:var(--p-ink);filter:brightness(1.03)}
+.home-about-preview>p{padding-left:0;border-left:0}
+
+/* Tactile: raised at rest, then pressed into the surface. */
+.portfolio-tactile .home-section-actions .home-section-cta{border-color:rgba(255,255,255,.68);border-radius:13px;background:var(--p-surface);color:var(--p-ink);box-shadow:7px 8px 14px rgba(104,101,91,.22),-5px -5px 11px rgba(255,255,255,.68)}
+.portfolio-tactile .home-section-actions .home-section-cta:hover{background:var(--p-surface);border-color:rgba(255,255,255,.7);color:var(--p-accent);box-shadow:inset 4px 4px 9px rgba(126,122,112,.23),inset -4px -4px 9px rgba(255,255,255,.64)}
+
+/* Nocturne: a quiet, luminous signal rather than movement. */
+.portfolio-nocturne .home-section-actions .home-section-cta{border-color:rgba(204,212,255,.44);background:rgba(20,28,61,.9);color:var(--p-ink);box-shadow:inset 0 1px rgba(255,255,255,.08)}
+.portfolio-nocturne .home-section-actions .home-section-cta.primary{background:var(--p-accent);border-color:var(--p-accent);color:#0d1328}
+.portfolio-nocturne .home-section-actions .home-section-cta:hover{background:rgba(35,48,103,.96);border-color:var(--p-accent);color:var(--p-ink);box-shadow:0 0 0 2px color-mix(in srgb,var(--p-accent) 35%,transparent),0 0 18px color-mix(in srgb,var(--p-accent) 40%,transparent)}
+
+/* Editorial: a printed callout with a deliberate ink edge. */
+.portfolio-editorial .home-section-actions .home-section-cta{border:1px solid var(--p-ink);border-bottom:3px solid var(--p-ink);padding:0 18px;background:var(--p-ink);color:var(--p-inverse);box-shadow:none}
+.portfolio-editorial .home-section-actions .home-section-cta.secondary{background:transparent;color:var(--p-ink)}
+.portfolio-editorial .home-section-actions .home-section-cta:hover{background:var(--p-accent);border-color:var(--p-accent);color:var(--p-ink);box-shadow:inset 0 -3px rgba(29,27,24,.26)}
+
+/* Brutalist: hard geometry and a high-contrast signal. */
+.portfolio-brutalist .home-section-actions .home-section-cta{border:2px solid var(--p-ink);border-radius:0;background:var(--p-ink);color:var(--p-inverse);box-shadow:5px 5px 0 var(--p-accent)}
+.portfolio-brutalist .home-section-actions .home-section-cta.secondary{background:var(--p-surface);color:var(--p-ink)}
+.portfolio-brutalist .home-section-actions .home-section-cta:hover{background:var(--p-accent);border-color:var(--p-ink);color:var(--p-ink);box-shadow:2px 2px 0 var(--p-ink)}
+
+/* Playground: expressive corners and a color-response hover. */
+.portfolio-playground .home-section-actions .home-section-cta{border:2px solid var(--p-ink);border-radius:14px 4px 14px 4px;background:var(--p-accent);color:#fff;box-shadow:4px 4px 0 var(--p-ink)}
+.portfolio-playground .home-section-actions .home-section-cta.secondary{background:var(--p-surface);color:var(--p-ink)}
+.portfolio-playground .home-section-actions .home-section-cta:hover{border-radius:50% 8px 50% 8px;background:var(--p-ink);border-color:var(--p-ink);color:#fff;box-shadow:4px 4px 0 var(--p-accent)}
+
+@media(max-width:560px){.home-section-actions{gap:10px}.home-section-actions .home-section-cta{min-height:44px;padding-inline:14px;font-size:10px}.home-about-preview .home-section-actions{display:grid;grid-template-columns:1fr}.home-about-preview .home-section-cta{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.home-section-actions .home-section-cta{transition:none}}
