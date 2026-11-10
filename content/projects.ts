@@ -62,11 +62,11 @@ export const publishedProjects: readonly PublicProject[] = [
   },
   {
     id: "restaurant-saas", slug: "restaurant-saas", title: "Restaurant SaaS", subtitle: "Ordering and operations",
-    summary: "QR menus, customer ordering, staff workflows, kitchen operations and reservations in one service-ready system.",
+    summary: "Restaurant and bar operations with QR orders, staff workflows, table service and live operational status.",
     category: "SaaS platform", platforms: ["Web", "Backend"], technologies: ["Web application", "Operational workflows", "QR ordering"],
     publicationState: "published", featured: true, featuredOrder: 3, year: "2026",
     thumbnail: "/projects/restaurant-saas-work.png", heroImage: "/projects/restaurant-saas-work.png", screenshots: ["/projects/restaurant-saas-work.png"],
-    liveUrl: "https://resto-pearl-omega.vercel.app/",
+    liveUrl: "https://resto-pearl-omega.vercel.app/staff?restaurantSlug=food-1",
   },
   {
     id: "gr-plus", slug: "gr-plus", title: "GR Plus", subtitle: "Offline-first field operations",
@@ -75,6 +75,30 @@ export const publishedProjects: readonly PublicProject[] = [
     publicationState: "published", featured: true, featuredOrder: 4, year: "2026",
     thumbnail: "/projects/gr-plus-work.png", heroImage: "/projects/gr-plus-work.png", screenshots: ["/projects/gr-plus-work.png"],
     liveUrl: "https://gr-plus-web.vercel.app/",
+  },
+  {
+    id: "imperials-hotel", slug: "imperials-hotel", title: "Imperial’s Hotel", subtitle: "Hospitality website",
+    summary: "A responsive hotel and spa website with room discovery, reservation flows, restaurant and service information.",
+    category: "Hospitality website", platforms: ["Web"], technologies: ["Responsive web", "Booking flow", "Hospitality"],
+    publicationState: "published", featured: true, featuredOrder: 5, year: "2026",
+    thumbnail: "/projects/imperials-hotel-work.png", heroImage: "/projects/imperials-hotel-work.png", screenshots: ["/projects/imperials-hotel-work.png"],
+    liveUrl: "https://imperialshotel.netlify.app/",
+  },
+  {
+    id: "bar-grill", slug: "bar-grill", title: "Bar & Grill", subtitle: "Restaurant website",
+    summary: "A responsive restaurant website that brings menu discovery, chef story and table booking into one experience.",
+    category: "Restaurant website", platforms: ["Web"], technologies: ["Responsive web", "Table booking", "Menu experience"],
+    publicationState: "published", featured: true, featuredOrder: 6, year: "2026",
+    thumbnail: "/projects/bar-grill-work.png", heroImage: "/projects/bar-grill-work.png", screenshots: ["/projects/bar-grill-work.png"],
+    liveUrl: "https://letmeeat.netlify.app/",
+  },
+  {
+    id: "iwear", slug: "iwear", title: "IWEAR", subtitle: "E-commerce storefront",
+    summary: "A responsive fashion storefront with product discovery, collections, cart interactions and mobile-first shopping.",
+    category: "E-commerce", platforms: ["Web"], technologies: ["Responsive web", "Product catalog", "Commerce flows"],
+    publicationState: "published", featured: true, featuredOrder: 7, year: "2026",
+    thumbnail: "/projects/iwear-work.png", heroImage: "/projects/iwear-work.png", screenshots: ["/projects/iwear-work.png"],
+    liveUrl: "https://iwearshop.netlify.app/",
   },
 ];
 export const featuredProjects = publishedProjects.filter((project) => project.featured).sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99));

@@ -169,12 +169,12 @@ test.describe("public portfolio", () => {
     await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
     const carousel = page.getByRole("region", { name: "Featured work" });
     await carousel.getByRole("button", { name: "Next featured project" }).click();
-    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 04");
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 07");
     await page.getByRole("radio", { name: "02 Nocturne" }).click();
-    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 04");
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("02 / 07");
     await carousel.focus();
     await page.keyboard.press("ArrowRight");
-    await expect(page.locator(".work-carousel-controls > p")).toContainText("03 / 04");
+    await expect(page.locator(".work-carousel-controls > p")).toContainText("03 / 07");
     const question = page.getByRole("button", { name: /What kind of work do you take on/ });
     await expect(question).toHaveAttribute("aria-expanded", "true");
     await question.click();
