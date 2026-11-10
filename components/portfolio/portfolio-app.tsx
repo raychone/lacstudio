@@ -79,8 +79,8 @@ function Footer() {
   return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div className="footer-brand"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo /></Link><p>Independent creative software development studio for products that need to work in the real world.</p></div><nav aria-label="Explore"><span>Explore</span><Link href="/work">Work</Link><Link href="/services">Services</Link></nav><nav aria-label="Studio"><span>Studio</span><Link href="/about">About</Link><Link href="/process">Process</Link><Link href="/lab">Design Lab</Link></nav><nav aria-label="Contact"><span>Contact</span><Link href="/contact">Start a project</Link><Link href="/privacy">Privacy</Link><Link href="/legal">Legal</Link></nav><div className="footer-note"><span>© {new Date().getFullYear()} LAC STUDIO</span><span>Independent by design.</span></div></div></footer>;
 }
 
-function Section({ eyebrow, title, children, className = "" }: { eyebrow?: string; title?: string; children: ReactNode; className?: string }) {
-  return <section className={`portfolio-section ${className}`}>{(eyebrow || title) && <div className="portfolio-section-heading">{eyebrow && <span>{eyebrow}</span>}{title && <h2>{title}</h2>}</div>}{children}</section>;
+function Section({ eyebrow, title, children, className = "", id }: { eyebrow?: string; title?: string; children: ReactNode; className?: string; id?: string }) {
+  return <section id={id} className={`portfolio-section ${className}`}>{(eyebrow || title) && <div className="portfolio-section-heading">{eyebrow && <span>{eyebrow}</span>}{title && <h2>{title}</h2>}</div>}{children}</section>;
 }
 
 function ProjectPreview({ project }: { project: PublicProject }) {
@@ -248,7 +248,21 @@ function ContactPage() {
 function LegalPage({ privacy }: { privacy: boolean }) { return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? "PRIVACY" : "LEGAL"} title={privacy ? "Privacy, without assumptions." : "Legal information to complete before publication."}><div className="legal-copy">{privacy ? <><p>LAC STUDIO currently does not install analytics or publish a contact address through this portfolio. The inquiry form validates submissions and is configured not to claim delivery until a sending provider is enabled.</p><p>When delivery is configured, this notice must be updated with the data controller, contact method, processing purpose, retention period, legal basis and any provider details.</p></> : <><p>Business registration details, registered address, governing-law details and other legally required information have not been supplied for publication.</p><p>Before publishing this portfolio, replace this notice with verified information appropriate to the studio&apos;s legal situation and the markets it serves.</p></>}</div></Section></main>; }
 function NotFoundPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="404 / NOT FOUND" title="This page is not public."><p className="page-intro">The page may be unavailable, unpublished or have moved. Public case studies appear only after their content has been approved.</p><Link className="button primary" href="/work">Return to work →</Link></Section></main>; }
 
-function CaseStudy({ project }: { project: PublicProject }) { return <main className="portfolio-page portfolio-container"><Section eyebrow={`${project.category.toUpperCase()} / CASE STUDY`} title={project.title}><p className="page-intro">{project.summary}</p><div className="case-meta"><span>{project.platforms.join(" · ")}</span><span>{project.technologies.join(" · ")}</span></div><div className="asset-slot case-slot"><span>APPROVED CASE-STUDY MEDIA REQUIRED</span><p>This reusable structure renders only approved public project content.</p></div></Section><Section eyebrow="OVERVIEW" title="A public record, when ready"><p className="page-intro">Detailed problem, solution, features, engineering notes, outcomes and media are intentionally omitted until they are approved for publication.</p></Section><Section className="contact-cta"><h2>Have a related<br />challenge?</h2><a className="button primary" href="/contact">Let&apos;s Talk →</a></Section></main>; }
+function CaseStudy({ project }: { project: PublicProject }) {
+  const image = project.heroImage ?? project.thumbnail;
+  return <main className="portfolio-page portfolio-container">
+    <Section eyebrow={`${project.category.toUpperCase()} / CASE STUDY`} title={project.title}>
+      <p className="page-intro">{project.summary}</p>
+      <div className="case-meta"><span>{project.subtitle}</span><span>{project.platforms.join(" · ")}</span><span>{project.year}</span></div>
+      {image && <div className="case-hero-media"><Image src={image} alt={`${project.title} interface preview`} fill sizes="(max-width: 1180px) 100vw, 1180px" priority /></div>}
+      <div className="case-actions">{project.liveUrl && <a className="button primary" href={project.liveUrl} target="_blank" rel="noreferrer">Open live project <b>↗</b></a>}<Link className="button secondary" href="/contact">Discuss a similar project <b>→</b></Link></div>
+      {project.demoNotice && <p className="case-demo-notice">{project.demoNotice}</p>}
+    </Section>
+    <Section id="workflow" eyebrow="01 / PRODUCT OVERVIEW" title="Built around the real workflow."><div className="case-overview"><p className="lead">{project.longDescription ?? project.summary}</p><ul>{(project.features ?? []).map((feature) => <li key={feature}>{feature}</li>)}</ul></div></Section>
+    <Section id="evidence" eyebrow="02 / TECHNICAL EVIDENCE" title="Structure behind the surface."><div className="case-evidence"><article><span>STACK</span><ul>{project.technologies.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>IMPLEMENTATION</span><ul>{(project.technicalHighlights ?? []).map((item) => <li key={item}>{item}</li>)}</ul></article>{project.architecture && <article className="case-architecture"><span>ARCHITECTURE</span><p>{project.architecture}</p></article>}</div></Section>
+    <Section className="contact-cta"><h2>Have a related<br />challenge?</h2><a className="button primary" href="/contact">Let&apos;s Talk →</a></Section>
+  </main>;
+}
 
 function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
   const { activeDesign, reducedMotion } = useDesign();
