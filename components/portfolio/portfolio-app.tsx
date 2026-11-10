@@ -243,7 +243,37 @@ function WorkPage() {
   </main>;
 }
 
-function ServicesPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="SERVICES / FROM PRODUCT IDEA TO RELEASE" title="What we can build together"><p className="page-intro">Clear technical thinking and product-minded design for software that has to do real work.</p><div className="services-grid">{services.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div><div className="inline-cta"><h2>Not sure where to start?</h2><Link className="button primary" href="/contact">Start a conversation →</Link></div></Section></main>; }
+function ServicesPage() {
+  return <main className="portfolio-page portfolio-container services-page">
+    <Section eyebrow="SERVICES / FROM PRODUCT IDEA TO RELEASE" title="Useful software, shaped around the work it has to do." className="services-hero-section">
+      <div className="services-hero-copy">
+        <p className="lead">I design and build complete digital products: customer-facing web experiences, internal platforms, operational systems and mobile workflows that connect to the real work behind them.</p>
+        <p>You can arrive with an early idea, a confusing process or a product that needs to become more capable. The work can cover direction, interface design, frontend, backend, data, integrations and release — as one connected service.</p>
+        <div className="services-hero-actions"><Link className="button primary" href="/contact">Start a project <b>↗</b></Link><Link className="button secondary" href="/work">See relevant work <b>→</b></Link></div>
+      </div>
+      <aside className="services-scope" aria-label="LAC Studio service scope"><span>ONE CONNECTED SERVICE</span><b>Direction<br />Experience<br />Engineering<br /><em>Release</em></b><small>Designed and built with the same product context.</small></aside>
+    </Section>
+    <Section eyebrow="WHAT YOU CAN ENGAGE" title="Build the part that moves the work forward." className="services-offerings-section">
+      <p className="page-intro">Engagements are shaped around the useful next step. That may be a focused product direction, a new application or the systems needed to make an existing product dependable.</p>
+      <div className="services-grid">{services.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div>
+    </Section>
+    <Section eyebrow="A GOOD FIT WHEN" title="The problem is real — even if the brief is not finished yet." className="services-fit-section">
+      <div className="services-fit-grid">
+        <article><span>01</span><h3>Work is held together by too many tools</h3><p>Bring scattered documents, manual updates and unclear handoffs into a product with one useful source of truth.</p></article>
+        <article><span>02</span><h3>A service needs a clearer customer journey</h3><p>Turn a valuable service into an experience people can understand, use and return to across desktop and mobile.</p></article>
+        <article><span>03</span><h3>A team needs a system that fits real operations</h3><p>Design roles, workflows, data and integrations around the work that happens before and after a screen is opened.</p></article>
+      </div>
+    </Section>
+    <Section eyebrow="HOW AN ENGAGEMENT WORKS" title="Start focused. Build with enough visibility." className="services-delivery-section">
+      <ol className="services-delivery">
+        <li><span>01</span><div><h3>Find the useful scope</h3><p>Clarify the people, workflow and first outcome worth building.</p></div></li>
+        <li><span>02</span><div><h3>Shape and build the system</h3><p>Make the important product and technical decisions visible as the work becomes real.</p></div></li>
+        <li><span>03</span><div><h3>Release with a next step</h3><p>Launch a dependable baseline, then use what is learned to guide the next improvement.</p></div></li>
+      </ol>
+    </Section>
+    <Section className="contact-cta services-contact-cta"><span>START A CONVERSATION</span><h2>Have work that needs<br />a better system around it?</h2><p>Bring the context, the constraint or the unfinished idea. We&apos;ll find the next useful decision together.</p><Link className="button primary" href="/contact">Start a project <b>↗</b></Link></Section>
+  </main>;
+}
 function AboutPage() {
   return <main className="portfolio-page portfolio-container about-page">
     <Section eyebrow="ABOUT / LAC STUDIO" title="Independent thinking, built into the product." className="about-intro-section">
@@ -255,7 +285,7 @@ function AboutPage() {
         </div>
         <figure className="about-portrait">
           <Image src="/branding/lac-studio-founder.png" alt="Founder of LAC Studio" width={264} height={290} sizes="(max-width: 700px) 180px, 264px" priority />
-          <figcaption><span>PSYCHOLOGY → SOFTWARE</span><b>30+ years around computers.<br />7 years building professionally.</b></figcaption>
+          <figcaption><strong>Lucaciu Andrei Codrin</strong><span>PSYCHOLOGY → SOFTWARE</span><b>30+ years around computers.<br />7 years building professionally.</b></figcaption>
         </figure>
       </div>
     </Section>
