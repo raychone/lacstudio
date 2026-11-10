@@ -118,9 +118,13 @@ test.describe("public portfolio", () => {
 
   test("keeps case studies connected and allows visitors to disable ambient effects", async ({ page }) => {
     await page.goto("/work/medichelp?design=brutalist", { waitUntil: "networkidle" });
-    const caseNavigation = page.getByRole("navigation", { name: "Case study navigation" });
-    await expect(caseNavigation.getByRole("link", { name: "← Back to Work" })).toHaveAttribute("href", "/work?design=brutalist");
-    await expect(caseNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ })).toHaveAttribute("href", "/work/dental-laboratory-management?design=brutalist");
+    const workflowNavigation = page.getByRole("navigation", { name: "Case study navigation after workflow" });
+    const evidenceNavigation = page.getByRole("navigation", { name: "Case study navigation after evidence" });
+    await expect(workflowNavigation.getByRole("link", { name: "← Back to Work" })).toHaveAttribute("href", "/work?design=brutalist");
+    await expect(evidenceNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ })).toHaveAttribute("href", "/work/dental-laboratory-management?design=brutalist");
+    await workflowNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ }).click();
+    await expect(page).toHaveURL("/work/dental-laboratory-management?design=brutalist");
+    await page.goto("/work/medichelp?design=brutalist", { waitUntil: "networkidle" });
     await expect(page.locator('.portfolio-footer nav[aria-label="Explore"] > span')).toHaveCSS("color", "rgb(17, 17, 15)");
     const effectsToggle = page.getByRole("button", { name: "Disable interface effects" });
     await effectsToggle.click();
@@ -218,6 +222,19 @@ test.describe("public portfolio", () => {
     await page.goto("/work?design=playground", { waitUntil: "networkidle" });
     await page.getByRole("region", { name: "Featured work" }).getByRole("link", { name: /Discuss your project/ }).click();
     await expect(page).toHaveURL("/contact?design=playground");
+  });
+
+  test("shows accurate demo availability and system-styled actions in project cards", async ({ page }) => {
+    await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
+    const medicHelp = page.locator(".project-card").filter({ hasText: "MedicHelp" });
+    await expect(medicHelp.getByRole("link", { name: /Request live demo/ })).toHaveAttribute("href", "/contact?design=tactile");
+    await expect(medicHelp).toContainText("A live MedicHelp demo can be arranged on request.");
+    for (const project of ["Restaurant SaaS", "GR Plus"]) {
+      await expect(page.locator(".project-card").filter({ hasText: project })).toContainText("Demo hosting uses a free database tier");
+    }
+    const action = page.locator(".project-card").filter({ hasText: "GR Plus" }).getByRole("link", { name: /Open live demo/ });
+    await expect(action).toHaveCSS("border-top-left-radius", "11px");
+    await expect(action).toHaveAttribute("href", "https://gr-plus-web.vercel.app/");
   });
 
   test("keeps Work filter and carousel controls geometrically stable in every design", async ({ page }) => {

@@ -217,3 +217,21 @@
 .portfolio-nocturne .work-carousel-overlay .work-carousel-actions a.primary{border-color:var(--p-accent)!important;background:var(--p-accent)!important;color:#0d1328!important}
 .portfolio-editorial .work-carousel-overlay .work-carousel-actions a.primary,.portfolio-brutalist .work-carousel-overlay .work-carousel-actions a.primary{background:var(--p-ink)!important;color:var(--p-inverse)!important}
 .portfolio-playground .work-carousel-overlay .work-carousel-actions a.primary{background:var(--p-accent)!important;color:#fff!important}
+/* Project-card actions inherit the active system instead of looking like generic text links. */
+.project-card-links{gap:9px!important}
+.project-card-links a{min-height:36px;display:inline-flex;align-items:center;gap:8px;padding:0 11px;border:1px solid var(--p-line)!important;background:var(--p-surface);color:var(--p-ink)!important;font-size:9px!important;letter-spacing:.05em!important;text-decoration:none!important;transition:transform .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease}
+.project-card-links a b{font-size:13px}.project-card-links a:hover{transform:translateY(-2px);border-color:var(--p-accent)!important;background:var(--p-accent);color:var(--p-inverse)!important}
+.portfolio-tactile .project-card-links a{border-color:rgba(255,255,255,.58)!important;border-radius:11px;box-shadow:4px 4px 8px rgba(104,101,91,.17),-3px -3px 7px rgba(255,255,255,.58)}.portfolio-tactile .project-card-links a:hover{background:var(--p-surface);color:var(--p-accent)!important;box-shadow:inset 3px 3px 7px rgba(126,122,112,.2),inset -3px -3px 7px rgba(255,255,255,.6)}
+.portfolio-nocturne .project-card-links a{border-color:rgba(205,214,255,.35)!important;background:rgba(13,19,40,.5);box-shadow:0 8px 18px rgba(0,0,0,.18)}.portfolio-nocturne .project-card-links a:hover{background:var(--p-accent);color:#0d1328!important}
+.portfolio-editorial .project-card-links a{border-color:var(--p-ink)!important;background:transparent}.portfolio-editorial .project-card-links a:hover{background:var(--p-ink);color:var(--p-inverse)!important}
+.portfolio-brutalist .project-card-links a{border:2px solid var(--p-ink)!important;box-shadow:3px 3px 0 var(--p-ink)}.portfolio-brutalist .project-card-links a:hover{background:var(--p-ink);color:var(--p-inverse)!important;transform:translate(2px,2px);box-shadow:1px 1px 0 var(--p-ink)}
+.portfolio-playground .project-card-links a{border:2px solid var(--p-ink)!important;border-radius:12px 4px 12px 4px;box-shadow:3px 3px 0 var(--p-accent)}.portfolio-playground .project-card-links a:hover{background:var(--p-accent);color:#fff!important;box-shadow:1px 1px 0 var(--p-ink)}
+
+/* The contact action above carousel artwork is a separate CTA, not a third neutral control. */
+.work-carousel-overlay .work-carousel-actions a.primary{min-height:42px;padding-inline:16px;letter-spacing:.08em;transform:translateY(0);transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease}
+.work-carousel-overlay .work-carousel-actions a.primary:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.24)}
+.portfolio-tactile .work-carousel-overlay .work-carousel-actions a.primary:hover{box-shadow:7px 8px 14px rgba(104,101,91,.24),-4px -4px 8px rgba(255,255,255,.62)}
+.portfolio-brutalist .work-carousel-overlay .work-carousel-actions a.primary:hover{transform:translate(3px,3px);box-shadow:none}
+.portfolio-playground .work-carousel-overlay .work-carousel-actions a.primary:hover{border-radius:50% 9px 50% 9px}
+
+@media(max-width:560px){.project-card-links a{width:100%;justify-content:center}.work-carousel-overlay .work-carousel-actions a.primary{min-height:34px;padding-inline:10px}}

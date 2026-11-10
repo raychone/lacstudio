@@ -28,6 +28,7 @@ export type PublicProject = {
   mockups?: string[];
   video?: string;
   liveUrl?: string;
+  demoOnRequest?: boolean;
   demoNotice?: string;
   repositoryUrl?: string;
   relatedProjects?: string[];
@@ -50,6 +51,8 @@ export const publishedProjects: readonly PublicProject[] = [
     category: "SaaS platform", platforms: ["Web", "Backend"], technologies: ["React", "TypeScript", "NestJS", "Prisma", "PostgreSQL"],
     publicationState: "published", featured: true, featuredOrder: 1, year: "2026",
     thumbnail: "/projects/medichelp-work.png", heroImage: "/projects/medichelp-work.png", screenshots: ["/projects/medichelp-work.png"],
+    demoOnRequest: true,
+    demoNotice: "A live MedicHelp demo can be arranged on request.",
     longDescription: "MedicHelp is a multi-clinic healthcare platform that keeps appointments, patient context and role-specific workspaces connected across the day-to-day operation of a clinic.",
     problem: "It replaces fragmented reception, clinician and patient workflows with one shared operational context.",
     features: ["Role-specific workspaces for clinic staff and patients", "Shared appointment and patient-flow context", "Calendar, documents, billing and clinical operations", "Configurable modules, entitlements and feature flags"],
@@ -77,6 +80,7 @@ export const publishedProjects: readonly PublicProject[] = [
     publicationState: "published", featured: true, featuredOrder: 3, year: "2026",
     thumbnail: "/projects/restaurant-saas-work.png", heroImage: "/projects/restaurant-saas-work.png", screenshots: ["/projects/restaurant-saas-work.png"],
     liveUrl: "https://resto-pearl-omega.vercel.app/staff?restaurantSlug=food-1",
+    demoNotice: "Demo hosting uses a free database tier. The first opening may take up to around 30 seconds while it wakes up.",
     longDescription: "Food 1 is a staff-facing restaurant and bar workspace for turning QR orders, table status and service alerts into a clear operating view.",
     problem: "It reduces the gap between incoming customer requests, table service and the staff member who needs to act next.",
     features: ["QR order intake and validation", "Table-oriented service workflow", "Live staff alerts and ready-to-serve status", "Restaurant operations across desktop, tablet and mobile"],
@@ -89,6 +93,7 @@ export const publishedProjects: readonly PublicProject[] = [
     publicationState: "published", featured: true, featuredOrder: 4, year: "2026",
     thumbnail: "/projects/gr-plus-work.png", heroImage: "/projects/gr-plus-work.png", screenshots: ["/projects/gr-plus-work.png"],
     liveUrl: "https://gr-plus-web.vercel.app/",
+    demoNotice: "Demo hosting uses a free database tier. The first opening may take up to around 30 seconds while it wakes up.",
     longDescription: "GR Plus is a field-work application for technicians who need to create, complete and deliver intervention reports away from a desk, whether connected or offline.",
     problem: "It lets field teams keep working during poor connectivity, then synchronize reports and status with the server.",
     features: ["Digital field forms and intervention drafts", "Online and offline work modes", "Synchronization with the server when connectivity returns", "PDF reports, client records and model management"],
