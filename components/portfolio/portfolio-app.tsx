@@ -172,14 +172,10 @@ function FeaturedWorkCarousel() {
   }}>
     <div className="work-carousel-viewport" onPointerDown={pointerDown} onPointerUp={pointerUp} onPointerCancel={() => { pointerStart.current = null; }}>
       <article className="work-carousel-slide" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${slides.length}`}>
-        <div className="work-carousel-copy">
-          <span>{active.eyebrow}</span>
-          <h3>{active.title}</h3>
-          <p>{active.summary}</p>
-          <div className="work-carousel-actions"><Link href={active.href ? `${active.href}#workflow` : "/process"}>Workflow <b>→</b></Link><Link href={active.href ? `${active.href}#evidence` : "/work#publication-policy"}>Evidence <b>→</b></Link><Link className="primary" href="/contact">Discuss your project <b>↗</b></Link></div>
-        </div>
         <div className="work-carousel-media" aria-label={active.placeholder ? "Approved project media placeholder" : `${active.title} media`}>
-          {active.image ? <Image src={active.image} alt="" fill sizes="(max-width: 840px) 100vw, 50vw" /> : <><div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /></>}<div className="work-carousel-media-note"><span>{active.meta}</span><b>{String(activeIndex + 1).padStart(2, "0")}</b></div>
+          {active.image ? <Image src={active.image} alt="" fill sizes="100vw" /> : <><div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /></>}
+          <div className="work-carousel-copy work-carousel-overlay"><span>{active.eyebrow}</span><h3>{active.title}</h3><p>{active.summary}</p><div className="work-carousel-actions"><Link href={active.href ? `${active.href}#workflow` : "/process"}>Workflow <b>→</b></Link><Link href={active.href ? `${active.href}#evidence` : "/work#publication-policy"}>Evidence <b>→</b></Link><Link className="primary" href="/contact">Discuss your project <b>↗</b></Link></div></div>
+          <div className="work-carousel-media-note"><span>{active.meta}</span><b>{String(activeIndex + 1).padStart(2, "0")}</b></div>
         </div>
       </article>
     </div>
