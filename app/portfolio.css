@@ -119,6 +119,7 @@
 .portfolio-brutalist .portfolio-switcher-options button.active{color:var(--p-ink)}
 .portfolio-playground .portfolio-switcher-options{border-radius:11px 3px 11px 3px;border:2px solid var(--p-ink);padding:1px;background:var(--p-surface)}
 .portfolio-playground .portfolio-switcher-options .portfolio-switcher-indicator{top:0;bottom:0;left:1px;width:calc((100% - 2px)/5);height:auto;border-radius:8px 2px 8px 2px;box-shadow:2px 2px 0 var(--p-ink)}
+.portfolio-playground .portfolio-switcher-options[data-active-index="4"] .portfolio-switcher-indicator{border-top-right-radius:0}
 .portfolio-playground .portfolio-header{border-radius:0 0 var(--p-radius) var(--p-radius)}
 .portfolio-nocturne .portfolio-switcher-tooltip{border-color:rgba(204,212,255,.35);background:var(--p-surface);color:var(--p-ink)!important;box-shadow:0 10px 22px rgba(0,0,0,.3)}
 
@@ -177,6 +178,7 @@
 
 /* Featured work is a complete product frame: no copy competes with the approved media. */
 .work-carousel-viewport{height:auto!important;aspect-ratio:16/9}.work-carousel-slide{display:block;height:100%;min-height:0}.work-carousel-media{height:100%;min-height:0;border-left:0}.work-carousel-media>img{z-index:0;object-fit:contain!important;object-position:center;background:var(--p-surface)}.work-carousel-overlay{position:absolute;z-index:2;right:clamp(14px,3vw,32px);bottom:clamp(14px,3vw,32px);left:clamp(14px,3vw,32px);width:auto;padding:0;background:transparent;box-shadow:none;backdrop-filter:none}.work-carousel-overlay .work-carousel-actions{justify-content:flex-start;margin:0}.work-carousel-media-note{display:none}
+.work-carousel-slide{position:relative}
 @media(max-width:840px){.work-carousel-viewport{aspect-ratio:16/9}.work-carousel-overlay{right:10px;bottom:10px;left:10px}.work-carousel-actions{gap:6px}.work-carousel-actions a{min-height:30px;padding-inline:8px;font-size:8px}.work-carousel-actions a.primary{flex-basis:auto}}
 .portfolio-tactile .work-carousel-pagination{grid-template-columns:repeat(var(--work-slide-count,3),1fr)}.portfolio-tactile .work-carousel-pagination .work-carousel-pagination-indicator{width:calc((100% - 8px)/var(--work-slide-count,3))}.portfolio-nocturne .work-carousel-pagination,.portfolio-editorial .work-carousel-pagination,.portfolio-brutalist .work-carousel-pagination,.portfolio-playground .work-carousel-pagination{grid-template-columns:repeat(var(--work-slide-count,3),1fr)}
 
@@ -265,3 +267,6 @@
 .portfolio-brutalist .work-carousel-overlay .work-carousel-actions a:hover{background:var(--p-ink)!important;color:var(--p-inverse)!important;box-shadow:4px 4px 0 var(--p-accent)!important}
 .portfolio-playground .work-carousel-overlay .work-carousel-actions a:hover{background:var(--p-accent)!important;color:#fff!important;box-shadow:3px 3px 0 var(--p-ink)!important}
 @media(max-width:560px){.work-carousel-overlay .work-carousel-actions{grid-template-columns:1fr 1fr;width:100%}.work-carousel-overlay .work-carousel-actions a{height:34px;min-height:34px!important}.work-carousel-overlay .work-carousel-actions a.primary{grid-column:1/-1}}
+
+/* On a phone, the approved artwork keeps its entire frame; slide actions remain part of the slide directly beneath it. */
+@media(max-width:560px){.work-carousel-viewport{height:auto!important;aspect-ratio:auto}.work-carousel-slide{display:flex;height:auto;flex-direction:column}.work-carousel-media{height:auto;min-height:0;aspect-ratio:16/9;flex:0 0 auto}.work-carousel-overlay{position:relative;right:auto;bottom:auto;left:auto;display:block;order:2;width:auto;min-height:0!important;padding:12px;border-top:1px solid var(--p-line);background:var(--p-surface)}.work-carousel-overlay .work-carousel-actions{margin:0}.portfolio-tactile .work-carousel-overlay{border-top-color:rgba(255,255,255,.58)}.portfolio-brutalist .work-carousel-overlay,.portfolio-playground .work-carousel-overlay{border-top-width:2px}}

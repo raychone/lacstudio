@@ -294,18 +294,17 @@ test.describe("public portfolio", () => {
     await expect(action).toHaveAttribute("href", "https://gr-plus-web.vercel.app/");
   });
 
-  test("keeps Work filter and carousel controls geometrically stable in every design", async ({ page }) => {
+  test("starts Work with featured projects and keeps carousel controls geometrically stable in every design", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     for (const design of designs) {
       await page.goto(`/work?design=${design}`, { waitUntil: "networkidle" });
-      const [filter, clear, controls, scrollBefore] = await Promise.all([
-        page.locator(".work-filters input").boundingBox(),
-        page.locator(".clear-work-filters").boundingBox(),
+      const [featured, controls, scrollBefore] = await Promise.all([
+        page.locator(".work-featured-section").boundingBox(),
         page.locator(".work-carousel-controls").boundingBox(),
         page.evaluate(() => window.scrollY),
       ]);
-      expect(filter && clear && controls).toBeTruthy();
-      expect(Math.abs(filter!.height - clear!.height), `${design} clear filter height`).toBeLessThanOrEqual(1);
+      expect(featured && controls).toBeTruthy();
+      await expect(page.locator(".work-intro-section")).toHaveCount(0);
       await page.getByRole("button", { name: "Next featured project" }).click();
       const [nextControls, scrollAfter, copyMetrics, pagination] = await Promise.all([page.locator(".work-carousel-controls").boundingBox(), page.evaluate(() => window.scrollY), page.locator(".work-carousel-copy").evaluate((element) => ({ clientHeight: element.clientHeight, scrollHeight: element.scrollHeight })), page.locator(".work-carousel-pagination").evaluate((element) => [...element.querySelectorAll("button")].map((button) => {
         const box = button.getBoundingClientRect(); const text = button.querySelector("span")?.getBoundingClientRect();
@@ -316,6 +315,23 @@ test.describe("public portfolio", () => {
       expect(copyMetrics.scrollHeight, `${design} carousel copy should not scroll`).toBeLessThanOrEqual(copyMetrics.clientHeight + 1);
       pagination.forEach((item, index) => expect(Math.abs(item.center - item.textCenter), `${design} slide ${index + 1} number centering`).toBeLessThanOrEqual(1));
     }
+  });
+
+  test("keeps mobile slide actions below the image and automatically advances featured work", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 900 });
+    await page.goto("/work?design=tactile", { waitUntil: "networkidle" });
+    const media = page.locator(".work-carousel-media");
+    const actions = page.locator(".work-carousel-overlay");
+    const [mediaBox, actionsBox] = await Promise.all([media.boundingBox(), actions.boundingBox()]);
+    expect(mediaBox && actionsBox).toBeTruthy();
+    expect(actionsBox!.y).toBeGreaterThanOrEqual(mediaBox!.y + mediaBox!.height - .5);
+    const tabs = page.locator(".work-carousel-pagination").getByRole("tab");
+    await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+    await expect.poll(() => tabs.nth(0).getAttribute("aria-selected"), { timeout: 7000 }).toBe("false");
+    const pause = page.locator(".work-carousel-autoplay");
+    await expect(pause).toHaveAttribute("aria-label", "Pause featured work autoplay");
+    await pause.click();
+    await expect(pause).toHaveAttribute("aria-pressed", "true");
   });
 
   test("signals the active Nocturne slide inside its numeric rail", async ({ page }) => {

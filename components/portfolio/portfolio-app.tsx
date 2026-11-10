@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
@@ -156,10 +156,16 @@ function FeaturedWorkCarousel() {
   const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => ({ id: project.id, eyebrow: `${project.category.toUpperCase()} / FEATURED WORK`, title: project.title, summary: project.summary, meta: project.platforms.join(" · ").toUpperCase(), href: `/work/${project.slug}`, image: project.heroImage ?? project.thumbnail }));
   const slides = publishedSlides.length ? publishedSlides : workPlaceholders;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [autoplayPaused, setAutoplayPaused] = useState(false);
   const pointerStart = useRef<number | null>(null);
   const active = slides[activeIndex] ?? slides[0];
-  const move = (direction: -1 | 1) => setActiveIndex((index) => (index + direction + slides.length) % slides.length);
-  const goTo = (index: number) => setActiveIndex(index);
+  const move = (direction: -1 | 1) => { setAutoplayPaused(true); setActiveIndex((index) => (index + direction + slides.length) % slides.length); };
+  const goTo = (index: number) => { setAutoplayPaused(true); setActiveIndex(index); };
+  useEffect(() => {
+    if (autoplayPaused || slides.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => setActiveIndex((index) => (index + 1) % slides.length), 5600);
+    return () => window.clearInterval(timer);
+  }, [autoplayPaused, slides.length]);
   const actionHref = (fragment: "workflow" | "evidence") => active.href ? `${active.href}?design=${activeDesign.id}#${fragment}` : fragment === "workflow" ? "/process" : "/work#publication-policy";
   const keepActionClickable = (event: React.PointerEvent<HTMLAnchorElement>) => event.stopPropagation();
   const pointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -181,12 +187,12 @@ function FeaturedWorkCarousel() {
       <article className="work-carousel-slide" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${slides.length}`}>
         <div className="work-carousel-media" aria-label={active.placeholder ? "Approved project media placeholder" : `${active.title} media`}>
           {active.image ? <Image src={active.image} alt="" fill sizes="100vw" /> : <><div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /></>}
-          <div className="work-carousel-copy work-carousel-overlay"><div className="work-carousel-actions"><Link href={actionHref("workflow")} onPointerDown={keepActionClickable}>Workflow <b>→</b></Link><Link href={actionHref("evidence")} onPointerDown={keepActionClickable}>Evidence <b>→</b></Link><Link className="primary" href={`/contact?design=${activeDesign.id}`} onPointerDown={keepActionClickable}>Discuss your project <b>↗</b></Link></div></div>
         </div>
+        <div className="work-carousel-copy work-carousel-overlay"><div className="work-carousel-actions"><Link href={actionHref("workflow")} onPointerDown={keepActionClickable}>Workflow <b>→</b></Link><Link href={actionHref("evidence")} onPointerDown={keepActionClickable}>Evidence <b>→</b></Link><Link className="primary" href={`/contact?design=${activeDesign.id}`} onPointerDown={keepActionClickable}>Discuss your project <b>↗</b></Link></div></div>
       </article>
     </div>
     <div className="work-carousel-controls">
-      <div className="work-carousel-arrows"><button type="button" aria-label="Previous featured project" onClick={() => move(-1)}>←</button><button type="button" aria-label="Next featured project" onClick={() => move(1)}>→</button></div>
+      <div className="work-carousel-arrows"><button type="button" aria-label="Previous featured project" onClick={() => move(-1)}>←</button><button type="button" aria-label="Next featured project" onClick={() => move(1)}>→</button><button type="button" className="work-carousel-autoplay" aria-pressed={autoplayPaused} aria-label={autoplayPaused ? "Resume featured work autoplay" : "Pause featured work autoplay"} onClick={() => setAutoplayPaused((paused) => !paused)}>{autoplayPaused ? "▶" : "Ⅱ"}</button></div>
       <div className="work-carousel-pagination" role="tablist" aria-label="Choose featured work" style={{ "--work-active-slide": activeIndex, "--work-slide-count": slides.length } as React.CSSProperties}><i className="work-carousel-pagination-indicator" aria-hidden="true" />{slides.map((slide, index) => <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`Show featured work ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div>
       <p aria-live="polite"><b>{String(activeIndex + 1).padStart(2, "0")}</b> / {String(slides.length).padStart(2, "0")}</p>
     </div>
@@ -227,16 +233,9 @@ function HomePage() {
 }
 
 function WorkPage() {
-  const getParam = (key: string, fallback: string) => typeof window === "undefined" ? fallback : new URLSearchParams(window.location.search).get(key) ?? fallback;
-  const [query, setQuery] = useState(() => getParam("q", "")); const [category, setCategory] = useState(() => getParam("category", "all")); const [platform, setPlatform] = useState(() => getParam("platform", "all"));
-  const categories = Array.from(new Set(publishedProjects.map((project) => project.category)));
-  const platforms = Array.from(new Set(publishedProjects.flatMap((project) => project.platforms)));
-  const results = useMemo(() => publishedProjects.filter((project) => `${project.title} ${project.summary} ${project.category}`.toLowerCase().includes(query.toLowerCase()) && (category === "all" || project.category === category) && (platform === "all" || project.platforms.includes(platform as never))), [query, category, platform]);
-  const update = (next: { q?: string; category?: string; platform?: string }) => { const params = new URLSearchParams(window.location.search); const values = { q: query, category, platform, ...next }; Object.entries(values).forEach(([key, value]) => value && value !== "all" ? params.set(key, value) : params.delete(key)); window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`); setQuery(values.q); setCategory(values.category); setPlatform(values.platform); };
   return <main className="portfolio-page portfolio-container">
-    <Section eyebrow="PORTFOLIO / PROJECT INDEX" title="Work" className="work-intro-section"><p className="page-intro">A public project index that grows only with approved descriptions, visuals and outcomes.</p><div className="work-filters"><label>Search<input value={query} onChange={(event) => update({ q: event.target.value })} placeholder="Search published work" /></label><label>Category<PortfolioSelect ariaLabel="Filter work by category" value={category} onChange={(value) => update({ category: value })} placeholder="All categories" options={[{ value: "all", label: "All categories" }, ...categories.map((item) => ({ value: item, label: item }))]} /></label><label>Platform<PortfolioSelect ariaLabel="Filter work by platform" value={platform} onChange={(value) => update({ platform: value })} placeholder="All platforms" options={[{ value: "all", label: "All platforms" }, ...platforms.map((item) => ({ value: item, label: item }))]} /></label><button className="clear-work-filters" type="button" onClick={() => update({ q: "", category: "all", platform: "all" })}>Clear filters</button></div></Section>
     <Section eyebrow="01 / FEATURED WORK" title="Built for the work behind the screen." className="work-featured-section"><FeaturedWorkCarousel /></Section>
-    <Section eyebrow="02 / PUBLIC PROJECT INDEX" title="Case studies, with the right context." className="work-gallery-section"><p className="page-intro">Each project pairs a verified product preview with the problem it is designed to solve, its public scope and the available case study.</p><div id="publication-policy">{results.length ? <div className="project-grid work-project-grid">{results.map((project) => <ProjectPreview key={project.id} project={project} />)}</div> : <UnpublishedWork />}</div></Section>
+    <Section eyebrow="02 / PUBLIC PROJECT INDEX" title="Case studies, with the right context." className="work-gallery-section"><p className="page-intro">Each project pairs a verified product preview with the problem it is designed to solve, its public scope and the available case study.</p><div id="publication-policy"><div className="project-grid work-project-grid">{publishedProjects.map((project) => <ProjectPreview key={project.id} project={project} />)}</div></div></Section>
     <Section eyebrow="03 / QUESTIONS" title="A clear place to start." className="work-faq-section"><WorkFaq /></Section>
     <Section className="contact-cta work-contact-cta"><span>04 / START A CONVERSATION</span><h2>Have something<br />worth building?</h2><p>Bring the context. We&apos;ll work out the useful next step.</p><Link className="button primary" href="/contact">Start a project <b>→</b></Link></Section>
   </main>;
