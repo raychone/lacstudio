@@ -1,4 +1,9 @@
-@import "tailwindcss";
+/*
+ * Keep this as an explicit file import. Vinext resolves the package alias during
+ * its Cloudflare build, while Nitro's Vercel build hands CSS to Vite's import
+ * processor first. The relative source works in both pipelines.
+ */
+@import "../node_modules/tailwindcss/index.css";
 
 :root { --ink:#151515; --paper:#f2efe9; --line:rgba(21,21,21,.18); --acid:#d7ff3f; }
 * { box-sizing:border-box; }

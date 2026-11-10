@@ -1,4 +1,5 @@
 import vinext from "vinext";
+import tailwindcss from "@tailwindcss/postcss";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
 import { readExecutionProfile } from "./scripts/execution-profile.mjs";
@@ -39,11 +40,25 @@ const localBindingConfig = {
 
 export default defineConfig(async ({ command }) => {
   configureToolEnvironment(process.cwd());
+  const isVercelBuild = process.env.VERCEL === "1" || process.env.NITRO_PRESET === "vercel";
 
   // Wrangler snapshots its log path while the Cloudflare plugin is imported.
-  const { cloudflare } = await import("@cloudflare/vite-plugin");
+  const { cloudflare } = isVercelBuild ? { cloudflare: null } : await import("@cloudflare/vite-plugin");
+  const { nitro } = isVercelBuild ? await import("nitro/vite") : { nitro: null };
 
   return {
+    // Nitro's Vercel build creates a nested Vite pipeline, which does not pick
+    // up the root PostCSS config consistently. Keep Tailwind in the Vercel
+    // config itself so the Design Lab utility components are compiled too.
+    ...(isVercelBuild
+      ? {
+          css: {
+            postcss: {
+              plugins: [tailwindcss()],
+            },
+          },
+        }
+      : {}),
     server: {
       ...(managedLinux
         ? { host: "0.0.0.0", allowedHosts: ["terminal.local"] }
@@ -54,39 +69,41 @@ export default defineConfig(async ({ command }) => {
     },
     plugins: [
       vinext(),
-      sites({ mockAuth: !managedLinux }),
-      connectorPreview(),
-      cloudflare({
-        viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
-        inspectorPort: false,
-        config: {
-          ...localBindingConfig,
+      ...(isVercelBuild && nitro ? [nitro({ preset: "vercel" })] : [
+        sites({ mockAuth: !managedLinux }),
+        connectorPreview(),
+        cloudflare!({
+          viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
+          inspectorPort: false,
+          config: {
+            ...localBindingConfig,
+            ...(command === "serve"
+              ? {
+                  services: [
+                    {
+                      binding: "CONNECTORS",
+                      service: "sites-connector-preview",
+                      entrypoint: "ConnectorPreview",
+                    },
+                  ],
+                }
+              : {}),
+          },
           ...(command === "serve"
             ? {
-                services: [
+                auxiliaryWorkers: [
                   {
-                    binding: "CONNECTORS",
-                    service: "sites-connector-preview",
-                    entrypoint: "ConnectorPreview",
+                    config: {
+                      name: "sites-connector-preview",
+                      main: "./scripts/connector-preview/worker.mjs",
+                      compatibility_date: "2026-05-15",
+                    },
                   },
                 ],
               }
             : {}),
-        },
-        ...(command === "serve"
-          ? {
-              auxiliaryWorkers: [
-                {
-                  config: {
-                    name: "sites-connector-preview",
-                    main: "./scripts/connector-preview/worker.mjs",
-                    compatibility_date: "2026-05-15",
-                  },
-                },
-              ],
-            }
-          : {}),
-      }),
+        }),
+      ]),
     ],
   };
 });
