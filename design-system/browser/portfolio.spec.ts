@@ -29,14 +29,15 @@ test.describe("public portfolio", () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     for (const design of designs) {
       await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
-      await expect(page.locator(".home-project-preview")).toBeVisible();
-      await expect(page.locator(".home-project-preview img")).toHaveAttribute("src", /medichelp-work/);
+      await expect(page.locator(".home-journey-preview")).toBeVisible();
+      await expect(page.locator(".home-journey-preview img")).toHaveAttribute("src", /lac-studio-idea-to-launch/);
+      await expect(page.locator(".home-journey-caption")).toContainText("One connected path");
       await expect(page.locator(".home-focus-grid article")).toHaveCount(3);
       await expect(page.locator(".home-selected-grid .project-card")).toHaveCount(3);
     }
     await page.setViewportSize({ width: 375, height: 900 });
     await page.goto("/?design=playground", { waitUntil: "networkidle" });
-    const [preview, viewport] = await Promise.all([page.locator(".home-project-preview").boundingBox(), page.evaluate(() => window.innerWidth)]);
+    const [preview, viewport] = await Promise.all([page.locator(".home-journey-preview").boundingBox(), page.evaluate(() => window.innerWidth)]);
     expect(preview).not.toBeNull();
     expect(preview!.x + preview!.width).toBeLessThanOrEqual(viewport + .5);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
