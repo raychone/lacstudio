@@ -1,22 +1,31 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useId, useRef, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import Image from "next/image";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
 import { featuredProjects, publishedProjects, type PublicProject } from "@/content/projects";
-import { services } from "@/content/services";
+import { defaultLocale, locales, localeNames, localizePath, type Locale } from "@/content/i18n/config";
+import { getPortfolioCopy, isLocaleReady, type PortfolioCopy } from "@/content/i18n/portfolio";
+import { localizeProject } from "@/content/i18n/project-content";
+import { localizeServices } from "@/content/i18n/service-content";
 
 // Vinext's experimental RSC prefetcher can fail after an otherwise valid Vercel
 // deployment. Portfolio navigation does not need client-side data prefetching,
 // so normal document links give every route a dependable, accessible transition.
+const PortfolioLocaleContext = createContext<{ locale: Locale; copy: PortfolioCopy }>({ locale: defaultLocale, copy: getPortfolioCopy(defaultLocale) });
+
+function usePortfolioLocale() { return useContext(PortfolioLocaleContext); }
+
 function Link({ href, ...props }: ComponentPropsWithoutRef<"a"> & { href: string }) {
-  return <a href={href} {...props} />;
+  const { locale } = usePortfolioLocale();
+  const isPortfolioRoute = href.startsWith("/") && !href.startsWith("/lab") && !href.startsWith("/api");
+  return <a href={isPortfolioRoute ? localizePath(locale, href) : href} {...props} />;
 }
 
 type Page = "home" | "work" | "services" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "not-found";
 
-const navigation: Array<[string, Page]> = [["Work", "work"], ["Services", "services"], ["Process", "process"], ["About", "about"]];
+const navigation: Array<[keyof PortfolioCopy["navigation"], Page]> = [["work", "work"], ["services", "services"], ["process", "process"], ["about", "about"]];
 const hrefFor = (page: Page) => page === "home" ? "/" : page === "case-study" ? "/work" : `/${page}`;
 const expertise = [
   ["Authentication & roles", "Permissions and access designed around the people who need to use the product."],
@@ -28,12 +37,6 @@ const expertise = [
   ["Integrations", "Careful links to the tools and services a team already uses."],
   ["Testing & deployment", "Practical quality checks and a considered path to release."],
 ];
-const process = ["Discover", "Define", "Design", "Build", "Validate", "Launch"];
-const homeFocus = [
-  ["Start with the right problem", "Turn an early idea, a manual process or a confusing customer journey into a focused plan for what to build first."],
-  ["Build the product", "Create web applications, mobile workflows, client portals, booking tools, dashboards and SaaS products from end to end."],
-  ["Connect the work", "Bring together backend services, databases, permissions, automation and integrations so the product supports the operation behind it."],
-] as const;
 
 function PortfolioDesignSwitcher() {
   const { activeDesign, setActiveDesign, restored } = useDesign();
@@ -76,14 +79,42 @@ function PortfolioAmbientEffect({ design, reducedMotion, enabled }: { design: De
   return <div ref={effect} className={`portfolio-ambient-effect ${design}`} data-active="false" data-pressed="false" aria-hidden="true" />;
 }
 
-function Header({ page }: { page: Page }) {
+function pagePath(page: Page, project?: PublicProject) {
+  if (page === "home") return "/";
+  if (page === "case-study" && project) return `/work/${project.slug}`;
+  return hrefFor(page);
+}
+
+function LanguageSwitcher({ page, project, mobile = false }: { page: Page; project?: PublicProject; mobile?: boolean }) {
+  const { locale, copy } = usePortfolioLocale();
+  const path = pagePath(page, project);
+  const switchLocale = (event: React.MouseEvent<HTMLAnchorElement>, target: Locale) => {
+    event.preventDefault();
+    const url = new URL(window.location.href);
+    url.pathname = localizePath(target, path);
+    window.location.assign(url);
+  };
+  return <div className={`portfolio-language ${mobile ? "portfolio-language-mobile" : ""}`} role="group" aria-label={copy.language.label}>
+    <span className="portfolio-language-label">{copy.language.label}</span>
+    <div className="portfolio-language-options">{locales.map((target) => {
+      const active = target === locale;
+      const ready = isLocaleReady(target);
+      const label = target.toUpperCase();
+      return ready ? <a key={target} href={localizePath(target, path)} aria-current={active ? "page" : undefined} className={active ? "active" : ""} onClick={(event) => switchLocale(event, target)}>{label}</a> : <span key={target} aria-disabled="true" title={`${localeNames[target]} — ${copy.language.unavailable}`}>{label}</span>;
+    })}</div>
+  </div>;
+}
+
+function Header({ page, project }: { page: Page; project?: PublicProject }) {
   const [open, setOpen] = useState(false);
   const { effectsEnabled, setEffectsEnabled } = useDesign();
-  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo priority /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label="Main navigation">{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{label}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>Discuss a project ↗</Link></nav><button className="portfolio-effect-toggle" type="button" aria-pressed={effectsEnabled} aria-label={`${effectsEnabled ? "Disable" : "Enable"} interface effects`} onClick={() => setEffectsEnabled(!effectsEnabled)}><span aria-hidden="true">✦</span><b>{effectsEnabled ? "FX on" : "FX off"}</b></button><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
+  const { copy } = usePortfolioLocale();
+  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo priority /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label={copy.navigation.mainLabel}>{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{copy.navigation[label]}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>{copy.navigation.discuss}</Link><LanguageSwitcher page={page} project={project} mobile /></nav><LanguageSwitcher page={page} project={project} /><button className="portfolio-effect-toggle" type="button" aria-pressed={effectsEnabled} aria-label={`${effectsEnabled ? "Disable" : "Enable"} interface effects`} onClick={() => setEffectsEnabled(!effectsEnabled)}><span aria-hidden="true">✦</span><b>{effectsEnabled ? "FX on" : "FX off"}</b></button><PortfolioDesignSwitcher /><button className="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
 }
 
 function Footer() {
-  return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div className="footer-brand"><Link className="portfolio-brand" href="/" aria-label="LAC Studio home"><BrandLogo /></Link><p>Independent software development for web applications, business systems and mobile workflows.</p></div><nav aria-label="Explore"><span>Explore</span><Link href="/work">Work</Link><Link href="/services">Services</Link></nav><nav aria-label="Studio"><span>Studio</span><Link href="/about">About</Link><Link href="/process">Process</Link></nav><nav aria-label="Contact"><span>Contact</span><Link href="/contact">Discuss a project</Link><Link href="/privacy">Privacy</Link><Link href="/legal">Legal</Link></nav><div className="footer-note"><span>© {new Date().getFullYear()} LAC STUDIO</span><span>Independent by design.</span></div></div></footer>;
+  const { copy } = usePortfolioLocale();
+  return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div className="footer-brand"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo /></Link><p>{copy.footer.description}</p></div><nav aria-label={copy.footer.explore}><span>{copy.footer.explore}</span><Link href="/work">{copy.navigation.work}</Link><Link href="/services">{copy.navigation.services}</Link></nav><nav aria-label={copy.footer.studio}><span>{copy.footer.studio}</span><Link href="/about">{copy.navigation.about}</Link><Link href="/process">{copy.navigation.process}</Link></nav><nav aria-label={copy.footer.contact}><span>{copy.footer.contact}</span><Link href="/contact">{copy.shared.discussProject}</Link><Link href="/privacy">{copy.footer.privacy}</Link><Link href="/legal">{copy.footer.legal}</Link></nav><div className="footer-note"><span>© {new Date().getFullYear()} LAC STUDIO</span><span>{copy.footer.independent}</span></div></div></footer>;
 }
 
 function Section({ eyebrow, title, children, className = "", id }: { eyebrow?: string; title?: string; children: ReactNode; className?: string; id?: string }) {
@@ -92,8 +123,10 @@ function Section({ eyebrow, title, children, className = "", id }: { eyebrow?: s
 
 function ProjectPreview({ project, compact = false }: { project: PublicProject; compact?: boolean }) {
   const { activeDesign } = useDesign();
+  const { copy, locale } = usePortfolioLocale();
+  const localized = localizeProject(project, locale);
   const designQuery = `?design=${activeDesign.id}`;
-  return <article className={`project-card ${compact ? "project-card-compact" : ""}`}><div className="project-art" aria-label={`${project.title} product preview`}>{project.thumbnail ? <Image src={project.thumbnail} alt="" fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>Media to be supplied</span><i /><b>{project.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{project.category}</span><h3>{project.title}</h3><p>{project.summary}</p>{compact && project.problem && <p className="project-compact-problem"><b>Addresses:</b> {project.problem}</p>}{!compact && project.problem && <div className="project-problem"><b>The challenge</b><p>{project.problem}</p></div>}<ul>{project.technologies.slice(0, compact ? 2 : 3).map((item) => <li key={item}>{item}</li>)}</ul><div className="project-card-links">{!compact && (project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noreferrer">Open live project <b>↗</b></a> : project.demoOnRequest ? <Link href={`/contact${designQuery}`}>Ask about a demo <b>↗</b></Link> : null)}<Link href={`/work/${project.slug}${designQuery}`}>{compact ? "Explore project" : "Read case study"} <b>→</b></Link></div>{!compact && project.demoNotice && <small className="project-demo-notice">{project.demoNotice}</small>}</div></article>;
+  return <article className={`project-card ${compact ? "project-card-compact" : ""}`}><div className="project-art" aria-label={`${localized.title} product preview`}>{localized.thumbnail ? <Image src={localized.thumbnail} alt="" fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>Media to be supplied</span><i /><b>{localized.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{localized.category}</span><h3>{localized.title}</h3><p>{localized.summary}</p>{compact && localized.problem && <p className="project-compact-problem"><b>{copy.shared.addresses}</b> {localized.problem}</p>}{!compact && localized.problem && <div className="project-problem"><b>{copy.shared.theChallenge}</b><p>{localized.problem}</p></div>}<ul>{localized.technologies.slice(0, compact ? 2 : 3).map((item) => <li key={item}>{item}</li>)}</ul><div className="project-card-links">{!compact && (localized.liveUrl ? <a href={localized.liveUrl} target="_blank" rel="noreferrer">{copy.shared.openLiveProject} <b>↗</b></a> : localized.demoOnRequest ? <Link href={`/contact${designQuery}`}>{copy.shared.askAboutDemo} <b>↗</b></Link> : null)}<Link href={`/work/${localized.slug}${designQuery}`}>{compact ? copy.shared.exploreProject : copy.shared.readCaseStudy} <b>→</b></Link></div>{!compact && localized.demoNotice && <small className="project-demo-notice">{localized.demoNotice}</small>}</div></article>;
 }
 
 function UnpublishedWork() {
@@ -209,18 +242,10 @@ function FeaturedWorkCarousel() {
   </div>;
 }
 
-const workFaq = [
-  ["What kind of software do you build?", "LAC STUDIO builds custom web applications, Android and desktop software, SaaS products, internal business tools and the backend services behind them."],
-  ["Can we start with an early idea?", "Yes. A first conversation can begin with the problem, the people involved and the change you want to make. You do not need a finished specification."],
-  ["Do you only design interfaces?", "No. I can shape the product direction, user flows, frontend, backend, data, integrations and the route to release."],
-  ["How do case studies get published?", "A project appears only when its description, media, outcomes and permission to share them have been confirmed."],
-  ["Can you improve an existing product?", "Yes. Existing workflows, interfaces and technical foundations can be assessed and improved without assuming a complete rebuild is the answer."],
-  ["What should a first message include?", "A short outline of what you are trying to build, improve or connect is enough to begin a productive conversation."],
-] as const;
-
 function WorkFaq() {
   const [open, setOpen] = useState<number | null>(0);
-  return <div className="work-faq-list">{workFaq.map(([question, answer], index) => {
+  const { copy } = usePortfolioLocale();
+  return <div className="work-faq-list">{copy.work.faq.map(([question, answer], index) => {
     const expanded = open === index;
     const panelId = `work-faq-${index}`;
     return <article className={expanded ? "open" : ""} key={question}><button type="button" aria-expanded={expanded} aria-controls={panelId} onClick={() => setOpen(expanded ? null : index)}><span>{String(index + 1).padStart(2, "0")}</span><b>{question}</b><i aria-hidden="true">{expanded ? "−" : "+"}</i></button><div id={panelId} hidden={!expanded}><p>{answer}</p></div></article>;
@@ -228,15 +253,17 @@ function WorkFaq() {
 }
 
 function HomePage() {
+  const { copy } = usePortfolioLocale();
+  const content = copy.home;
   return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "LAC STUDIO", description: "Independent software development studio building custom web applications, mobile software and business systems." }) }} />
-    <section className="portfolio-hero home-hero"><div className="portfolio-container hero-grid"><div className="hero-copy"><span className="eyebrow">LAC STUDIO / INDEPENDENT SOFTWARE DEVELOPMENT</span><h1><span className="hero-title-lead">From idea to</span><br /><em>working product.</em></h1><p>I design and build custom web, mobile, desktop and business applications—from customer journeys and internal operations to backend services, data, integrations and launch.</p><div className="hero-actions"><Link className="button primary" href="/contact">Discuss your project <b>↗</b></Link><Link className="button secondary" href="/work">Explore the work <b>→</b></Link></div></div><aside className="hero-preview home-project-preview home-journey-preview" aria-label="A product journey from a first sketch to working applications."><Image src="/branding/lac-studio-hero-healthcare.webp" alt="A sketch, product-development milestones and responsive application dashboards." fill priority sizes="(max-width: 640px) 100vw, (max-width: 1024px) 62vw, 760px" /></aside><ul className="hero-proof" aria-label="LAC Studio product focus"><li><b>Web applications</b><span>Customer journeys and tools</span></li><li><b>Mobile & desktop</b><span>Work beyond the browser</span></li><li><b>Business systems</b><span>Data, operations and connections</span></li></ul></div></section>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "LAC STUDIO", description: content.schemaDescription }) }} />
+    <section className="portfolio-hero home-hero"><div className="portfolio-container hero-grid"><div className="hero-copy"><span className="eyebrow">{content.eyebrow}</span><h1><span className="hero-title-lead">{content.titleLead}</span><br /><em>{content.titleEmphasis}</em></h1><p>{content.lead}</p><div className="hero-actions"><Link className="button primary" href="/contact">{content.primaryCta} <b>↗</b></Link><Link className="button secondary" href="/work">{content.secondaryCta} <b>→</b></Link></div></div><aside className="hero-preview home-project-preview home-journey-preview" aria-label={content.imageLabel}><Image src="/branding/lac-studio-hero-healthcare.webp" alt={content.imageAlt} fill priority sizes="(max-width: 640px) 100vw, (max-width: 1024px) 62vw, 760px" /></aside><ul className="hero-proof" aria-label={content.proofLabel}>{content.proof.map(([title, description]) => <li key={title}><b>{title}</b><span>{description}</span></li>)}</ul></div></section>
     <div className="portfolio-container">
-      <Section eyebrow="01 / SELECTED WORK" title="Built for the work behind the screen." className="home-selected-section">{featuredProjects.length ? <><div className="project-grid home-selected-grid">{featuredProjects.slice(1, 4).map((project) => <ProjectPreview project={project} compact key={project.id} />)}</div><Link className="home-all-work" href="/work">See all projects <b>→</b></Link></> : <UnpublishedWork />}</Section>
-      <Section eyebrow="02 / WHAT LAC DOES" title="Software for customers, teams and operations." className="home-focus-section"><div className="home-focus-grid">{homeFocus.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></Section>
-      <Section eyebrow="03 / HOW WE BUILD" title="Direct collaboration, from first conversation to release." className="home-process-section"><ol className="process-row">{process.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><b>{item}</b><small>{["Context", "Scope", "Experience", "System", "Real use", "Release"][index]}</small></li>)}</ol><div className="home-section-actions"><Link className="button primary home-section-cta" href="/process">See how I work <b>↗</b></Link></div></Section>
-      <Section eyebrow="04 / INDEPENDENT BY DESIGN" title="Work directly with the person who designs and builds it." className="about-preview home-about-preview"><p>You work with one person from the first conversation through product design, engineering and launch—without strategy handoffs between separate teams.</p><div className="home-section-actions"><Link className="button primary home-section-cta" href="/about">Meet the founder <b>→</b></Link><Link className="button secondary home-section-cta" href="/services">Explore services <b>→</b></Link></div></Section>
-      <Section className="contact-cta home-contact-cta"><span>05 / START A CONVERSATION</span><h2>Have something<br />worth building?</h2><p>Tell me what needs to work better. You&apos;ll speak directly with the person who will shape and build it.</p><Link className="button primary" href="/contact">Tell me what you&apos;re building <b>↗</b></Link></Section>
+      <Section eyebrow={copy.shared.selectedWork} title={content.selectedTitle} className="home-selected-section">{featuredProjects.length ? <><div className="project-grid home-selected-grid">{featuredProjects.slice(1, 4).map((project) => <ProjectPreview project={project} compact key={project.id} />)}</div><Link className="home-all-work" href="/work">{content.allWork} <b>→</b></Link></> : <UnpublishedWork />}</Section>
+      <Section eyebrow={content.focusEyebrow} title={content.focusTitle} className="home-focus-section"><div className="home-focus-grid">{content.focus.map(([title, description], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p></article>)}</div></Section>
+      <Section eyebrow={content.processEyebrow} title={content.processTitle} className="home-process-section"><ol className="process-row">{content.process.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><b>{item}</b><small>{content.processDetails[index]}</small></li>)}</ol><div className="home-section-actions"><Link className="button primary home-section-cta" href="/process">{content.processCta} <b>↗</b></Link></div></Section>
+      <Section eyebrow={content.founderEyebrow} title={content.founderTitle} className="about-preview home-about-preview"><p>{content.founderCopy}</p><div className="home-section-actions"><Link className="button primary home-section-cta" href="/about">{content.founderCta} <b>→</b></Link><Link className="button secondary home-section-cta" href="/services">{content.servicesCta} <b>→</b></Link></div></Section>
+      <Section className="contact-cta home-contact-cta"><span>05 / {copy.shared.startConversation}</span><h2>{content.contactTitle.split("\n").map((part, index) => <span key={part}>{index ? <br /> : null}{part}</span>)}</h2><p>{content.contactCopy}</p><Link className="button primary" href="/contact">{content.contactCta} <b>↗</b></Link></Section>
     </div>
   </>;
 }
@@ -251,18 +278,21 @@ function WorkPage() {
 }
 
 function ServicesPage() {
+  const { copy, locale } = usePortfolioLocale();
+  const content = copy.services;
+  const localizedServices = localizeServices(locale);
   return <main className="portfolio-page portfolio-container services-page">
-    <Section eyebrow="SERVICES / FROM PRODUCT IDEA TO RELEASE" title="Software for customers, teams and operations." className="services-hero-section">
+    <Section eyebrow={content.eyebrow} title={content.title} className="services-hero-section">
       <div className="services-hero-copy">
-        <p className="lead">I design and build custom web applications, mobile and desktop software, SaaS products and internal business tools for the work people need to get done.</p>
-        <p>You can arrive with an early idea, a process held together by spreadsheets or a product that needs to go further. I can take the work from product direction and interface design through frontend, backend, data, integrations and release.</p>
-        <div className="services-hero-actions"><Link className="button primary" href="/contact">Discuss your project <b>↗</b></Link><Link className="button secondary" href="/work">See relevant work <b>→</b></Link></div>
+        <p className="lead">{content.lead}</p>
+        <p>{content.body}</p>
+        <div className="services-hero-actions"><Link className="button primary" href="/contact">{copy.shared.discussProject} <b>↗</b></Link><Link className="button secondary" href="/work">{content.workCta} <b>→</b></Link></div>
       </div>
-      <aside className="services-scope" aria-label="LAC Studio service scope"><span>ONE CONNECTED SERVICE</span><b>Scope<br />Interface<br />Engineering<br /><em>Release</em></b><small>One person keeps the product context connected throughout.</small></aside>
+      <aside className="services-scope" aria-label={content.scopeLabel}><span>{content.scopeEyebrow}</span><b>Scope<br />Interface<br />Engineering<br /><em>Release</em></b><small>{content.scopeCopy}</small></aside>
     </Section>
-    <Section eyebrow="WHAT I CAN BUILD" title="Start with the part of the product that needs attention." className="services-offerings-section">
-      <p className="page-intro">The engagement can begin with a focused product decision, a new application or the technical foundation that makes an existing product more dependable.</p>
-      <div className="services-grid">{services.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div>
+    <Section eyebrow={content.offeringsEyebrow} title={content.offeringsTitle} className="services-offerings-section">
+      <p className="page-intro">{content.offeringsCopy}</p>
+      <div className="services-grid">{localizedServices.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div>
     </Section>
     <Section eyebrow="A GOOD FIT WHEN" title="The problem is real—even if the brief is not finished yet." className="services-fit-section">
       <div className="services-fit-grid">
@@ -341,7 +371,7 @@ function ProcessPage() {
 
 function ContactPage() {
   const [projectType, setProjectType] = useState(""); const [budget, setBudget] = useState(""); const [timeline, setTimeline] = useState("");
-  return <main className="portfolio-page portfolio-container"><Section eyebrow="CONTACT / START A PROJECT" title="Tell me what needs to work better."><div className="two-column"><div className="contact-intro"><p className="lead">You do not need a finished brief. A few lines about the problem, the people involved and the change you want to make are enough to begin.</p><p>For now, the reliable way to reach me is by email. I&apos;ll read your message personally and reply from there.</p><a className="contact-email" href="mailto:codrin.lucaciu@gmail.com">codrin.lucaciu@gmail.com <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={(event) => event.preventDefault()} aria-describedby="contact-form-notice"><label>Name<input name="name" autoComplete="name" /></label><label>Email<input name="email" type="email" autoComplete="email" /></label><label>Project type<PortfolioSelect name="projectType" ariaLabel="Project type" value={projectType} onChange={setProjectType} placeholder="Choose a direction" options={[{ value: "Web application", label: "Web application" }, { value: "Android application", label: "Android application" }, { value: "Desktop application", label: "Desktop application" }, { value: "SaaS platform", label: "SaaS platform" }, { value: "Business system", label: "Business system" }, { value: "Website", label: "Website" }, { value: "Other software", label: "Other software" }]} /></label><label>Budget range<PortfolioSelect name="budget" ariaLabel="Budget range" value={budget} onChange={setBudget} placeholder="Prefer not to say" options={[{ value: "", label: "Prefer not to say" }, { value: "Under €5,000", label: "Under €5,000" }, { value: "€5,000–€15,000", label: "€5,000–€15,000" }, { value: "€15,000+", label: "€15,000+" }]} /></label><label>Timeline<PortfolioSelect name="timeline" ariaLabel="Timeline" value={timeline} onChange={setTimeline} placeholder="Flexible" options={[{ value: "", label: "Flexible" }, { value: "Within 1 month", label: "Within 1 month" }, { value: "1–3 months", label: "1–3 months" }, { value: "More than 3 months", label: "More than 3 months" }]} /></label><label className="wide">Project description<textarea name="message" placeholder="What are you trying to build, improve or connect?" /></label><label className="honeypot" aria-hidden="true">Company<input name="company" tabIndex={-1} autoComplete="off" /></label><small id="contact-form-notice" className="wide">The inquiry form is being connected and cannot send messages yet. Please use the email address above. See <a href="/privacy">Privacy</a>.</small><button className="button primary" type="button" disabled>Inquiry form unavailable</button></form></div></Section></main>;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow="CONTACT / START A PROJECT" title="Tell me what needs to work better."><div className="two-column"><div className="contact-intro"><p className="lead">You do not need a finished brief. A few lines about the problem, the people involved and the change you want to make are enough to begin.</p><p>For now, the reliable way to reach me is by email. I&apos;ll read your message personally and reply from there.</p><a className="contact-email" href="mailto:codrin.lucaciu@gmail.com">codrin.lucaciu@gmail.com <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={(event) => event.preventDefault()} aria-describedby="contact-form-notice"><label>Name<input name="name" autoComplete="name" /></label><label>Email<input name="email" type="email" autoComplete="email" /></label><label>Project type<PortfolioSelect name="projectType" ariaLabel="Project type" value={projectType} onChange={setProjectType} placeholder="Choose a direction" options={[{ value: "Web application", label: "Web application" }, { value: "Android application", label: "Android application" }, { value: "Desktop application", label: "Desktop application" }, { value: "SaaS platform", label: "SaaS platform" }, { value: "Business system", label: "Business system" }, { value: "Website", label: "Website" }, { value: "Other software", label: "Other software" }]} /></label><label>Budget range<PortfolioSelect name="budget" ariaLabel="Budget range" value={budget} onChange={setBudget} placeholder="Prefer not to say" options={[{ value: "", label: "Prefer not to say" }, { value: "Under €5,000", label: "Under €5,000" }, { value: "€5,000–€15,000", label: "€5,000–€15,000" }, { value: "€15,000+", label: "€15,000+" }]} /></label><label>Timeline<PortfolioSelect name="timeline" ariaLabel="Timeline" value={timeline} onChange={setTimeline} placeholder="Flexible" options={[{ value: "", label: "Flexible" }, { value: "Within 1 month", label: "Within 1 month" }, { value: "1–3 months", label: "1–3 months" }, { value: "More than 3 months", label: "More than 3 months" }]} /></label><label className="wide">Project description<textarea name="message" placeholder="What are you trying to build, improve or connect?" /></label><label className="honeypot" aria-hidden="true">Company<input name="company" tabIndex={-1} autoComplete="off" /></label><small id="contact-form-notice" className="wide">The inquiry form is being connected and cannot send messages yet. Please use the email address above. See <Link href="/privacy">Privacy</Link>.</small><button className="button primary" type="button" disabled>Inquiry form unavailable</button></form></div></Section></main>;
 }
 function LegalPage({ privacy }: { privacy: boolean }) { return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? "PRIVACY" : "LEGAL"} title={privacy ? "Privacy, without assumptions." : "Legal information to complete before publication."}><div className="legal-copy">{privacy ? <><p>LAC STUDIO does not currently install analytics. You can reach the studio directly at the published email address. The inquiry form is visible for planning purposes but cannot send messages until a delivery provider is connected.</p><p>When form delivery is configured, this notice must be updated with the data controller, contact method, processing purpose, retention period, legal basis and provider details.</p></> : <><p>Business registration details, registered address, governing-law details and other legally required information have not yet been supplied for publication.</p><p>Before wider public promotion, replace this notice with verified information appropriate to the studio&apos;s legal situation and the markets it serves.</p></>}</div></Section></main>; }
 function NotFoundPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="404 / NOT FOUND" title="That page could not be found."><p className="page-intro">It may have moved, be unpublished or no longer be available. You can return to the portfolio to explore the published work.</p><Link className="button primary" href="/work">Explore the work <b>→</b></Link></Section></main>; }
@@ -373,7 +403,7 @@ function CaseStudy({ project }: { project: PublicProject }) {
 
 function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
   const { activeDesign, reducedMotion, effectsEnabled } = useDesign();
-  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} project={project} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
 }
 
 function LegacyLabRedirect({ children }: { children: ReactNode }) {
@@ -387,6 +417,8 @@ function LegacyLabRedirect({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-export function PortfolioApp({ page, project }: { page: Page; project?: PublicProject }) {
-  return <LegacyLabRedirect><DesignProvider scope="portfolio"><PortfolioContent page={page} project={project} /></DesignProvider></LegacyLabRedirect>;
+export function PortfolioApp({ page, project, locale = defaultLocale }: { page: Page; project?: PublicProject; locale?: Locale }) {
+  const copy = getPortfolioCopy(locale);
+  const localizedProject = project ? localizeProject(project, locale) : undefined;
+  return <PortfolioLocaleContext.Provider value={{ locale, copy }}><LegacyLabRedirect><DesignProvider scope="portfolio"><PortfolioContent page={page} project={localizedProject} /></DesignProvider></LegacyLabRedirect></PortfolioLocaleContext.Provider>;
 }

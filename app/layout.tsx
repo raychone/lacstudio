@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { defaultLocale, isLocale } from "@/content/i18n/config";
 import "./globals.css";
 import "../design-system/tokens/foundations.css";
 import "../design-system/tokens/layout-contract.css";
@@ -76,13 +78,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestedLocale = (await headers()).get("x-lac-locale");
+  const locale = isLocale(requestedLocale) ? requestedLocale : defaultLocale;
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className="antialiased">{children}</body>
     </html>
   );
