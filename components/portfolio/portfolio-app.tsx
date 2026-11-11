@@ -111,8 +111,9 @@ function Footer() {
   return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div className="footer-brand"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo /></Link><p>{copy.footer.description}</p></div><nav aria-label={copy.footer.explore}><span>{copy.footer.explore}</span><Link href="/work">{copy.navigation.work}</Link><Link href="/services">{copy.navigation.services}</Link></nav><nav aria-label={copy.footer.studio}><span>{copy.footer.studio}</span><Link href="/about">{copy.navigation.about}</Link><Link href="/process">{copy.navigation.process}</Link></nav><nav aria-label={copy.footer.contact}><span>{copy.footer.contact}</span><Link href="/contact">{copy.shared.discussProject}</Link><Link href="/privacy">{copy.footer.privacy}</Link><Link href="/legal">{copy.footer.legal}</Link></nav><div className="footer-note"><span>© {new Date().getFullYear()} LAC STUDIO</span><span>{copy.footer.independent}</span></div></div></footer>;
 }
 
-function Section({ eyebrow, title, children, className = "", id }: { eyebrow?: string; title?: string; children: ReactNode; className?: string; id?: string }) {
-  return <section id={id} className={`portfolio-section ${className}`}>{(eyebrow || title) && <div className="portfolio-section-heading">{eyebrow && <span>{eyebrow}</span>}{title && <h2>{title}</h2>}</div>}{children}</section>;
+function Section({ eyebrow, title, children, className = "", id, headingLevel = "h2" }: { eyebrow?: string; title?: string; children: ReactNode; className?: string; id?: string; headingLevel?: "h1" | "h2" }) {
+  const Heading = headingLevel;
+  return <section id={id} className={`portfolio-section ${className}`}>{(eyebrow || title) && <div className="portfolio-section-heading">{eyebrow && <span>{eyebrow}</span>}{title && <Heading>{title}</Heading>}</div>}{children}</section>;
 }
 
 function ProjectPreview({ project, compact = false }: { project: PublicProject; compact?: boolean }) {
@@ -250,7 +251,6 @@ function HomePage() {
   const { copy } = usePortfolioLocale();
   const content = copy.home;
   return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "LAC STUDIO", description: content.schemaDescription }) }} />
     <section className="portfolio-hero home-hero"><div className="portfolio-container hero-grid"><div className="hero-copy"><span className="eyebrow">{content.eyebrow}</span><h1><span className="hero-title-lead">{content.titleLead}</span><br /><em>{content.titleEmphasis}</em></h1><p>{content.lead}</p><div className="hero-actions"><Link className="button primary" href="/contact">{content.primaryCta} <b>↗</b></Link><Link className="button secondary" href="/work">{content.secondaryCta} <b>→</b></Link></div></div><aside className="hero-preview home-project-preview home-journey-preview" aria-label={content.imageLabel}><Image src="/branding/lac-studio-hero-healthcare.webp" alt={content.imageAlt} fill priority sizes="(max-width: 640px) 100vw, (max-width: 1024px) 62vw, 760px" /></aside><ul className="hero-proof" aria-label={content.proofLabel}>{content.proof.map(([title, description]) => <li key={title}><b>{title}</b><span>{description}</span></li>)}</ul></div></section>
     <div className="portfolio-container">
       <Section eyebrow={copy.shared.selectedWork} title={content.selectedTitle} className="home-selected-section">{featuredProjects.length ? <><div className="project-grid home-selected-grid">{featuredProjects.slice(1, 4).map((project) => <ProjectPreview project={project} compact key={project.id} />)}</div><Link className="home-all-work" href="/work">{content.allWork} <b>→</b></Link></> : <UnpublishedWork />}</Section>
@@ -266,7 +266,7 @@ function WorkPage() {
   const { copy } = usePortfolioLocale();
   const content = copy.work;
   return <main className="portfolio-page portfolio-container">
-    <Section eyebrow={content.featuredEyebrow} title={content.featuredTitle} className="work-featured-section"><FeaturedWorkCarousel /></Section>
+    <Section eyebrow={content.featuredEyebrow} title={content.featuredTitle} headingLevel="h1" className="work-featured-section"><FeaturedWorkCarousel /></Section>
     <Section eyebrow={content.galleryEyebrow} title={content.galleryTitle} className="work-gallery-section"><p className="page-intro">{content.galleryIntro}</p><div id="publication-policy"><div className="project-grid work-project-grid">{publishedProjects.map((project) => <ProjectPreview key={project.id} project={project} />)}</div></div></Section>
     <Section eyebrow={content.faqEyebrow} title={content.faqTitle} className="work-faq-section"><WorkFaq /></Section>
     <Section className="contact-cta work-contact-cta"><span>04 / {copy.shared.startConversation}</span><h2>{content.contactTitle.split("\n").map((part, index) => <span key={part}>{index ? <br /> : null}{part}</span>)}</h2><p>{content.contactCopy}</p><Link className="button primary" href="/contact">{copy.shared.discussProject} <b>→</b></Link></Section>
@@ -279,7 +279,7 @@ function ServicesPage() {
   const page = pageCopy[locale].services;
   const localizedServices = localizeServices(locale);
   return <main className="portfolio-page portfolio-container services-page">
-    <Section eyebrow={content.eyebrow} title={content.title} className="services-hero-section">
+    <Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1" className="services-hero-section">
       <div className="services-hero-copy">
         <p className="lead">{content.lead}</p>
         <p>{content.body}</p>
@@ -309,7 +309,7 @@ function AboutPage() {
   const content = copy.about;
   const page = pageCopy[locale].about;
   return <main className="portfolio-page portfolio-container about-page">
-    <Section eyebrow={content.eyebrow} title={content.title} className="about-intro-section">
+    <Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1" className="about-intro-section">
       <div className="about-profile">
         <div className="about-profile-copy">
           <p className="lead">{page.intro[0]}</p>
@@ -340,7 +340,7 @@ function ProcessPage() {
   const [activeStage, setActiveStage] = useState(0);
   const stage = page.stages[activeStage];
   return <main className="portfolio-page portfolio-container process-page">
-    <Section eyebrow={content.eyebrow} title={content.title} className="process-page-hero">
+    <Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1" className="process-page-hero">
       <div className="process-hero-body"><p className="lead">{content.lead}</p><div className="process-hero-actions"><Link className="button primary" href="/contact">{page.discuss} <b>↗</b></Link><Link className="button secondary" href="/work">{page.explore} <b>→</b></Link></div></div>
       <div className="process-stage-tabs" role="tablist" aria-label={content.tabLabel}>{page.stages.map((item, index) => <button key={item.tab} id={`process-stage-tab-${index}`} type="button" role="tab" aria-selected={activeStage === index} aria-controls="process-stage-panel" className={activeStage === index ? "active" : ""} onClick={() => setActiveStage(index)}><span>{String(index + 1).padStart(2, "0")}</span><b>{item.tab}</b></button>)}</div>
       <section id="process-stage-panel" className="process-stage-detail" role="tabpanel" aria-labelledby={`process-stage-tab-${activeStage}`}>
@@ -364,17 +364,17 @@ function ContactPage() {
   const projectOptions = page.projectTypes.map((item) => ({ value: item, label: item }));
   const budgetOptions = page.budgetOptions.map((item, index) => ({ value: index ? item : "", label: item }));
   const timelineOptions = page.timelineOptions.map((item, index) => ({ value: index ? item : "", label: item }));
-  return <main className="portfolio-page portfolio-container"><Section eyebrow={content.eyebrow} title={content.title}><div className="two-column"><div className="contact-intro"><p className="lead">{page.lead}</p><p>{page.email}</p><a className="contact-email" href="mailto:codrin.lucaciu@gmail.com">codrin.lucaciu@gmail.com <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={(event) => event.preventDefault()} aria-describedby="contact-form-notice"><label>{page.name}<input name="name" autoComplete="name" /></label><label>{page.emailLabel!}<input name="email" type="email" autoComplete="email" /></label><label>{page.projectType}<PortfolioSelect name="projectType" ariaLabel={page.projectType} value={projectType} onChange={setProjectType} placeholder={page.chooseDirection} options={projectOptions} /></label><label>{page.budget}<PortfolioSelect name="budget" ariaLabel={page.budget} value={budget} onChange={setBudget} placeholder={page.budgetPlaceholder} options={budgetOptions} /></label><label>{page.timeline}<PortfolioSelect name="timeline" ariaLabel={page.timeline} value={timeline} onChange={setTimeline} placeholder={page.timelinePlaceholder} options={timelineOptions} /></label><label className="wide">{page.description}<textarea name="message" placeholder={page.descriptionPlaceholder} /></label><label className="honeypot" aria-hidden="true">{page.company}<input name="company" tabIndex={-1} autoComplete="off" /></label><small id="contact-form-notice" className="wide">{content.formNotice} <Link href="/privacy">{content.privacyLink}</Link>.</small><button className="button primary" type="button" disabled>{content.formButton}</button></form></div></Section></main>;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1"><div className="two-column"><div className="contact-intro"><p className="lead">{page.lead}</p><p>{page.email}</p><a className="contact-email" href="mailto:codrin.lucaciu@gmail.com">codrin.lucaciu@gmail.com <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={(event) => event.preventDefault()} aria-describedby="contact-form-notice"><label>{page.name}<input name="name" autoComplete="name" /></label><label>{page.emailLabel!}<input name="email" type="email" autoComplete="email" /></label><label>{page.projectType}<PortfolioSelect name="projectType" ariaLabel={page.projectType} value={projectType} onChange={setProjectType} placeholder={page.chooseDirection} options={projectOptions} /></label><label>{page.budget}<PortfolioSelect name="budget" ariaLabel={page.budget} value={budget} onChange={setBudget} placeholder={page.budgetPlaceholder} options={budgetOptions} /></label><label>{page.timeline}<PortfolioSelect name="timeline" ariaLabel={page.timeline} value={timeline} onChange={setTimeline} placeholder={page.timelinePlaceholder} options={timelineOptions} /></label><label className="wide">{page.description}<textarea name="message" placeholder={page.descriptionPlaceholder} /></label><label className="honeypot" aria-hidden="true">{page.company}<input name="company" tabIndex={-1} autoComplete="off" /></label><small id="contact-form-notice" className="wide">{content.formNotice} <Link href="/privacy">{content.privacyLink}</Link>.</small><button className="button primary" type="button" disabled>{content.formButton}</button></form></div></Section></main>;
 }
 function LegalPage({ privacy }: { privacy: boolean }) {
   const { copy } = usePortfolioLocale();
   const legal = copy.legal;
   const paragraphs = privacy ? legal.privacyParagraphs : legal.legalParagraphs;
-  return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? legal.privacyEyebrow : legal.legalEyebrow} title={privacy ? legal.privacyTitle : legal.legalTitle}><div className="legal-copy">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></Section></main>;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? legal.privacyEyebrow : legal.legalEyebrow} title={privacy ? legal.privacyTitle : legal.legalTitle} headingLevel="h1"><div className="legal-copy">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></Section></main>;
 }
 function NotFoundPage() {
   const { copy } = usePortfolioLocale();
-  return <main className="portfolio-page portfolio-container"><Section eyebrow={copy.notFound.eyebrow} title={copy.notFound.title}><p className="page-intro">{copy.notFound.copy}</p><Link className="button primary" href="/work">{copy.notFound.cta} <b>→</b></Link></Section></main>;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={copy.notFound.eyebrow} title={copy.notFound.title} headingLevel="h1"><p className="page-intro">{copy.notFound.copy}</p><Link className="button primary" href="/work">{copy.notFound.cta} <b>→</b></Link></Section></main>;
 }
 
 function CaseStudyNavigation({ previous, next, designQuery, location }: { previous: PublicProject; next: PublicProject; designQuery: string; location: "workflow" | "evidence" }) {
@@ -393,7 +393,7 @@ function CaseStudy({ project }: { project: PublicProject }) {
   const designQuery = `?design=${activeDesign.id}`;
   const { copy } = usePortfolioLocale();
   return <main className="portfolio-page portfolio-container">
-    <Section eyebrow={`${project.category.toUpperCase()} / ${copy.shared.readCaseStudy.toUpperCase()}`} title={project.title}>
+    <Section eyebrow={`${project.category.toUpperCase()} / ${copy.shared.readCaseStudy.toUpperCase()}`} title={project.title} headingLevel="h1">
       <p className="page-intro">{project.summary}</p>
       <div className="case-meta"><span>{project.subtitle}</span><span>{project.platforms.join(" · ")}</span><span>{project.year}</span></div>
       {image && <div className="case-hero-media"><Image src={image} alt={`${project.title} ${copy.shared.interfacePreview}`} fill sizes="(max-width: 1180px) 100vw, 1180px" priority /></div>}

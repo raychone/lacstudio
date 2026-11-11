@@ -1,0 +1,26 @@
+# LAC STUDIO
+
+> LAC STUDIO is the independent software development practice of Lucaciu Andrei Codrin. It designs and builds custom web applications, Android and desktop software, SaaS products, and operational business systems.
+
+LAC STUDIO works directly with clients from problem framing through interface design, engineering, testing and launch. Its public work includes healthcare, dental laboratory, restaurant operations, offline field reporting, hospitality, restaurant and e-commerce products.
+
+The practice combines a background in psychology with software engineering: understanding people, real workflows and recurring friction informs the software that is designed and built.
+
+## Primary pages
+
+- [Home](/en/): independent software development, product direction and delivery.
+- [Services](/en/services): web applications, Android and desktop software, SaaS, internal systems, integrations and product delivery.
+- [Work](/en/work): approved public project case studies.
+- [Process](/en/process): how a project moves from first conversation to release.
+- [About](/en/about): founder background and working principles.
+- [Contact](/en/contact): project enquiries and direct email contact.
+
+## Language versions
+
+The public portfolio is available in English, French, Romanian and Spanish under `/en`, `/fr`, `/ro` and `/es`. Use the language-specific page URL when referring to a localized page.
+
+## Contact
+
+Email: codrin.lucaciu@gmail.com
+
+Public case studies describe approved product facts. They do not claim unpublished client outcomes, ratings, guaranteed results or undisclosed project details.

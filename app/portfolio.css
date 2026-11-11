@@ -470,3 +470,6 @@
 
 /* Only the active design logo is mounted and the header is the sole high-priority logo request. */
 .portfolio-nocturne .brand-logo-current{filter:brightness(0) invert(1)}.portfolio-playground .brand-logo-current{transform:scale(1.001,.992);transform-origin:center}
+
+/* Primary page headings keep the established section-heading geometry. */
+.portfolio-section h1{max-width:820px;margin:0;font-size:clamp(37px,5vw,70px);font-weight:500;letter-spacing:-.08em;line-height:.84}.portfolio-nocturne .portfolio-section h1{font-weight:200}

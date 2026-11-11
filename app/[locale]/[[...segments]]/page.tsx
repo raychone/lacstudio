@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import { PortfolioApp } from "@/components/portfolio/portfolio-app";
+import { PortfolioStructuredData } from "@/components/portfolio/structured-data";
 import { isLocale, locales, type Locale } from "@/content/i18n/config";
 import { isLocaleReady } from "@/content/i18n/portfolio";
+import { localizeProject } from "@/content/i18n/project-content";
 import { publicProjectBySlug } from "@/content/projects";
 import { localizedMetadata } from "@/lib/i18n-metadata";
 
@@ -23,7 +25,12 @@ export async function generateMetadata({ params }: { params: Promise<RouteParams
   if (!isLocale(input) || !isLocaleReady(input)) return { robots: { index: false, follow: false } };
   const route = resolveRoute(input, segments);
   if (!route) return { robots: { index: false, follow: false } };
-  const metadata = localizedMetadata(input, route.page === "case-study" ? "work" : route.page, route.pathname);
+  const metadata = route.page === "case-study" && route.project
+    ? localizedMetadata(input, "work", route.pathname, (() => {
+      const project = localizeProject(route.project, input);
+      return { title: project.title, description: project.summary };
+    })())
+    : localizedMetadata(input, route.page, route.pathname);
   if (route.page === "privacy" || route.page === "legal") {
     return { ...metadata, robots: { index: false, follow: false } };
   }
@@ -35,7 +42,8 @@ export default async function LocalizedPortfolioRoute({ params }: { params: Prom
   if (!isLocale(input)) notFound();
   const route = resolveRoute(input, segments);
   if (!route) notFound();
-  return <PortfolioApp page={route.page} project={"project" in route ? route.project : undefined} locale={input} />;
+  const project = "project" in route ? route.project : undefined;
+  return <><PortfolioStructuredData locale={input} page={route.page} pathname={route.pathname} project={project} /><PortfolioApp page={route.page} project={project} locale={input} /></>;
 }
 
 export function generateStaticParams() {
