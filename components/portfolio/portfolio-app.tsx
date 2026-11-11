@@ -130,8 +130,8 @@ function UnpublishedWork() {
 
 type PortfolioSelectOption = { value: string; label: string };
 
-function PortfolioSelect({ name, value, options, placeholder, ariaLabel, onChange, required = false }: {
-  name?: string; value: string; options: readonly PortfolioSelectOption[]; placeholder: string; ariaLabel: string; onChange: (value: string) => void; required?: boolean;
+function PortfolioSelect({ name, value, options, placeholder, ariaLabel, ariaDescribedBy, onChange, required = false, invalid = false }: {
+  name?: string; value: string; options: readonly PortfolioSelectOption[]; placeholder: string; ariaLabel: string; ariaDescribedBy?: string; onChange: (value: string) => void; required?: boolean; invalid?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -150,7 +150,7 @@ function PortfolioSelect({ name, value, options, placeholder, ariaLabel, onChang
   }, []);
   return <div ref={root} className={open ? "portfolio-select open" : "portfolio-select"}>
     {name && <input type="hidden" name={name} value={value} />}
-    <button ref={trigger} type="button" role="combobox" aria-label={ariaLabel} aria-haspopup="listbox" aria-controls={listboxId} aria-expanded={open} aria-required={required} aria-invalid={required && !value} onClick={() => open ? close() : (setOpen(true), focusOption(selectedIndex))} onKeyDown={(event) => {
+    <button ref={trigger} type="button" role="combobox" aria-label={ariaLabel} aria-describedby={ariaDescribedBy} aria-haspopup="listbox" aria-controls={listboxId} aria-expanded={open} aria-required={required} aria-invalid={invalid} onClick={() => open ? close() : (setOpen(true), focusOption(selectedIndex))} onKeyDown={(event) => {
       if (event.key === "ArrowDown") { event.preventDefault(); setOpen(true); focusOption(Math.min(selectedIndex + 1, options.length - 1)); }
       if (event.key === "ArrowUp") { event.preventDefault(); setOpen(true); focusOption(Math.max(selectedIndex - 1, 0)); }
       if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setOpen(true); focusOption(selectedIndex); }
@@ -360,6 +360,7 @@ function ContactPage() {
   const [availability, setAvailability] = useState<"checking" | "available" | "unavailable">("checking");
   const [submission, setSubmission] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [status, setStatus] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const { copy, pages, locale } = usePortfolioLocale();
   const content = copy.contact;
   const page = pages.contact;
@@ -367,6 +368,10 @@ function ContactPage() {
   const projectOptions = page.projectTypes.map((item) => ({ value: item, label: item }));
   const budgetOptions = page.budgetOptions.map((item, index) => ({ value: index ? item : "", label: item }));
   const timelineOptions = page.timelineOptions.map((item, index) => ({ value: index ? item : "", label: item }));
+  const clearFieldError = (field: string) => setFieldErrors((current) => {
+    if (!current[field]) return current;
+    const next = { ...current }; delete next[field]; return next;
+  });
   useEffect(() => {
     let active = true;
     fetch("/api/contact", { cache: "no-store" }).then(async (result) => ({ result, body: await result.json().catch(() => null) as { available?: boolean } | null })).then(({ result, body }) => {
@@ -379,8 +384,15 @@ function ContactPage() {
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (availability !== "available" || submission === "submitting") return;
-    setSubmission("submitting"); setStatus("");
     const form = event.currentTarget; const data = Object.fromEntries(new FormData(form).entries());
+    const name = String(data.name ?? "").trim(); const email = String(data.email ?? "").trim(); const message = String(data.message ?? "").trim();
+    const errors: Record<string, string> = {};
+    if (name.length < 2) errors.name = messages.nameRequired;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = messages.emailInvalid;
+    if (!String(data.projectType ?? "").trim()) errors.projectType = messages.projectTypeRequired;
+    if (message.length < 20) errors.message = messages.messageRequired;
+    if (Object.keys(errors).length) { setFieldErrors(errors); setSubmission("idle"); setStatus(messages.validation); return; }
+    setFieldErrors({}); setSubmission("submitting"); setStatus("");
     try {
       const result = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json", "Accept-Language": locale }, body: JSON.stringify(data) });
       const body = await result.json().catch(() => null) as { message?: string; error?: string } | null;
@@ -389,7 +401,7 @@ function ContactPage() {
     } catch { setSubmission("error"); setStatus(messages.failure); }
   };
   const buttonLabel = submission === "submitting" ? messages.submitting : availability === "checking" ? messages.checking : availability === "unavailable" ? messages.unavailable : submission === "error" ? messages.retry : messages.submit;
-  return <main className="portfolio-page portfolio-container"><Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1"><div className="two-column"><div className="contact-intro"><p className="lead">{page.lead}</p><p>{page.email}</p><a className="contact-email" href="mailto:contact@lacstudio.ro">contact@lacstudio.ro <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={submit} aria-describedby="contact-form-notice contact-form-status"><fieldset disabled={submission === "submitting" || availability !== "available"}><label>{page.name}<input name="name" autoComplete="name" required minLength={2} maxLength={100} /></label><label>{page.emailLabel!}<input name="email" type="email" autoComplete="email" required maxLength={254} /></label><label>{page.projectType}<PortfolioSelect name="projectType" ariaLabel={page.projectType} value={projectType} onChange={setProjectType} placeholder={page.chooseDirection} options={projectOptions} /></label><label>{page.budget}<PortfolioSelect name="budget" ariaLabel={page.budget} value={budget} onChange={setBudget} placeholder={page.budgetPlaceholder} options={budgetOptions} /></label><label>{page.timeline}<PortfolioSelect name="timeline" ariaLabel={page.timeline} value={timeline} onChange={setTimeline} placeholder={page.timelinePlaceholder} options={timelineOptions} /></label><label className="wide">{page.description}<textarea name="message" placeholder={page.descriptionPlaceholder} required minLength={20} maxLength={4000} /></label><label className="honeypot" aria-hidden="true"><input name="website" tabIndex={-1} autoComplete="off" /></label></fieldset><small id="contact-form-notice" className="wide">{content.formNotice} <Link href="/privacy">{content.privacyLink}</Link>.</small><p id="contact-form-status" className="contact-form-status wide" role="status" aria-live="polite">{status}</p><button className="button primary" type="submit" disabled={availability !== "available" || submission === "submitting"} aria-busy={submission === "submitting"}>{buttonLabel}</button></form></div></Section></main>;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1"><div className="two-column"><div className="contact-intro"><p className="lead">{page.lead}</p><p>{page.email}</p><a className="contact-email" href="mailto:contact@lacstudio.ro">contact@lacstudio.ro <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={submit} noValidate aria-describedby="contact-form-notice contact-form-status"><fieldset disabled={submission === "submitting" || availability !== "available"}><label>{page.name}<input name="name" autoComplete="name" required minLength={2} maxLength={100} aria-invalid={Boolean(fieldErrors.name)} aria-describedby={fieldErrors.name ? "contact-name-error" : undefined} onChange={() => clearFieldError("name")} />{fieldErrors.name && <small id="contact-name-error" className="field-error">{fieldErrors.name}</small>}</label><label>{page.emailLabel!}<input name="email" type="email" autoComplete="email" required maxLength={254} aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "contact-email-error" : undefined} onChange={() => clearFieldError("email")} />{fieldErrors.email && <small id="contact-email-error" className="field-error">{fieldErrors.email}</small>}</label><label>{page.projectType}<PortfolioSelect name="projectType" ariaLabel={page.projectType} ariaDescribedBy={fieldErrors.projectType ? "contact-project-type-error" : undefined} value={projectType} onChange={(value) => { setProjectType(value); clearFieldError("projectType"); }} placeholder={page.chooseDirection} options={projectOptions} required invalid={Boolean(fieldErrors.projectType)} />{fieldErrors.projectType && <small id="contact-project-type-error" className="field-error">{fieldErrors.projectType}</small>}</label><label>{page.budget}<PortfolioSelect name="budget" ariaLabel={page.budget} value={budget} onChange={setBudget} placeholder={page.budgetPlaceholder} options={budgetOptions} /></label><label>{page.timeline}<PortfolioSelect name="timeline" ariaLabel={page.timeline} value={timeline} onChange={setTimeline} placeholder={page.timelinePlaceholder} options={timelineOptions} /></label><label className="wide">{page.description}<textarea name="message" placeholder={page.descriptionPlaceholder} required minLength={20} maxLength={4000} aria-invalid={Boolean(fieldErrors.message)} aria-describedby={fieldErrors.message ? "contact-message-error" : undefined} onChange={() => clearFieldError("message")} />{fieldErrors.message && <small id="contact-message-error" className="field-error">{fieldErrors.message}</small>}</label><label className="honeypot" aria-hidden="true"><input name="website" tabIndex={-1} autoComplete="off" /></label></fieldset><small id="contact-form-notice" className="wide">{content.formNotice} <Link href="/privacy">{content.privacyLink}</Link>.</small><p id="contact-form-status" className="contact-form-status wide" role="status" aria-live="polite">{status}</p><button className="button primary" type="submit" disabled={availability !== "available" || submission === "submitting"} aria-busy={submission === "submitting"}>{buttonLabel}</button></form></div></Section></main>;
 }
 function LegalPage({ privacy }: { privacy: boolean }) {
   const { copy } = usePortfolioLocale();

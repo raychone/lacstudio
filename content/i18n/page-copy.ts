@@ -6,7 +6,7 @@ export type PageCopy = {
   services: { scope: readonly string[]; fit: readonly Card[]; delivery: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; cta: string };
   about: { intro: readonly string[]; portraitAlt: string; portraitLabel: string; experience: readonly string[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; capabilitiesEyebrow: string; capabilitiesTitle: string; capabilitiesCopy: string; expertise: readonly Card[]; ctaEyebrow: string; cta: string };
   process: { stages: readonly Stage[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; discuss: string; explore: string; cta: string };
-  contact: { lead: string; email: string; back: string; name: string; emailLabel?: string; projectType: string; chooseDirection: string; projectTypes: readonly string[]; budget: string; budgetPlaceholder: string; budgetOptions: readonly string[]; timeline: string; timelinePlaceholder: string; timelineOptions: readonly string[]; description: string; descriptionPlaceholder: string; company: string; formMessages?: { rateLimit: string; validation: string; rejected: string; unavailable: string; failure: string; success: string; checking: string; submit: string; submitting: string; retry: string } };
+  contact: { lead: string; email: string; back: string; name: string; emailLabel?: string; projectType: string; chooseDirection: string; projectTypes: readonly string[]; budget: string; budgetPlaceholder: string; budgetOptions: readonly string[]; timeline: string; timelinePlaceholder: string; timelineOptions: readonly string[]; description: string; descriptionPlaceholder: string; company: string; formMessages?: { rateLimit: string; validation: string; rejected: string; unavailable: string; failure: string; success: string; checking: string; submit: string; submitting: string; retry: string; nameRequired: string; emailInvalid: string; projectTypeRequired: string; messageRequired: string } };
 };
 
 const englishPageCopy: PageCopy = {
@@ -179,6 +179,10 @@ Object.assign(pageCopy.en.contact, {
     submit: "Send inquiry",
     submitting: "Sending inquiry…",
     retry: "Try again",
+    nameRequired: "Enter your name (at least 2 characters).",
+    emailInvalid: "Enter a valid email address.",
+    projectTypeRequired: "Choose a project type.",
+    messageRequired: "Describe your project in at least 20 characters.",
   },
 });
 
@@ -211,6 +215,10 @@ pageCopy.fr.contact = {
     submit: "Envoyer la demande",
     submitting: "Envoi de la demande…",
     retry: "Réessayer",
+    nameRequired: "Saisissez votre nom (au moins 2 caractères).",
+    emailInvalid: "Saisissez une adresse e-mail valide.",
+    projectTypeRequired: "Choisissez un type de projet.",
+    messageRequired: "Décrivez votre projet en au moins 20 caractères.",
   },
 };
 
@@ -243,6 +251,10 @@ pageCopy.ro.contact = {
     submit: "Trimite solicitarea",
     submitting: "Se trimite solicitarea…",
     retry: "Încearcă din nou",
+    nameRequired: "Introdu numele tău (cel puțin 2 caractere).",
+    emailInvalid: "Introdu o adresă de e-mail validă.",
+    projectTypeRequired: "Alege tipul proiectului.",
+    messageRequired: "Descrie proiectul în cel puțin 20 de caractere.",
   },
 };
 
@@ -275,5 +287,9 @@ pageCopy.es.contact = {
     submit: "Enviar consulta",
     submitting: "Enviando consulta…",
     retry: "Intentarlo de nuevo",
+    nameRequired: "Introduce tu nombre (al menos 2 caracteres).",
+    emailInvalid: "Introduce una dirección de correo válida.",
+    projectTypeRequired: "Elige un tipo de proyecto.",
+    messageRequired: "Describe tu proyecto en al menos 20 caracteres.",
   },
 };
