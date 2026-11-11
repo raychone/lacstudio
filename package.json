@@ -14,7 +14,7 @@
     "test:interactions": "node --experimental-strip-types design-system/engine/keyboard.test.ts",
     "test:sizing": "node --experimental-strip-types design-system/engine/sizing-contract.test.ts",
     "test:responsive": "node --experimental-strip-types design-system/engine/responsive-contract.test.ts",
-    "test:i18n": "node --experimental-strip-types content/i18n/translation-coverage.test.ts && node --experimental-strip-types content/i18n/routing-contract.test.ts && node --experimental-strip-types content/i18n/services-translation.test.ts && node --experimental-strip-types content/i18n/about-translation.test.ts && node --experimental-strip-types content/i18n/process-translation.test.ts && node --experimental-strip-types content/i18n/contact-translation.test.ts && node --experimental-strip-types content/i18n/shared-ui-translation.test.ts",
+    "test:i18n": "node --experimental-strip-types content/i18n/translation-coverage.test.ts && node --experimental-strip-types content/i18n/routing-contract.test.ts && node --experimental-strip-types content/i18n/services-translation.test.ts && node --experimental-strip-types content/i18n/about-translation.test.ts && node --experimental-strip-types content/i18n/process-translation.test.ts && node --experimental-strip-types content/i18n/contact-translation.test.ts && node --experimental-strip-types content/i18n/shared-ui-translation.test.ts && node --experimental-strip-types content/i18n/final-localization.test.ts",
     "test:browser": "playwright test"
   },
   "dependencies": {

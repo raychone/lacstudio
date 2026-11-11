@@ -44,7 +44,20 @@ export const englishPortfolioCopy = {
   about: { eyebrow: "ABOUT / LAC STUDIO", title: "Software built with attention to people and the work they need to do.", lead: "I'm Andrei Lucaciu, an independent software developer who connects how people work with the technology they need to use.", contactTitle: "Bring the problem.\nWe'll shape the right product.", contactCopy: "A first conversation can begin with the work that needs to change—no finished brief required.", },
   process: { eyebrow: "PROCESS / A DIRECT WAY OF WORKING", title: "A clear route from problem to product.", lead: "One person stays close to product direction, interface, engineering and release, so the work remains connected from the first conversation onward.", tabLabel: "Explore the product development process", outputLabel: "What takes shape", involvementLabel: "How we work together", },
   contact: { eyebrow: "CONTACT / START A PROJECT", title: "Tell me what needs to work better.", formNotice: "The inquiry form is being connected and cannot send messages yet. Please use the email address above. See", formButton: "Inquiry form unavailable", privacyLink: "Privacy" },
-  legal: { privacyEyebrow: "PRIVACY", legalEyebrow: "LEGAL", privacyTitle: "Privacy, without assumptions.", legalTitle: "Legal information to complete before publication." },
+  legal: {
+    privacyEyebrow: "PRIVACY",
+    legalEyebrow: "LEGAL",
+    privacyTitle: "Privacy, without assumptions.",
+    legalTitle: "Legal information to complete before publication.",
+    privacyParagraphs: [
+      "LAC STUDIO does not currently install analytics. You can reach the studio directly at the published email address. The inquiry form is visible for planning purposes but cannot send messages until a delivery provider is connected.",
+      "When form delivery is configured, this notice must be updated with the data controller, contact method, processing purpose, retention period, legal basis and provider details.",
+    ],
+    legalParagraphs: [
+      "Business registration details, registered address, governing-law details and other legally required information have not yet been supplied for publication.",
+      "Before wider public promotion, replace this notice with verified information appropriate to the studio's legal situation and the markets it serves.",
+    ],
+  },
   notFound: { eyebrow: "404 / NOT FOUND", title: "That page could not be found.", copy: "It may have moved, be unpublished or no longer be available. You can return to the portfolio to explore the published work.", cta: "Explore the work" },
   caseStudy: { backToWork: "← Back to Work", previous: "Previous", next: "Next", workflowEyebrow: "01 / PRODUCT OVERVIEW", workflowTitle: "Built around the work people need to do.", evidenceEyebrow: "02 / TECHNICAL EVIDENCE", evidenceTitle: "The structure behind the interface.", technicalFocus: "TECHNICAL FOCUS", implementation: "IMPLEMENTATION", architecture: "ARCHITECTURE", openLive: "Open live project", requestDemo: "Request a live demo", discussSimilar: "Discuss a similar project", contactTitle: "Have a related\nchallenge?" },
 } as const;
@@ -249,13 +262,93 @@ translations.es.shared = {
   workPlaceholders: [{ eyebrow: "ESPACIO PARA CASO DE ESTUDIO / 01", title: "Una historia de producto con el contexto adecuado.", summary: "Este espacio está reservado para un caso de estudio aprobado, con un brief, alcance, dirección visual y evidencia verificados.", meta: "MEDIO APROBADO / PENDIENTE" }, { eyebrow: "ESPACIO PARA CASO DE ESTUDIO / 02", title: "Un sistema operativo explicado con claridad.", summary: "La página de proyectos presenta el contexto que hay detrás de una interfaz, no solo una pantalla aislada o una afirmación sin verificar.", meta: "MEDIO APROBADO / PENDIENTE" }, { eyebrow: "ESPACIO PARA CASO DE ESTUDIO / 03", title: "Una historia de flujo de trabajo, cuando esté lista.", summary: "Cada historia pública se presenta únicamente cuando su descripción, medios y permiso de publicación han sido confirmados.", meta: "MEDIO APROBADO / PENDIENTE" }],
 };
 
+translations.fr.legal = {
+  ...englishPortfolioCopy.legal,
+  privacyParagraphs: [...englishPortfolioCopy.legal.privacyParagraphs],
+  legalParagraphs: [...englishPortfolioCopy.legal.legalParagraphs],
+};
+translations.ro.legal = {
+  ...englishPortfolioCopy.legal,
+  privacyParagraphs: [...englishPortfolioCopy.legal.privacyParagraphs],
+  legalParagraphs: [...englishPortfolioCopy.legal.legalParagraphs],
+};
+translations.es.legal = {
+  ...englishPortfolioCopy.legal,
+  privacyParagraphs: [...englishPortfolioCopy.legal.privacyParagraphs],
+  legalParagraphs: [...englishPortfolioCopy.legal.legalParagraphs],
+};
+
+translations.fr.notFound = {
+  eyebrow: "404 / PAGE INTROUVABLE",
+  title: "Cette page est introuvable.",
+  copy: "Elle a peut-être été déplacée, n'est pas encore publiée ou n'est plus disponible. Vous pouvez revenir aux réalisations publiées.",
+  cta: "Voir les réalisations",
+};
+translations.ro.notFound = {
+  eyebrow: "404 / PAGINĂ NEGĂSITĂ",
+  title: "Pagina nu a putut fi găsită.",
+  copy: "Este posibil să fi fost mutată, să nu fie publicată sau să nu mai fie disponibilă. Poți reveni la portofoliu pentru a explora proiectele publicate.",
+  cta: "Vezi proiectele",
+};
+translations.es.notFound = {
+  eyebrow: "404 / PÁGINA NO ENCONTRADA",
+  title: "No se ha podido encontrar esa página.",
+  copy: "Puede que se haya movido, que no esté publicada o que ya no esté disponible. Puedes volver al portafolio para explorar los proyectos publicados.",
+  cta: "Ver proyectos",
+};
+
+Object.assign(translations.fr.legal, {
+  privacyEyebrow: "CONFIDENTIALITÉ",
+  legalEyebrow: "MENTIONS LÉGALES",
+  privacyTitle: "La confidentialité, sans présupposés.",
+  legalTitle: "Informations légales à compléter avant publication.",
+  privacyParagraphs: [
+    "LAC STUDIO n'installe actuellement aucun outil d'analyse. Vous pouvez contacter directement le studio à l'adresse e-mail publiée. Le formulaire de contact est affiché à des fins de préparation, mais il ne peut pas encore envoyer de messages tant qu'un prestataire d'envoi n'est pas connecté.",
+    "Lorsque l'envoi de formulaires sera configuré, cet avis devra être mis à jour avec le responsable du traitement, le moyen de contact, la finalité, la durée de conservation, la base légale et les informations sur le prestataire.",
+  ],
+  legalParagraphs: [
+    "Les informations d'immatriculation, l'adresse du siège, les éléments de droit applicable et les autres mentions légalement requises n'ont pas encore été fournis pour publication.",
+    "Avant une promotion publique plus large, remplacez cet avis par des informations vérifiées, adaptées à la situation juridique du studio et aux marchés qu'il dessert.",
+  ],
+});
+
+Object.assign(translations.ro.legal, {
+  privacyEyebrow: "CONFIDENȚIALITATE",
+  legalEyebrow: "INFORMAȚII LEGALE",
+  privacyTitle: "Confidențialitate, fără presupuneri.",
+  legalTitle: "Informații legale de completat înainte de publicare.",
+  privacyParagraphs: [
+    "LAC STUDIO nu instalează în prezent instrumente de analiză. Poți contacta direct studioul la adresa de e-mail publicată. Formularul de contact este vizibil pentru planificare, dar nu poate trimite mesaje până când nu este conectat un furnizor de livrare.",
+    "Când livrarea formularelor va fi configurată, această informare trebuie actualizată cu operatorul de date, metoda de contact, scopul prelucrării, perioada de păstrare, baza legală și datele furnizorului.",
+  ],
+  legalParagraphs: [
+    "Detaliile de înregistrare ale activității, adresa sediului, informațiile despre legislația aplicabilă și alte date obligatorii din punct de vedere legal nu au fost încă furnizate pentru publicare.",
+    "Înainte de o promovare publică mai amplă, înlocuiește această informare cu date verificate, potrivite situației juridice a studioului și piețelor pe care le deservește.",
+  ],
+});
+
+Object.assign(translations.es.legal, {
+  privacyEyebrow: "PRIVACIDAD",
+  legalEyebrow: "AVISO LEGAL",
+  privacyTitle: "Privacidad, sin suposiciones.",
+  legalTitle: "Información legal pendiente de completar antes de la publicación.",
+  privacyParagraphs: [
+    "LAC STUDIO no instala actualmente herramientas de analítica. Puede contactar directamente con el estudio mediante la dirección de correo publicada. El formulario de consulta se muestra con fines de planificación, pero no puede enviar mensajes hasta que se conecte un proveedor de entrega.",
+    "Cuando se configure el envío del formulario, este aviso deberá actualizarse con el responsable del tratamiento, el método de contacto, la finalidad, el periodo de conservación, la base jurídica y los datos del proveedor.",
+  ],
+  legalParagraphs: [
+    "Los datos de registro de la actividad, la dirección registrada, la información sobre la legislación aplicable y otros datos legalmente exigidos todavía no se han facilitado para su publicación.",
+    "Antes de una promoción pública más amplia, sustituya este aviso por información verificada y adecuada a la situación legal del estudio y a los mercados a los que presta servicio.",
+  ],
+});
+
 export type TranslationCatalog = Record<Locale, { status: LocaleStatus; dictionary?: Partial<PortfolioCopy> }>;
 
 export const translationCatalog: TranslationCatalog = {
   en: { status: "ready", dictionary: englishPortfolioCopy },
-  fr: { status: "planned" },
-  ro: { status: "planned" },
-  es: { status: "planned" },
+  fr: { status: "ready", dictionary: translations.fr },
+  ro: { status: "ready", dictionary: translations.ro },
+  es: { status: "ready", dictionary: translations.es },
 };
 
 export const isLocaleReady = (locale: Locale) => translationCatalog[locale].status === "ready";

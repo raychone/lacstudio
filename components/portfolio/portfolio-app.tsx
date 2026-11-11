@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useId, useRef, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
 import { featuredProjects, publishedProjects, type PublicProject } from "@/content/projects";
@@ -79,6 +80,8 @@ function pagePath(page: Page, project?: PublicProject) {
 function LanguageSwitcher({ page, project, mobile = false }: { page: Page; project?: PublicProject; mobile?: boolean }) {
   const { locale, copy } = usePortfolioLocale();
   const path = pagePath(page, project);
+  const query = useSearchParams().toString();
+  const localeHref = (target: Locale) => `${localizePath(target, path)}${query ? `?${query}` : ""}`;
   const switchLocale = (event: React.MouseEvent<HTMLAnchorElement>, target: Locale) => {
     event.preventDefault();
     const url = new URL(window.location.href);
@@ -91,7 +94,7 @@ function LanguageSwitcher({ page, project, mobile = false }: { page: Page; proje
       const active = target === locale;
       const ready = isLocaleReady(target);
       const label = target.toUpperCase();
-      return ready ? <a key={target} href={localizePath(target, path)} aria-current={active ? "page" : undefined} className={active ? "active" : ""} onClick={(event) => switchLocale(event, target)}>{label}</a> : <span key={target} aria-disabled="true" title={`${localeNames[target]} — ${copy.language.unavailable}`}>{label}</span>;
+      return ready ? <a key={target} href={localeHref(target)} aria-current={active ? "page" : undefined} className={active ? "active" : ""} onClick={(event) => switchLocale(event, target)}>{label}</a> : <span key={target} aria-disabled="true" title={`${localeNames[target]} — ${copy.language.unavailable}`}>{label}</span>;
     })}</div>
   </div>;
 }
@@ -363,8 +366,16 @@ function ContactPage() {
   const timelineOptions = page.timelineOptions.map((item, index) => ({ value: index ? item : "", label: item }));
   return <main className="portfolio-page portfolio-container"><Section eyebrow={content.eyebrow} title={content.title}><div className="two-column"><div className="contact-intro"><p className="lead">{page.lead}</p><p>{page.email}</p><a className="contact-email" href="mailto:codrin.lucaciu@gmail.com">codrin.lucaciu@gmail.com <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={(event) => event.preventDefault()} aria-describedby="contact-form-notice"><label>{page.name}<input name="name" autoComplete="name" /></label><label>{page.emailLabel!}<input name="email" type="email" autoComplete="email" /></label><label>{page.projectType}<PortfolioSelect name="projectType" ariaLabel={page.projectType} value={projectType} onChange={setProjectType} placeholder={page.chooseDirection} options={projectOptions} /></label><label>{page.budget}<PortfolioSelect name="budget" ariaLabel={page.budget} value={budget} onChange={setBudget} placeholder={page.budgetPlaceholder} options={budgetOptions} /></label><label>{page.timeline}<PortfolioSelect name="timeline" ariaLabel={page.timeline} value={timeline} onChange={setTimeline} placeholder={page.timelinePlaceholder} options={timelineOptions} /></label><label className="wide">{page.description}<textarea name="message" placeholder={page.descriptionPlaceholder} /></label><label className="honeypot" aria-hidden="true">{page.company}<input name="company" tabIndex={-1} autoComplete="off" /></label><small id="contact-form-notice" className="wide">{content.formNotice} <Link href="/privacy">{content.privacyLink}</Link>.</small><button className="button primary" type="button" disabled>{content.formButton}</button></form></div></Section></main>;
 }
-function LegalPage({ privacy }: { privacy: boolean }) { return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? "PRIVACY" : "LEGAL"} title={privacy ? "Privacy, without assumptions." : "Legal information to complete before publication."}><div className="legal-copy">{privacy ? <><p>LAC STUDIO does not currently install analytics. You can reach the studio directly at the published email address. The inquiry form is visible for planning purposes but cannot send messages until a delivery provider is connected.</p><p>When form delivery is configured, this notice must be updated with the data controller, contact method, processing purpose, retention period, legal basis and provider details.</p></> : <><p>Business registration details, registered address, governing-law details and other legally required information have not yet been supplied for publication.</p><p>Before wider public promotion, replace this notice with verified information appropriate to the studio&apos;s legal situation and the markets it serves.</p></>}</div></Section></main>; }
-function NotFoundPage() { return <main className="portfolio-page portfolio-container"><Section eyebrow="404 / NOT FOUND" title="That page could not be found."><p className="page-intro">It may have moved, be unpublished or no longer be available. You can return to the portfolio to explore the published work.</p><Link className="button primary" href="/work">Explore the work <b>→</b></Link></Section></main>; }
+function LegalPage({ privacy }: { privacy: boolean }) {
+  const { copy } = usePortfolioLocale();
+  const legal = copy.legal;
+  const paragraphs = privacy ? legal.privacyParagraphs : legal.legalParagraphs;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? legal.privacyEyebrow : legal.legalEyebrow} title={privacy ? legal.privacyTitle : legal.legalTitle}><div className="legal-copy">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></Section></main>;
+}
+function NotFoundPage() {
+  const { copy } = usePortfolioLocale();
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={copy.notFound.eyebrow} title={copy.notFound.title}><p className="page-intro">{copy.notFound.copy}</p><Link className="button primary" href="/work">{copy.notFound.cta} <b>→</b></Link></Section></main>;
+}
 
 function CaseStudyNavigation({ previous, next, designQuery, location }: { previous: PublicProject; next: PublicProject; designQuery: string; location: "workflow" | "evidence" }) {
   const { copy, locale } = usePortfolioLocale();

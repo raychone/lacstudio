@@ -23,7 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<RouteParams
   if (!isLocale(input) || !isLocaleReady(input)) return { robots: { index: false, follow: false } };
   const route = resolveRoute(input, segments);
   if (!route) return { robots: { index: false, follow: false } };
-  return localizedMetadata(input, route.page === "case-study" ? "work" : route.page, route.pathname);
+  const metadata = localizedMetadata(input, route.page === "case-study" ? "work" : route.page, route.pathname);
+  if (route.page === "privacy" || route.page === "legal") {
+    return { ...metadata, robots: { index: false, follow: false } };
+  }
+  return metadata;
 }
 
 export default async function LocalizedPortfolioRoute({ params }: { params: Promise<RouteParams> }) {
