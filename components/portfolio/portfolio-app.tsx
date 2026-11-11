@@ -414,7 +414,7 @@ function LegacyLabRedirect({ children }: { children: ReactNode }) {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const isLegacyLabLink = ["category", "component", "compare", "left", "right"].some((key) => params.has(key));
-    if (window.location.pathname === "/" && isLegacyLabLink) {
+    if (/^\/(?:en|fr|ro|es)?\/?$/.test(window.location.pathname) && isLegacyLabLink) {
       window.location.replace(`/lab${window.location.search}`);
     }
   }, []);

@@ -7,7 +7,7 @@ Scope: public portfolio only. The Design Lab and the five design systems' visual
 
 The repository passes its static, localization, SEO, design-contract and production-build checks. One accessibility defect found during this audit was fixed: public routes previously rendered a `main` landmark inside another `main` landmark. Each public route now owns exactly one primary `main` landmark.
 
-This is **not yet an unconditional production sign-off** because browser execution is unavailable in this sandbox and the production domain/legal facts still need to be supplied. There are no known application P0 defects.
+Browser verification was subsequently completed from a local development environment: **58/58 Playwright tests passed** in 13.4 minutes. The application is functionally ready to deploy. Production publication remains conditional on the final public domain, verified legal details and the intentional contact-form limitation described below. There are no known application P0 defects.
 
 ## Automated verification completed
 
@@ -21,7 +21,7 @@ This is **not yet an unconditional production sign-off** because browser executi
 | Static analysis | `npm run lint` | Passed |
 | Build and Vercel output | `npm run build` | Passed |
 | Patch hygiene | `git diff --check` | Passed |
-| Browser-suite discovery | `npx playwright test --list` | Passed; 58 executable tests in 9 files |
+| Full browser suite | `PLAYWRIGHT_BASE_URL=http://localhost:5173 npm run test:browser` | Passed; 58/58 in 13.4 minutes |
 
 The automated locale tests cover English, French, Romanian and Spanish source resolution, localized routing, navigation/shared UI copy, page copy, legal/privacy/404 copy, metadata contracts and the Spanish fallback regression. The SEO suite verifies localized canonical paths, `hreflang`, document language, sitemap/robots rules, structured data, metadata and `llms.txt` contracts.
 
@@ -31,6 +31,8 @@ The executable browser suite covers Home, Work, project case studies, Services, 
 
 This audit added `design-system/browser/portfolio-landmarks.spec.ts`. It checks that every listed public route, including a case study and a localized 404, exposes exactly one `main` landmark in all four locales. This protects the semantic fix made in `components/portfolio/portfolio-app.tsx`.
 
+Browser QA also exposed and resolved a localized-route regression in the legacy Lab-link redirect. Legacy links with their original Lab query state now redirect from both unprefixed and locale-prefixed home routes. Browser expectations were updated to the live locale-prefixed route contract rather than the retired unprefixed paths.
+
 The contact endpoint remains intentionally unavailable. Its visible unavailable state and direct email route are part of the existing contracts; this audit did not imply that message delivery succeeds.
 
 ## Responsive and accessibility findings
@@ -38,6 +40,8 @@ The contact endpoint remains intentionally unavailable. Its visible unavailable 
 ### Fixed
 
 - **P1 fixed — nested `main` landmarks:** the application shell wrapped page components in `main` although every non-home page already returned its own `main`. The outer wrapper was removed and Home was made the owner of its own `main`. This does not change content, geometry or a design system.
+- **P1 fixed — legacy Lab redirect after locale activation:** the compatibility redirect now recognizes localized home paths such as `/en/` as well as `/`.
+- **P1 fixed — shared header geometry:** Playground header controls now preserve the common external footprint while keeping their double-stroke visual treatment inset. The five-system navbar geometry test passes.
 
 ### Verified by source and contracts
 
@@ -47,26 +51,28 @@ The contact endpoint remains intentionally unavailable. Its visible unavailable 
 - Carousel autoplay observes `prefers-reduced-motion`; public ambient effects are disabled for coarse pointers and reduced motion.
 - The browser suite includes keyboard and custom-select interaction coverage.
 
-### Still requires real-browser confirmation
+### Verified in browser
 
-- Visual contrast of every translated state in every theme.
-- Focus order, sticky-header behavior, touch target comfort and menu/drawer behavior on actual mobile devices.
-- 320px, 375px, 768px, 1024px and 1440px visual layouts, including long French/Romanian/Spanish headings.
-- No horizontal overflow, image cropping, carousel transitions or hydration console warnings in a production-like browser.
+- Responsive public routes have no horizontal overflow at 320px, 375px, 768px, 1024px and 1440px.
+- All four locales render visible localized copy; locale switching retains the current path and design selection.
+- Five-design navigation geometry, sticky headers, mobile navigation, carousel interactions/autoplay, project links, custom selects, reduced motion and representative focus/dialog interactions pass.
 
-## Browser limitation and exact local command
+### Still prudent after deployment
 
-The sandbox cannot bind a loopback port (`EPERM`), so no local preview or Playwright execution was attempted in this audit. This is an environment constraint, not evidence that browser tests pass.
+- Inspect contrast and touch-target comfort on at least one physical mobile device.
+- Check the production browser console once on the final Vercel domain.
 
-Run this outside the sandbox after a production build:
+## Browser validation
+
+The sandbox cannot bind a loopback port (`EPERM`), so browser execution was completed from the user-managed local environment instead. The full suite passed: **58 tests, 9 files, 13.4 minutes**.
+
+To repeat the verification locally:
 
 ```sh
-npm run build
-npm run start -- --host 127.0.0.1 --port 4174
-PLAYWRIGHT_BASE_URL=http://127.0.0.1:4174 npm run test:browser
+PLAYWRIGHT_BASE_URL=http://localhost:5173 npm run test:browser
 ```
 
-Review the 58-test Playwright report before public launch. In particular, inspect one route in each locale and all five designs, then perform the responsive and keyboard checks listed above.
+The local app must already be running on port 5173. Repeat this suite after any meaningful UI, routing or localization change.
 
 ## SEO regression status
 
@@ -84,8 +90,8 @@ Before deployment, set `NEXT_PUBLIC_SITE_URL` in Vercel to the final HTTPS origi
 
 The production bundle builds successfully. Measured gzip sizes in this build include:
 
-- Shared CSS: **103.75 kB**.
-- Main public portfolio client chunk: **66.64 kB**.
+- Shared CSS: **103.80 kB**.
+- Main public portfolio client chunk: **66.67 kB**.
 - Framework client chunk: **59.77 kB**.
 - Server-rendered portfolio module: **56.71 kB**.
 
@@ -100,9 +106,8 @@ None known.
 ### P1 — complete before public launch
 
 1. Set and verify `NEXT_PUBLIC_SITE_URL` against the final deployed HTTPS domain.
-2. Run the documented Playwright suite and manually inspect all five designs at 320px, 375px, 768px, 1024px and 1440px, including the four locale variants.
-3. Supply verified legal entity/controller details before presenting Legal and Privacy as final public notices. The current notices intentionally avoid invented facts.
-4. Manually verify direct email contact (`codrin.lucaciu@gmail.com`) and confirm that the intentionally unavailable contact-form state is clear to visitors.
+2. Supply verified legal entity/controller details before presenting Legal and Privacy as final public notices. The current notices intentionally avoid invented facts.
+3. Manually verify direct email contact (`codrin.lucaciu@gmail.com`) and confirm that the intentionally unavailable contact-form state is clear to visitors.
 
 ### P2 — after launch / planned follow-up
 
@@ -116,6 +121,6 @@ None known.
 2. Open `/robots.txt`, `/sitemap.xml` and `/llms.txt` on the production origin.
 3. Verify `/en/`, `/fr/`, `/ro/` and `/es/`; switch languages from a case study while retaining `?design=`.
 4. Check every design selector, effect toggle, navigation link, carousel CTA, back link and direct-email link.
-5. Run the browser command above; address any actual visual, keyboard or console failures before launch.
+5. Re-run the browser command above if any UI, routing or localization change occurs after this QA checkpoint.
 6. Confirm legal/privacy facts and project/demo claims with their owner; do not add unverified company, hosting, retention or compliance statements.
 7. Keep the contact form unavailable until a delivery provider, sender identity, server-only credentials, durable rate limiting and corresponding privacy copy are approved.

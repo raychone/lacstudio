@@ -16,8 +16,9 @@ for (const [locale, heading] of Object.entries(homeHeadings)) {
 }
 
 test("language selection preserves the current route and design while changing visible copy", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/en/work?design=playground");
-  await page.locator('a[href="/es/work?design=playground"]').first().click();
+  await page.locator('a[href="/es/work?design=playground"]').last().click();
   await expect(page).toHaveURL(/\/es\/work\?design=playground/);
   await expect(page.locator("h1")).toContainText("Creado para el trabajo que ocurre detrás de la pantalla.");
 });
