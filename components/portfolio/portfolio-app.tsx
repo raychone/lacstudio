@@ -249,7 +249,7 @@ function WorkFaq() {
 function HomePage() {
   const { copy } = usePortfolioLocale();
   const content = copy.home;
-  return <>
+  return <main>
     <section className="portfolio-hero home-hero"><div className="portfolio-container hero-grid"><div className="hero-copy"><span className="eyebrow">{content.eyebrow}</span><h1><span className="hero-title-lead">{content.titleLead}</span><br /><em>{content.titleEmphasis}</em></h1><p>{content.lead}</p><div className="hero-actions"><Link className="button primary" href="/contact">{content.primaryCta} <b>↗</b></Link><Link className="button secondary" href="/work">{content.secondaryCta} <b>→</b></Link></div></div><aside className="hero-preview home-project-preview home-journey-preview" aria-label={content.imageLabel}><Image src="/branding/lac-studio-hero-healthcare.webp" alt={content.imageAlt} fill priority sizes="(max-width: 640px) 100vw, (max-width: 1024px) 62vw, 760px" /></aside><ul className="hero-proof" aria-label={content.proofLabel}>{content.proof.map(([title, description]) => <li key={title}><b>{title}</b><span>{description}</span></li>)}</ul></div></section>
     <div className="portfolio-container">
       <Section eyebrow={copy.shared.selectedWork} title={content.selectedTitle} className="home-selected-section">{featuredProjects.length ? <><div className="project-grid home-selected-grid">{featuredProjects.slice(1, 4).map((project) => <ProjectPreview project={project} compact key={project.id} />)}</div><Link className="home-all-work" href="/work">{content.allWork} <b>→</b></Link></> : <UnpublishedWork />}</Section>
@@ -258,7 +258,7 @@ function HomePage() {
       <Section eyebrow={content.founderEyebrow} title={content.founderTitle} className="about-preview home-about-preview"><p>{content.founderCopy}</p><div className="home-section-actions"><Link className="button primary home-section-cta" href="/about">{content.founderCta} <b>→</b></Link><Link className="button secondary home-section-cta" href="/services">{content.servicesCta} <b>→</b></Link></div></Section>
       <Section className="contact-cta home-contact-cta"><span>05 / {copy.shared.startConversation}</span><h2>{content.contactTitle.split("\n").map((part, index) => <span key={part}>{index ? <br /> : null}{part}</span>)}</h2><p>{content.contactCopy}</p><Link className="button primary" href="/contact">{content.contactCta} <b>↗</b></Link></Section>
     </div>
-  </>;
+  </main>;
 }
 
 function WorkPage() {
@@ -407,7 +407,7 @@ function CaseStudy({ project }: { project: PublicProject }) {
 
 function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
   const { activeDesign, reducedMotion, effectsEnabled } = useDesign();
-  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} project={project} /><main>{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}</main><Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} project={project} />{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}<Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
 }
 
 function LegacyLabRedirect({ children }: { children: ReactNode }) {
