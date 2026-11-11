@@ -54,16 +54,16 @@ import "../components/lab/nocturne/nocturne-effects-refinements.css";
 import "./sizing-contract.css";
 
 export const metadata: Metadata = {
-  title: { default: "LAC STUDIO — Digital Product Development", template: "%s | LAC STUDIO" },
-  description: "Independent creative development studio for web applications, Android apps, SaaS platforms and custom software.",
+  title: { default: "LAC STUDIO — Independent Software Development", template: "%s | LAC STUDIO" },
+  description: "Independent software development for custom web applications, Android and desktop software, SaaS products and business systems.",
   metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined,
   alternates: { canonical: "/" },
   manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     siteName: "LAC STUDIO",
-    title: "LAC STUDIO — Digital Product Development",
-    description: "Independent creative development studio for web applications, Android apps, SaaS platforms and custom software.",
+    title: "LAC STUDIO — Independent Software Development",
+    description: "Custom web applications, mobile and desktop software, SaaS products and business systems—from idea to working product.",
   },
   icons: {
     icon: [
