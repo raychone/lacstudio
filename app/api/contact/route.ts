@@ -11,7 +11,7 @@ const controlCharacters = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g;
 const headerBreaks = /[\r\n]/;
 const safeText = (maximum: number, minimum = 0) => z.string().trim().min(minimum).max(maximum).refine((value) => !headerBreaks.test(value), "Invalid characters");
 const safeEmail = z.string().trim().email().max(254).refine((value) => !headerBreaks.test(value), "Invalid characters");
-const inquiry = z.object({ name: safeText(100, 2), email: safeEmail, projectType: safeText(80, 2), budget: safeText(80).optional(), timeline: safeText(80).optional(), message: safeText(4_000, 20), company: safeText(200).optional() });
+const inquiry = z.object({ name: safeText(100, 2), email: safeEmail, projectType: safeText(80, 2), budget: safeText(80).optional(), timeline: safeText(80).optional(), message: safeText(4_000, 20), website: safeText(200).optional() });
 
 type ContactLocale = "en" | "fr" | "ro" | "es";
 type ContactConfig = { resendApiKey: string; toEmail: string; fromEmail: string; upstashUrl: string; upstashToken: string };
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
   try { body = await readJson(request); } catch (error) { return response({ error: messages.validation, code: "validation" }, error instanceof RangeError ? 413 : 400); }
   const parsed = inquiry.safeParse(body);
   if (!parsed.success) return response({ error: messages.validation, code: "validation" }, 400);
-  if (parsed.data.company) return response({ error: messages.rejected, code: "rejected" }, 400);
+  if (parsed.data.website) return response({ error: messages.rejected, code: "rejected" }, 400);
   try { if (!await consumeRateLimit(request, config)) return response({ error: messages.rateLimit, code: "rate_limit" }, 429); } catch { return response({ error: messages.unavailable, code: "unavailable" }, 503); }
   const content = emailContent(parsed.data, locale, new Date());
   try {

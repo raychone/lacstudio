@@ -19,7 +19,7 @@ function configure() {
 function request(body: Record<string, string>, locale = "en") {
   return new Request("https://lacstudio.ro/api/contact", { method: "POST", headers: { "content-type": "application/json", "accept-language": locale, "x-forwarded-for": "203.0.113.10" }, body: JSON.stringify(body) });
 }
-const validInquiry = { name: "Ana Pop", email: "ana@example.com", projectType: "Web application", budget: "", timeline: "", message: "I need a customer portal for a growing service team.", company: "" };
+const validInquiry = { name: "Ana Pop", email: "ana@example.com", projectType: "Web application", budget: "", timeline: "", message: "I need a customer portal for a growing service team.", website: "" };
 
 globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
   const url = String(input);
@@ -61,7 +61,7 @@ assert.equal(sentMail, null);
 const injection = await POST(request({ ...validInquiry, name: "Ana\r\nBcc: attacker@example.com" }));
 assert.equal(injection.status, 400, "Header injection characters are rejected");
 assert.equal(sentMail, null);
-const honeypot = await POST(request({ ...validInquiry, company: "Bots Ltd" }));
+const honeypot = await POST(request({ ...validInquiry, website: "Bots Ltd" }));
 assert.equal(honeypot.status, 400, "Honeypot submissions are rejected");
 assert.equal(sentMail, null);
 
