@@ -7,15 +7,14 @@ import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
 import { featuredProjects, publishedProjects, type PublicProject } from "@/content/projects";
 import { defaultLocale, locales, localeNames, localizePath, type Locale } from "@/content/i18n/config";
-import { getPortfolioCopy, isLocaleReady, type PortfolioCopy } from "@/content/i18n/portfolio";
+import { isLocaleReady, resolvePortfolioContent, type PortfolioCopy } from "@/content/i18n/portfolio";
 import { localizeProject } from "@/content/i18n/project-content";
 import { localizeServices } from "@/content/i18n/service-content";
-import { pageCopy } from "@/content/i18n/page-copy";
 
 // Vinext's experimental RSC prefetcher can fail after an otherwise valid Vercel
 // deployment. Portfolio navigation does not need client-side data prefetching,
 // so normal document links give every route a dependable, accessible transition.
-const PortfolioLocaleContext = createContext<{ locale: Locale; copy: PortfolioCopy }>({ locale: defaultLocale, copy: getPortfolioCopy(defaultLocale) });
+const PortfolioLocaleContext = createContext(resolvePortfolioContent(defaultLocale));
 
 function usePortfolioLocale() { return useContext(PortfolioLocaleContext); }
 
@@ -169,8 +168,8 @@ function PortfolioSelect({ name, value, options, placeholder, ariaLabel, onChang
 }
 
 function BackButton() {
-  const { locale } = usePortfolioLocale();
-  const label = pageCopy[locale].contact.back;
+  const { pages } = usePortfolioLocale();
+  const label = pages.contact.back;
   const goBack = () => window.history.back();
   return <button className="button secondary contact-back" type="button" onClick={goBack}>{label}</button>;
 }
@@ -274,9 +273,9 @@ function WorkPage() {
 }
 
 function ServicesPage() {
-  const { copy, locale } = usePortfolioLocale();
+  const { copy, pages, locale } = usePortfolioLocale();
   const content = copy.services;
-  const page = pageCopy[locale].services;
+  const page = pages.services;
   const localizedServices = localizeServices(locale);
   return <main className="portfolio-page portfolio-container services-page">
     <Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1" className="services-hero-section">
@@ -305,9 +304,9 @@ function ServicesPage() {
   </main>;
 }
 function AboutPage() {
-  const { copy, locale } = usePortfolioLocale();
+  const { copy, pages } = usePortfolioLocale();
   const content = copy.about;
-  const page = pageCopy[locale].about;
+  const page = pages.about;
   return <main className="portfolio-page portfolio-container about-page">
     <Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1" className="about-intro-section">
       <div className="about-profile">
@@ -334,9 +333,9 @@ function AboutPage() {
   </main>;
 }
 function ProcessPage() {
-  const { copy, locale } = usePortfolioLocale();
+  const { copy, pages } = usePortfolioLocale();
   const content = copy.process;
-  const page = pageCopy[locale].process;
+  const page = pages.process;
   const [activeStage, setActiveStage] = useState(0);
   const stage = page.stages[activeStage];
   return <main className="portfolio-page portfolio-container process-page">
@@ -358,9 +357,9 @@ function ProcessPage() {
 
 function ContactPage() {
   const [projectType, setProjectType] = useState(""); const [budget, setBudget] = useState(""); const [timeline, setTimeline] = useState("");
-  const { copy, locale } = usePortfolioLocale();
+  const { copy, pages } = usePortfolioLocale();
   const content = copy.contact;
-  const page = pageCopy[locale].contact;
+  const page = pages.contact;
   const projectOptions = page.projectTypes.map((item) => ({ value: item, label: item }));
   const budgetOptions = page.budgetOptions.map((item, index) => ({ value: index ? item : "", label: item }));
   const timelineOptions = page.timelineOptions.map((item, index) => ({ value: index ? item : "", label: item }));
@@ -423,7 +422,7 @@ function LegacyLabRedirect({ children }: { children: ReactNode }) {
 }
 
 export function PortfolioApp({ page, project, locale = defaultLocale }: { page: Page; project?: PublicProject; locale?: Locale }) {
-  const copy = getPortfolioCopy(locale);
+  const content = resolvePortfolioContent(locale);
   const localizedProject = project ? localizeProject(project, locale) : undefined;
-  return <PortfolioLocaleContext.Provider value={{ locale, copy }}><LegacyLabRedirect><DesignProvider scope="portfolio"><PortfolioContent page={page} project={localizedProject} /></DesignProvider></LegacyLabRedirect></PortfolioLocaleContext.Provider>;
+  return <PortfolioLocaleContext.Provider value={content}><LegacyLabRedirect><DesignProvider scope="portfolio"><PortfolioContent page={page} project={localizedProject} /></DesignProvider></LegacyLabRedirect></PortfolioLocaleContext.Provider>;
 }

@@ -1,4 +1,5 @@
 import type { Locale } from "./config.ts";
+import { pageCopy, type PageCopy } from "./page-copy.ts";
 
 export type LocaleStatus = "ready" | "planned";
 
@@ -101,6 +102,74 @@ const translations: Record<Exclude<Locale, "en">, PortfolioCopy> = {
     caseStudy: { backToWork: "← Înapoi la proiecte", previous: "Anterior", next: "Următor", workflowEyebrow: "01 / PREZENTARE PRODUS", workflowTitle: "Construit în jurul muncii pe care oamenii trebuie să o facă.", evidenceEyebrow: "02 / DOVEZI TEHNICE", evidenceTitle: "Structura din spatele interfeței.", technicalFocus: "FOCUS TEHNIC", implementation: "IMPLEMENTARE", architecture: "ARHITECTURĂ", openLive: "Deschide proiectul live", requestDemo: "Cere un demo", discussSimilar: "Discută un proiect similar", contactTitle: "Ai o provocare\nasemănătoare?" },
   },
   es: { ...englishPortfolioCopy, services: { eyebrow: "SERVICIOS / DE LA IDEA DE PRODUCTO AL LANZAMIENTO", title: "Software para clientes, equipos y operaciones.", lead: "Diseño y desarrollo aplicaciones web a medida, software móvil y de escritorio, productos SaaS y herramientas internas para el trabajo que las personas necesitan realizar.", body: "Puedes llegar con una idea inicial, un proceso sostenido por hojas de cálculo o un producto que necesita avanzar. Puedo llevar el trabajo desde la dirección de producto y el diseño de interfaz hasta frontend, backend, datos, integraciones y lanzamiento.", workCta: "Ver proyectos relevantes", scopeLabel: "Alcance de servicios de LAC Studio", scopeEyebrow: "UN SERVICIO CONECTADO", scopeCopy: "Una sola persona mantiene conectado el contexto del producto durante todo el proceso.", offeringsEyebrow: "LO QUE PUEDO CONSTRUIR", offeringsTitle: "Empieza por la parte del producto que necesita atención.", offeringsCopy: "La colaboración puede comenzar con una decisión de producto concreta, una aplicación nueva o la base técnica que hace más fiable un producto existente.", fitEyebrow: "BUEN ENCAJE CUANDO", fitTitle: "El problema es real, aunque el brief todavía no esté terminado.", deliveryEyebrow: "CÓMO FUNCIONA UNA COLABORACIÓN", deliveryTitle: "Empezar con foco. Construir con visibilidad.", contactTitle: "¿Tienes trabajo que necesita\nmejor software a su alrededor?", contactCopy: "Trae el contexto, la limitación o la idea aún sin terminar. Te ayudaré a identificar el siguiente paso práctico." } },
+};
+
+translations.es.metadata = {
+  siteTitle: "LAC STUDIO — Desarrollo de software independiente",
+  siteDescription: "Desarrollo de software independiente para aplicaciones web a medida, software Android y de escritorio, productos SaaS y sistemas de negocio.",
+  openGraphDescription: "Aplicaciones web, software móvil y de escritorio, productos SaaS y sistemas de negocio, desde la idea hasta un producto funcional.",
+  pages: {
+    home: { title: "LAC STUDIO — Desarrollo de software independiente", description: "Desarrollo de software independiente para aplicaciones web a medida, software Android y de escritorio, productos SaaS y sistemas de negocio." },
+    work: { title: "Proyectos", description: "Casos de estudio de software de LAC STUDIO en salud, operaciones de laboratorio, restauración, trabajo de campo, hostelería y comercio." },
+    services: { title: "Servicios", description: "Aplicaciones web a medida, software Android y de escritorio, desarrollo SaaS, automatización de negocio, servicios backend e integraciones." },
+    process: { title: "Proceso", description: "Cómo LAC STUDIO lleva un problema de negocio desde la primera conversación hasta un producto de software funcional." },
+    about: { title: "Acerca de", description: "Conoce a Andrei Lucaciu, el desarrollador de software independiente detrás de LAC STUDIO, donde el pensamiento informado por la psicología se une a la ingeniería práctica." },
+    contact: { title: "Contacto", description: "Habla con LAC STUDIO sobre una aplicación web a medida, un flujo móvil, un producto SaaS o un sistema de negocio." },
+    privacy: { title: "Privacidad", description: "Información de privacidad de LAC STUDIO." },
+    legal: { title: "Información legal", description: "Información legal de LAC STUDIO." },
+  },
+};
+
+translations.es.home = {
+  schemaDescription: "Estudio independiente de desarrollo de software que crea aplicaciones web a medida, software móvil y sistemas de negocio.",
+  eyebrow: "LAC STUDIO / DESARROLLO DE SOFTWARE INDEPENDIENTE",
+  titleLead: "De la idea a un",
+  titleEmphasis: "producto funcional.",
+  lead: "Diseño y desarrollo aplicaciones web, móviles, de escritorio y de negocio a medida, desde recorridos de cliente y operaciones internas hasta backend, datos, integraciones y lanzamiento.",
+  primaryCta: "Hablar de tu proyecto",
+  secondaryCta: "Explorar proyectos",
+  imageLabel: "Un recorrido de producto desde el primer boceto hasta aplicaciones funcionales.",
+  imageAlt: "Un boceto, etapas de desarrollo de producto y paneles de aplicaciones adaptables.",
+  proofLabel: "Áreas de producto de LAC Studio",
+  proof: [["Aplicaciones web", "Recorridos y herramientas para clientes"], ["Móvil y escritorio", "Trabajo más allá del navegador"], ["Sistemas de negocio", "Datos, operaciones y conexiones"]],
+  selectedTitle: "Creado para el trabajo que ocurre detrás de la pantalla.",
+  allWork: "Ver todos los proyectos",
+  focusEyebrow: "02 / QUÉ HACE LAC",
+  focusTitle: "Software para clientes, equipos y operaciones.",
+  focus: [["Empezar por el problema adecuado", "Convertir una idea inicial, un proceso manual o un recorrido de cliente confuso en un plan claro para decidir qué construir primero."], ["Construir el producto", "Crear de principio a fin aplicaciones web, flujos móviles, portales de clientes, herramientas de reserva, paneles y productos SaaS."], ["Conectar el trabajo", "Unir servicios backend, bases de datos, permisos, automatización e integraciones para que el producto sostenga la operación que hay detrás."]],
+  processEyebrow: "03 / CÓMO TRABAJAMOS",
+  processTitle: "Colaboración directa, desde la primera conversación hasta el lanzamiento.",
+  process: ["Descubrir", "Definir", "Diseñar", "Construir", "Validar", "Lanzar"],
+  processDetails: ["Contexto", "Alcance", "Experiencia", "Sistema", "Uso real", "Lanzamiento"],
+  processCta: "Ver cómo trabajo",
+  founderEyebrow: "04 / INDEPENDIENTE POR DISEÑO",
+  founderTitle: "Trabaja directamente con la persona que lo diseña y lo construye.",
+  founderCopy: "Hablas con una sola persona desde la primera conversación hasta el diseño de producto, la ingeniería y el lanzamiento, sin traspasos de estrategia entre equipos separados.",
+  founderCta: "Conocer al fundador",
+  servicesCta: "Explorar servicios",
+  contactTitle: "¿Tienes algo que\nmerece la pena construir?",
+  contactCopy: "Cuéntame qué necesita funcionar mejor. Hablarás directamente con la persona que dará forma y construirá el producto.",
+  contactCta: "Cuéntame qué estás construyendo",
+};
+
+translations.es.work = {
+  featuredEyebrow: "01 / PROYECTOS DESTACADOS",
+  featuredTitle: "Creado para el trabajo que ocurre detrás de la pantalla.",
+  galleryEyebrow: "02 / ÍNDICE PÚBLICO DE PROYECTOS",
+  galleryTitle: "Casos de estudio con el contexto que hay detrás de la interfaz.",
+  galleryIntro: "Son proyectos de software reales de salud, laboratorios, restauración, trabajo de campo, hostelería y comercio. Cada caso explica el producto, el problema que resuelve y la evidencia pública disponible.",
+  faqEyebrow: "03 / PREGUNTAS",
+  faqTitle: "Dónde puede empezar un proyecto.",
+  contactTitle: "¿Tienes un reto\nparecido?",
+  contactCopy: "Trae el contexto. Juntos podemos identificar el siguiente paso práctico.",
+  faq: [
+    ["¿Qué tipo de software desarrollas?", "LAC STUDIO crea aplicaciones web a medida, software Android y de escritorio, productos SaaS, herramientas internas de negocio y los servicios backend que las sustentan."],
+    ["¿Podemos empezar con una idea inicial?", "Sí. La primera conversación puede partir del problema, las personas implicadas y el cambio que buscas. No necesitas una especificación terminada."],
+    ["¿Solo trabajas en interfaces?", "No. Puedo trabajar la dirección de producto, los recorridos, el frontend, el backend, los datos, las integraciones y el camino hasta el lanzamiento."],
+    ["¿Cómo se publican los casos de estudio?", "Un proyecto se publica solo cuando se han confirmado su descripción, sus medios, sus resultados y el permiso para compartirlos."],
+    ["¿Puedes mejorar un producto existente?", "Sí. Los flujos, las interfaces y las bases técnicas existentes pueden evaluarse y mejorarse sin asumir que reconstruirlo todo sea necesario."],
+    ["¿Qué debería incluir el primer mensaje?", "Bastan unas líneas sobre lo que quieres construir, mejorar o conectar para iniciar una conversación útil."],
+  ],
 };
 
 translations.es.about = {
@@ -357,3 +426,12 @@ export const getPortfolioCopy = (locale: Locale): PortfolioCopy => {
   if (!isLocaleReady(locale)) throw new Error(`No complete dictionary is available for locale: ${locale}`);
   return locale === "en" ? englishPortfolioCopy : translations[locale];
 };
+
+/**
+ * The single public-content resolver used by PortfolioApp. Keeping the page
+ * dictionary beside the shared dictionary prevents a route from appearing
+ * localized while one of its visible page sections silently uses English.
+ */
+export function resolvePortfolioContent(locale: Locale): { locale: Locale; copy: PortfolioCopy; pages: PageCopy } {
+  return { locale, copy: getPortfolioCopy(locale), pages: pageCopy[locale] };
+}

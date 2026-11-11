@@ -2,7 +2,7 @@ import type { Locale } from "./config.ts";
 
 type Card = readonly [string, string];
 type Stage = { tab: string; title: string; summary: string; outputs: readonly string[]; involvement: string };
-type PageCopy = {
+export type PageCopy = {
   services: { scope: readonly string[]; fit: readonly Card[]; delivery: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; cta: string };
   about: { intro: readonly string[]; portraitAlt: string; portraitLabel: string; experience: readonly string[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; capabilitiesEyebrow: string; capabilitiesTitle: string; capabilitiesCopy: string; expertise: readonly Card[]; ctaEyebrow: string; cta: string };
   process: { stages: readonly Stage[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; discuss: string; explore: string; cta: string };
