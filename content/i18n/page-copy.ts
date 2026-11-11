@@ -6,7 +6,7 @@ export type PageCopy = {
   services: { scope: readonly string[]; fit: readonly Card[]; delivery: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; cta: string };
   about: { intro: readonly string[]; portraitAlt: string; portraitLabel: string; experience: readonly string[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; capabilitiesEyebrow: string; capabilitiesTitle: string; capabilitiesCopy: string; expertise: readonly Card[]; ctaEyebrow: string; cta: string };
   process: { stages: readonly Stage[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; discuss: string; explore: string; cta: string };
-  contact: { lead: string; email: string; back: string; name: string; emailLabel?: string; projectType: string; chooseDirection: string; projectTypes: readonly string[]; budget: string; budgetPlaceholder: string; budgetOptions: readonly string[]; timeline: string; timelinePlaceholder: string; timelineOptions: readonly string[]; description: string; descriptionPlaceholder: string; company: string; formMessages?: { rateLimit: string; validation: string; rejected: string; unavailable: string } };
+  contact: { lead: string; email: string; back: string; name: string; emailLabel?: string; projectType: string; chooseDirection: string; projectTypes: readonly string[]; budget: string; budgetPlaceholder: string; budgetOptions: readonly string[]; timeline: string; timelinePlaceholder: string; timelineOptions: readonly string[]; description: string; descriptionPlaceholder: string; company: string; formMessages?: { rateLimit: string; validation: string; rejected: string; unavailable: string; failure: string; success: string; checking: string; submit: string; submitting: string; retry: string } };
 };
 
 const englishPageCopy: PageCopy = {
@@ -173,6 +173,12 @@ Object.assign(pageCopy.en.contact, {
     validation: "Please check the required contact details and project description.",
     rejected: "Your inquiry could not be processed.",
     unavailable: "Inquiry delivery is not configured yet. Please return when a verified contact channel is available.",
+    failure: "Your inquiry could not be delivered. Please try again or use the email address above.",
+    success: "Thanks — your inquiry has been accepted for delivery. I will reply by email.",
+    checking: "Checking form availability…",
+    submit: "Send inquiry",
+    submitting: "Sending inquiry…",
+    retry: "Try again",
   },
 });
 
@@ -199,6 +205,12 @@ pageCopy.fr.contact = {
     validation: "Veuillez vérifier les coordonnées requises et la description du projet.",
     rejected: "Votre demande n'a pas pu être traitée.",
     unavailable: "L'envoi des demandes n'est pas encore configuré. Revenez lorsqu'un canal de contact vérifié sera disponible.",
+    failure: "Votre demande n'a pas pu être envoyée. Réessayez ou utilisez l'adresse e-mail ci-dessus.",
+    success: "Merci — votre demande a été acceptée pour envoi. Je vous répondrai par e-mail.",
+    checking: "Vérification de la disponibilité du formulaire…",
+    submit: "Envoyer la demande",
+    submitting: "Envoi de la demande…",
+    retry: "Réessayer",
   },
 };
 
@@ -225,6 +237,12 @@ pageCopy.ro.contact = {
     validation: "Te rog să verifici datele de contact obligatorii și descrierea proiectului.",
     rejected: "Solicitarea ta nu a putut fi procesată.",
     unavailable: "Trimiterea solicitărilor nu este configurată încă. Revino când va fi disponibil un canal de contact verificat.",
+    failure: "Solicitarea ta nu a putut fi trimisă. Încearcă din nou sau folosește adresa de e-mail de mai sus.",
+    success: "Mulțumesc — solicitarea ta a fost acceptată pentru livrare. Îți voi răspunde prin e-mail.",
+    checking: "Se verifică disponibilitatea formularului…",
+    submit: "Trimite solicitarea",
+    submitting: "Se trimite solicitarea…",
+    retry: "Încearcă din nou",
   },
 };
 
@@ -251,5 +269,11 @@ pageCopy.es.contact = {
     validation: "Revisa los datos de contacto obligatorios y la descripción del proyecto.",
     rejected: "No se ha podido procesar tu consulta.",
     unavailable: "El envío de consultas todavía no está configurado. Vuelve cuando haya un canal de contacto verificado disponible.",
+    failure: "No se ha podido enviar tu consulta. Inténtalo de nuevo o utiliza la dirección de correo anterior.",
+    success: "Gracias — tu consulta ha sido aceptada para su envío. Te responderé por correo electrónico.",
+    checking: "Comprobando la disponibilidad del formulario…",
+    submit: "Enviar consulta",
+    submitting: "Enviando consulta…",
+    retry: "Intentarlo de nuevo",
   },
 };

@@ -357,13 +357,39 @@ function ProcessPage() {
 
 function ContactPage() {
   const [projectType, setProjectType] = useState(""); const [budget, setBudget] = useState(""); const [timeline, setTimeline] = useState("");
-  const { copy, pages } = usePortfolioLocale();
+  const [availability, setAvailability] = useState<"checking" | "available" | "unavailable">("checking");
+  const [submission, setSubmission] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState("");
+  const { copy, pages, locale } = usePortfolioLocale();
   const content = copy.contact;
   const page = pages.contact;
+  const messages = page.formMessages!;
   const projectOptions = page.projectTypes.map((item) => ({ value: item, label: item }));
   const budgetOptions = page.budgetOptions.map((item, index) => ({ value: index ? item : "", label: item }));
   const timelineOptions = page.timelineOptions.map((item, index) => ({ value: index ? item : "", label: item }));
-  return <main className="portfolio-page portfolio-container"><Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1"><div className="two-column"><div className="contact-intro"><p className="lead">{page.lead}</p><p>{page.email}</p><a className="contact-email" href="mailto:codrin.lucaciu@gmail.com">codrin.lucaciu@gmail.com <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={(event) => event.preventDefault()} aria-describedby="contact-form-notice"><label>{page.name}<input name="name" autoComplete="name" /></label><label>{page.emailLabel!}<input name="email" type="email" autoComplete="email" /></label><label>{page.projectType}<PortfolioSelect name="projectType" ariaLabel={page.projectType} value={projectType} onChange={setProjectType} placeholder={page.chooseDirection} options={projectOptions} /></label><label>{page.budget}<PortfolioSelect name="budget" ariaLabel={page.budget} value={budget} onChange={setBudget} placeholder={page.budgetPlaceholder} options={budgetOptions} /></label><label>{page.timeline}<PortfolioSelect name="timeline" ariaLabel={page.timeline} value={timeline} onChange={setTimeline} placeholder={page.timelinePlaceholder} options={timelineOptions} /></label><label className="wide">{page.description}<textarea name="message" placeholder={page.descriptionPlaceholder} /></label><label className="honeypot" aria-hidden="true">{page.company}<input name="company" tabIndex={-1} autoComplete="off" /></label><small id="contact-form-notice" className="wide">{content.formNotice} <Link href="/privacy">{content.privacyLink}</Link>.</small><button className="button primary" type="button" disabled>{content.formButton}</button></form></div></Section></main>;
+  useEffect(() => {
+    let active = true;
+    fetch("/api/contact", { cache: "no-store" }).then(async (result) => ({ result, body: await result.json().catch(() => null) as { available?: boolean } | null })).then(({ result, body }) => {
+      if (!active) return;
+      setAvailability(result.ok && body?.available ? "available" : "unavailable");
+      if (!result.ok || !body?.available) setStatus(messages.unavailable);
+    }).catch(() => { if (active) { setAvailability("unavailable"); setStatus(messages.unavailable); } });
+    return () => { active = false; };
+  }, [messages.unavailable]);
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (availability !== "available" || submission === "submitting") return;
+    setSubmission("submitting"); setStatus("");
+    const form = event.currentTarget; const data = Object.fromEntries(new FormData(form).entries());
+    try {
+      const result = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json", "Accept-Language": locale }, body: JSON.stringify(data) });
+      const body = await result.json().catch(() => null) as { message?: string; error?: string } | null;
+      if (!result.ok) { setSubmission("error"); setStatus(body?.error || messages.failure); if (result.status === 503) setAvailability("unavailable"); return; }
+      setSubmission("success"); setStatus(body?.message || messages.success); form.reset(); setProjectType(""); setBudget(""); setTimeline("");
+    } catch { setSubmission("error"); setStatus(messages.failure); }
+  };
+  const buttonLabel = submission === "submitting" ? messages.submitting : availability === "checking" ? messages.checking : availability === "unavailable" ? messages.unavailable : submission === "error" ? messages.retry : messages.submit;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1"><div className="two-column"><div className="contact-intro"><p className="lead">{page.lead}</p><p>{page.email}</p><a className="contact-email" href="mailto:contact@lacstudio.ro">contact@lacstudio.ro <b>↗</b></a><BackButton /></div><form className="contact-form" onSubmit={submit} aria-describedby="contact-form-notice contact-form-status"><fieldset disabled={submission === "submitting" || availability !== "available"}><label>{page.name}<input name="name" autoComplete="name" required minLength={2} maxLength={100} /></label><label>{page.emailLabel!}<input name="email" type="email" autoComplete="email" required maxLength={254} /></label><label>{page.projectType}<PortfolioSelect name="projectType" ariaLabel={page.projectType} value={projectType} onChange={setProjectType} placeholder={page.chooseDirection} options={projectOptions} /></label><label>{page.budget}<PortfolioSelect name="budget" ariaLabel={page.budget} value={budget} onChange={setBudget} placeholder={page.budgetPlaceholder} options={budgetOptions} /></label><label>{page.timeline}<PortfolioSelect name="timeline" ariaLabel={page.timeline} value={timeline} onChange={setTimeline} placeholder={page.timelinePlaceholder} options={timelineOptions} /></label><label className="wide">{page.description}<textarea name="message" placeholder={page.descriptionPlaceholder} required minLength={20} maxLength={4000} /></label><label className="honeypot" aria-hidden="true">{page.company}<input name="company" tabIndex={-1} autoComplete="off" /></label></fieldset><small id="contact-form-notice" className="wide">{content.formNotice} <Link href="/privacy">{content.privacyLink}</Link>.</small><p id="contact-form-status" className="contact-form-status wide" role="status" aria-live="polite">{status}</p><button className="button primary" type="submit" disabled={availability !== "available" || submission === "submitting"} aria-busy={submission === "submitting"}>{buttonLabel}</button></form></div></Section></main>;
 }
 function LegalPage({ privacy }: { privacy: boolean }) {
   const { copy } = usePortfolioLocale();
