@@ -33,7 +33,6 @@ export type PublicProject = {
   repositoryUrl?: string;
   relatedProjects?: string[];
   portfolioType?: "web" | "android";
-  ownershipNotice?: string;
 };
 
 /**
@@ -149,7 +148,6 @@ export const publishedProjects: readonly PublicProject[] = [
     features: ["Daily activity, quantity, count and duration logging", "Timers, intervals and personal experiments", "Perception compared with recorded activity", "Private local storage and reflection"],
     technicalHighlights: ["Native Android interface with Kotlin and Jetpack Compose", "Local persistence with Room and DataStore", "Background work where reminders or scheduled work are appropriate"],
     architecture: "The app is designed around local-first records, with the interface and persistence model keeping personal activity data close to the device.",
-    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
   },
   {
     id: "noped", slug: "noped", title: "NOPED", subtitle: "Personal finance Android app",
@@ -163,7 +161,6 @@ export const publishedProjects: readonly PublicProject[] = [
     features: ["Impulse purchase capture and decision cooldown", "Resisted and purchased history", "Money Kept and Nope Score", "Savings goals and personal insights"],
     technicalHighlights: ["Native Kotlin and Jetpack Compose application", "Room and DataStore for local-first records", "WorkManager where background reminders or work are appropriate"],
     architecture: "The product is organized around durable local decisions and goal progress, keeping the core experience available without depending on a live service.",
-    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
   },
   {
     id: "backly", slug: "backly", title: "BACKLY", subtitle: "Productivity Android app",
@@ -177,7 +174,6 @@ export const publishedProjects: readonly PublicProject[] = [
     features: ["Quick reminders", "Precise date and time scheduling", "Repeating reminders and notifications", "Completed task history and local storage"],
     technicalHighlights: ["Native Android application with Kotlin and Jetpack Compose", "Local persistence for reminders and completion history", "Android notification and scheduling APIs"],
     architecture: "The core reminder data and schedules are designed to remain useful on-device, including when a connection is unavailable.",
-    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
   },
   {
     id: "language-sprint", slug: "language-sprint", title: "Language Sprint", subtitle: "French-learning Android app",
@@ -191,7 +187,6 @@ export const publishedProjects: readonly PublicProject[] = [
     features: ["Structured learning sessions and everyday vocabulary", "Dental-professional vocabulary context", "Listening, pronunciation and speaking practice", "Active recall, spaced repetition and progress"],
     technicalHighlights: ["Native Kotlin and Jetpack Compose interface", "Speech recognition and text-to-speech where available", "Local persistence for learning progress and content"],
     architecture: "The experience is organized around local learning content and progress so core practice can remain available without a constant connection.",
-    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
   },
   {
     id: "hubig", slug: "hubig", title: "HuBiG", subtitle: "Android notification gateway",
@@ -205,7 +200,6 @@ export const publishedProjects: readonly PublicProject[] = [
     features: ["SMS gateway operation", "Backend integration and synchronization controls", "SIM and dual-SIM management", "Background operation and delivery diagnostics"],
     technicalHighlights: ["Native Kotlin Android application", "Android background services and SIM-management workflows", "REST API integration for compatible backend systems"],
     architecture: "HuBiG treats the Android device as a configurable delivery node, with local operational state and backend communication kept explicit for support and diagnostics.",
-    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
   },
 ];
 export const featuredProjects = publishedProjects.filter((project) => project.featured).sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99));

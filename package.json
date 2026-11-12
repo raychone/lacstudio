@@ -16,6 +16,7 @@
     "test:responsive": "node --experimental-strip-types design-system/engine/responsive-contract.test.ts",
     "test:seo": "node --experimental-strip-types content/seo/technical-seo.test.ts",
     "test:pricing": "node --experimental-strip-types content/pricing.test.ts && node --experimental-strip-types content/contact-project-types.test.ts",
+    "test:portfolio": "node --experimental-strip-types content/project-attribution.test.ts",
     "test:contact": "node --experimental-strip-types app/api/contact/route.test.ts && node --experimental-strip-types components/portfolio/contact-form-ui.test.ts",
     "test:i18n": "node --experimental-strip-types content/i18n/translation-coverage.test.ts && node --experimental-strip-types content/i18n/routing-contract.test.ts && node --experimental-strip-types content/i18n/services-translation.test.ts && node --experimental-strip-types content/i18n/about-translation.test.ts && node --experimental-strip-types content/i18n/process-translation.test.ts && node --experimental-strip-types content/i18n/contact-translation.test.ts && node --experimental-strip-types content/i18n/shared-ui-translation.test.ts && node --experimental-strip-types content/i18n/final-localization.test.ts && node --experimental-strip-types content/i18n/rendered-locale-regression.test.ts",
     "test:browser": "playwright test"

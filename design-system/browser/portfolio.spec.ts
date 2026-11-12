@@ -170,11 +170,11 @@ test.describe("public portfolio", () => {
 
   test("keeps case studies connected and allows visitors to disable ambient effects", async ({ page }) => {
     await page.goto("/work/medichelp?design=brutalist", { waitUntil: "networkidle" });
-    const workflowNavigation = page.getByRole("navigation", { name: /Back to Work.*Workflow/ });
-    const evidenceNavigation = page.getByRole("navigation", { name: /Back to Work.*Evidence/ });
-    await expect(workflowNavigation.getByRole("link", { name: "← Back to Work" })).toHaveAttribute("href", "/en/work?design=brutalist");
-    await expect(evidenceNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ })).toHaveAttribute("href", "/en/work/dental-laboratory-management?design=brutalist");
-    await workflowNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ }).click();
+    const caseNavigation = page.getByRole("navigation", { name: "Case study navigation" });
+    await expect(caseNavigation.getByRole("link", { name: "← Back to Work" })).toHaveAttribute("href", "/en/work?design=brutalist");
+    await expect(caseNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ })).toHaveAttribute("href", "/en/work/dental-laboratory-management?design=brutalist");
+    await expect(page.locator(".case-attribution")).toContainText("Project presentation and development work by LAC STUDIO.");
+    await caseNavigation.getByRole("link", { name: /Next Dental Laboratory Management/ }).click();
     await expect(page).toHaveURL("/en/work/dental-laboratory-management?design=brutalist");
     await page.goto("/work/medichelp?design=brutalist", { waitUntil: "networkidle" });
     await expect(page.locator('.portfolio-footer nav[aria-label="Explore"] > span')).toHaveCSS("color", "rgb(17, 17, 15)");

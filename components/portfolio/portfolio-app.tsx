@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
 import { designIds, designRegistry, type DesignId } from "@/design-system/engine/registry";
 import { featuredProjects, publishedProjects, type PublicProject } from "@/content/projects";
+import { getProjectAttribution } from "@/content/project-attribution";
 import { defaultLocale, locales, localeNames, localizePath, type Locale } from "@/content/i18n/config";
 import { isLocaleReady, resolvePortfolioContent, type PortfolioCopy } from "@/content/i18n/portfolio";
 import { localizeProject } from "@/content/i18n/project-content";
@@ -470,32 +471,46 @@ function NotFoundPage() {
   return <main className="portfolio-page portfolio-container"><Section eyebrow={copy.notFound.eyebrow} title={copy.notFound.title} headingLevel="h1"><p className="page-intro">{copy.notFound.copy}</p><Link className="button primary" href="/work">{copy.notFound.cta} <b>→</b></Link></Section></main>;
 }
 
-function CaseStudyNavigation({ previous, next, designQuery, location }: { previous: PublicProject; next: PublicProject; designQuery: string; location: "workflow" | "evidence" }) {
+function CaseStudyNavigation({ previous, next, designQuery }: { previous: PublicProject; next: PublicProject; designQuery: string }) {
   const { copy, locale } = usePortfolioLocale();
   const localizedPrevious = localizeProject(previous, locale);
   const localizedNext = localizeProject(next, locale);
-  return <nav className="case-study-navigation" aria-label={`${copy.caseStudy.backToWork} — ${copy.shared[location]}`}><Link href={`/work${designQuery}`}>{copy.caseStudy.backToWork}</Link><div><Link href={`/work/${previous.slug}${designQuery}`}>← <span>{copy.caseStudy.previous}</span> {localizedPrevious.title}</Link><Link href={`/work/${next.slug}${designQuery}`}><span>{copy.caseStudy.next}</span> {localizedNext.title} →</Link></div></nav>;
+  return <nav className="case-study-navigation" aria-label={copy.caseStudy.navigationLabel}><Link href={`/work${designQuery}`}>{copy.caseStudy.backToWork}</Link><div><Link href={`/work/${previous.slug}${designQuery}`}>← <span>{copy.caseStudy.previous}</span> {localizedPrevious.title}</Link><Link href={`/work/${next.slug}${designQuery}`}><span>{copy.caseStudy.next}</span> {localizedNext.title} →</Link></div></nav>;
+}
+
+function ProjectAttribution({ project }: { project: PublicProject }) {
+  const { copy } = usePortfolioLocale();
+  const attribution = getProjectAttribution(project);
+  const template = attribution.showCopyright ? copy.caseStudy.originalAttribution : copy.caseStudy.neutralAttribution;
+  const text = template
+    .replace("{project}", attribution.projectName)
+    .replace("{year}", attribution.copyrightYears ?? "")
+    .replace("{holder}", attribution.rightsHolder ?? "");
+  return <aside className="case-attribution" aria-label={copy.caseStudy.attributionEyebrow}><span>{copy.caseStudy.attributionEyebrow}</span><p>{text}</p></aside>;
 }
 
 function CaseStudy({ project }: { project: PublicProject }) {
-  const image = project.heroImage ?? project.thumbnail;
   const { activeDesign } = useDesign();
   const projectIndex = publishedProjects.findIndex((item) => item.id === project.id);
   const previous = publishedProjects[(projectIndex - 1 + publishedProjects.length) % publishedProjects.length];
   const next = publishedProjects[(projectIndex + 1) % publishedProjects.length];
   const designQuery = `?design=${activeDesign.id}`;
-  const { copy } = usePortfolioLocale();
+  const { copy, locale } = usePortfolioLocale();
+  const localized = localizeProject(project, locale);
+  const image = localized.heroImage ?? localized.thumbnail;
   return <main className="portfolio-page portfolio-container">
-    <Section eyebrow={`${project.category.toUpperCase()} / ${copy.shared.readCaseStudy.toUpperCase()}`} title={project.title} headingLevel="h1">
-      <p className="page-intro">{project.summary}</p>
-      <div className="case-meta"><span>{project.subtitle}</span><span>{project.platforms.join(" · ")}</span><span>{project.year}</span></div>
-      {image && <div className={`case-hero-media ${project.portfolioType === "android" ? "case-hero-media-android" : ""}`}><Image src={image} alt={`${project.title} ${copy.shared.interfacePreview}`} fill sizes="(max-width: 1180px) 100vw, 1180px" priority /></div>}
-      <div className="case-actions">{project.liveUrl ? <a className="button primary" href={project.liveUrl} target="_blank" rel="noreferrer">{copy.caseStudy.openLive} <b>↗</b></a> : project.demoOnRequest ? <Link className="button primary" href={`/contact${designQuery}`}>{copy.caseStudy.requestDemo} <b>↗</b></Link> : null}<Link className="button secondary" href={`/contact${designQuery}`}>{copy.caseStudy.discussSimilar} <b>→</b></Link></div>
-      {project.demoNotice && <p className="case-demo-notice">{project.demoNotice}</p>}
+    <Section eyebrow={`${localized.category.toUpperCase()} / ${copy.shared.readCaseStudy.toUpperCase()}`} title={localized.title} headingLevel="h1">
+      <p className="page-intro">{localized.summary}</p>
+      <div className="case-meta"><span>{localized.subtitle}</span><span>{localized.platforms.join(" · ")}</span><span>{localized.year}</span></div>
+      {image && <div className={`case-hero-media ${localized.portfolioType === "android" ? "case-hero-media-android" : ""}`}><Image src={image} alt={`${localized.title} ${copy.shared.interfacePreview}`} fill sizes="(max-width: 1180px) 100vw, 1180px" priority /></div>}
+      <div className="case-actions">{localized.liveUrl ? <a className="button primary" href={localized.liveUrl} target="_blank" rel="noreferrer">{copy.caseStudy.openLive} <b>↗</b></a> : localized.demoOnRequest ? <Link className="button primary" href={`/contact${designQuery}`}>{copy.caseStudy.requestDemo} <b>↗</b></Link> : null}<Link className="button secondary" href={`/contact${designQuery}`}>{copy.caseStudy.discussSimilar} <b>→</b></Link></div>
+      {localized.demoNotice && <p className="case-demo-notice">{localized.demoNotice}</p>}
     </Section>
-    <Section id="workflow" eyebrow={copy.caseStudy.workflowEyebrow} title={copy.caseStudy.workflowTitle}><div className="case-overview"><div><p className="lead">{project.longDescription ?? project.summary}</p>{project.problem && <div className="case-problem"><span>{copy.shared.theChallenge}</span><p>{project.problem}</p></div>}{project.solution && <div className="case-problem"><span>{copy.caseStudy.implementation}</span><p>{project.solution}</p></div>}</div><ul>{(project.features ?? []).map((feature) => <li key={feature}>{feature}</li>)}</ul></div><CaseStudyNavigation previous={previous} next={next} designQuery={designQuery} location="workflow" /></Section>
-    <Section id="evidence" eyebrow={copy.caseStudy.evidenceEyebrow} title={copy.caseStudy.evidenceTitle}><div className="case-evidence"><article><span>{copy.caseStudy.technicalFocus}</span><ul>{project.technologies.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>{copy.caseStudy.implementation}</span><ul>{(project.technicalHighlights ?? []).map((item) => <li key={item}>{item}</li>)}</ul></article>{project.architecture && <article className="case-architecture"><span>{copy.caseStudy.architecture}</span><p>{project.architecture}</p></article>}</div><CaseStudyNavigation previous={previous} next={next} designQuery={designQuery} location="evidence" /></Section>
-    {project.ownershipNotice && <p className="project-ownership-notice">{project.ownershipNotice}</p>}<Section className="contact-cta"><h2>{copy.caseStudy.contactTitle.split("\n").map((part, index) => <span key={part}>{index ? <br /> : null}{part}</span>)}</h2><Link className="button primary" href="/contact">{copy.shared.discussProject} <b>↗</b></Link></Section>
+    <Section id="workflow" eyebrow={copy.caseStudy.workflowEyebrow} title={copy.caseStudy.workflowTitle}><div className="case-overview"><div><p className="lead">{localized.longDescription ?? localized.summary}</p>{localized.problem && <div className="case-problem"><span>{copy.shared.theChallenge}</span><p>{localized.problem}</p></div>}{localized.solution && <div className="case-problem"><span>{copy.caseStudy.implementation}</span><p>{localized.solution}</p></div>}</div><ul>{(localized.features ?? []).map((feature) => <li key={feature}>{feature}</li>)}</ul></div></Section>
+    <Section id="evidence" eyebrow={copy.caseStudy.evidenceEyebrow} title={copy.caseStudy.evidenceTitle}><div className="case-evidence"><article><span>{copy.caseStudy.technicalFocus}</span><ul>{localized.technologies.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>{copy.caseStudy.implementation}</span><ul>{(localized.technicalHighlights ?? []).map((item) => <li key={item}>{item}</li>)}</ul></article>{localized.architecture && <article className="case-architecture"><span>{copy.caseStudy.architecture}</span><p>{localized.architecture}</p></article>}</div></Section>
+    <ProjectAttribution project={localized} />
+    <CaseStudyNavigation previous={previous} next={next} designQuery={designQuery} />
+    <Section className="contact-cta case-study-contact-cta"><h2>{copy.caseStudy.contactTitle.split("\n").map((part, index) => <span key={part}>{index ? <br /> : null}{part}</span>)}</h2><Link className="button primary" href={`/contact${designQuery}`}>{copy.shared.discussProject} <b>↗</b></Link></Section>
   </main>;
 }
 
