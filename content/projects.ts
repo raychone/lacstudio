@@ -32,6 +32,8 @@ export type PublicProject = {
   demoNotice?: string;
   repositoryUrl?: string;
   relatedProjects?: string[];
+  portfolioType?: "web" | "android";
+  ownershipNotice?: string;
 };
 
 /**
@@ -134,6 +136,76 @@ export const publishedProjects: readonly PublicProject[] = [
     problem: "Shoppers need a simple route from a visual collection to relevant products and a cart-ready shopping flow.",
     features: ["Collection and product discovery", "Cart-ready shopping interface", "Responsive product catalogue", "Mobile-first storefront navigation"],
     technicalHighlights: ["Responsive e-commerce interface", "Product catalogue presentation", "Cross-device shopping flow"],
+  },
+  {
+    id: "innerly", slug: "innerly", title: "INNERLY", subtitle: "Personal growth Android app",
+    summary: "An offline-first Android app for noticing habits, recording activities and turning personal reflection into small, practical experiments.",
+    category: "Android Application", platforms: ["Android"], technologies: ["Kotlin", "Jetpack Compose", "Room", "DataStore", "WorkManager"], portfolioType: "android",
+    publicationState: "in-development", featured: true, featuredOrder: 8, year: "2026",
+    thumbnail: "/projects/android/innerly.png", heroImage: "/projects/android/innerly.png", screenshots: ["/projects/android/innerly.png"],
+    longDescription: "INNERLY helps people observe everyday habits, compare perception with recorded activity and make gradual personal changes without sending private data away by default.",
+    problem: "Personal patterns are easy to miss when reflection, activity tracking and small experiments live in separate tools or not at all.",
+    solution: "A calm, local-first Android experience brings activity logging, timers, reflection and pattern review into one private space.",
+    features: ["Daily activity, quantity, count and duration logging", "Timers, intervals and personal experiments", "Perception compared with recorded activity", "Private local storage and reflection"],
+    technicalHighlights: ["Native Android interface with Kotlin and Jetpack Compose", "Local persistence with Room and DataStore", "Background work where reminders or scheduled work are appropriate"],
+    architecture: "The app is designed around local-first records, with the interface and persistence model keeping personal activity data close to the device.",
+    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
+  },
+  {
+    id: "noped", slug: "noped", title: "NOPED", subtitle: "Personal finance Android app",
+    summary: "A local-first Android app for pausing impulsive purchases, recording decisions and seeing the money kept by choosing not to buy.",
+    category: "Android Application", platforms: ["Android"], technologies: ["Kotlin", "Jetpack Compose", "Room", "DataStore", "WorkManager"], portfolioType: "android",
+    publicationState: "in-development", featured: true, featuredOrder: 9, year: "2026",
+    thumbnail: "/projects/android/noped.png", heroImage: "/projects/android/noped.png", screenshots: ["/projects/android/noped.png"],
+    longDescription: "NOPED creates a deliberate pause between an impulse and a purchase, then turns those choices into a personal history of decisions, savings goals and insights.",
+    problem: "Impulse spending can happen faster than a person has time to consider whether an item still matters.",
+    solution: "A short decision cooldown and private history make room to decide intentionally and see the practical value of resisting a purchase.",
+    features: ["Impulse purchase capture and decision cooldown", "Resisted and purchased history", "Money Kept and Nope Score", "Savings goals and personal insights"],
+    technicalHighlights: ["Native Kotlin and Jetpack Compose application", "Room and DataStore for local-first records", "WorkManager where background reminders or work are appropriate"],
+    architecture: "The product is organized around durable local decisions and goal progress, keeping the core experience available without depending on a live service.",
+    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
+  },
+  {
+    id: "backly", slug: "backly", title: "BACKLY", subtitle: "Productivity Android app",
+    summary: "A focused Android reminder app for capturing something important, scheduling it precisely and following through without unnecessary complexity.",
+    category: "Android Application", platforms: ["Android"], technologies: ["Kotlin", "Jetpack Compose", "Local persistence", "Android scheduling APIs"], portfolioType: "android",
+    publicationState: "in-development", featured: false, year: "2026",
+    thumbnail: "/projects/android/backly.png", heroImage: "/projects/android/backly.png", screenshots: ["/projects/android/backly.png"],
+    longDescription: "BACKLY is a simple reminder experience built around quick capture, intentional schedules, repeat behavior and a clear history of what was completed.",
+    problem: "Important tasks can be forgotten when reminders are slow to create, hard to schedule or buried in a crowded interface.",
+    solution: "A narrow, focused flow makes it fast to add a reminder, choose when it should return and keep the history easy to review.",
+    features: ["Quick reminders", "Precise date and time scheduling", "Repeating reminders and notifications", "Completed task history and local storage"],
+    technicalHighlights: ["Native Android application with Kotlin and Jetpack Compose", "Local persistence for reminders and completion history", "Android notification and scheduling APIs"],
+    architecture: "The core reminder data and schedules are designed to remain useful on-device, including when a connection is unavailable.",
+    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
+  },
+  {
+    id: "language-sprint", slug: "language-sprint", title: "Language Sprint", subtitle: "French-learning Android app",
+    summary: "A practical Android learning app for everyday French and dental-professional vocabulary, listening, speaking and active recall.",
+    category: "Android Application", platforms: ["Android"], technologies: ["Kotlin", "Jetpack Compose", "Speech recognition", "Text-to-speech", "Local persistence"], portfolioType: "android",
+    publicationState: "in-development", featured: false, year: "2026",
+    thumbnail: "/projects/android/language-sprint.png", heroImage: "/projects/android/language-sprint.png", screenshots: ["/projects/android/language-sprint.png"],
+    longDescription: "Language Sprint supports practical French through short structured sessions, including a dedicated context for dental professionals and roughly 1,300 general learning items.",
+    problem: "Learners often need language practice tied to real situations, not only isolated vocabulary lists.",
+    solution: "Short lessons, listening, speaking and spaced recall connect general language learning with the contexts where it needs to be used.",
+    features: ["Structured learning sessions and everyday vocabulary", "Dental-professional vocabulary context", "Listening, pronunciation and speaking practice", "Active recall, spaced repetition and progress"],
+    technicalHighlights: ["Native Kotlin and Jetpack Compose interface", "Speech recognition and text-to-speech where available", "Local persistence for learning progress and content"],
+    architecture: "The experience is organized around local learning content and progress so core practice can remain available without a constant connection.",
+    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
+  },
+  {
+    id: "hubig", slug: "hubig", title: "HuBiG", subtitle: "Android notification gateway",
+    summary: "An Android gateway that connects a physical device to compatible backends for mobile-network SMS delivery, configuration and diagnostics.",
+    category: "Android Application", platforms: ["Android", "Backend"], technologies: ["Kotlin", "Android background services", "SIM management", "REST API integration"], portfolioType: "android",
+    publicationState: "in-development", featured: true, featuredOrder: 10, year: "2026",
+    thumbnail: "/projects/android/hubig.png", heroImage: "/projects/android/hubig.png", screenshots: ["/projects/android/hubig.png"],
+    longDescription: "HuBiG connects an Android device to compatible backend systems to support local device-based SMS gateway operation, synchronization controls and delivery diagnostics.",
+    problem: "A backend that needs to use a physical device for mobile-network notification delivery also needs clear configuration, connection state and diagnosable operations.",
+    solution: "The gateway keeps device setup, SIM selection, synchronization controls and diagnostic logs visible in a focused Android operating interface.",
+    features: ["SMS gateway operation", "Backend integration and synchronization controls", "SIM and dual-SIM management", "Background operation and delivery diagnostics"],
+    technicalHighlights: ["Native Kotlin Android application", "Android background services and SIM-management workflows", "REST API integration for compatible backend systems"],
+    architecture: "HuBiG treats the Android device as a configurable delivery node, with local operational state and backend communication kept explicit for support and diagnostics.",
+    ownershipNotice: "© 2026 LAC STUDIO. Original software, interface design and portfolio presentation. All rights reserved.",
   },
 ];
 export const featuredProjects = publishedProjects.filter((project) => project.featured).sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99));

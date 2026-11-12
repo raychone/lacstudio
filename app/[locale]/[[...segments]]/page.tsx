@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<RouteParams
   const metadata = route.page === "case-study" && route.project
     ? localizedMetadata(input, "work", route.pathname, (() => {
       const project = localizeProject(route.project, input);
-      return { title: project.title, description: project.summary };
+      return { title: project.title, description: project.summary, image: project.heroImage ?? project.thumbnail };
     })())
     : localizedMetadata(input, route.page, route.pathname);
   if (route.page === "privacy" || route.page === "legal") {
