@@ -12,7 +12,7 @@ type RouteParams = { locale: string; segments?: string[] };
 function resolveRoute(locale: Locale, segments: string[] = []) {
   if (!isLocaleReady(locale)) return null;
   if (!segments.length) return { page: "home" as const, pathname: "/" };
-  if (segments.length === 1 && ["work", "services", "about", "process", "contact", "privacy", "legal"].includes(segments[0])) return { page: segments[0] as "work" | "services" | "about" | "process" | "contact" | "privacy" | "legal", pathname: `/${segments[0]}` };
+  if (segments.length === 1 && ["work", "services", "pricing", "about", "process", "contact", "privacy", "legal"].includes(segments[0])) return { page: segments[0] as "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal", pathname: `/${segments[0]}` };
   if (segments.length === 2 && segments[0] === "work") {
     const project = publicProjectBySlug(segments[1]);
     return project ? { page: "case-study" as const, pathname: `/work/${project.slug}`, project } : null;

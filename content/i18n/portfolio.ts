@@ -4,7 +4,7 @@ import { pageCopy, type PageCopy } from "./page-copy.ts";
 export type LocaleStatus = "ready" | "planned";
 
 export const englishPortfolioCopy = {
-  navigation: { work: "Work", services: "Services", process: "Process", about: "About", discuss: "Discuss a project ↗", homeLabel: "LAC Studio home", mainLabel: "Main navigation" },
+  navigation: { work: "Work", services: "Services", pricing: "Pricing", process: "Process", about: "About", discuss: "Discuss a project ↗", homeLabel: "LAC Studio home", mainLabel: "Main navigation" },
   language: { label: "Language", unavailable: "Translation in preparation" },
   footer: { description: "Independent software development for web applications, business systems and mobile workflows.", explore: "Explore", studio: "Studio", contact: "Contact", privacy: "Privacy", legal: "Legal", independent: "Independent by design." },
   shared: { back: "← Back", theChallenge: "The challenge", addresses: "Addresses:", openLiveProject: "Open live project", askAboutDemo: "Ask about a demo", readCaseStudy: "Read case study", exploreProject: "Explore project", discussProject: "Discuss your project", selectedWork: "01 / SELECTED WORK", startConversation: "START A CONVERSATION", chooseDesignSystem: "Choose portfolio design system", design: "Design", loading: "Loading", enableEffects: "Enable interface effects", disableEffects: "Disable interface effects", effectsOn: "FX on", effectsOff: "FX off", toggleNavigation: "Toggle navigation", productPreview: "product preview", mediaToBeSupplied: "Media to be supplied", workflow: "Workflow", evidence: "Evidence", interfacePreview: "interface preview", approvedMediaPlaceholder: "Approved project media placeholder", previousFeaturedProject: "Previous featured project", nextFeaturedProject: "Next featured project", resumeFeaturedAutoplay: "Resume featured work autoplay", pauseFeaturedAutoplay: "Pause featured work autoplay", chooseFeaturedWork: "Choose featured work", showFeaturedWork: "Show featured work", caseStudiesInReview: "CASE STUDIES IN REVIEW", unpublishedWorkTitle: "Each project is published with enough context to be understood.", unpublishedWorkCopy: "LAC STUDIO does not publish confidential detail, invented outcomes or visuals without approval. More project stories will appear when they are ready to share.", workPlaceholders: [{ eyebrow: "CASE STUDY SLOT / 01", title: "A product story with the right context.", summary: "This space is reserved for an approved case study with a verified brief, scope, visual direction and evidence.", meta: "APPROVED MEDIA / PENDING" }, { eyebrow: "CASE STUDY SLOT / 02", title: "An operational system, explained clearly.", summary: "The work page presents the context behind an interface, rather than only an isolated screen or an unverified claim.", meta: "APPROVED MEDIA / PENDING" }, { eyebrow: "CASE STUDY SLOT / 03", title: "A workflow story, when it is ready.", summary: "Each public story is introduced only after its description, media and publishing permission have been confirmed.", meta: "APPROVED MEDIA / PENDING" }] },
@@ -16,6 +16,7 @@ export const englishPortfolioCopy = {
       home: { title: "LAC STUDIO — Independent Software Development", description: "Independent software development for custom web applications, Android and desktop software, SaaS products and business systems." },
       work: { title: "Work", description: "Software case studies from LAC STUDIO across healthcare, laboratory operations, restaurants, field work, hospitality and commerce." },
       services: { title: "Services", description: "Custom web applications, Android and desktop software, SaaS development, business automation, backend services and integrations." },
+      pricing: { title: "Pricing", description: "Indicative starting prices for websites, web applications, Android apps, SaaS products and complex software projects." },
       process: { title: "Process", description: "How LAC STUDIO takes a business problem from first conversation to a working software product." },
       about: { title: "About", description: "Meet Andrei Lucaciu, the independent software developer behind LAC STUDIO, where psychology-informed thinking meets practical engineering." },
       contact: { title: "Contact", description: "Discuss a custom web application, mobile workflow, SaaS product or business system with LAC STUDIO." },
@@ -414,6 +415,12 @@ Object.assign(translations.es.legal, {
 Object.assign(translations.fr.work, { filters: { label: "Filtrer les projets", all: "Tous les projets", web: "Web et SaaS", android: "Applications Android" } });
 Object.assign(translations.ro.work, { filters: { label: "Filtrează proiectele", all: "Toate proiectele", web: "Web și SaaS", android: "Aplicații Android" } });
 Object.assign(translations.es.work, { filters: { label: "Filtrar proyectos", all: "Todos los proyectos", web: "Web y SaaS", android: "Aplicaciones Android" } });
+Object.assign(translations.fr.navigation, { pricing: "Tarifs" });
+Object.assign(translations.ro.navigation, { pricing: "Prețuri" });
+Object.assign(translations.es.navigation, { pricing: "Precios" });
+Object.assign(translations.fr.metadata.pages, { pricing: { title: "Tarifs", description: "Estimations de départ indicatives pour sites web, applications web, applications Android, produits SaaS et projets logiciels complexes." } });
+Object.assign(translations.ro.metadata.pages, { pricing: { title: "Prețuri", description: "Prețuri de pornire orientative pentru site-uri, aplicații web, aplicații Android, produse SaaS și proiecte software complexe." } });
+Object.assign(translations.es.metadata.pages, { pricing: { title: "Precios", description: "Precios iniciales orientativos para webs, aplicaciones web, aplicaciones Android, productos SaaS y proyectos de software complejos." } });
 
 export type TranslationCatalog = Record<Locale, { status: LocaleStatus; dictionary?: Partial<PortfolioCopy> }>;
 

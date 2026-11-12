@@ -10,6 +10,8 @@ import { defaultLocale, locales, localeNames, localizePath, type Locale } from "
 import { isLocaleReady, resolvePortfolioContent, type PortfolioCopy } from "@/content/i18n/portfolio";
 import { localizeProject } from "@/content/i18n/project-content";
 import { localizeServices } from "@/content/i18n/service-content";
+import { localizedPricingCategories, pricingContent } from "@/content/i18n/pricing-content";
+import { formatStartingPrice } from "@/content/pricing";
 
 // Vinext's experimental RSC prefetcher can fail after an otherwise valid Vercel
 // deployment. Portfolio navigation does not need client-side data prefetching,
@@ -24,9 +26,9 @@ function Link({ href, ...props }: ComponentPropsWithoutRef<"a"> & { href: string
   return <a href={isPortfolioRoute ? localizePath(locale, href) : href} {...props} />;
 }
 
-type Page = "home" | "work" | "services" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "not-found";
+type Page = "home" | "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "not-found";
 
-const navigation: Array<[keyof PortfolioCopy["navigation"], Page]> = [["work", "work"], ["services", "services"], ["process", "process"], ["about", "about"]];
+const navigation: Array<[keyof PortfolioCopy["navigation"], Page]> = [["work", "work"], ["services", "services"], ["pricing", "pricing"], ["process", "process"], ["about", "about"]];
 const hrefFor = (page: Page) => page === "home" ? "/" : page === "case-study" ? "/work" : `/${page}`;
 function PortfolioDesignSwitcher() {
   const { activeDesign, setActiveDesign, restored } = useDesign();
@@ -107,7 +109,7 @@ function Header({ page, project }: { page: Page; project?: PublicProject }) {
 
 function Footer() {
   const { copy } = usePortfolioLocale();
-  return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div className="footer-brand"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo /></Link><p>{copy.footer.description}</p></div><nav aria-label={copy.footer.explore}><span>{copy.footer.explore}</span><Link href="/work">{copy.navigation.work}</Link><Link href="/services">{copy.navigation.services}</Link></nav><nav aria-label={copy.footer.studio}><span>{copy.footer.studio}</span><Link href="/about">{copy.navigation.about}</Link><Link href="/process">{copy.navigation.process}</Link></nav><nav aria-label={copy.footer.contact}><span>{copy.footer.contact}</span><Link href="/contact">{copy.shared.discussProject}</Link><Link href="/privacy">{copy.footer.privacy}</Link><Link href="/legal">{copy.footer.legal}</Link></nav><div className="footer-note"><span>© {new Date().getFullYear()} LAC STUDIO</span><span>{copy.footer.independent}</span></div></div></footer>;
+  return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div className="footer-brand"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo /></Link><p>{copy.footer.description}</p></div><nav aria-label={copy.footer.explore}><span>{copy.footer.explore}</span><Link href="/work">{copy.navigation.work}</Link><Link href="/services">{copy.navigation.services}</Link><Link href="/pricing">{copy.navigation.pricing}</Link></nav><nav aria-label={copy.footer.studio}><span>{copy.footer.studio}</span><Link href="/about">{copy.navigation.about}</Link><Link href="/process">{copy.navigation.process}</Link></nav><nav aria-label={copy.footer.contact}><span>{copy.footer.contact}</span><Link href="/contact">{copy.shared.discussProject}</Link><Link href="/privacy">{copy.footer.privacy}</Link><Link href="/legal">{copy.footer.legal}</Link></nav><div className="footer-note"><span>© {new Date().getFullYear()} LAC STUDIO</span><span>{copy.footer.independent}</span></div></div></footer>;
 }
 
 function Section({ eyebrow, title, children, className = "", id, headingLevel = "h2" }: { eyebrow?: string; title?: string; children: ReactNode; className?: string; id?: string; headingLevel?: "h1" | "h2" }) {
@@ -313,6 +315,34 @@ function ServicesPage() {
     <Section className="contact-cta services-contact-cta"><span>{page.ctaEyebrow}</span><h2>{page.ctaTitle.split("\n").map((item, index) => <span key={item}>{index ? <br /> : null}{item}</span>)}</h2><p>{page.ctaCopy}</p><Link className="button primary" href="/contact">{page.cta} <b>↗</b></Link></Section>
   </main>;
 }
+function PricingFaq({ items }: { items: readonly [string, string][] }) {
+  const [open, setOpen] = useState<number | null>(0);
+  return <div className="pricing-faq-list">{items.map(([question, answer], index) => {
+    const expanded = open === index;
+    const panelId = `pricing-faq-${index}`;
+    return <article className={expanded ? "open" : ""} key={question}><button type="button" aria-expanded={expanded} aria-controls={panelId} onClick={() => setOpen(expanded ? null : index)}><span>{String(index + 1).padStart(2, "0")}</span><b>{question}</b><i aria-hidden="true">{expanded ? "−" : "+"}</i></button><div id={panelId} hidden={!expanded}><p>{answer}</p></div></article>;
+  })}</div>;
+}
+
+function PricingPage() {
+  const { locale } = usePortfolioLocale();
+  const { activeDesign } = useDesign();
+  const content = pricingContent[locale];
+  const categories = localizedPricingCategories(locale);
+  const contactHref = `/contact?design=${activeDesign.id}`;
+  return <main className="portfolio-page portfolio-container pricing-page">
+    <Section eyebrow={content.hero.eyebrow} title={content.hero.title} headingLevel="h1" className="pricing-hero-section">
+      <div className="pricing-hero-copy"><p className="lead">{content.hero.lead}</p><div className="pricing-hero-actions"><Link className="button primary" href={contactHref}>{content.hero.estimate} <b>↗</b></Link><Link className="button secondary" href={`/work?design=${activeDesign.id}`}>{content.hero.work} <b>→</b></Link></div></div>
+    </Section>
+    <Section eyebrow={content.categories.eyebrow} title={content.categories.title} className="pricing-categories-section"><p className="page-intro">{content.categories.lead}</p><div className="pricing-grid">{categories.map((category, index) => <article key={category.id}><span>{String(index + 1).padStart(2, "0")}</span><h3>{category.title}</h3><p className="pricing-from">{content.categories.starting}</p><b>{formatStartingPrice(category.startingPrice, locale)}</b><ul>{category.examples.map((example) => <li key={example}>{example}</li>)}</ul></article>)}</div><p className="pricing-qualification">{content.categories.qualification}</p></Section>
+    <Section eyebrow={content.sizes.eyebrow} title={content.sizes.title} className="pricing-sizes-section"><div className="pricing-sizes"><p className="lead">{content.sizes.lead}</p><ul>{content.sizes.items.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ul></div></Section>
+    <Section eyebrow={content.factors.eyebrow} title={content.factors.title} className="pricing-factors-section"><p className="page-intro">{content.factors.lead}</p><div className="pricing-factors">{content.factors.items.map(([title, body], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{body}</p></article>)}</div></Section>
+    <Section eyebrow={content.workflow.eyebrow} title={content.workflow.title} className="pricing-workflow-section"><ol className="pricing-workflow">{content.workflow.items.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><b>{item}</b></li>)}</ol></Section>
+    <Section eyebrow={content.collaboration.eyebrow} title={content.collaboration.title} className="pricing-collaboration-section"><div className="pricing-collaboration">{content.collaboration.items.map(([title, body], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{body}</p></article>)}</div></Section>
+    <Section eyebrow={content.faq.eyebrow} title={content.faq.title} className="pricing-faq-section"><PricingFaq items={content.faq.items} /></Section>
+    <Section className="contact-cta pricing-contact-cta"><span>{content.final.eyebrow}</span><h2>{content.final.title}</h2><p>{content.final.lead}</p><Link className="button primary" href={contactHref}>{content.final.cta} <b>↗</b></Link></Section>
+  </main>;
+}
 function AboutPage() {
   const { copy, pages } = usePortfolioLocale();
   const content = copy.about;
@@ -455,7 +485,7 @@ function CaseStudy({ project }: { project: PublicProject }) {
 
 function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
   const { activeDesign, reducedMotion, effectsEnabled } = useDesign();
-  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} project={project} />{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}<Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} project={project} />{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "pricing" ? <PricingPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}<Footer /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
 }
 
 function LegacyLabRedirect({ children }: { children: ReactNode }) {

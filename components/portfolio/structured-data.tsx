@@ -4,7 +4,7 @@ import { localizeProject } from "@/content/i18n/project-content";
 import { localizeServices } from "@/content/i18n/service-content";
 import type { PublicProject } from "@/content/projects";
 
-type PortfolioPage = "home" | "work" | "services" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study";
+type PortfolioPage = "home" | "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 
@@ -94,6 +94,7 @@ export function PortfolioStructuredData({ locale, page, pathname, project }: { l
     const labels: Record<Exclude<PortfolioPage, "home" | "case-study">, string> = {
       work: copy.navigation.work,
       services: copy.navigation.services,
+      pricing: copy.navigation.pricing,
       about: copy.navigation.about,
       process: copy.navigation.process,
       contact: copy.metadata.pages.contact.title,

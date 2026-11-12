@@ -12,11 +12,13 @@ const portfolioApp = source("../../components/portfolio/portfolio-app.tsx");
 const llms = source("../../public/llms.txt");
 
 assert.match(route, /localizeProject\(route\.project, input\)/, "case-study metadata is localized before rendering");
+assert.match(route, /"pricing"/, "pricing is resolved as a localized public route");
 assert.match(route, /<PortfolioStructuredData /, "structured data is rendered by the server route");
 assert.match(metadata, /canonical: canonicalPath/, "each route has a locale-specific canonical path");
 assert.match(metadata, /"x-default": localizePath\(defaultLocale, pathname\)/, "hreflang exposes the English x-default");
 assert.match(metadata, /twitter:\s*\{/, "Twitter card metadata is supplied for localized pages");
 assert.match(sitemap, /const pages = \[""/, "sitemap has explicit indexable page entries");
+assert.match(sitemap, /"\/pricing"/, "pricing is included in the localized sitemap");
 assert.doesNotMatch(sitemap, /"\/privacy"|"\/legal"/, "noindex legal and privacy pages are excluded from the sitemap");
 assert.match(sitemap, /"x-default"/, "sitemap has x-default alternates");
 assert.match(robots, /"\/lab"/, "robots excludes the private design lab");
