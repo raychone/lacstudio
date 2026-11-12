@@ -377,7 +377,7 @@
 .home-section-actions .home-section-cta{display:inline-flex;width:auto;min-height:46px;padding:0 18px;border:1px solid var(--p-ink);background:var(--p-ink);color:var(--p-inverse);font-size:11px;font-weight:800;letter-spacing:.045em;line-height:1;text-decoration:none;transition:background .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease,filter .22s ease}
 .home-section-actions .home-section-cta.secondary{background:var(--p-surface);color:var(--p-ink)}
 .home-section-actions .home-section-cta:hover{background:var(--p-accent);border-color:var(--p-accent);color:var(--p-ink);filter:brightness(1.03)}
-.home-about-preview>p{padding-left:0;border-left:0}
+.home-about-preview>p{padding-left:0;border-left:0}.home-about-preview .portfolio-section-heading h2{max-width:760px;font-size:clamp(34px,4.2vw,58px);line-height:.96;text-wrap:balance}
 
 /* Tactile: raised at rest, then pressed into the surface. */
 .portfolio-tactile .home-section-actions .home-section-cta{border-color:rgba(255,255,255,.68);border-radius:13px;background:var(--p-surface);color:var(--p-ink);box-shadow:7px 8px 14px rgba(104,101,91,.22),-5px -5px 11px rgba(255,255,255,.68)}
@@ -403,7 +403,7 @@
 .portfolio-playground .home-section-actions .home-section-cta.secondary{background:var(--p-surface);color:var(--p-ink)}
 .portfolio-playground .home-section-actions .home-section-cta:hover{border-radius:50% 8px 50% 8px;background:var(--p-ink);border-color:var(--p-ink);color:#fff;box-shadow:4px 4px 0 var(--p-accent)}
 
-@media(max-width:560px){.home-section-actions{gap:10px}.home-section-actions .home-section-cta{min-height:44px;padding-inline:14px;font-size:10px}.home-about-preview .home-section-actions{display:grid;grid-template-columns:1fr}.home-about-preview .home-section-cta{width:100%;justify-content:center}}
+@media(max-width:560px){.home-section-actions{gap:10px}.home-section-actions .home-section-cta{min-height:44px;padding-inline:14px;font-size:10px}.home-about-preview .portfolio-section-heading h2{font-size:clamp(34px,10vw,44px);line-height:1}.home-about-preview .home-section-actions{display:grid;grid-template-columns:1fr}.home-about-preview .home-section-cta{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.home-section-actions .home-section-cta{transition:none}}
 
 /* Process page: shared product narrative with a tactile visual language per system. */
