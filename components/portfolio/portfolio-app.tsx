@@ -196,9 +196,14 @@ function FeaturedWorkCarousel() {
   const [autoplayPaused, setAutoplayPaused] = useState(false);
   const pointerStart = useRef<number | null>(null);
   const active = slides[activeIndex] ?? slides[0];
-  const paginationIndexes = slides.length <= 5
+  const visiblePaginationCount = 7;
+  const paginationIndexes = slides.length <= visiblePaginationCount
     ? slides.map((_, index) => index)
-    : [...new Set([0, activeIndex - 1, activeIndex, activeIndex + 1, slides.length - 1].filter((index) => index >= 0 && index < slides.length))].sort((a, b) => a - b);
+    : (() => {
+      const interiorCount = visiblePaginationCount - 2;
+      const start = Math.max(1, Math.min(activeIndex - Math.floor(interiorCount / 2), slides.length - 1 - interiorCount));
+      return [0, ...Array.from({ length: interiorCount }, (_, index) => start + index), slides.length - 1];
+    })();
   const move = (direction: -1 | 1) => { setAutoplayPaused(true); setActiveIndex((index) => (index + direction + slides.length) % slides.length); };
   const goTo = (index: number) => { setAutoplayPaused(true); setActiveIndex(index); };
   useEffect(() => {
