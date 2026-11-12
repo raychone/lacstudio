@@ -196,6 +196,9 @@ function FeaturedWorkCarousel() {
   const [autoplayPaused, setAutoplayPaused] = useState(false);
   const pointerStart = useRef<number | null>(null);
   const active = slides[activeIndex] ?? slides[0];
+  const paginationIndexes = slides.length <= 5
+    ? slides.map((_, index) => index)
+    : [...new Set([0, activeIndex - 1, activeIndex, activeIndex + 1, slides.length - 1].filter((index) => index >= 0 && index < slides.length))].sort((a, b) => a - b);
   const move = (direction: -1 | 1) => { setAutoplayPaused(true); setActiveIndex((index) => (index + direction + slides.length) % slides.length); };
   const goTo = (index: number) => { setAutoplayPaused(true); setActiveIndex(index); };
   useEffect(() => {
@@ -230,7 +233,7 @@ function FeaturedWorkCarousel() {
     </div>
     <div className="work-carousel-controls">
       <div className="work-carousel-arrows"><button type="button" aria-label={copy.shared.previousFeaturedProject} onClick={() => move(-1)}>←</button><button type="button" aria-label={copy.shared.nextFeaturedProject} onClick={() => move(1)}>→</button><button type="button" className="work-carousel-autoplay" aria-pressed={autoplayPaused} aria-label={autoplayPaused ? copy.shared.resumeFeaturedAutoplay : copy.shared.pauseFeaturedAutoplay} onClick={() => setAutoplayPaused((paused) => !paused)}>{autoplayPaused ? "▶" : "Ⅱ"}</button></div>
-      <div className="work-carousel-pagination" role="tablist" aria-label={copy.shared.chooseFeaturedWork} style={{ "--work-active-slide": activeIndex, "--work-slide-count": slides.length } as React.CSSProperties}><i className="work-carousel-pagination-indicator" aria-hidden="true" />{slides.map((slide, index) => <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`${copy.shared.showFeaturedWork} ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div>
+      <div className="work-carousel-pagination" role="tablist" aria-label={copy.shared.chooseFeaturedWork} style={{ "--work-active-pagination-index": paginationIndexes.indexOf(activeIndex), "--work-pagination-count": paginationIndexes.length } as React.CSSProperties}><i className="work-carousel-pagination-indicator" aria-hidden="true" />{paginationIndexes.map((index) => { const slide = slides[index]; return <button type="button" key={slide.id} role="tab" aria-selected={index === activeIndex} aria-label={`${copy.shared.showFeaturedWork} ${index + 1}: ${slide.title}`} onClick={() => goTo(index)}><span>{String(index + 1).padStart(2, "0")}</span></button>; })}</div>
       <p aria-live="polite"><b>{String(activeIndex + 1).padStart(2, "0")}</b> / {String(slides.length).padStart(2, "0")}</p>
     </div>
   </div>;
