@@ -12,6 +12,11 @@ assert.match(source, /aria-invalid=\{Boolean\(fieldErrors\.name\)\}/, "Invalid r
 assert.match(source, /fieldErrors\.message/, "The project description has visible validation feedback");
 assert.match(source, /useSearchParams\(\)\.get\("project"\)/, "Pricing project category is read from the URL");
 assert.match(source, /useState\(\(\) => isContactProjectTypeId\(pricingSelection\)/, "Known pricing categories are preselected only when the form initializes");
+assert.match(source, /useSearchParams\(\)\.get\("budget"\)/, "Pricing budget category is read from the URL");
+assert.match(source, /useState\(\(\) => isContactBudgetId\(budgetSelection\)/, "Known pricing budgets are preselected only when the form initializes");
 assert.match(source, /name="projectType" value=\{selectedProjectLabel\}/, "Delivered project type remains a localized readable label");
+assert.match(source, /name="budget" value=\{selectedBudgetLabel\}/, "Delivered budget remains a localized readable label");
 assert.match(source, /aria-required="true"/, "Required contact fields expose their requirement accessibly");
+assert.match(source, /contact-validation-summary/, "Missing required fields have a visible validation summary");
+assert.match(source, /onBlur=\{\(event\) => validateField\(/, "Required text fields validate when a visitor leaves them");
 console.log("Contact form UI contract passed.");
