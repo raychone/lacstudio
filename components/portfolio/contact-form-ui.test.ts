@@ -9,4 +9,8 @@ assert.match(source, /fetch\("\/api\/contact", \{ cache: "no-store" \}\)/, "UI c
 assert.match(source, /noValidate/, "The form provides localized validation instead of browser-only errors");
 assert.match(source, /aria-invalid=\{Boolean\(fieldErrors\.name\)\}/, "Invalid required fields are announced accessibly");
 assert.match(source, /fieldErrors\.message/, "The project description has visible validation feedback");
+assert.match(source, /useSearchParams\(\)\.get\("project"\)/, "Pricing project category is read from the URL");
+assert.match(source, /useState\(\(\) => isContactProjectTypeId\(pricingSelection\)/, "Known pricing categories are preselected only when the form initializes");
+assert.match(source, /name="projectType" value=\{selectedProjectLabel\}/, "Delivered project type remains a localized readable label");
+assert.match(source, /aria-required="true"/, "Required contact fields expose their requirement accessibly");
 console.log("Contact form UI contract passed.");
