@@ -33,6 +33,8 @@ test.describe("public portfolio", () => {
       await expect(page.locator(".home-journey-preview img")).toHaveAttribute("src", /lac-studio-hero-healthcare/);
       await expect(page.locator(".home-journey-preview img")).toHaveAttribute("alt", /sketch, product-development milestones/);
       await expect(page.locator(".home-focus-grid article")).toHaveCount(3);
+      await expect(page.locator(".home-value-grid article")).toHaveCount(5);
+      await expect(page.locator(".home-value-link")).toHaveAttribute("href", "/en/pricing");
       await expect(page.locator(".home-selected-grid .project-card")).toHaveCount(3);
       await expect(page.locator(".home-section-cta")).toHaveCount(3);
       await expect(page.locator(".home-section-cta").first()).toHaveClass(/button/);
@@ -45,6 +47,25 @@ test.describe("public portfolio", () => {
       expect(preview).not.toBeNull();
       expect(preview!.x + preview!.width, `${design} hero artwork must stay within the 320px viewport`).toBeLessThanOrEqual(viewport + .5);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), `${design} must not overflow at 320px`).toBe(true);
+    }
+  });
+
+  test("keeps the client-value section compact and accessible across homepage breakpoints and locales", async ({ page }) => {
+    test.setTimeout(120_000);
+    for (const design of designs) {
+      for (const width of [320, 375, 768, 1024, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(`/?design=${design}`, { waitUntil: "networkidle" });
+        await expect(page.getByRole("heading", { name: "What you get from working together" })).toBeVisible();
+        await expect(page.locator(".home-value-grid article")).toHaveCount(5);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${design} at ${width}px must not overflow`).toBe(true);
+      }
+    }
+    for (const locale of ["fr", "ro", "es"]) {
+      await page.setViewportSize({ width: 1024, height: 900 });
+      await page.goto(`/${locale}/?design=editorial`, { waitUntil: "networkidle" });
+      await expect(page.locator(".home-value-grid article")).toHaveCount(5);
+      await expect(page.locator(".home-founder-benefit")).toBeVisible();
     }
   });
 

@@ -31,10 +31,11 @@ export const englishPortfolioCopy = {
     primaryCta: "Discuss your project", secondaryCta: "Explore the work", imageLabel: "A product journey from a first sketch to working applications.", imageAlt: "A sketch, product-development milestones and responsive application dashboards.",
     proofLabel: "LAC Studio product focus", proof: [["Web applications", "Customer journeys and tools"], ["Mobile & desktop", "Work beyond the browser"], ["Business systems", "Data, operations and connections"]],
     selectedTitle: "Built for the work behind the screen.", allWork: "See all projects", focusEyebrow: "02 / WHAT LAC DOES", focusTitle: "Software for customers, teams and operations.",
-    focus: [["Start with the right problem", "Turn an early idea, a manual process or a confusing customer journey into a focused plan for what to build first."], ["Build the product", "Create web applications, mobile workflows, client portals, booking tools, dashboards and SaaS products from end to end."], ["Connect the work", "Bring together backend services, databases, permissions, automation and integrations so the product supports the operation behind it."]],
-    processEyebrow: "03 / HOW WE BUILD", processTitle: "Direct collaboration, from first conversation to release.", process: ["Discover", "Define", "Design", "Build", "Validate", "Launch"], processDetails: ["Context", "Scope", "Experience", "System", "Real use", "Release"], processCta: "See how I work",
-    founderEyebrow: "04 / INDEPENDENT BY DESIGN", founderTitle: "Work directly with the person who designs and builds it.", founderCopy: "You work with one person from the first conversation through product design, engineering and launch—without strategy handoffs between separate teams.", founderCta: "Meet the founder", servicesCta: "Explore services",
-    contactTitle: "Have something\nworth building?", contactCopy: "Tell me what needs to work better. You'll speak directly with the person who will shape and build it.", contactCta: "Tell me what you're building",
+    focus: [["Start with the right problem", "Turn an early application idea, a manual process or a difficult customer journey into a clear first product direction."], ["Build the product", "Design and build the custom software people need for customer work and internal operations, from interface through application logic."], ["Connect the work", "Bring backend services, data, permissions and integrations together so disconnected tools become one workable system."]],
+    valueEyebrow: "03 / WHAT YOU GET", valueTitle: "What you get from working together", valueLead: "A focused product engagement with practical outcomes, shaped around the agreed scope.", value: [["A clear direction", "Clarify the problem, prioritize requirements and agree what is worth building first."], ["Software built around your needs", "Shape the product around actual users, workflows and business context."], ["Real functionality", "Bring interface, application logic, data, backend services and integrations together where they are needed."], ["Direct collaboration", "Work with the developer responsible for the product and the decisions behind it."], ["A defined delivery", "Align deliverables, validation and release preparation with the scope agreed together."]], valueCta: "See indicative starting prices",
+    processEyebrow: "04 / HOW WE BUILD", processTitle: "Direct collaboration, from first conversation to release.", process: ["Discover", "Define", "Design", "Build", "Validate", "Launch"], processDetails: ["Context", "Scope", "Experience", "System", "Real use", "Release"], processCta: "See how I work",
+    founderEyebrow: "05 / INDEPENDENT BY DESIGN", founderTitle: "Work directly with the person who designs and builds it.", founderCopy: "You work with one person from the first conversation through product design, engineering and launch—without strategy handoffs between separate teams.", founderBenefit: "That continuity keeps context close, reduces communication overhead and supports clearer product decisions.", founderCta: "Meet the founder", servicesCta: "Explore services",
+    contactTitle: "Have something\nworth building?", contactCopy: "Bring a clear specification or an early idea. Tell me what needs to work better, and we can identify a practical next step.", contactCta: "Tell me what you're building",
   },
   work: {
     featuredEyebrow: "01 / FEATURED WORK", featuredTitle: "Built for the work behind the screen.", galleryEyebrow: "02 / PUBLIC PROJECT INDEX", galleryTitle: "Case studies with the context behind the interface.",
@@ -122,6 +123,7 @@ translations.es.metadata = {
 };
 
 translations.es.home = {
+  ...englishPortfolioCopy.home,
   schemaDescription: "Estudio independiente de desarrollo de software que crea aplicaciones web a medida, software móvil y sistemas de negocio.",
   eyebrow: "LAC STUDIO / DESARROLLO DE SOFTWARE INDEPENDIENTE",
   titleLead: "De la idea a un",
@@ -137,21 +139,33 @@ translations.es.home = {
   allWork: "Ver todos los proyectos",
   focusEyebrow: "02 / QUÉ HACE LAC",
   focusTitle: "Software para clientes, equipos y operaciones.",
-  focus: [["Empezar por el problema adecuado", "Convertir una idea inicial, un proceso manual o un recorrido de cliente confuso en un plan claro para decidir qué construir primero."], ["Construir el producto", "Crear de principio a fin aplicaciones web, flujos móviles, portales de clientes, herramientas de reserva, paneles y productos SaaS."], ["Conectar el trabajo", "Unir servicios backend, bases de datos, permisos, automatización e integraciones para que el producto sostenga la operación que hay detrás."]],
-  processEyebrow: "03 / CÓMO TRABAJAMOS",
+  focus: [["Empezar por el problema adecuado", "Convertir una idea inicial, un proceso manual o un recorrido de cliente difícil en una primera dirección de producto clara."], ["Construir el producto", "Diseñar y crear el software a medida que las personas necesitan para clientes y operaciones internas, desde la interfaz hasta la lógica."], ["Conectar el trabajo", "Unir servicios backend, datos, permisos e integraciones para que las herramientas desconectadas se conviertan en un sistema útil."]],
+  valueEyebrow: "03 / LO QUE OBTIENES", valueTitle: "Lo que obtienes al trabajar juntos", valueLead: "Un trabajo de producto enfocado, con resultados prácticos y definido por el alcance acordado.", value: [["Una dirección clara", "Aclarar el problema, priorizar requisitos y acordar qué merece la pena construir primero."], ["Software pensado para tus necesidades", "Dar forma al producto según usuarios, flujos y contexto de negocio reales."], ["Funcionalidad real", "Unir interfaz, lógica de aplicación, datos, servicios backend e integraciones cuando hacen falta."], ["Colaboración directa", "Trabajar con el desarrollador responsable del producto y de las decisiones que lo definen."], ["Una entrega definida", "Alinear entregables, validación y preparación de lanzamiento con el alcance acordado."]], valueCta: "Ver precios iniciales orientativos",
+  processEyebrow: "04 / CÓMO TRABAJAMOS",
   processTitle: "Colaboración directa, desde la primera conversación hasta el lanzamiento.",
   process: ["Descubrir", "Definir", "Diseñar", "Construir", "Validar", "Lanzar"],
   processDetails: ["Contexto", "Alcance", "Experiencia", "Sistema", "Uso real", "Lanzamiento"],
   processCta: "Ver cómo trabajo",
-  founderEyebrow: "04 / INDEPENDIENTE POR DISEÑO",
+  founderEyebrow: "05 / INDEPENDIENTE POR DISEÑO",
   founderTitle: "Trabaja directamente con la persona que lo diseña y lo construye.",
   founderCopy: "Hablas con una sola persona desde la primera conversación hasta el diseño de producto, la ingeniería y el lanzamiento, sin traspasos de estrategia entre equipos separados.",
+  founderBenefit: "Esa continuidad mantiene el contexto cerca, reduce la carga de comunicación y ayuda a tomar decisiones de producto más claras.",
   founderCta: "Conocer al fundador",
   servicesCta: "Explorar servicios",
   contactTitle: "¿Tienes algo que\nmerece la pena construir?",
-  contactCopy: "Cuéntame qué necesita funcionar mejor. Hablarás directamente con la persona que dará forma y construirá el producto.",
+  contactCopy: "Trae una especificación clara o una idea inicial. Cuéntame qué necesita funcionar mejor y podremos identificar un siguiente paso práctico.",
   contactCta: "Cuéntame qué estás construyendo",
 };
+
+Object.assign(translations.fr.home, {
+  focus: [["Partir du bon problème", "Transformer une idée d’application, un processus manuel ou un parcours client difficile en une première direction produit claire."], ["Construire le produit", "Concevoir et développer le logiciel sur mesure dont les personnes ont besoin pour les clients et les opérations internes, de l’interface à la logique applicative."], ["Relier le travail", "Réunir services backend, données, droits et intégrations pour que des outils dispersés deviennent un système utilisable."]],
+  valueEyebrow: "03 / CE QUE VOUS OBTENEZ", valueTitle: "Ce que vous obtenez en travaillant ensemble", valueLead: "Un accompagnement produit ciblé, avec des résultats pratiques définis par le périmètre convenu.", value: [["Une direction claire", "Clarifier le problème, prioriser les besoins et convenir de ce qu’il vaut mieux construire en premier."], ["Un logiciel adapté à vos besoins", "Façonner le produit autour des utilisateurs, des flux et du contexte métier réels."], ["Une fonctionnalité concrète", "Réunir interface, logique applicative, données, services backend et intégrations lorsque cela est utile."], ["Une collaboration directe", "Travailler avec le développeur responsable du produit et des décisions qui le définissent."], ["Une livraison définie", "Aligner livrables, validation et préparation de la mise en ligne sur le périmètre convenu."]], valueCta: "Voir les estimations de départ", processEyebrow: "04 / NOTRE MÉTHODE", founderEyebrow: "05 / INDÉPENDANT PAR CHOIX", founderBenefit: "Cette continuité garde le contexte proche, réduit les échanges inutiles et facilite des décisions produit plus claires.", contactCopy: "Apportez un cahier des charges clair ou une idée encore ouverte. Dites-moi ce qui doit mieux fonctionner, et nous pourrons identifier une prochaine étape concrète.",
+});
+
+Object.assign(translations.ro.home, {
+  focus: [["Pornim de la problema potrivită", "Transformăm o idee de aplicație, un proces manual sau un parcurs dificil al clientului într-o direcție clară pentru primul produs."], ["Construim produsul", "Proiectăm și dezvoltăm software personalizat pentru munca cu clienții și operațiunile interne, de la interfață la logica aplicației."], ["Conectăm activitatea", "Aducem împreună servicii backend, date, permisiuni și integrări pentru ca instrumentele separate să devină un sistem funcțional."]],
+  valueEyebrow: "03 / CE PRIMEȘTI", valueTitle: "Ce primești când lucrăm împreună", valueLead: "O colaborare concentrată pe produs, cu rezultate practice definite de scopul agreat.", value: [["O direcție clară", "Clarificăm problema, prioritizăm cerințele și stabilim ce merită construit mai întâi."], ["Software adaptat nevoilor tale", "Conturăm produsul în jurul utilizatorilor, fluxurilor și contextului real de business."], ["Funcționalitate reală", "Aducem împreună interfața, logica aplicației, datele, serviciile backend și integrările acolo unde sunt necesare."], ["Colaborare directă", "Lucrezi cu dezvoltatorul responsabil de produs și de deciziile care îl definesc."], ["O livrare definită", "Aliniem livrabilele, validarea și pregătirea lansării la scopul agreat."]], valueCta: "Vezi prețurile de pornire orientative", processEyebrow: "04 / CUM LUCRĂM", founderEyebrow: "05 / INDEPENDENT PRIN ALEGERE", founderBenefit: "Această continuitate păstrează contextul aproape, reduce comunicarea inutilă și susține decizii de produs mai clare.", contactCopy: "Vino cu o specificație clară sau doar cu o idee. Spune-mi ce trebuie să funcționeze mai bine și putem identifica următorul pas practic.",
+});
 
 translations.es.work = {
   featuredEyebrow: "01 / PROYECTOS DESTACADOS",
