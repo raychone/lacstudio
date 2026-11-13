@@ -2,7 +2,7 @@
 
 > LAC STUDIO is the independent software development practice of Lucaciu Andrei Codrin. It designs and builds custom web applications, Android and desktop software, SaaS products, and operational business systems.
 
-LAC STUDIO works directly with clients from problem framing through interface design, engineering, testing and launch. Its public work includes healthcare, dental laboratory, restaurant operations, offline field reporting, hospitality, restaurant and e-commerce products.
+LAC STUDIO works directly with clients from problem framing through interface design, engineering, testing and launch. A project can begin with an early idea, a manual workflow or a product that needs to go further; a complete technical specification is not required. Its public work includes healthcare, dental laboratory, restaurant operations, offline field reporting, hospitality, restaurant and e-commerce products.
 
 The practice combines a background in psychology with software engineering: understanding people, real workflows and recurring friction informs the software that is designed and built.
 
@@ -14,6 +14,8 @@ The practice combines a background in psychology with software engineering: unde
 - [Process](/en/process): how a project moves from first conversation to release.
 - [About](/en/about): founder background and working principles.
 - [Contact](/en/contact): project enquiries and direct email contact.
+- [Services in French](/fr/services): support for entrepreneurs and teams in Avignon and the surrounding area, with a remote collaboration option.
+- [Servicii în română](/ro/services): remote collaboration for businesses in Bucharest and throughout Romania; this does not represent a physical office in Bucharest.
 
 ## Language versions
 
@@ -21,6 +23,6 @@ The public portfolio is available in English, French, Romanian and Spanish under
 
 ## Contact
 
-Email: codrin.lucaciu@gmail.com
+Email: contact@lacstudio.ro
 
 Public case studies describe approved product facts. They do not claim unpublished client outcomes, ratings, guaranteed results or undisclosed project details.

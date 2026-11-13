@@ -3,7 +3,7 @@ import type { Locale } from "./config.ts";
 type Card = readonly [string, string];
 type Stage = { tab: string; title: string; summary: string; outputs: readonly string[]; involvement: string };
 export type PageCopy = {
-  services: { scope: readonly string[]; fit: readonly Card[]; delivery: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; cta: string };
+  services: { scope: readonly string[]; fit: readonly Card[]; delivery: readonly Card[]; locationNote?: string; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; cta: string };
   about: { intro: readonly string[]; portraitAlt: string; portraitLabel: string; experience: readonly string[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; capabilitiesEyebrow: string; capabilitiesTitle: string; capabilitiesCopy: string; expertise: readonly Card[]; ctaEyebrow: string; cta: string };
   process: { stages: readonly Stage[]; principlesEyebrow: string; principlesTitle: string; principles: readonly Card[]; ctaEyebrow: string; ctaTitle: string; ctaCopy: string; discuss: string; explore: string; cta: string };
   contact: { lead: string; email: string; back: string; name: string; emailLabel?: string; projectType: string; chooseDirection: string; projectTypes: readonly string[]; budget: string; budgetPlaceholder: string; budgetOptions: readonly string[]; timeline: string; timelinePlaceholder: string; timelineOptions: readonly string[]; description: string; descriptionPlaceholder: string; company: string; required: string; conversionCopy: string; formMessages?: { rateLimit: string; validation: string; rejected: string; unavailable: string; failure: string; success: string; checking: string; submit: string; submitting: string; retry: string; nameRequired: string; emailInvalid: string; projectTypeRequired: string; messageRequired: string } };
@@ -22,6 +22,19 @@ export const pageCopy: Record<Locale, PageCopy> = {
   ro: { ...englishPageCopy, services: { scope: ["Arie", "Interfață", "Inginerie", "Lansare"], fit: [["Munca este împărțită între prea multe instrumente", "Adu documentele disparate, actualizările manuale și predările neclare într-un singur produs cu o imagine operațională comună."], ["Un serviciu are nevoie de un parcurs mai bun pentru clienți", "Transformă un serviciu valoros într-o experiență pe care oamenii o pot înțelege și folosi, pe desktop și mobil."], ["O echipă are nevoie de software potrivit operațiunii", "Proiectează roluri, fluxuri, date și integrări în jurul muncii care se desfășoară înainte și după deschiderea unui ecran."]], delivery: [["Definește aria potrivită", "Clarifică oamenii, fluxul de lucru și primul rezultat care merită construit."], ["Modelează și construiește produsul", "Păstrează vizibile deciziile importante de produs și tehnice pe măsură ce munca prinde formă."], ["Lansează cu următorul pas clar", "Lansează o bază de încredere, apoi folosește ce ai învățat pentru a ghida următoarea îmbunătățire."]], ctaEyebrow: "ÎNCEPE O CONVERSAȚIE", ctaTitle: "Ai muncă ce are nevoie\nde software mai bun?", ctaCopy: "Adu contextul, constrângerea sau ideea neterminată. Te ajut să identifici următorul pas practic.", cta: "Spune-mi ce construiești" } },
   es: { ...englishPageCopy, services: { scope: ["Alcance", "Interfaz", "Ingeniería", "Lanzamiento"], fit: [["El trabajo está repartido entre demasiadas herramientas", "Reúne documentos dispersos, actualizaciones manuales y traspasos poco claros en un producto con una visión operativa compartida."], ["Un servicio necesita un mejor recorrido para el cliente", "Convierte un servicio valioso en una experiencia que las personas puedan entender y utilizar tanto en escritorio como en móvil."], ["Un equipo necesita software que encaje con su operación", "Diseña roles, flujos, datos e integraciones alrededor del trabajo que sucede antes y después de abrir una pantalla."]], delivery: [["Encontrar el alcance adecuado", "Aclara las personas, el flujo de trabajo y el primer resultado que merece la pena construir."], ["Dar forma y construir el producto", "Mantén visibles las decisiones de producto y técnicas importantes a medida que el trabajo toma forma."], ["Lanzar con un siguiente paso", "Publica una base fiable y usa lo aprendido para orientar la siguiente mejora."]], ctaEyebrow: "INICIAR UNA CONVERSACIÓN", ctaTitle: "¿Tienes trabajo que necesita\nmejor software a su alrededor?", ctaCopy: "Trae el contexto, la limitación o la idea aún sin terminar. Te ayudaré a identificar el siguiente paso práctico.", cta: "Cuéntame qué estás construyendo" } },
 };
+
+Object.assign(pageCopy.en.services, {
+  locationNote: "LAC STUDIO works remotely with clients internationally, with clear review points and a shared product direction.",
+});
+Object.assign(pageCopy.fr.services, {
+  locationNote: "LAC STUDIO accompagne les entrepreneurs et les équipes à Avignon et dans les environs, à distance ou au rythme qui convient au projet, avec des points de revue clairs.",
+});
+Object.assign(pageCopy.ro.services, {
+  locationNote: "Pentru companiile din București și din restul României, colaborarea poate avea loc de la distanță, cu decizii, demonstrații și următorii pași ținuți la vedere.",
+});
+Object.assign(pageCopy.es.services, {
+  locationNote: "LAC STUDIO trabaja a distancia con clientes internacionales, con puntos de revisión claros y una dirección de producto compartida.",
+});
 
 Object.assign(pageCopy.fr.about, {
   principlesEyebrow: "CE QUI GUIDE LE TRAVAIL",

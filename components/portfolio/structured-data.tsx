@@ -46,7 +46,7 @@ export function PortfolioStructuredData({ locale, page, pathname, project }: { l
     "@id": personId,
     name: "Lucaciu Andrei Codrin",
     jobTitle: personJobTitles[locale],
-    email: "mailto:codrin.lucaciu@gmail.com",
+    email: "mailto:contact@lacstudio.ro",
     url: absoluteUrl(localizePath(locale, "/about")),
     description: copy.about.lead,
   });

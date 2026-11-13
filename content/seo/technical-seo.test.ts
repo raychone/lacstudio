@@ -17,7 +17,7 @@ assert.match(route, /<PortfolioStructuredData /, "structured data is rendered by
 assert.match(metadata, /canonical: canonicalPath/, "each route has a locale-specific canonical path");
 assert.match(metadata, /"x-default": localizePath\(defaultLocale, pathname\)/, "hreflang exposes the English x-default");
 assert.match(metadata, /twitter:\s*\{/, "Twitter card metadata is supplied for localized pages");
-assert.match(sitemap, /const pages = \[""/, "sitemap has explicit indexable page entries");
+assert.match(sitemap, /const pages = \["\/"/, "sitemap localizes the homepage for every public locale");
 assert.match(sitemap, /"\/pricing"/, "pricing is included in the localized sitemap");
 assert.doesNotMatch(sitemap, /"\/privacy"|"\/legal"/, "noindex legal and privacy pages are excluded from the sitemap");
 assert.match(sitemap, /"x-default"/, "sitemap has x-default alternates");
@@ -32,7 +32,9 @@ for (const type of ["Person", "WebSite", "Service", "BreadcrumbList", "SoftwareA
 assert.doesNotMatch(structuredData, /aggregateRating|reviewCount|priceRange|telephone|address/, "structured data does not make unsupported business claims");
 assert.ok((portfolioApp.match(/headingLevel="h1"/g) ?? []).length >= 8, "every primary public page renders one semantic H1");
 assert.match(llms, /independent software development practice/i, "llms.txt provides factual studio context");
-assert.match(llms, /codrin\.lucaciu@gmail\.com/i, "llms.txt provides the public direct contact channel");
+assert.match(structuredData, /mailto:contact@lacstudio\.ro/i, "structured data uses the published contact channel");
+assert.match(llms, /contact@lacstudio\.ro/i, "llms.txt provides the public direct contact channel");
+assert.doesNotMatch(llms, /codrin\.lucaciu@gmail\.com/i, "AI-facing studio information does not expose a stale contact channel");
 assert.doesNotMatch(llms, /guarantee (?:search |seo |ranking)|ranking promise/i, "llms.txt makes no discoverability promises");
 
 console.log("Technical SEO contracts passed.");

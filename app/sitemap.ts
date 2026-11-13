@@ -5,7 +5,7 @@ import { isLocaleReady } from "@/content/i18n/portfolio";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!baseUrl) return [];
-  const pages = ["", "/work", "/services", "/pricing", "/about", "/process", "/contact"];
+  const pages = ["/", "/work", "/services", "/pricing", "/about", "/process", "/contact"];
   const publicLocales = locales.filter(isLocaleReady);
   const alternates = (path: string) => ({
     languages: {
