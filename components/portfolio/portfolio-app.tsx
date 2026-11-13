@@ -1,6 +1,11 @@
 "use client";
 
+/* The Vinext image shim redirects optimized requests to originals in production;
+   these hand-authored responsive WebP sources are the actual optimizer. */
+/* eslint-disable @next/next/no-img-element */
+
 import { createContext, useContext, useEffect, useId, useRef, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { preload } from "react-dom";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { DesignProvider, useDesign } from "@/design-system/engine/provider";
@@ -46,10 +51,20 @@ function PortfolioDesignSwitcher() {
   </div>;
 }
 
+const heroImage = {
+  src: "/branding/lac-studio-hero-healthcare-1280.webp",
+  srcSet: "/branding/lac-studio-hero-healthcare-640.webp 640w, /branding/lac-studio-hero-healthcare-960.webp 960w, /branding/lac-studio-hero-healthcare-1280.webp 1280w, /branding/lac-studio-hero-healthcare-1520.webp 1520w",
+  sizes: "(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 62vw, 760px",
+};
+
+function imageVariant(src: string, width: 480 | 768 | 1024) {
+  return src.replace(/\.(?:png|webp)$/, `-${width}.webp`);
+}
+
 function BrandLogo({ eager = false }: { eager?: boolean }) {
   const { activeDesign } = useDesign();
   const isPlayground = activeDesign.id === "playground";
-  return <span className="brand-logo" aria-hidden="true"><Image className="brand-logo-current" src={isPlayground ? "/branding/lac-studio-playground.png" : "/branding/lac-studio-black.png"} alt="" width={1774} height={887} sizes="94px" quality={80} loading={eager ? "eager" : undefined} /></span>;
+  return <span className="brand-logo" aria-hidden="true"><img className="brand-logo-current" src={isPlayground ? "/branding/lac-studio-playground-192.webp" : "/branding/lac-studio-black-192.webp"} alt="" width={192} height={96} loading={eager ? "eager" : "lazy"} decoding="async" /></span>;
 }
 
 function PortfolioAmbientEffect({ design, reducedMotion, enabled }: { design: DesignId; reducedMotion: boolean; enabled: boolean }) {
@@ -124,7 +139,7 @@ function ProjectPreview({ project, compact = false }: { project: PublicProject; 
   const { copy, locale } = usePortfolioLocale();
   const localized = localizeProject(project, locale);
   const designQuery = `?design=${activeDesign.id}`;
-  return <article className={`project-card ${project.portfolioType === "android" ? "project-card-android" : ""} ${compact ? "project-card-compact" : ""}`}><div className="project-art">{localized.thumbnail ? <Image src={localized.thumbnail} alt={`${localized.title} ${copy.shared.productPreview}`} fill sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <><span>{copy.shared.mediaToBeSupplied}</span><i /><b>{localized.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{localized.category}</span><h3>{localized.title}</h3><p>{localized.summary}</p>{compact && localized.problem && <p className="project-compact-problem"><b>{copy.shared.addresses}</b> {localized.problem}</p>}{!compact && localized.problem && <div className="project-problem"><b>{copy.shared.theChallenge}</b><p>{localized.problem}</p></div>}<ul>{localized.technologies.slice(0, compact ? 2 : 3).map((item) => <li key={item}>{item}</li>)}</ul><div className="project-card-links">{!compact && (localized.liveUrl ? <a href={localized.liveUrl} target="_blank" rel="noreferrer">{copy.shared.openLiveProject} <b>↗</b></a> : localized.demoOnRequest ? <Link href={`/contact${designQuery}`}>{copy.shared.askAboutDemo} <b>↗</b></Link> : null)}<Link href={`/work/${localized.slug}${designQuery}`}>{compact ? copy.shared.exploreProject : copy.shared.readCaseStudy} <b>→</b></Link></div>{!compact && localized.demoNotice && <small className="project-demo-notice">{localized.demoNotice}</small>}</div></article>;
+  return <article className={`project-card ${project.portfolioType === "android" ? "project-card-android" : ""} ${compact ? "project-card-compact" : ""}`}><div className="project-art">{localized.thumbnail ? <img src={imageVariant(localized.thumbnail, 768)} srcSet={`${imageVariant(localized.thumbnail, 480)} 480w, ${imageVariant(localized.thumbnail, 768)} 768w, ${imageVariant(localized.thumbnail, 1024)} 1024w`} sizes="(max-width: 840px) 100vw, (max-width: 1100px) 50vw, 33vw" alt={`${localized.title} ${copy.shared.productPreview}`} loading="lazy" decoding="async" /> : <><span>{copy.shared.mediaToBeSupplied}</span><i /><b>{localized.title.slice(0, 2).toUpperCase()}</b></>}</div><div className="project-card-copy"><span>{localized.category}</span><h3>{localized.title}</h3><p>{localized.summary}</p>{compact && localized.problem && <p className="project-compact-problem"><b>{copy.shared.addresses}</b> {localized.problem}</p>}{!compact && localized.problem && <div className="project-problem"><b>{copy.shared.theChallenge}</b><p>{localized.problem}</p></div>}<ul>{localized.technologies.slice(0, compact ? 2 : 3).map((item) => <li key={item}>{item}</li>)}</ul><div className="project-card-links">{!compact && (localized.liveUrl ? <a href={localized.liveUrl} target="_blank" rel="noreferrer">{copy.shared.openLiveProject} <b>↗</b></a> : localized.demoOnRequest ? <Link href={`/contact${designQuery}`}>{copy.shared.askAboutDemo} <b>↗</b></Link> : null)}<Link href={`/work/${localized.slug}${designQuery}`}>{compact ? copy.shared.exploreProject : copy.shared.readCaseStudy} <b>→</b></Link></div>{!compact && localized.demoNotice && <small className="project-demo-notice">{localized.demoNotice}</small>}</div></article>;
 }
 
 function UnpublishedWork() {
@@ -261,8 +276,9 @@ function WorkFaq() {
 function HomePage() {
   const { copy } = usePortfolioLocale();
   const content = copy.home;
+  preload(heroImage.src, { as: "image", imageSrcSet: heroImage.srcSet, imageSizes: heroImage.sizes, fetchPriority: "high" });
   return <main>
-    <section className="portfolio-hero home-hero"><div className="portfolio-container hero-grid"><div className="hero-copy"><span className="eyebrow">{content.eyebrow}</span><h1><span className="hero-title-lead">{content.titleLead}</span><br /><em>{content.titleEmphasis}</em></h1><p>{content.lead}</p><div className="hero-actions"><Link className="button primary" href="/contact">{content.primaryCta} <b>↗</b></Link><Link className="button secondary" href="/work">{content.secondaryCta} <b>→</b></Link></div></div><aside className="hero-preview home-project-preview home-journey-preview" aria-label={content.imageLabel}><Image src="/branding/lac-studio-hero-healthcare.webp" alt={content.imageAlt} width={1754} height={897} preload priority sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 62vw, 760px" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} /></aside><ul className="hero-proof" aria-label={content.proofLabel}>{content.proof.map(([title, description]) => <li key={title}><b>{title}</b><span>{description}</span></li>)}</ul></div></section>
+    <section className="portfolio-hero home-hero"><div className="portfolio-container hero-grid"><div className="hero-copy"><span className="eyebrow">{content.eyebrow}</span><h1><span className="hero-title-lead">{content.titleLead}</span><br /><em>{content.titleEmphasis}</em></h1><p>{content.lead}</p><div className="hero-actions"><Link className="button primary" href="/contact">{content.primaryCta} <b>↗</b></Link><Link className="button secondary" href="/work">{content.secondaryCta} <b>→</b></Link></div></div><aside className="hero-preview home-project-preview home-journey-preview" aria-label={content.imageLabel}><img src={heroImage.src} srcSet={heroImage.srcSet} sizes={heroImage.sizes} alt={content.imageAlt} width={1754} height={897} loading="eager" fetchPriority="high" decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} /></aside><ul className="hero-proof" aria-label={content.proofLabel}>{content.proof.map(([title, description]) => <li key={title}><b>{title}</b><span>{description}</span></li>)}</ul></div></section>
     <div className="portfolio-container">
       <Section eyebrow={copy.shared.selectedWork} title={content.selectedTitle} className="home-selected-section">{featuredProjects.length ? <><div className="project-grid home-selected-grid">{featuredProjects.slice(1, 4).map((project) => <ProjectPreview project={project} compact key={project.id} />)}</div><Link className="home-all-work" href="/work">{content.allWork} <b>→</b></Link></> : <UnpublishedWork />}</Section>
       <Section eyebrow={content.focusEyebrow} title={content.focusTitle} className="home-focus-section"><div className="home-focus-grid">{content.focus.map(([title, description], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p></article>)}</div></Section>
