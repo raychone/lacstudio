@@ -481,8 +481,8 @@ function ContactPage() {
 function LegalPage({ privacy }: { privacy: boolean }) {
   const { copy } = usePortfolioLocale();
   const legal = copy.legal;
-  const paragraphs = privacy ? legal.privacyParagraphs : legal.legalParagraphs;
-  return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? legal.privacyEyebrow : legal.legalEyebrow} title={privacy ? legal.privacyTitle : legal.legalTitle} headingLevel="h1"><div className="legal-copy">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></Section></main>;
+  const sections = privacy ? legal.privacySections : legal.legalSections;
+  return <main className="portfolio-page portfolio-container"><Section eyebrow={privacy ? legal.privacyEyebrow : legal.legalEyebrow} title={privacy ? legal.privacyTitle : legal.legalTitle} headingLevel="h1"><div className="legal-copy">{sections.map(([heading, paragraph]) => <section key={heading}><h2>{heading}</h2><p>{paragraph}</p></section>)}</div></Section></main>;
 }
 function NotFoundPage() {
   const { copy } = usePortfolioLocale();

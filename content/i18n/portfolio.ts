@@ -50,8 +50,27 @@ export const englishPortfolioCopy = {
   legal: {
     privacyEyebrow: "PRIVACY",
     legalEyebrow: "LEGAL",
-    privacyTitle: "Privacy, without assumptions.",
-    legalTitle: "Legal information to complete before publication.",
+    privacyTitle: "Privacy policy.",
+    legalTitle: "Legal notice.",
+    privacySections: [
+      ["Controller and contact", "LAC STUDIO is currently an independent portfolio operated by Lucaciu Andrei Codrin. Until a company is incorporated, he is the controller for personal data collected through this website. For privacy questions or to exercise your rights, email contact@lacstudio.ro."],
+      ["Information processed", "When you send an inquiry, the form processes your name, email address, selected project type, optional budget and timeline, and the message you choose to provide. To protect the form from abuse, the service also processes a one-way hash of the submitting IP address."],
+      ["Purpose and legal basis", "Inquiry information is used only to read, reply to and, where appropriate, prepare for a requested project conversation. This processing is carried out at your request before a potential contract. The rate limit is used for the legitimate interest of protecting the site and its communication channel from abuse."],
+      ["Recipients and service providers", "The form uses Resend to deliver inquiry emails, Upstash for rate limiting, Vercel for hosting infrastructure and LeafMail for the contact mailbox. These providers may process the information strictly needed to provide their service and secure the communication. Their own privacy notices apply to their services."],
+      ["Retention", "Inquiry content is kept for no more than 12 months after the last meaningful exchange, then deleted unless a longer period is necessary to establish, exercise or defend a legal claim. The hashed rate-limit key expires automatically after 10 minutes."],
+      ["Cookies and local storage", "This portfolio does not use analytics, advertising cookies or marketing trackers. It stores only two non-personal display preferences in your browser's local storage: the selected visual system and whether interface effects are enabled. You can remove them at any time through your browser settings."],
+      ["Your rights", "Depending on applicable law, you may request access, correction, deletion, restriction, objection or portability of your personal data. Contact contact@lacstudio.ro first; a response is normally provided within one month. You may also complain to the relevant data-protection authority, including the CNIL where French law applies."],
+      ["Updates", "This policy reflects the current independent status of LAC STUDIO and was last updated on 14 November 2026. It will be updated when the planned French company is incorporated or the data practices change."],
+    ],
+    legalSections: [
+      ["Site editor", "The site is published under the name LAC STUDIO by Lucaciu Andrei Codrin, currently acting as an independent individual. Contact: contact@lacstudio.ro."],
+      ["Current status", "LAC STUDIO is not yet incorporated as a French company. This website is a portfolio and a way to start a conversation; it does not publish company registration, VAT or registered-office details that do not yet exist. Any future company details will replace this notice after incorporation."],
+      ["Hosting", "The site is hosted on Vercel infrastructure. Host: Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, United States."],
+      ["Intellectual property", "Unless stated otherwise, the site design, text, code and LAC STUDIO identity are protected works. Project names, logos, screenshots and other client materials remain the property of their respective owners. Reuse requires prior written permission from the relevant rights holder."],
+      ["Information and links", "The site is provided for general information and portfolio presentation. Reasonable care is taken to keep it accurate, but no guarantee is made that every page is complete, current or suitable for a particular purpose. External links are provided for convenience; LAC STUDIO does not control their content."],
+      ["Services and disputes", "Nothing on this site is a binding offer or a promise of availability. The scope, price, timing, intellectual-property terms and any applicable law for a project are set out only in a separate written agreement or written acceptance. This notice will be updated once a legal entity is incorporated."],
+      ["Report an issue", "For an intellectual-property, privacy or content concern, contact contact@lacstudio.ro with enough detail to identify the page or material concerned."],
+    ],
     privacyParagraphs: [
       "LAC STUDIO does not currently install analytics. If enabled, the inquiry form sends the contact details and project description you submit to Resend for delivery to LAC STUDIO's contact mailbox. The application does not store inquiry messages in its own database.",
       "This notice must be completed with the data controller, contact method, processing purpose, retention period, legal basis and the current provider details before public promotion.",
@@ -427,6 +446,78 @@ Object.assign(translations.es.legal, {
   legalParagraphs: [
     "Los datos de registro de la actividad, la dirección registrada, la información sobre la legislación aplicable y otros datos legalmente exigidos todavía no se han facilitado para su publicación.",
     "Antes de una promoción pública más amplia, sustituya este aviso por información verificada y adecuada a la situación legal del estudio y a los mercados a los que presta servicio.",
+  ],
+});
+
+Object.assign(translations.fr.legal, {
+  privacyTitle: "Politique de confidentialité.",
+  legalTitle: "Mentions légales.",
+  privacySections: [
+    ["Responsable et contact", "LAC STUDIO est actuellement un portfolio indépendant exploité par Lucaciu Andrei Codrin. Jusqu'à la création d'une société, il est le responsable des données personnelles collectées sur ce site. Pour toute question ou exercice de vos droits : contact@lacstudio.ro."],
+    ["Données traitées", "Lorsque vous envoyez une demande, le formulaire traite votre nom, votre adresse e-mail, le type de projet choisi, le budget et le délai éventuels, ainsi que votre message. Pour protéger le formulaire contre les abus, le service traite aussi un hachage à sens unique de l'adresse IP d'envoi."],
+    ["Finalités et bases légales", "Les données de demande servent uniquement à lire, répondre et, le cas échéant, préparer un échange de projet demandé. Ce traitement est réalisé à votre demande avant un éventuel contrat. La limitation de débit répond à l'intérêt légitime de protéger le site et son canal de communication contre les abus."],
+    ["Destinataires et prestataires", "Le formulaire utilise Resend pour la livraison des e-mails, Upstash pour la limitation de débit, Vercel pour l'infrastructure d'hébergement et LeafMail pour la boîte de contact. Ces prestataires peuvent traiter les informations strictement nécessaires à leur service et à la sécurité de l'échange."],
+    ["Conservation", "Le contenu d'une demande est conservé au plus 12 mois après le dernier échange utile, puis supprimé, sauf nécessité plus longue pour constater, exercer ou défendre un droit en justice. La clé de limitation hachée expire automatiquement après 10 minutes."],
+    ["Cookies et stockage local", "Ce portfolio n'utilise ni cookies d'analyse, ni cookies publicitaires, ni traceurs marketing. Il enregistre seulement deux préférences d'affichage non personnelles dans le stockage local du navigateur : le système visuel choisi et l'activation des effets d'interface."],
+    ["Vos droits", "Selon le droit applicable, vous pouvez demander l'accès, la rectification, l'effacement, la limitation, l'opposition ou la portabilité de vos données. Contactez d'abord contact@lacstudio.ro ; une réponse est normalement apportée dans le mois. Vous pouvez aussi saisir l'autorité compétente, notamment la CNIL lorsque le droit français s'applique."],
+    ["Mises à jour", "Cette politique reflète le statut indépendant actuel de LAC STUDIO et a été mise à jour le 14 novembre 2026. Elle sera actualisée lors de la création de la société française prévue ou de toute évolution des pratiques."],
+  ],
+  legalSections: [
+    ["Éditeur du site", "Le site est publié sous le nom LAC STUDIO par Lucaciu Andrei Codrin, qui agit actuellement en tant qu'indépendant. Contact : contact@lacstudio.ro."],
+    ["Statut actuel", "LAC STUDIO n'est pas encore constituée en société française. Ce site est un portfolio et un moyen d'ouvrir une conversation ; il ne publie pas de numéro d'immatriculation, de TVA ou d'adresse de siège qui n'existent pas encore. Ces informations remplaceront le présent avis après la constitution."],
+    ["Hébergement", "Le site est hébergé sur l'infrastructure Vercel. Hébergeur : Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis."],
+    ["Propriété intellectuelle", "Sauf indication contraire, le design, les textes, le code et l'identité LAC STUDIO sont protégés. Les noms de projets, logos, captures d'écran et autres éléments clients restent la propriété de leurs titulaires respectifs. Toute réutilisation nécessite leur autorisation écrite préalable."],
+    ["Informations et liens", "Le site est fourni à titre d'information générale et de présentation du portfolio. Un soin raisonnable est apporté à son exactitude, sans garantie que chaque page soit complète, à jour ou adaptée à un besoin particulier. Les liens externes sont fournis par commodité et ne sont pas contrôlés par LAC STUDIO."],
+    ["Services et litiges", "Aucun élément du site ne constitue une offre ferme ni une promesse de disponibilité. Le périmètre, le prix, le calendrier, la propriété intellectuelle et le droit applicable à un projet sont définis uniquement dans un accord écrit distinct ou une acceptation écrite."],
+    ["Signaler un problème", "Pour une question de propriété intellectuelle, de confidentialité ou de contenu, écrivez à contact@lacstudio.ro en indiquant suffisamment d'éléments pour identifier la page ou le contenu concerné."],
+  ],
+});
+
+Object.assign(translations.ro.legal, {
+  privacyTitle: "Politica de confidențialitate.",
+  legalTitle: "Informații legale.",
+  privacySections: [
+    ["Operator și contact", "LAC STUDIO este în prezent un portofoliu independent operat de Lucaciu Andrei Codrin. Până la înființarea unei societăți, el este operatorul datelor cu caracter personal colectate prin acest site. Pentru întrebări despre confidențialitate sau exercitarea drepturilor: contact@lacstudio.ro."],
+    ["Date prelucrate", "Când trimiți o solicitare, formularul prelucrează numele, adresa de e-mail, tipul de proiect selectat, bugetul și termenul opționale, precum și mesajul oferit. Pentru protejarea formularului împotriva abuzurilor, serviciul prelucrează și un hash unidirecțional al adresei IP de trimitere."],
+    ["Scopuri și temeiuri", "Datele unei solicitări sunt folosite numai pentru a o citi, a răspunde și, când este cazul, pentru a pregăti o discuție despre proiect. Prelucrarea are loc la cererea ta înaintea unui posibil contract. Limitarea solicitărilor se bazează pe interesul legitim de a proteja site-ul și canalul de comunicare împotriva abuzurilor."],
+    ["Destinatari și furnizori", "Formularul folosește Resend pentru livrarea e-mailurilor, Upstash pentru limitarea solicitărilor, Vercel pentru infrastructura de găzduire și LeafMail pentru căsuța de contact. Acești furnizori pot prelucra doar informațiile necesare furnizării serviciului și securizării comunicării."],
+    ["Păstrare", "Conținutul unei solicitări este păstrat cel mult 12 luni după ultima conversație relevantă, apoi este șters, cu excepția situațiilor în care este necesară o perioadă mai lungă pentru constatarea, exercitarea sau apărarea unui drept. Cheia hash de limitare expiră automat după 10 minute."],
+    ["Cookie-uri și stocare locală", "Portofoliul nu folosește cookie-uri de analiză, publicitate sau marketing. Salvează doar două preferințe de afișare nepersonale în stocarea locală a browserului: sistemul vizual ales și activarea efectelor de interfață."],
+    ["Drepturile tale", "În funcție de legislația aplicabilă, poți solicita acces, rectificare, ștergere, restricționare, opoziție sau portabilitate. Contactează mai întâi contact@lacstudio.ro; răspunsul este oferit în mod normal în termen de o lună. Te poți adresa și autorității competente pentru protecția datelor, inclusiv CNIL atunci când se aplică legislația franceză."],
+    ["Actualizări", "Această politică reflectă statutul independent actual al LAC STUDIO și a fost actualizată la 14 noiembrie 2026. Va fi actualizată după înființarea societății franceze planificate sau dacă practicile se schimbă."],
+  ],
+  legalSections: [
+    ["Editorul site-ului", "Site-ul este publicat sub numele LAC STUDIO de Lucaciu Andrei Codrin, care acționează în prezent ca persoană independentă. Contact: contact@lacstudio.ro."],
+    ["Statut actual", "LAC STUDIO nu este încă înregistrată ca societate în Franța. Acest site este un portofoliu și un mod de a începe o conversație; nu publică date de înregistrare, TVA sau sediu care nu există încă. Aceste informații vor înlocui prezenta pagină după înființare."],
+    ["Găzduire", "Site-ul este găzduit pe infrastructura Vercel. Gazdă: Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, Statele Unite."],
+    ["Proprietate intelectuală", "Dacă nu este menționat altfel, designul, textele, codul și identitatea LAC STUDIO sunt protejate. Numele proiectelor, logo-urile, capturile de ecran și alte materiale ale clienților rămân proprietatea titularilor respectivi. Reutilizarea necesită acordul lor scris prealabil."],
+    ["Informații și linkuri", "Site-ul este oferit pentru informare generală și prezentarea portofoliului. Sunt depuse eforturi rezonabile pentru acuratețe, fără a garanta că fiecare pagină este completă, actualizată sau potrivită pentru un scop specific. Linkurile externe sunt oferite pentru comoditate și nu sunt controlate de LAC STUDIO."],
+    ["Servicii și litigii", "Nimic de pe site nu constituie o ofertă fermă sau o promisiune de disponibilitate. Aria, prețul, calendarul, proprietatea intelectuală și legea aplicabilă unui proiect sunt stabilite numai printr-un acord scris separat sau o acceptare scrisă."],
+    ["Raportează o problemă", "Pentru o problemă de proprietate intelectuală, confidențialitate sau conținut, scrie la contact@lacstudio.ro și oferă suficiente detalii pentru identificarea paginii sau materialului vizat."],
+  ],
+});
+
+Object.assign(translations.es.legal, {
+  privacyTitle: "Política de privacidad.",
+  legalTitle: "Aviso legal.",
+  privacySections: [
+    ["Responsable y contacto", "LAC STUDIO es actualmente un portafolio independiente operado por Lucaciu Andrei Codrin. Hasta que se constituya una sociedad, él es el responsable de los datos personales recogidos a través de este sitio. Para consultas de privacidad o para ejercer tus derechos: contact@lacstudio.ro."],
+    ["Datos tratados", "Cuando envías una consulta, el formulario trata tu nombre, correo electrónico, tipo de proyecto elegido, presupuesto y plazo opcionales, y el mensaje que decidas compartir. Para proteger el formulario contra abusos, el servicio también trata un hash unidireccional de la dirección IP de envío."],
+    ["Finalidades y bases jurídicas", "Los datos de una consulta se usan únicamente para leerla, responderla y, cuando proceda, preparar una conversación sobre el proyecto solicitado. El tratamiento se realiza a petición tuya antes de un posible contrato. La limitación de solicitudes responde al interés legítimo de proteger el sitio y su canal de comunicación frente a abusos."],
+    ["Destinatarios y proveedores", "El formulario utiliza Resend para entregar correos, Upstash para limitar solicitudes, Vercel para la infraestructura de alojamiento y LeafMail para el buzón de contacto. Estos proveedores pueden tratar solo la información necesaria para prestar su servicio y proteger la comunicación."],
+    ["Conservación", "El contenido de una consulta se conserva como máximo 12 meses después del último intercambio relevante y después se elimina, salvo que sea necesario un periodo mayor para formular, ejercer o defender una reclamación. La clave de limitación con hash caduca automáticamente a los 10 minutos."],
+    ["Cookies y almacenamiento local", "Este portafolio no utiliza cookies analíticas, publicitarias ni rastreadores de marketing. Solo guarda dos preferencias de visualización no personales en el almacenamiento local del navegador: el sistema visual elegido y la activación de los efectos de interfaz."],
+    ["Tus derechos", "Según la legislación aplicable, puedes solicitar acceso, rectificación, supresión, limitación, oposición o portabilidad. Contacta primero con contact@lacstudio.ro; normalmente se responderá en el plazo de un mes. También puedes reclamar ante la autoridad competente de protección de datos, incluida la CNIL cuando se aplique el derecho francés."],
+    ["Actualizaciones", "Esta política refleja el estado independiente actual de LAC STUDIO y se actualizó el 14 de noviembre de 2026. Se actualizará cuando se constituya la sociedad francesa prevista o cambien las prácticas."],
+  ],
+  legalSections: [
+    ["Editor del sitio", "El sitio se publica bajo el nombre LAC STUDIO por Lucaciu Andrei Codrin, que actualmente actúa como profesional independiente. Contacto: contact@lacstudio.ro."],
+    ["Situación actual", "LAC STUDIO todavía no está constituida como empresa francesa. Este sitio es un portafolio y una forma de iniciar una conversación; no publica datos de registro, IVA o domicilio social que todavía no existen. Estos datos sustituirán este aviso tras la constitución."],
+    ["Alojamiento", "El sitio está alojado en infraestructura de Vercel. Proveedor de alojamiento: Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, Estados Unidos."],
+    ["Propiedad intelectual", "Salvo que se indique lo contrario, el diseño, los textos, el código y la identidad de LAC STUDIO están protegidos. Los nombres de proyectos, logotipos, capturas y otros materiales de clientes pertenecen a sus respectivos titulares. Su reutilización requiere autorización previa por escrito."],
+    ["Información y enlaces", "El sitio se ofrece con fines de información general y presentación del portafolio. Se procura mantenerlo exacto, sin garantizar que cada página sea completa, actual o adecuada para una finalidad concreta. Los enlaces externos se ofrecen por comodidad y LAC STUDIO no controla su contenido."],
+    ["Servicios y disputas", "Nada en el sitio constituye una oferta vinculante ni una promesa de disponibilidad. El alcance, precio, calendario, propiedad intelectual y ley aplicable a un proyecto se establecen únicamente en un acuerdo escrito separado o una aceptación por escrito."],
+    ["Comunicar un problema", "Para una cuestión de propiedad intelectual, privacidad o contenido, escribe a contact@lacstudio.ro con detalles suficientes para identificar la página o el material afectado."],
   ],
 });
 
