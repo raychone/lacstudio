@@ -37,18 +37,36 @@ type Page = "home" | "work" | "services" | "pricing" | "about" | "process" | "co
 
 const navigation: Array<[keyof PortfolioCopy["navigation"], Page]> = [["work", "work"], ["services", "services"], ["pricing", "pricing"], ["process", "process"], ["about", "about"]];
 const hrefFor = (page: Page) => page === "home" ? "/" : page === "case-study" ? "/work" : `/${page}`;
+
+function HeaderDropdown({ label, value, className = "", children }: { label: string; value: string; className?: string; children: (close: () => void) => ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  const root = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnOutsidePress = (event: MouseEvent) => { if (!root.current?.contains(event.target as Node)) setOpen(false); };
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    document.addEventListener("mousedown", closeOnOutsidePress);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => { document.removeEventListener("mousedown", closeOnOutsidePress); document.removeEventListener("keydown", closeOnEscape); };
+  }, [open]);
+
+  return <div ref={root} className={`portfolio-dropdown ${open ? "open" : ""} ${className}`}>
+    <button className="portfolio-dropdown-trigger" type="button" aria-haspopup="menu" aria-expanded={open} aria-controls={id} onClick={() => setOpen((current) => !current)}>
+      <span>{label}</span><b>{value}</b><i aria-hidden="true">⌄</i>
+    </button>
+    <div id={id} className="portfolio-dropdown-menu" role="menu" aria-label={label}>{children(() => setOpen(false))}</div>
+  </div>;
+}
+
 function PortfolioDesignSwitcher() {
   const { activeDesign, setActiveDesign, restored } = useDesign();
   const { copy } = usePortfolioLocale();
-  const activeIndex = designIds.indexOf(activeDesign.id);
-  return <div className="portfolio-switcher" role="radiogroup" aria-label={copy.shared.chooseDesignSystem}>
-    <span className="portfolio-switcher-label">{copy.shared.design}</span>
-    <div className="portfolio-switcher-options" data-active-index={activeIndex} style={{ "--active-index": activeIndex } as React.CSSProperties}><i className="portfolio-switcher-indicator" aria-hidden="true" />{designIds.map((id) => {
+  return <><HeaderDropdown className="portfolio-design-dropdown" label={copy.shared.design} value={activeDesign.index}>{(close) => designIds.map((id) => {
       const design = designRegistry[id]; const active = id === activeDesign.id;
-      return <button key={id} type="button" role="radio" aria-checked={active} aria-label={`${design.index} ${design.name}`} className={active ? "active" : ""} onClick={() => setActiveDesign(id as DesignId)}><i aria-hidden="true">{design.index}</i><span className="portfolio-switcher-tooltip" role="tooltip">{design.name}</span></button>;
-    })}</div>
-    <span className="portfolio-switcher-status" aria-live="polite">{restored ? activeDesign.name : copy.shared.loading}</span>
-  </div>;
+      return <button key={id} type="button" role="menuitemradio" aria-checked={active} className={`portfolio-dropdown-option portfolio-design-option ${active ? "active" : ""}`} onClick={() => { setActiveDesign(id as DesignId); close(); }}><i aria-hidden="true">{design.index}</i><span><b>{design.name}</b><small>{design.descriptor}</small></span></button>;
+    })}</HeaderDropdown><span className="portfolio-dropdown-status" aria-live="polite">{restored ? activeDesign.name : copy.shared.loading}</span></>;
 }
 
 const heroImage = {
@@ -106,15 +124,12 @@ function LanguageSwitcher({ page, project, mobile = false }: { page: Page; proje
     url.pathname = localizePath(target, path);
     window.location.assign(url);
   };
-  return <div className={`portfolio-language ${mobile ? "portfolio-language-mobile" : ""}`} role="group" aria-label={copy.language.label}>
-    <span className="portfolio-language-label">{copy.language.label}</span>
-    <div className="portfolio-language-options">{locales.map((target) => {
+  return <HeaderDropdown className={`portfolio-language ${mobile ? "portfolio-language-mobile" : ""}`} label={copy.language.label} value={locale.toUpperCase()}>{(close) => locales.map((target) => {
       const active = target === locale;
       const ready = isLocaleReady(target);
       const label = target.toUpperCase();
-      return ready ? <a key={target} href={localeHref(target)} aria-current={active ? "page" : undefined} className={active ? "active" : ""} onClick={(event) => switchLocale(event, target)}>{label}</a> : <span key={target} aria-disabled="true" title={`${localeNames[target]} — ${copy.language.unavailable}`}>{label}</span>;
-    })}</div>
-  </div>;
+      return ready ? <a key={target} role="menuitemradio" href={localeHref(target)} aria-checked={active} className={`portfolio-dropdown-option ${active ? "active" : ""}`} onClick={(event) => { close(); switchLocale(event, target); }}><b>{label}</b><span>{localeNames[target]}</span></a> : <span key={target} role="menuitem" aria-disabled="true" className="portfolio-dropdown-option unavailable" title={`${localeNames[target]} — ${copy.language.unavailable}`}><b>{label}</b><span>{localeNames[target]}</span></span>;
+    })}</HeaderDropdown>;
 }
 
 function Header({ page, project }: { page: Page; project?: PublicProject }) {
