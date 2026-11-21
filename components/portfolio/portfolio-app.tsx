@@ -19,6 +19,7 @@ import { localizeServices } from "@/content/i18n/service-content";
 import { localizedPricingCategories, pricingContent } from "@/content/i18n/pricing-content";
 import { formatStartingPrice } from "@/content/pricing";
 import { contactBudgetIds, contactProjectTypeIds, isContactBudgetId, isContactProjectTypeId, pricingCategoryBudget, pricingCategoryProjectType } from "@/content/contact-project-types";
+import { getSeoLandingPage, type SeoLandingSlug } from "@/content/seo-landing-pages";
 
 // Vinext's experimental RSC prefetcher can fail after an otherwise valid Vercel
 // deployment. Portfolio navigation does not need client-side data prefetching,
@@ -33,10 +34,10 @@ function Link({ href, ...props }: ComponentPropsWithoutRef<"a"> & { href: string
   return <a href={isPortfolioRoute ? localizePath(locale, href) : href} {...props} />;
 }
 
-type Page = "home" | "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "not-found";
+type Page = "home" | "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "seo-landing" | "not-found";
 
 const navigation: Array<[keyof PortfolioCopy["navigation"], Page]> = [["work", "work"], ["services", "services"], ["pricing", "pricing"], ["process", "process"], ["about", "about"]];
-const hrefFor = (page: Page) => page === "home" ? "/" : page === "case-study" ? "/work" : `/${page}`;
+const hrefFor = (page: Page) => page === "home" ? "/" : page === "case-study" || page === "seo-landing" ? "/services" : `/${page}`;
 
 function HeaderDropdown({ label, value, className = "", children }: { label: string; value: string; className?: string; children: (close: () => void) => ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -107,15 +108,16 @@ function PortfolioAmbientEffect({ design, reducedMotion, enabled }: { design: De
   return <div ref={effect} className={`portfolio-ambient-effect ${design}`} data-active="false" data-pressed="false" aria-hidden="true" />;
 }
 
-function pagePath(page: Page, project?: PublicProject) {
+function pagePath(page: Page, project?: PublicProject, landing?: SeoLandingSlug) {
   if (page === "home") return "/";
   if (page === "case-study" && project) return `/work/${project.slug}`;
+  if (page === "seo-landing" && landing) return `/${landing}`;
   return hrefFor(page);
 }
 
-function LanguageSwitcher({ page, project, mobile = false }: { page: Page; project?: PublicProject; mobile?: boolean }) {
+function LanguageSwitcher({ page, project, landing, mobile = false }: { page: Page; project?: PublicProject; landing?: SeoLandingSlug; mobile?: boolean }) {
   const { locale, copy } = usePortfolioLocale();
-  const path = pagePath(page, project);
+  const path = pagePath(page, project, landing);
   const query = useSearchParams().toString();
   const localeHref = (target: Locale) => `${localizePath(target, path)}${query ? `?${query}` : ""}`;
   const switchLocale = (event: React.MouseEvent<HTMLAnchorElement>, target: Locale) => {
@@ -132,11 +134,11 @@ function LanguageSwitcher({ page, project, mobile = false }: { page: Page; proje
     })}</HeaderDropdown>;
 }
 
-function Header({ page, project }: { page: Page; project?: PublicProject }) {
+function Header({ page, project, landing }: { page: Page; project?: PublicProject; landing?: SeoLandingSlug }) {
   const [open, setOpen] = useState(false);
   const { effectsEnabled, setEffectsEnabled } = useDesign();
   const { copy } = usePortfolioLocale();
-  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo eager /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label={copy.navigation.mainLabel}>{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{copy.navigation[label]}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>{copy.navigation.discuss}</Link></nav><div className="portfolio-header-controls"><LanguageSwitcher page={page} project={project} /><LanguageSwitcher page={page} project={project} mobile /><button className="portfolio-effect-toggle" type="button" aria-pressed={effectsEnabled} aria-label={effectsEnabled ? copy.shared.disableEffects : copy.shared.enableEffects} onClick={() => setEffectsEnabled(!effectsEnabled)}><span aria-hidden="true">✦</span><b>{effectsEnabled ? copy.shared.effectsOn : copy.shared.effectsOff}</b></button><PortfolioDesignSwitcher /></div><button className="mobile-menu" type="button" aria-label={copy.shared.toggleNavigation} aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
+  return <header className="portfolio-header"><div className="portfolio-container header-inner"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo eager /></Link><nav className={open ? "portfolio-nav open" : "portfolio-nav"} aria-label={copy.navigation.mainLabel}>{navigation.map(([label, target]) => <Link key={target} className={page === target || (page === "case-study" && target === "work") || (page === "seo-landing" && target === "services") ? "active" : ""} href={hrefFor(target)} onClick={() => setOpen(false)}>{copy.navigation[label]}</Link>)}<Link href="/contact" className="header-contact" onClick={() => setOpen(false)}>{copy.navigation.discuss}</Link></nav><div className="portfolio-header-controls"><LanguageSwitcher page={page} project={project} landing={landing} /><LanguageSwitcher page={page} project={project} landing={landing} mobile /><button className="portfolio-effect-toggle" type="button" aria-pressed={effectsEnabled} aria-label={effectsEnabled ? copy.shared.disableEffects : copy.shared.enableEffects} onClick={() => setEffectsEnabled(!effectsEnabled)}><span aria-hidden="true">✦</span><b>{effectsEnabled ? copy.shared.effectsOn : copy.shared.effectsOff}</b></button><PortfolioDesignSwitcher /></div><button className="mobile-menu" type="button" aria-label={copy.shared.toggleNavigation} aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div></header>;
 }
 
 function SocialIcon({ name }: { name: "linkedin" | "github" | "facebook" }) {
@@ -145,9 +147,9 @@ function SocialIcon({ name }: { name: "linkedin" | "github" | "facebook" }) {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.03 1.79-4.7 4.53-4.7 1.31 0 2.69.24 2.69.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z" /></svg>;
 }
 
-function Footer({ page, project }: { page: Page; project?: PublicProject }) {
+function Footer({ page, project, landing }: { page: Page; project?: PublicProject; landing?: SeoLandingSlug }) {
   const { copy } = usePortfolioLocale();
-  const returnPath = encodeURIComponent(pagePath(page, project));
+  const returnPath = encodeURIComponent(pagePath(page, project, landing));
   return <footer className="portfolio-footer"><div className="portfolio-container footer-grid"><div className="footer-brand"><Link className="portfolio-brand" href="/" aria-label={copy.navigation.homeLabel}><BrandLogo /></Link><p>{copy.footer.description}</p><div className="footer-social" aria-label="Social profiles"><a href="https://www.linkedin.com/in/andrei-lucaciu-ab685844b/" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-label="LinkedIn"><SocialIcon name="linkedin" /></a><a href="https://github.com/raychone" target="_blank" rel="noreferrer" aria-label="GitHub" data-label="GitHub"><SocialIcon name="github" /></a><a href="https://www.facebook.com/profile.php?id=61596366909147" target="_blank" rel="noreferrer" aria-label="Facebook" data-label="Facebook"><SocialIcon name="facebook" /></a></div></div><nav aria-label={copy.footer.explore}><span>{copy.footer.explore}</span><Link href="/work">{copy.navigation.work}</Link><Link href="/services">{copy.navigation.services}</Link><Link href="/pricing">{copy.navigation.pricing}</Link></nav><nav aria-label={copy.footer.studio}><span>{copy.footer.studio}</span><Link href="/about">{copy.navigation.about}</Link><Link href="/process">{copy.navigation.process}</Link></nav><nav aria-label={copy.footer.contact}><span>{copy.footer.contact}</span><Link href="/contact">{copy.shared.discussProject}</Link><Link href={`/privacy?back=${returnPath}`}>{copy.footer.privacy}</Link><Link href={`/legal?back=${returnPath}`}>{copy.footer.legal}</Link></nav><div className="footer-note"><span>© {new Date().getFullYear()} LAC STUDIO</span><span>{copy.footer.independent}</span></div></div></footer>;
 }
 
@@ -336,6 +338,7 @@ function ServicesPage() {
   const content = copy.services;
   const page = pages.services;
   const localizedServices = localizeServices(locale);
+  const detailedServices: SeoLandingSlug[] = ["logiciel-metier-sur-mesure", "transcription-locale"];
   return <main className="portfolio-page portfolio-container services-page">
     <Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1" className="services-hero-section">
       <div className="services-hero-copy">
@@ -350,6 +353,11 @@ function ServicesPage() {
       <p className="page-intro">{content.offeringsCopy}</p>
       <div className="services-grid">{localizedServices.map(([title, description, useCases], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p><small>{useCases}</small></article>)}</div>
     </Section>
+    <Section eyebrow="SERVICES DÉTAILLÉS" title="Deux besoins fréquents, expliqués concrètement." className="services-detail-links">
+      <div className="services-grid">
+        {detailedServices.map((slug, index) => { const detail = getSeoLandingPage(locale, slug); return <article key={slug}><span>{String(index + 1).padStart(2, "0")}</span><h3>{detail.title.replace(" | LAC STUDIO", "")}</h3><p>{detail.lead}</p><Link className="text-link" href={`/${slug}`}>{detail.servicesCta}</Link></article>; })}
+      </div>
+    </Section>
     <Section eyebrow={content.fitEyebrow} title={content.fitTitle} className="services-fit-section">
       <div className="services-fit-grid">
         {page.fit.map(([title, body], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{body}</p></article>)}
@@ -361,6 +369,26 @@ function ServicesPage() {
       </ol>
     </Section>
     <Section className="contact-cta services-contact-cta"><span>{page.ctaEyebrow}</span><h2>{page.ctaTitle.split("\n").map((item, index) => <span key={item}>{index ? <br /> : null}{item}</span>)}</h2><p>{page.ctaCopy}</p><Link className="button primary" href="/contact">{page.cta} <b>↗</b></Link></Section>
+  </main>;
+}
+
+function SeoLandingPage({ landing }: { landing: SeoLandingSlug }) {
+  const { locale } = usePortfolioLocale();
+  const content = getSeoLandingPage(locale, landing);
+  return <main className="portfolio-page portfolio-container seo-landing-page">
+    <Section eyebrow={content.eyebrow} title={content.lead} headingLevel="h1" className="seo-landing-hero">
+      <div className="seo-landing-copy"><p className="lead">{content.body}</p><div className="services-hero-actions"><Link className="button primary" href="/contact">{content.cta} <b>↗</b></Link><Link className="button secondary" href="/services">{content.servicesCta} <b>→</b></Link></div></div>
+    </Section>
+    <Section eyebrow="01 / CONTEXTE" title={content.outcomesTitle}>
+      <div className="services-fit-grid seo-landing-grid">{content.outcomes.map(([title, body], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
+    </Section>
+    <Section eyebrow="02 / MÉTHODE" title={content.approachTitle}>
+      <ol className="services-delivery seo-landing-delivery">{content.approach.map(([title, body], index) => <li key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ol>
+    </Section>
+    <Section eyebrow="03 / PÉRIMÈTRE" title={content.scopeTitle}>
+      <ul className="seo-landing-scope">{content.scope.map((item) => <li key={item}>{item}</li>)}</ul>
+    </Section>
+    <Section className="contact-cta seo-landing-contact"><h2>{content.ctaTitle}</h2><p>{content.ctaCopy}</p><Link className="button primary" href="/contact">{content.cta} <b>↗</b></Link></Section>
   </main>;
 }
 function PricingFaq({ items }: { items: readonly [string, string][] }) {
@@ -560,9 +588,9 @@ function CaseStudy({ project }: { project: PublicProject }) {
   </main>;
 }
 
-function PortfolioContent({ page, project }: { page: Page; project?: PublicProject }) {
+function PortfolioContent({ page, project, landing }: { page: Page; project?: PublicProject; landing?: SeoLandingSlug }) {
   const { activeDesign, reducedMotion, effectsEnabled } = useDesign();
-  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} project={project} />{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "pricing" ? <PricingPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}<Footer page={page} project={project} /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
+  return <div className={`portfolio-shell portfolio-${activeDesign.id} ${reducedMotion ? "reduce-motion" : ""}`} data-design={activeDesign.id} data-effects={effectsEnabled ? "on" : "off"}><Header page={page} project={project} landing={landing} />{page === "home" ? <HomePage /> : page === "work" ? <WorkPage /> : page === "services" ? <ServicesPage /> : page === "pricing" ? <PricingPage /> : page === "about" ? <AboutPage /> : page === "process" ? <ProcessPage /> : page === "contact" ? <ContactPage /> : page === "privacy" ? <LegalPage privacy /> : page === "legal" ? <LegalPage privacy={false} /> : page === "seo-landing" && landing ? <SeoLandingPage landing={landing} /> : page === "not-found" ? <NotFoundPage /> : project ? <CaseStudy project={project} /> : <WorkPage />}<Footer page={page} project={project} landing={landing} /><PortfolioAmbientEffect design={activeDesign.id} reducedMotion={reducedMotion} enabled={effectsEnabled} /></div>;
 }
 
 function LegacyLabRedirect({ children }: { children: ReactNode }) {
@@ -576,8 +604,8 @@ function LegacyLabRedirect({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-export function PortfolioApp({ page, project, locale = defaultLocale }: { page: Page; project?: PublicProject; locale?: Locale }) {
+export function PortfolioApp({ page, project, landing, locale = defaultLocale }: { page: Page; project?: PublicProject; landing?: SeoLandingSlug; locale?: Locale }) {
   const content = resolvePortfolioContent(locale);
   const localizedProject = project ? localizeProject(project, locale) : undefined;
-  return <PortfolioLocaleContext.Provider value={content}><LegacyLabRedirect><DesignProvider scope="portfolio"><PortfolioContent page={page} project={localizedProject} /></DesignProvider></LegacyLabRedirect></PortfolioLocaleContext.Provider>;
+  return <PortfolioLocaleContext.Provider value={content}><LegacyLabRedirect><DesignProvider scope="portfolio"><PortfolioContent page={page} project={localizedProject} landing={landing} /></DesignProvider></LegacyLabRedirect></PortfolioLocaleContext.Provider>;
 }

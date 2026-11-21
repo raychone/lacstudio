@@ -2,9 +2,10 @@ import { localizePath, type Locale } from "@/content/i18n/config";
 import { getPortfolioCopy } from "@/content/i18n/portfolio";
 import { localizeProject } from "@/content/i18n/project-content";
 import { localizeServices } from "@/content/i18n/service-content";
+import { getSeoLandingPage, type SeoLandingSlug } from "@/content/seo-landing-pages";
 import type { PublicProject } from "@/content/projects";
 
-type PortfolioPage = "home" | "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study";
+type PortfolioPage = "home" | "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal" | "case-study" | "seo-landing";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 
@@ -33,24 +34,42 @@ function platformNames(project: PublicProject) {
   return [...new Set(platforms)];
 }
 
-export function PortfolioStructuredData({ locale, page, pathname, project }: { locale: Locale; page: PortfolioPage; pathname: string; project?: PublicProject }) {
+export function PortfolioStructuredData({ locale, page, pathname, project, landing }: { locale: Locale; page: PortfolioPage; pathname: string; project?: PublicProject; landing?: SeoLandingSlug }) {
   if (page === "privacy" || page === "legal") return null;
 
   const copy = getPortfolioCopy(locale);
   const localPath = localizePath(locale, pathname);
   const pageUrl = absoluteUrl(localPath);
   const personId = absoluteUrl("/#andrei-lucaciu");
+  const organizationId = absoluteUrl("/#organization");
   const websiteId = absoluteUrl("/#website");
+  const socialProfiles = [
+    "https://www.linkedin.com/in/andrei-lucaciu-ab685844b/",
+    "https://github.com/raychone",
+    "https://www.facebook.com/profile.php?id=61596366909147",
+  ];
   const person = compact({
     "@type": "Person",
     "@id": personId,
-    name: "Lucaciu Andrei Codrin",
+    name: "Andrei Lucaciu",
     jobTitle: personJobTitles[locale],
     email: "mailto:contact@lacstudio.ro",
     url: absoluteUrl(localizePath(locale, "/about")),
     description: copy.about.lead,
+    sameAs: socialProfiles,
+    worksFor: organizationId ? { "@id": organizationId } : undefined,
   });
-  const graph: Record<string, unknown>[] = [person];
+  const organization = compact({
+    "@type": "Organization",
+    "@id": organizationId,
+    name: "LAC STUDIO",
+    url: absoluteUrl("/"),
+    email: "mailto:contact@lacstudio.ro",
+    logo: absoluteUrl("/icon-512.png"),
+    founder: personId ? { "@id": personId } : person,
+    sameAs: socialProfiles,
+  });
+  const graph: Record<string, unknown>[] = [organization, person];
 
   if (page === "home") {
     graph.push(compact({
@@ -60,7 +79,7 @@ export function PortfolioStructuredData({ locale, page, pathname, project }: { l
       url: pageUrl,
       inLanguage: locale,
       description: copy.home.schemaDescription,
-      publisher: personId ? { "@id": personId } : undefined,
+      publisher: organizationId ? { "@id": organizationId } : undefined,
     }));
   }
 
@@ -71,9 +90,30 @@ export function PortfolioStructuredData({ locale, page, pathname, project }: { l
         name,
         description,
         inLanguage: locale,
-        provider: personId ? { "@id": personId } : person,
+        provider: organizationId ? { "@id": organizationId } : organization,
       }));
     }
+  }
+
+  if (page === "seo-landing" && landing) {
+    const content = getSeoLandingPage(locale, landing);
+    graph.push(compact({
+      "@type": "Service",
+      name: content.title.replace(" | LAC STUDIO", ""),
+      description: content.description,
+      inLanguage: locale,
+      url: pageUrl,
+      provider: organizationId ? { "@id": organizationId } : organization,
+    }));
+  }
+
+  if (page === "about") {
+    graph.push(compact({
+      "@type": "ProfilePage",
+      url: pageUrl,
+      mainEntity: personId ? { "@id": personId } : person,
+      inLanguage: locale,
+    }));
   }
 
   if (page === "case-study" && project) {
@@ -100,6 +140,7 @@ export function PortfolioStructuredData({ locale, page, pathname, project }: { l
       contact: copy.metadata.pages.contact.title,
       privacy: copy.metadata.pages.privacy.title,
       legal: copy.metadata.pages.legal.title,
+      "seo-landing": landing ? getSeoLandingPage(locale, landing).title.replace(" | LAC STUDIO", "") : copy.navigation.services,
     };
     const crumbName = page === "case-study" && project ? localizeProject(project, locale).title : labels[page];
     graph.push({

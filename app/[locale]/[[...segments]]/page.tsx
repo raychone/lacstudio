@@ -6,6 +6,7 @@ import { isLocaleReady } from "@/content/i18n/portfolio";
 import { localizeProject } from "@/content/i18n/project-content";
 import { publicProjectBySlug } from "@/content/projects";
 import { localizedMetadata } from "@/lib/i18n-metadata";
+import { getSeoLandingPage, isSeoLandingSlug } from "@/content/seo-landing-pages";
 
 type RouteParams = { locale: string; segments?: string[] };
 
@@ -13,6 +14,7 @@ function resolveRoute(locale: Locale, segments: string[] = []) {
   if (!isLocaleReady(locale)) return null;
   if (!segments.length) return { page: "home" as const, pathname: "/" };
   if (segments.length === 1 && ["work", "services", "pricing", "about", "process", "contact", "privacy", "legal"].includes(segments[0])) return { page: segments[0] as "work" | "services" | "pricing" | "about" | "process" | "contact" | "privacy" | "legal", pathname: `/${segments[0]}` };
+  if (segments.length === 1 && isSeoLandingSlug(segments[0])) return { page: "seo-landing" as const, pathname: `/${segments[0]}`, landing: segments[0] };
   if (segments.length === 2 && segments[0] === "work") {
     const project = publicProjectBySlug(segments[1]);
     return project ? { page: "case-study" as const, pathname: `/work/${project.slug}`, project } : null;
@@ -30,6 +32,8 @@ export async function generateMetadata({ params }: { params: Promise<RouteParams
       const project = localizeProject(route.project, input);
       return { title: project.title, description: project.summary, image: project.heroImage ?? project.thumbnail };
     })())
+    : route.page === "seo-landing" && route.landing
+      ? (() => { const landing = getSeoLandingPage(input, route.landing); return localizedMetadata(input, "services", route.pathname, landing); })()
     : localizedMetadata(input, route.page, route.pathname);
   if (route.page === "privacy" || route.page === "legal") {
     return { ...metadata, robots: { index: false, follow: false } };
@@ -43,7 +47,8 @@ export default async function LocalizedPortfolioRoute({ params }: { params: Prom
   const route = resolveRoute(input, segments);
   if (!route) notFound();
   const project = "project" in route ? route.project : undefined;
-  return <><PortfolioStructuredData locale={input} page={route.page} pathname={route.pathname} project={project} /><PortfolioApp page={route.page} project={project} locale={input} /></>;
+  const landing = "landing" in route ? route.landing : undefined;
+  return <><PortfolioStructuredData locale={input} page={route.page} pathname={route.pathname} project={project} landing={landing} /><PortfolioApp page={route.page} project={project} landing={landing} locale={input} /></>;
 }
 
 export function generateStaticParams() {

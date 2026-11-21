@@ -2,10 +2,11 @@ import type { MetadataRoute } from "next";
 import { publishedProjects } from "@/content/projects";
 import { defaultLocale, locales, localizePath } from "@/content/i18n/config";
 import { isLocaleReady } from "@/content/i18n/portfolio";
+import { seoLandingSlugs } from "@/content/seo-landing-pages";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!baseUrl) return [];
-  const pages = ["/", "/work", "/services", "/pricing", "/about", "/process", "/contact"];
+  const pages = ["/", "/work", "/services", "/pricing", "/about", "/process", "/contact", ...seoLandingSlugs.map((slug) => `/${slug}`)];
   const publicLocales = locales.filter(isLocaleReady);
   const alternates = (path: string) => ({
     languages: {
