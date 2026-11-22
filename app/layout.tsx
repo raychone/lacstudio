@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { defaultLocale, isLocale } from "@/content/i18n/config";
+import { ChunkRecovery } from "./chunk-recovery";
 import "./globals.css";
 import "../design-system/tokens/foundations.css";
 import "../design-system/tokens/layout-contract.css";
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/favicon.png", sizes: "48x48", type: "image/png" },
@@ -38,7 +40,7 @@ export default async function RootLayout({
   const locale = isLocale(requestedLocale) ? requestedLocale : defaultLocale;
   return (
     <html lang={locale}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased"><ChunkRecovery />{children}</body>
     </html>
   );
 }

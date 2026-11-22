@@ -232,6 +232,7 @@ type WorkShowcaseSlide = {
   meta: string;
   href?: string;
   image?: string;
+  portfolioType?: "web" | "android" | "desktop";
   placeholder?: boolean;
 };
 
@@ -240,7 +241,7 @@ const workPlaceholders = (shared: PortfolioCopy["shared"]): WorkShowcaseSlide[] 
 function FeaturedWorkCarousel() {
   const { activeDesign } = useDesign();
   const { copy, locale } = usePortfolioLocale();
-  const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => { const localized = localizeProject(project, locale); return { id: localized.id, eyebrow: `${localized.category.toUpperCase()} / ${copy.work.featuredEyebrow.split("/").at(-1)?.trim()}`, title: localized.title, summary: localized.summary, meta: localized.platforms.join(" · ").toUpperCase(), href: `/work/${localized.slug}`, image: localized.heroImage ?? localized.thumbnail }; });
+  const publishedSlides: WorkShowcaseSlide[] = featuredProjects.map((project) => { const localized = localizeProject(project, locale); return { id: localized.id, eyebrow: `${localized.category.toUpperCase()} / ${copy.work.featuredEyebrow.split("/").at(-1)?.trim()}`, title: localized.title, summary: localized.summary, meta: localized.platforms.join(" · ").toUpperCase(), href: `/work/${localized.slug}`, image: localized.heroImage ?? localized.thumbnail, portfolioType: localized.portfolioType }; });
   const slides = publishedSlides.length ? publishedSlides : workPlaceholders(copy.shared);
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplayPaused, setAutoplayPaused] = useState(false);
@@ -280,7 +281,7 @@ function FeaturedWorkCarousel() {
   }}>
     <div className="work-carousel-viewport" onPointerDown={pointerDown} onPointerUp={pointerUp} onPointerCancel={() => { pointerStart.current = null; }}>
       <article className="work-carousel-slide" aria-roledescription="slide" aria-label={`${activeIndex + 1} / ${slides.length}`}>
-        <div className="work-carousel-media" aria-label={active.placeholder ? copy.shared.approvedMediaPlaceholder : `${active.title} ${copy.shared.productPreview}`}>
+        <div className={`work-carousel-media${active.portfolioType ? " work-carousel-media-contained" : ""}`} style={active.image ? { "--work-carousel-image": `url(${active.image})` } as React.CSSProperties : undefined} aria-label={active.placeholder ? copy.shared.approvedMediaPlaceholder : `${active.title} ${copy.shared.productPreview}`}>
           {active.image ? <Image src={active.image} alt="" fill sizes="100vw" /> : <><div className="work-carousel-orbit" /><div className="work-carousel-diagonal" /></>}
         </div>
         <div className="work-carousel-copy work-carousel-overlay"><div className="work-carousel-actions"><Link href={actionHref("workflow")} onPointerDown={keepActionClickable}>{copy.shared.workflow} <b>→</b></Link><Link href={actionHref("evidence")} onPointerDown={keepActionClickable}>{copy.shared.evidence} <b>→</b></Link><Link className="primary" href={`/contact?design=${activeDesign.id}`} onPointerDown={keepActionClickable}>{copy.shared.discussProject} <b>↗</b></Link></div></div>
