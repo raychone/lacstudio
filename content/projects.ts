@@ -32,7 +32,7 @@ export type PublicProject = {
   demoNotice?: string;
   repositoryUrl?: string;
   relatedProjects?: string[];
-  portfolioType?: "web" | "android";
+  portfolioType?: "web" | "android" | "desktop";
 };
 
 /**
@@ -140,7 +140,7 @@ export const publishedProjects: readonly PublicProject[] = [
     id: "psyclinic", slug: "psyclinic", title: "PsyClinic", subtitle: "Longitudinal clinical workspace",
     summary: "A local-first macOS clinical workspace for structuring longitudinal patient records, progressive assessments and clinician-led, explainable review.",
     category: "macOS clinical workspace", platforms: ["Desktop"], technologies: ["Swift 6", "SwiftUI", "Swift Package Manager", "Local JSON persistence", "Deterministic reasoning"],
-    publicationState: "in-development", featured: false, year: "2026",
+    publicationState: "in-development", featured: true, featuredOrder: 13, year: "2026", portfolioType: "desktop",
     thumbnail: "/projects/psyclinic.png", heroImage: "/projects/psyclinic.png", screenshots: ["/projects/psyclinic.png"],
     demoNotice: "Technical internal pilot for individual psychiatry and clinical psychology professionals. It is not a certified medical device or a production clinical system.",
     longDescription: "PsyClinic is a native macOS application for one clinician following patients over time. It treats the record as a structured, evolving clinical workspace: observations, sources, context, relationships, interpretations and actions remain connected without turning the software into an automatic diagnostic system.",
