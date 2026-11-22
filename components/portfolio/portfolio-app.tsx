@@ -338,7 +338,7 @@ function ServicesPage() {
   const content = copy.services;
   const page = pages.services;
   const localizedServices = localizeServices(locale);
-  const detailedServices: SeoLandingSlug[] = ["logiciel-metier-sur-mesure", "transcription-locale"];
+  const detailedServices: SeoLandingSlug[] = ["logiciel-metier-sur-mesure", "transcription-locale", "application-iphone-ipad-macos"];
   return <main className="portfolio-page portfolio-container services-page">
     <Section eyebrow={content.eyebrow} title={content.title} headingLevel="h1" className="services-hero-section">
       <div className="services-hero-copy">
