@@ -5,7 +5,7 @@ import { publishedProjects } from "./projects.ts";
 const projectIds = publishedProjects.map((project) => project.id).sort();
 assert.deepEqual(Object.keys(projectAttributionRecords).sort(), projectIds, "every public project has one central attribution record");
 
-const originalIds = new Set(["innerly", "noped", "backly", "language-sprint", "hubig"]);
+const originalIds = new Set(["psyclinic", "innerly", "noped", "backly", "language-sprint", "hubig"]);
 for (const project of publishedProjects) {
   const attribution = getProjectAttribution(project);
   assert.equal(attribution.projectName, project.title, `${project.id}: attribution resolves its public project name`);

@@ -46,6 +46,7 @@ export const projectAttributionRecords: Readonly<Record<string, ProjectAttributi
   "imperials-hotel": fallbackProjectAttribution,
   "bar-grill": fallbackProjectAttribution,
   iwear: fallbackProjectAttribution,
+  psyclinic: originalLacStudioProduct,
   innerly: originalLacStudioProduct,
   noped: originalLacStudioProduct,
   backly: originalLacStudioProduct,
