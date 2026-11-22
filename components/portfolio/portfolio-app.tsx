@@ -77,6 +77,7 @@ const heroImage = {
 };
 
 function imageVariant(src: string, width: 480 | 768 | 1024) {
+  if (/-1024\.webp$/.test(src)) return src.replace(/-1024\.webp$/, `-${width}.webp`);
   return src.replace(/\.(?:png|webp)$/, `-${width}.webp`);
 }
 
