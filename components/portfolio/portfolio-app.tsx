@@ -347,6 +347,7 @@ function ServicesPage() {
         <p className="lead">{content.lead}</p>
         <p>{content.body}</p>
         {page.locationNote && <p className="services-location-note">{page.locationNote}</p>}
+        {locale === "fr" && <Link className="text-link services-local-link" href="/developpeur-application-web-avignon">Développeur d&apos;application web à Avignon</Link>}
         <div className="services-hero-actions"><Link className="button primary" href="/contact">{page.cta} <b>↗</b></Link><Link className="button secondary" href="/work">{content.workCta} <b>→</b></Link></div>
       </div>
       <aside className="services-scope" aria-label={content.scopeLabel}><span>{content.scopeEyebrow}</span><b>{page.scope.slice(0, 3).map((item) => <span key={item}>{item}<br /></span>)}<em>{page.scope[3]}</em></b><small>{content.scopeCopy}</small></aside>

@@ -48,6 +48,10 @@ export function PortfolioStructuredData({ locale, page, pathname, project, landi
     "https://github.com/raychone",
     "https://www.facebook.com/profile.php?id=61596366909147",
   ];
+  const avignonArea = [
+    { "@type": "City", name: "Avignon" },
+    { "@type": "Country", name: "France" },
+  ];
   const person = compact({
     "@type": "Person",
     "@id": personId,
@@ -68,6 +72,7 @@ export function PortfolioStructuredData({ locale, page, pathname, project, landi
     logo: absoluteUrl("/icon-512.png"),
     founder: personId ? { "@id": personId } : person,
     sameAs: socialProfiles,
+    areaServed: avignonArea,
   });
   const graph: Record<string, unknown>[] = [organization, person];
 
@@ -104,6 +109,7 @@ export function PortfolioStructuredData({ locale, page, pathname, project, landi
       inLanguage: locale,
       url: pageUrl,
       provider: organizationId ? { "@id": organizationId } : organization,
+      areaServed: landing === "developpeur-application-web-avignon" ? avignonArea : undefined,
     }));
   }
 
