@@ -60,6 +60,48 @@ Object.assign(projects.es, {
   hubig: { subtitle: "Pasarela Android de notificaciones", category: "Aplicación Android", summary: "Una pasarela Android que conecta un dispositivo físico con backends compatibles para entrega SMS, configuración y diagnósticos.", longDescription: "HuBiG conecta un dispositivo Android a sistemas backend compatibles para operar una pasarela SMS local, sincronización y diagnósticos.", problem: "Un backend que usa un dispositivo físico para entrega móvil necesita configuración y estado operativo claros.", solution: "La pasarela hace visibles la configuración, la selección de SIM, la sincronización y los registros de diagnóstico.", features: ["Operación como pasarela SMS", "Integración y sincronización backend", "Gestión de SIM y doble SIM", "Operación en segundo plano y diagnósticos"], technicalHighlights: ["Aplicación Android nativa en Kotlin", "Servicios Android en segundo plano y flujos de SIM", "Integración REST con backends compatibles"], architecture: "El dispositivo Android se convierte en un nodo de entrega configurable, con estado local y comunicación backend explícitos." },
 });
 
+Object.assign(projects.fr, {
+  odonta: {
+    subtitle: "Site de cabinet dentaire",
+    category: "Site de cabinet dentaire",
+    summary: "Un site vitrine responsive pour un cabinet dentaire de Bucarest, conçu pour rendre les soins spécialisés, l'équipe, les services et les parcours de rendez-vous clairs sur tous les appareils.",
+    longDescription: "ODONTA est un site vitrine premium et responsive pour un cabinet dentaire de Bucarest. Il permet de comprendre les soins spécialisés, de rencontrer l'équipe, d'explorer les services et de passer à l'étape suivante vers un rendez-vous.",
+    problem: "Un cabinet dentaire spécialisé doit inspirer confiance avant le premier appel ou rendez-vous, sans rendre l'information clinique difficile à parcourir sur un petit écran.",
+    solution: "Une direction visuelle éditoriale, une hiérarchie calme et des mises en page pensées pour ordinateur, tablette et mobile rendent le soin, l'équipe et les voies de contact faciles à trouver.",
+    features: ["Découverte claire du cabinet, de l'équipe et des services", "Appels à l'action et parcours de contact orientés rendez-vous", "Routes publiques en roumain et en anglais", "Mises en page adaptées à l'ordinateur, la tablette et au mobile"],
+    technicalHighlights: ["Application React et TypeScript construite avec Vite", "Composants Tailwind CSS avec React Router", "Prérendu statique pour des routes publiques indexables", "Polices locales et images WebP responsives"],
+    architecture: "Le site public sépare la configuration du cabinet, les contenus, les routes et les contrats de services. Il peut exposer des intégrations de rendez-vous, de contact et de notification sans coupler la présentation à une source de données unique.",
+  },
+});
+
+Object.assign(projects.ro, {
+  odonta: {
+    subtitle: "Website pentru cabinet stomatologic",
+    category: "Website pentru cabinet stomatologic",
+    summary: "Un website de prezentare responsive pentru un cabinet stomatologic din București, gândit pentru a face ușor de înțeles îngrijirea specializată, echipa, serviciile și traseele de programare pe orice dispozitiv.",
+    longDescription: "ODONTA este un website de prezentare premium, responsive, pentru un cabinet stomatologic din București. Ajută vizitatorii să înțeleagă îngrijirea specializată, să cunoască echipa, să exploreze serviciile și să facă următorul pas spre o programare.",
+    problem: "Un cabinet stomatologic specializat trebuie să inspire încredere înainte de primul apel sau de programare, fără ca informația clinică să devină greu de parcurs pe ecrane mici.",
+    solution: "O direcție vizuală editorială, o ierarhie calmă a informației și layouturi gândite separat pentru desktop, tabletă și mobil fac ușor de găsit focusul clinic, oamenii și căile de contact.",
+    features: ["Descoperirea clară a cabinetului, echipei și serviciilor", "Call to action și trasee de contact orientate spre programare", "Rute publice în română și engleză", "Layouturi responsive pentru desktop, tabletă și mobil"],
+    technicalHighlights: ["Aplicație React și TypeScript construită cu Vite", "Stilizare de componente Tailwind CSS cu React Router", "Pre-randare statică pentru rute publice indexabile", "Fonturi locale și imagini WebP responsive"],
+    architecture: "Website-ul public separă configurarea cabinetului, conținutul, rutele și contractele de servicii. Poate expune integrări pentru programări, contact și notificări fără a lega stratul de prezentare de o singură sursă de date.",
+  },
+});
+
+Object.assign(projects.es, {
+  odonta: {
+    subtitle: "Sitio web para clínica dental",
+    category: "Sitio web para clínica dental",
+    summary: "Un sitio web de presentación adaptable para una clínica dental de Bucarest, diseñado para hacer comprensibles la atención especializada, el equipo, los servicios y las vías de cita en cualquier dispositivo.",
+    longDescription: "ODONTA es un sitio web de presentación premium y adaptable para una clínica dental de Bucarest. Ofrece una manera clara de comprender la atención especializada, conocer al equipo, explorar los servicios y dar el siguiente paso hacia una cita.",
+    problem: "Una clínica dental especializada necesita generar confianza antes de la primera llamada o cita, sin dificultar la consulta de la información clínica en pantallas pequeñas.",
+    solution: "Una dirección visual editorial, una jerarquía de información serena y diseños deliberados para escritorio, tableta y móvil hacen fácil encontrar el enfoque clínico, a las personas y las vías de contacto.",
+    features: ["Descubrimiento claro de la clínica, el equipo y los servicios", "Llamadas a la acción y vías de contacto orientadas a la cita", "Rutas públicas en rumano e inglés", "Diseños adaptables para escritorio, tableta y móvil"],
+    technicalHighlights: ["Aplicación React y TypeScript construida con Vite", "Estilos de componentes Tailwind CSS con React Router", "Prerenderizado estático para rutas públicas indexables", "Fuentes locales e imágenes WebP adaptables"],
+    architecture: "El sitio público separa la configuración de la clínica, el contenido, las rutas y los contratos de servicios. Puede exponer integraciones de citas, contacto y notificaciones sin acoplar la capa de presentación a una sola fuente de datos.",
+  },
+});
+
 /** Project IDs, URLs, platform identifiers and verified technical facts remain in the canonical catalogue. */
 export function localizeProject(project: PublicProject, locale: Locale): PublicProject {
   if (!isLocaleReady(locale)) throw new Error(`No complete project translation is available for locale: ${locale}`);

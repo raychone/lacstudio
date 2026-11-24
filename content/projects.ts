@@ -32,6 +32,11 @@ export type PublicProject = {
   demoNotice?: string;
   repositoryUrl?: string;
   relatedProjects?: string[];
+  testimonial?: {
+    quote: string;
+    author: string;
+    context?: string;
+  };
   portfolioType?: "web" | "android" | "desktop";
 };
 
@@ -99,6 +104,25 @@ export const publishedProjects: readonly PublicProject[] = [
     problem: "Technicians still need to complete reports when connectivity is poor, then synchronise their work and status later.",
     features: ["Digital field forms and intervention drafts", "Online and offline work modes", "Synchronization with the server when connectivity returns", "PDF reports, client records and model management"],
     technicalHighlights: ["Offline-first workflow", "Local draft persistence", "Explicit synchronization state", "PDF report export"],
+  },
+  {
+    id: "odonta", slug: "odonta", title: "ODONTA", subtitle: "Dental practice website",
+    summary: "A responsive presentation website for a Bucharest dental practice, designed to make specialised care, the team, services and appointment paths easy to understand across devices.",
+    category: "Dental practice website", platforms: ["Web"], technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "React Router"], portfolioType: "web",
+    publicationState: "published", featured: true, featuredOrder: 4.5, year: "2026",
+    thumbnail: "/projects/odonta-work-1024.webp", heroImage: "/projects/odonta-work-1024.webp", screenshots: ["/projects/odonta-work-1024.webp"],
+    liveUrl: "https://www.odonta.ro/",
+    longDescription: "ODONTA is a premium, responsive presentation website for a dental practice in Bucharest. It gives visitors a clear way to understand the practice's specialised care, meet the clinicians, explore services and take the next step toward an appointment.",
+    problem: "A specialist dental practice needs to establish confidence before a first call or appointment, without making clinical information difficult to navigate on smaller screens.",
+    solution: "An editorial visual direction, calm information hierarchy and deliberately tailored desktop, tablet and mobile layouts keep the clinical focus, people and contact routes easy to find.",
+    features: ["Clear practice, team and service discovery", "Appointment-oriented calls to action and contact routes", "Romanian and English public routes", "Responsive desktop, tablet and mobile layouts"],
+    technicalHighlights: ["React and TypeScript application built with Vite", "Tailwind CSS component styling with React Router", "Static prerendering for indexable public routes", "Local fonts and responsive WebP imagery"],
+    architecture: "The public website separates clinic configuration, content, routes and service contracts. It can expose booking, contact and notification integrations without coupling the presentation layer to a single data source.",
+    testimonial: {
+      quote: "Andrei is a very creative and talented developer. He built my website exactly according to my needs and guided me throughout the process, helping me better understand what I needed and how to achieve it. He was attentive to every detail, highly professional, and always focused on delivering the best possible result. The website works perfectly, and I couldn’t be happier with the outcome. I highly recommend working with him!",
+      author: "Dr. Andrei Chiriță",
+      context: "ODONTA",
+    },
   },
   {
     id: "imperials-hotel", slug: "imperials-hotel", title: "Imperial’s Hotel", subtitle: "Hospitality website",

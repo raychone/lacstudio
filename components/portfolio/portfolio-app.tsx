@@ -566,6 +566,13 @@ function ProjectAttribution({ project }: { project: PublicProject }) {
   return <aside className="case-attribution" aria-label={copy.caseStudy.attributionEyebrow}><span>{copy.caseStudy.attributionEyebrow}</span><p>{text}</p></aside>;
 }
 
+const testimonialLabels: Record<Locale, { eyebrow: string; title: string }> = {
+  en: { eyebrow: "CLIENT TESTIMONIAL", title: "A client’s view of the collaboration" },
+  fr: { eyebrow: "TÉMOIGNAGE CLIENT", title: "Le regard du client sur la collaboration" },
+  ro: { eyebrow: "TESTIMONIAL CLIENT", title: "Perspectiva clientului asupra colaborării" },
+  es: { eyebrow: "TESTIMONIO DEL CLIENTE", title: "La perspectiva del cliente sobre la colaboración" },
+};
+
 function CaseStudy({ project }: { project: PublicProject }) {
   const { activeDesign } = useDesign();
   const projectIndex = publishedProjects.findIndex((item) => item.id === project.id);
@@ -585,6 +592,7 @@ function CaseStudy({ project }: { project: PublicProject }) {
     </Section>
     <Section id="workflow" eyebrow={copy.caseStudy.workflowEyebrow} title={copy.caseStudy.workflowTitle}><div className="case-overview"><div><p className="lead">{localized.longDescription ?? localized.summary}</p>{localized.problem && <div className="case-problem"><span>{copy.shared.theChallenge}</span><p>{localized.problem}</p></div>}{localized.solution && <div className="case-problem"><span>{copy.caseStudy.implementation}</span><p>{localized.solution}</p></div>}</div><ul>{(localized.features ?? []).map((feature) => <li key={feature}>{feature}</li>)}</ul></div></Section>
     <Section id="evidence" eyebrow={copy.caseStudy.evidenceEyebrow} title={copy.caseStudy.evidenceTitle}><div className="case-evidence"><article><span>{copy.caseStudy.technicalFocus}</span><ul>{localized.technologies.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>{copy.caseStudy.implementation}</span><ul>{(localized.technicalHighlights ?? []).map((item) => <li key={item}>{item}</li>)}</ul></article>{localized.architecture && <article className="case-architecture"><span>{copy.caseStudy.architecture}</span><p>{localized.architecture}</p></article>}</div></Section>
+    {localized.testimonial && <Section className="case-testimonial" eyebrow={testimonialLabels[locale].eyebrow} title={testimonialLabels[locale].title}><figure><blockquote>“{localized.testimonial.quote}”</blockquote><figcaption><strong>{localized.testimonial.author}</strong>{localized.testimonial.context && <span>{localized.testimonial.context}</span>}</figcaption></figure></Section>}
     <ProjectAttribution project={localized} />
     <CaseStudyNavigation previous={previous} next={next} designQuery={designQuery} />
     <Section className="contact-cta case-study-contact-cta"><h2>{copy.caseStudy.contactTitle.split("\n").map((part, index) => <span key={part}>{index ? <br /> : null}{part}</span>)}</h2><Link className="button primary" href={`/contact${designQuery}`}>{copy.shared.discussProject} <b>↗</b></Link></Section>
